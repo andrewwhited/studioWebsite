@@ -91,7 +91,6 @@ export default async function WorkPage({
   const work = works[slug]
   if (!work) notFound()
 
-  // Generate placeholder image indices
   const images = Array.from({ length: work.imageCount }, (_, i) => i)
 
   return (

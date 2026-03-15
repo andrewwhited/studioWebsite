@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────
-   Design Tokens
+   Design Tokens — shared across main and UX sites.
 ───────────────────────────────────────────────────── */
 :root {
   /* Color */
@@ -8,13 +8,14 @@
   --color-muted:        #72726E;
   --color-rule:         #DEDED8;
   --color-placeholder:  #3E3C38; /* hero/image placeholder — dark to simulate photograph weight */
+  --color-nav-bg:       rgba(246, 246, 242, 0.92); /* UX nav frosted background */
 
   /* Typography */
   --font-sans: 'aktiv-grotesk', system-ui, sans-serif;
 
   /* Type scale */
-  --text-display: clamp(32px, 5vw, 58px); /* homepage title */
-  --text-hero:    clamp(40px, 6vw, 80px); /* section display heads */
+  --text-display: clamp(32px, 5vw, 58px);         /* homepage/section display heads */
+  --text-hero:    clamp(52px, 8vw, 96px);          /* hero name — UX site */
   --text-2xl:     clamp(24px, 3vw, 40px);
   --text-xl:      clamp(18px, 2.5vw, 26px);
   --text-lg:      18px;

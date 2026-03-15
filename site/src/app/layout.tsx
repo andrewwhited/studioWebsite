@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
-import './globals.css'
+import '@/styles/globals.css'
 
 export const metadata: Metadata = {
   title: 'Andrew Whited',
@@ -17,10 +16,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/kya8jzr.css" />
       </head>
-      <body>
-        <Nav />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
