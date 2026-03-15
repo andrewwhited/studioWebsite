@@ -105,6 +105,12 @@
 }
 /* .navLight .navContent links — intentionally stays dark (over light bg) */
 
+/* Studio: image is in right 2/3 — links (col 3) go light, wordmark stays dark */
+.navLinksLight .links a,
+.navLinksLight .menuBtn {
+  color: var(--color-bg);
+}
+
 /* Overlay open: overlay is dark, nav text goes light */
 .navOpen .wordmark,
 .navOpen .menuBtn {
