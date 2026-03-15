@@ -1,0 +1,103 @@
+/* ─────────────────────────────────────────────────────
+   Homepage — three-column grid
+
+   Three equal columns. The image is a hard geometric
+   mass that bleeds into the left and top and bottom
+   edges — not a background, a solid element.
+   The middle column is empty negative space, active
+   and load-bearing. The text sits in the right column,
+   small and precise, vertically centered.
+
+   Reference: Müller-Brockmann. The grid is the design.
+───────────────────────────────────────────────────── */
+
+.hero {
+  height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  overflow: hidden;
+}
+
+/* ─── Column 1 — image ────────────────────────────── */
+
+.image {
+  grid-column: 1;
+  position: relative; /* ready for Next.js <Image fill> */
+  background-color: var(--color-placeholder);
+
+  /*
+    To add the hero photograph:
+    1. Wrap content in position: relative (already set)
+    2. Add: <Image src="..." alt="" fill style={{ objectFit: 'cover' }} priority />
+    3. Remove background-color
+  */
+}
+
+/* ─── Column 2 — void (no element) ───────────────────
+
+   The middle column is intentionally empty.
+   It is not a gap — it is part of the composition.
+   Do not add content here.
+
+───────────────────────────────────────────────────── */
+
+/* ─── Column 3 — text ────────────────────────────── */
+
+.content {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 var(--gutter);
+  /* No padding-top — vertical centering clears the nav naturally */
+}
+
+.title {
+  font-size: clamp(20px, 2.5vw, 36px);
+  font-weight: var(--font-light);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--color-text);
+}
+
+.descriptor {
+  margin-top: var(--sp-3);
+  font-size: 13px;
+  font-weight: var(--font-regular);
+  line-height: 1.6;
+  color: var(--color-muted);
+  /* max-width keeps lines short — Brockmann subtitle width */
+  max-width: 160px;
+}
+
+/* ─── Mobile — stack vertically ──────────────────── */
+
+/*
+  On mobile the grid collapses to a single column.
+  Image takes the upper portion, text anchors below.
+  The void column disappears — not needed at this scale.
+*/
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: 55svh 1fr;
+  }
+
+  .image {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .content {
+    grid-column: 1;
+    grid-row: 2;
+    justify-content: flex-start;
+    padding: var(--sp-5) var(--gutter);
+  }
+
+  .title {
+    font-size: clamp(20px, 6vw, 32px);
+  }
+}

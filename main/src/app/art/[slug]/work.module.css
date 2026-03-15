@@ -1,0 +1,177 @@
+/* ─────────────────────────────────────────────────────
+   Work page — canonical artwork detail.
+
+   Two-column split: images left (~60%), details right.
+   On mobile: images on top, details below.
+   Nav floats over the page; padding-top clears it.
+───────────────────────────────────────────────────── */
+
+.main {
+  padding-top: var(--nav-h);
+  min-height: 100svh;
+}
+
+/* ─── Two-column layout ──────────────────────────────── */
+
+.layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  min-height: calc(100svh - var(--nav-h));
+}
+
+/* ─── Left — images ──────────────────────────────────── */
+
+.images {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background-color: var(--color-rule);
+}
+
+.imageWrap {
+  flex: 1;
+  min-height: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  background-color: var(--color-placeholder);
+}
+
+/* ─── Right — details ────────────────────────────────── */
+
+.details {
+  border-left: 1px solid var(--color-rule);
+  position: sticky;
+  top: var(--nav-h);
+  align-self: start;
+  height: calc(100svh - var(--nav-h));
+  overflow-y: auto;
+}
+
+.detailsInner {
+  padding: var(--sp-10) var(--sp-8) var(--sp-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+/* ─── Title ──────────────────────────────────────────── */
+
+.title {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: var(--font-light);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-text);
+}
+
+/* ─── Metadata ───────────────────────────────────────── */
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.metaLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding-top: 2px;
+}
+
+.metaValue {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: var(--leading-snug);
+}
+
+/* ─── Description ────────────────────────────────────── */
+
+.description {
+  font-size: var(--text-sm);
+  line-height: var(--leading-base);
+  color: var(--color-muted);
+}
+
+/* ─── Inquiry CTA ────────────────────────────────────── */
+
+.inquireBtn {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-bg);
+  background-color: var(--color-text);
+  padding: var(--sp-3) var(--sp-4);
+  transition: opacity 0.15s;
+}
+
+.inquireBtn:hover {
+  opacity: 0.7;
+}
+
+/* ─── Back link ──────────────────────────────────────── */
+
+.back {
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--color-rule);
+  margin-top: auto;
+}
+
+.backLink {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: opacity 0.15s;
+}
+
+.backLink:hover {
+  opacity: 0.5;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .images {
+    min-height: 60svh;
+    gap: 1px;
+  }
+
+  .image {
+    min-height: 300px;
+  }
+
+  .details {
+    position: static;
+    height: auto;
+    border-left: none;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .detailsInner {
+    padding: var(--sp-8) var(--gutter) var(--sp-12);
+  }
+}

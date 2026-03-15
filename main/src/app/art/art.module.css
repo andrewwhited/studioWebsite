@@ -1,0 +1,119 @@
+/* ─────────────────────────────────────────────────────
+   Art landing — intro + grid of works.
+
+   No hero. Content begins below the fixed nav.
+   Grid: 3 columns desktop, 2 tablet, 1 mobile.
+   Each work: image placeholder (3:4) + metadata.
+───────────────────────────────────────────────────── */
+
+.main {
+  padding-top: var(--nav-h);
+  min-height: 100svh;
+}
+
+/* ─── Header ─────────────────────────────────────────── */
+
+.header {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--sp-12) var(--gutter) var(--sp-10);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: var(--font-light);
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  color: var(--color-text);
+  margin-bottom: var(--sp-5);
+}
+
+.intro {
+  font-size: var(--text-sm);
+  line-height: var(--leading-base);
+  color: var(--color-muted);
+  max-width: 400px;
+}
+
+/* ─── Works grid ─────────────────────────────────────── */
+
+.grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--sp-10) var(--gutter) var(--sp-20);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-8) var(--sp-5);
+}
+
+/* ─── Work item ──────────────────────────────────────── */
+
+.workItem {
+  display: block;
+  transition: opacity 0.15s;
+}
+
+.workItem:hover {
+  opacity: 0.6;
+}
+
+.workImage {
+  aspect-ratio: 3 / 4;
+  background-color: var(--color-placeholder);
+  width: 100%;
+  margin-bottom: var(--sp-3);
+}
+
+.workMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.workTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--font-regular);
+  color: var(--color-text);
+  line-height: var(--leading-snug);
+}
+
+.workDetail {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+.workStatus {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: var(--sp-8) var(--gutter) var(--sp-8);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6) var(--sp-3);
+    padding: var(--sp-8) var(--gutter) var(--sp-16);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
