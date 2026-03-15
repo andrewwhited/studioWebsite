@@ -1,6 +1,6 @@
-import styles from './Nav.module.css'
+import styles from './UxNav.module.css'
 
-export default function Nav() {
+export default function UxNav() {
   return (
     <header className={styles.nav}>
       <div className={styles.inner}>

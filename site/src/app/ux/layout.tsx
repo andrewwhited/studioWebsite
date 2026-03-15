@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
-import './globals.css'
+import UxNav from '@/components/UxNav'
 
 export const metadata: Metadata = {
   title: 'Andrew Whited — Product Designer',
@@ -8,20 +7,15 @@ export const metadata: Metadata = {
     'Senior product designer focused on complex systems, AI, and enterprise software.',
 }
 
-export default function RootLayout({
+export default function UxLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="stylesheet" href="https://use.typekit.net/kya8jzr.css" />
-      </head>
-      <body>
-        <Nav />
-        {children}
-      </body>
-    </html>
+    <>
+      <UxNav />
+      {children}
+    </>
   )
 }
