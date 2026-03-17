@@ -1,12 +1,10 @@
 /* ─────────────────────────────────────────────────────
-   Homepage — three-column grid
+   Homepage — 12-col grid, full viewport.
 
-   Three equal columns. The image is a hard geometric
-   mass that bleeds into the left and top and bottom
-   edges — not a background, a solid element.
-   The middle column is empty negative space, active
-   and load-bearing. The text sits in the right column,
-   small and precise, vertically centered.
+   Col map:
+     Image   → cols 1–4   (bleeds to left viewport edge)
+     Void    → cols 5–8   (active negative space)
+     Text    → cols 9–12  (aligns with nav links)
 
    Reference: Müller-Brockmann. The grid is the design.
 ───────────────────────────────────────────────────── */
@@ -14,80 +12,65 @@
 .hero {
   height: 100svh;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--col-gap);
+  padding: 0 var(--gutter);
   overflow: hidden;
 }
 
-/* ─── Column 1 — image ────────────────────────────── */
+/* ─── Col 1–4 — image (bleeds to left edge) ──────── */
 
 .image {
-  grid-column: 1;
-  position: relative; /* ready for Next.js <Image fill> */
+  grid-column: 1 / 5;
+  margin-left: calc(-1 * var(--gutter)); /* bleed to viewport edge */
+  position: relative;
   background-color: var(--color-placeholder);
-
-  /*
-    To add the hero photograph:
-    1. Wrap content in position: relative (already set)
-    2. Add: <Image src="..." alt="" fill style={{ objectFit: 'cover' }} priority />
-    3. Remove background-color
-  */
 }
 
-/* ─── Column 2 — void (no element) ───────────────────
+/* ─── Cols 5–8 — void ────────────────────────────── */
 
-   The middle column is intentionally empty.
-   It is not a gap — it is part of the composition.
-   Do not add content here.
+/* intentionally empty — negative space is part of the composition */
 
-───────────────────────────────────────────────────── */
-
-/* ─── Column 3 — text ────────────────────────────── */
+/* ─── Cols 9–12 — text ───────────────────────────── */
 
 .content {
-  grid-column: 3;
+  grid-column: 9 / 13;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 var(--gutter);
-  /* No padding-top — vertical centering clears the nav naturally */
 }
 
 .title {
   font-size: clamp(20px, 2.5vw, 36px);
   font-weight: var(--font-light);
   letter-spacing: -0.025em;
-  line-height: 1.05;
+  line-height: var(--lh-3xl); /* 36px — matches scale max */
   color: var(--color-text);
 }
 
 .descriptor {
   margin-top: var(--sp-3);
-  font-size: 13px;
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
   font-weight: var(--font-regular);
-  line-height: 1.6;
   color: var(--color-muted);
-  /* max-width keeps lines short — Brockmann subtitle width */
   max-width: 160px;
 }
 
-/* ─── Mobile — stack vertically ──────────────────── */
+/* ─── Mobile ──────────────────────────────────────── */
 
-/*
-  On mobile the grid collapses to a single column.
-  Image takes the upper portion, text anchors below.
-  The void column disappears — not needed at this scale.
-*/
-
-@media (max-width: 768px) {
+@media (max-width: 672px) {
   .hero {
+    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 55svh 1fr;
+    padding: 0;
   }
 
   .image {
     grid-column: 1;
     grid-row: 1;
+    margin-left: 0;
   }
 
   .content {
@@ -99,5 +82,6 @@
 
   .title {
     font-size: clamp(20px, 6vw, 32px);
+    line-height: var(--lh-3xl);
   }
 }

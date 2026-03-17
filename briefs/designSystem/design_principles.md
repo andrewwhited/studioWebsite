@@ -96,6 +96,14 @@ These references should inform the site’s structure, discipline, typographic c
 - The site should feel structured enough to create calm.
 - Layout decisions should come from a system, not visual improvisation.
 
+When generating layouts or components, prioritize:
+
+1. typography system
+2. spacing system
+3. grid structure
+
+Avoid arbitrary values that do not follow these systems.
+
 The site should feel designed through alignment, proportion, spacing, and interval.
 
 ---
