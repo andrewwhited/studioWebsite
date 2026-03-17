@@ -1,12 +1,12 @@
 /* ─────────────────────────────────────────────────────
-   Image — grid + lightbox.
+   Image — 12-col grid.
 
-   The grid is the entry experience. No separate pages.
-   Clicking a photo opens a full-screen lightbox with
-   navigation within the same photo set.
+   Header col map matches Objects, Art, and nav:
+     Title → cols 1–3
 
-   Lightbox uses the same visibility/opacity pattern
-   as the nav overlay: hidden → visible on open.
+   Grid: tight 4-col photo mosaic with 2px gaps.
+   Lightbox: full-screen overlay, same pattern as
+   nav overlay (visibility + opacity transition).
 ───────────────────────────────────────────────────── */
 
 .main {
@@ -14,35 +14,39 @@
   min-height: 100svh;
 }
 
-/* ─── Page header ────────────────────────────────────── */
+/* ─── Page header ─────────────────────────────────── */
 
 .header {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: var(--sp-12) var(--gutter) var(--sp-8);
-  border-bottom: 1px solid var(--color-rule);
+  padding: 0 var(--gutter);
+}
+
+.headerBody {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--col-gap);
+  align-items: end;
+  padding: var(--sp-20) 0 var(--sp-12);
 }
 
 .title {
-  font-size: clamp(32px, 5vw, 56px);
+  grid-column: 1 / 4;
+  font-size: var(--text-xl);
   font-weight: var(--font-light);
-  letter-spacing: -0.03em;
-  line-height: 1.0;
+  letter-spacing: -0.01em;
+  line-height: var(--lh-xl);
   color: var(--color-text);
 }
 
-/* ─── Grid ───────────────────────────────────────────── */
+/* ─── Grid ───────────────────────────────────────── */
 
 .grid {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: var(--sp-5) var(--gutter) var(--sp-20);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
+  padding: 0 var(--gutter) var(--sp-20);
 }
 
-/* ─── Grid cell ──────────────────────────────────────── */
+/* ─── Grid cell ──────────────────────────────────── */
 
 .cell {
   display: block;
@@ -64,10 +68,7 @@
 }
 
 /* ─────────────────────────────────────────────────────
-   Lightbox — full screen overlay.
-
-   Same visibility pattern as nav overlay.
-   Dark background, image centered, controls at top.
+   Lightbox
 ───────────────────────────────────────────────────── */
 
 .lightbox {
@@ -90,7 +91,7 @@
   transition: opacity 0.2s ease, visibility 0s 0s;
 }
 
-/* ─── Lightbox top bar ───────────────────────────────── */
+/* ─── Lightbox top bar ───────────────────────────── */
 
 .lightboxBar {
   display: flex;
@@ -131,7 +132,7 @@
   opacity: 0.5;
 }
 
-/* ─── Lightbox stage ─────────────────────────────────── */
+/* ─── Lightbox stage ─────────────────────────────── */
 
 .lightboxStage {
   flex: 1;
@@ -142,8 +143,6 @@
   min-height: 0;
   padding: var(--sp-5) var(--sp-12);
 }
-
-/* ─── Lightbox image ─────────────────────────────────── */
 
 .lightboxImageWrap {
   width: 100%;
@@ -161,7 +160,7 @@
   object-fit: contain;
 }
 
-/* ─── Prev / Next nav ────────────────────────────────── */
+/* ─── Prev / Next nav ────────────────────────────── */
 
 .navBtn {
   position: absolute;
@@ -171,39 +170,39 @@
   border: none;
   cursor: pointer;
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--text-xl);
+  line-height: 1;
   color: rgba(246, 246, 242, 0.4);
   padding: var(--sp-3);
   transition: color 0.15s;
   z-index: 1;
-  line-height: 1;
 }
 
 .navBtn:hover {
   color: var(--color-bg);
 }
 
-.navPrev {
-  left: var(--gutter);
-}
+.navPrev { left:  var(--gutter); }
+.navNext { right: var(--gutter); }
 
-.navNext {
-  right: var(--gutter);
-}
+/* ─── Responsive ─────────────────────────────────── */
 
-/* ─── Responsive ─────────────────────────────────────── */
-
-@media (max-width: 1024px) {
+@media (max-width: 1055px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 672px) {
+  .headerBody {
+    display: block;
+    padding: var(--sp-10) 0 var(--sp-8);
+  }
+
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    padding: var(--sp-3) var(--gutter) var(--sp-16);
     gap: 1px;
+    padding: 0 var(--gutter) var(--sp-16);
   }
 
   .lightboxBar {
@@ -214,11 +213,6 @@
     padding: var(--sp-3) var(--sp-8);
   }
 
-  .navPrev {
-    left: var(--sp-2);
-  }
-
-  .navNext {
-    right: var(--sp-2);
-  }
+  .navPrev { left:  var(--sp-2); }
+  .navNext { right: var(--sp-2); }
 }

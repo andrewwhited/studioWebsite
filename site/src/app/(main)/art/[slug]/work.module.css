@@ -64,7 +64,7 @@
   font-size: clamp(20px, 2vw, 28px);
   font-weight: var(--font-light);
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: var(--lh-2xl); /* 32px — H4 range */
   color: var(--color-text);
 }
 
@@ -97,14 +97,14 @@
 .metaValue {
   font-size: var(--text-sm);
   color: var(--color-text);
-  line-height: var(--leading-snug);
+  line-height: var(--lh-sm);
 }
 
 /* ─── Description ────────────────────────────────────── */
 
 .description {
   font-size: var(--text-sm);
-  line-height: var(--leading-base);
+  line-height: var(--lh-sm);
   color: var(--color-muted);
 }
 

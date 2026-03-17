@@ -136,7 +136,9 @@ export default function ImagePage() {
   return (
     <main className={styles.main}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Image</h1>
+        <div className={styles.headerBody}>
+          <h1 className={styles.title}>Image</h1>
+        </div>
       </header>
 
       {/* Photo grid */}

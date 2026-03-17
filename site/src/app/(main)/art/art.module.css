@@ -1,87 +1,86 @@
 /* ─────────────────────────────────────────────────────
-   Art landing — intro + grid of works.
+   Art landing — Menil-style negative space layout.
 
-   No hero. Content begins below the fixed nav.
-   Grid: 3 columns desktop, 2 tablet, 1 mobile.
-   Each work: image placeholder (3:4) + metadata.
+   Top ~50vh: empty stage with label + intro at bottom.
+   Below: 4-col works grid — text above, image below.
+   Images extend past the fold on first load.
 ───────────────────────────────────────────────────── */
 
 .main {
   padding-top: var(--nav-h);
   min-height: 100svh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ─── Header ─────────────────────────────────────────── */
+/* ─── Stage — negative space zone ────────────────── */
 
-.header {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: var(--sp-12) var(--gutter) var(--sp-10);
-  border-bottom: 1px solid var(--color-rule);
-}
-
-.title {
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: var(--font-light);
-  letter-spacing: -0.03em;
-  line-height: 1.0;
-  color: var(--color-text);
-  margin-bottom: var(--sp-5);
-}
-
-.intro {
-  font-size: var(--text-sm);
-  line-height: var(--leading-base);
-  color: var(--color-muted);
-  max-width: 400px;
-}
-
-/* ─── Works grid ─────────────────────────────────────── */
-
-.grid {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: var(--sp-10) var(--gutter) var(--sp-20);
+.stage {
+  flex: 1;
+  min-height: 44vh;
+  padding: var(--sp-8) var(--gutter) var(--sp-8);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-8) var(--sp-5);
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--col-gap);
+  align-items: end;
 }
 
-/* ─── Work item ──────────────────────────────────────── */
+.stageLabel {
+  grid-column: 1 / 4;
+  font-size: var(--text-xl);
+  font-weight: var(--font-light);
+  letter-spacing: -0.01em;
+  line-height: var(--lh-xl);
+  color: var(--color-text);
+}
 
-.workItem {
-  display: block;
+.stageIntro {
+  grid-column: 9 / 13;
+  font-size: var(--text-sm);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+}
+
+/* ─── Works grid — 4 equal columns ───────────────── */
+
+.works {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0 var(--col-gap);
+  padding: 0 var(--gutter) var(--sp-16);
+}
+
+/* ─── Work item ───────────────────────────────────── */
+
+.work {
+  display: flex;
+  flex-direction: column;
   transition: opacity 0.15s;
 }
 
-.workItem:hover {
+.work:hover {
   opacity: 0.6;
 }
 
-.workImage {
-  aspect-ratio: 3 / 4;
-  background-color: var(--color-placeholder);
-  width: 100%;
-  margin-bottom: var(--sp-3);
-}
-
-.workMeta {
+/* Text labels sit above the image — Menil pattern */
+.workText {
+  padding: var(--sp-3) 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
 }
 
 .workTitle {
   font-size: var(--text-sm);
   font-weight: var(--font-regular);
   color: var(--color-text);
-  line-height: var(--leading-snug);
+  line-height: var(--lh-sm);
 }
 
 .workDetail {
   font-size: var(--text-xs);
   color: var(--color-muted);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .workStatus {
@@ -92,28 +91,34 @@
   color: var(--color-text);
 }
 
-/* ─── Responsive ─────────────────────────────────────── */
+/* Image fills below the text — extends past fold on load */
+.workImage {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-color: var(--color-placeholder);
+}
 
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+/* ─── Responsive ─────────────────────────────────── */
+
+@media (max-width: 1055px) {
+  .stageIntro {
+    grid-column: 8 / 13;
   }
 }
 
-@media (max-width: 768px) {
-  .header {
-    padding: var(--sp-8) var(--gutter) var(--sp-8);
+@media (max-width: 672px) {
+  .stage {
+    display: block;
+    min-height: 30vh;
   }
 
-  .grid {
+  .stageLabel {
+    margin-bottom: var(--sp-4);
+  }
+
+  .works {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-6) var(--sp-3);
-    padding: var(--sp-8) var(--gutter) var(--sp-16);
-  }
-}
-
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr;
+    gap: var(--sp-6) var(--col-gap);
+    padding-bottom: var(--sp-12);
   }
 }

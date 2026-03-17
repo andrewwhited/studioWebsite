@@ -49,32 +49,34 @@ const works = [
 export default function Art() {
   return (
     <main className={styles.main}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Art</h1>
-        <p className={styles.intro}>
+
+      {/* Stage — negative space with label at bottom */}
+      <div className={styles.stage}>
+        <p className={styles.stageLabel}>Art</p>
+        <p className={styles.stageIntro}>
           Works on paper, panel, and in three dimensions. One-of-one pieces
           developed alongside the object and studio work. Inquiry via email.
         </p>
-      </header>
+      </div>
 
-      <ul className={styles.grid}>
+      {/* Works — 4-col grid, text above image */}
+      <ul className={styles.works}>
         {works.map((work) => (
           <li key={work.slug}>
-            <Link href={`/art/${work.slug}`} className={styles.workItem}>
-              <div className={styles.workImage} />
-              <div className={styles.workMeta}>
+            <Link href={`/art/${work.slug}`} className={styles.work}>
+              <div className={styles.workText}>
                 <span className={styles.workTitle}>{work.title}</span>
-                <span className={styles.workDetail}>
-                  {work.medium} — {work.year}
-                </span>
-                {work.status === 'Available' && (
-                  <span className={styles.workStatus}>Available</span>
+                <span className={styles.workDetail}>{work.medium}, {work.year}</span>
+                {work.status !== 'Private collection' && (
+                  <span className={styles.workStatus}>{work.status}</span>
                 )}
               </div>
+              <div className={styles.workImage} />
             </Link>
           </li>
         ))}
       </ul>
+
     </main>
   )
 }

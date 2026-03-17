@@ -13,22 +13,35 @@
   /* Typography */
   --font-sans: 'aktiv-grotesk', system-ui, sans-serif;
 
-  /* Type scale */
-  --text-display: clamp(32px, 5vw, 58px);         /* homepage/section display heads */
-  --text-hero:    clamp(52px, 8vw, 96px);          /* hero name — UX site */
-  --text-2xl:     clamp(24px, 3vw, 40px);
-  --text-xl:      clamp(18px, 2.5vw, 26px);
-  --text-lg:      18px;
-  --text-base:    16px;
-  --text-sm:      14px;
-  --text-xs:      11px;
+  /* Type scale — minor third (1.2), 14px base (1rem = 14px) */
+  --text-xs:      0.833rem;  /* Small:  ~11.7px  */
+  --text-sm:      1rem;      /* Body:   14px     */
+  --text-base:    1rem;      /* Body:   14px     */
+  --text-lg:      1.2rem;    /* H6:     ~16.8px  */
+  --text-xl:      1.44rem;   /* H5:     ~20px    */
+  --text-2xl:     1.728rem;  /* H4:     ~24px    */
+  --text-3xl:     2.074rem;  /* H3:     ~29px    */
+  --text-4xl:     2.488rem;  /* H2:     ~35px    */
+  --text-5xl:     2.985rem;  /* H1:     ~42px    */
+  --text-display: clamp(2.985rem, 5vw, 4.5rem);  /* display — above H1 */
+  --text-hero:    clamp(3.5rem, 8vw, 7rem);       /* hero name — UX site */
+
+  /* Line heights — 4px baseline grid */
+  --lh-xs:  16px;
+  --lh-sm:  20px;
+  --lh-lg:  24px;
+  --lh-xl:  28px;
+  --lh-2xl: 32px;
+  --lh-3xl: 36px;
+  --lh-4xl: 40px;
+  --lh-5xl: 48px;
 
   /* Weights */
   --font-light:   300;
   --font-regular: 400;
   --font-medium:  500;
 
-  /* Leading */
+  /* Leading (ratio — kept for display/body text) */
   --leading-tight: 1.1;
   --leading-snug:  1.35;
   --leading-base:  1.65;
@@ -37,32 +50,45 @@
   --tracking-wide:  0.06em;
   --tracking-wider: 0.1em;
 
-  /* Spacing (8px base unit) */
-  --sp-1:  8px;
-  --sp-2:  16px;
-  --sp-3:  24px;
-  --sp-4:  32px;
-  --sp-5:  40px;
-  --sp-6:  48px;
-  --sp-8:  64px;
+  /* Spacing — 4px base unit */
+  --sp-xs:            4px;
+  --sp-sm:            8px;
+  --sp-md:            12px;
+  --sp-lg:            16px;
+  --sp-xl:            24px;
+  --sp-xxl:           32px;
+  --sp-xxxl:          40px;
+  --sp-section:       48px;
+  --sp-large-section: 64px;
+  /* Extended scale — 4px-aligned, above brief range */
   --sp-10: 80px;
   --sp-12: 96px;
   --sp-16: 128px;
   --sp-20: 160px;
+  /* Aliases — backward compat with existing modules */
+  --sp-1: var(--sp-sm);
+  --sp-2: var(--sp-lg);
+  --sp-3: var(--sp-xl);
+  --sp-4: var(--sp-xxl);
+  --sp-5: var(--sp-xxxl);
+  --sp-6: var(--sp-section);
+  --sp-8: var(--sp-large-section);
 
   /* Layout */
   --max-w:     1160px;
-  --gutter:    48px;
+  --gutter:    48px;   /* outer page margin — 12× 4px base */
+  --col-gap:   24px;   /* column gap — 6× 4px base */
   --nav-h:     56px;
   --label-col: 200px;
 }
 
 @media (max-width: 768px) {
   :root {
-    --gutter: 24px;
-    --sp-12:  64px;
-    --sp-16:  96px;
-    --sp-20:  112px;
+    --gutter:  24px;
+    --col-gap: 16px;
+    --sp-12:   64px;
+    --sp-16:   96px;
+    --sp-20:   112px;
   }
 }
 
@@ -78,7 +104,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 14px; /* 1rem = 14px — minor third scale base */
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
@@ -88,7 +114,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--text-base);
-  line-height: var(--leading-base);
+  line-height: var(--lh-sm);
   font-weight: var(--font-regular);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

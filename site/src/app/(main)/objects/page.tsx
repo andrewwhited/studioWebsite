@@ -1,81 +1,62 @@
 import Link from 'next/link'
 import styles from './objects.module.css'
 
-const collections = [
+const entries = [
   {
     title: 'Vessel Series',
-    slug: 'vessel-series',
+    href: '/objects/vessel-series',
     description:
       'Turned forms in hardwood and laminated composites. Exploring volume, surface, and the logic of rotation.',
     year: '2022–',
   },
   {
     title: 'Field Objects',
-    slug: 'field-objects',
+    href: '/objects/field-objects',
     description:
       'Objects for use and contemplation. Tools, vessels, and forms developed for the workshop and the world around it.',
     year: '2023–',
+  },
+  {
+    title: 'Core Objects',
+    href: '/objects/core',
+    description:
+      'Foundational pieces in primary production. Direct presentation, less editorial weight.',
+  },
+  {
+    title: 'Commissioned Work',
+    href: '/objects/commissions',
+    description:
+      'Custom furniture, spatial pieces, and site-specific installations. Examples and inquiry.',
   },
 ]
 
 export default function Objects() {
   return (
     <main className={styles.main}>
-      <header className={styles.header}>
+
+      {/* Left panel — cols 1–5, sticky */}
+      <div className={styles.left}>
         <h1 className={styles.title}>Objects</h1>
         <p className={styles.intro}>
-          Object work organized by body, type, and context. Collections gather
-          related pieces with references, images, and editorial context. Core
-          presents foundational objects directly. Commissions documents
-          custom and site-specific work.
+          Object work spanning collections, foundational pieces, and commissioned
+          projects. Each entry brings together images, context, and the ideas
+          behind the work.
         </p>
-      </header>
-
-      <div className={styles.entries}>
-
-        {/* Collections */}
-        <div className={styles.group}>
-          <div className={styles.groupLabel}>Collections</div>
-          {collections.map((c) => (
-            <Link key={c.slug} href={`/objects/${c.slug}`} className={styles.entry}>
-              <div className={styles.entryRow}>
-                <span className={styles.entryTitle}>{c.title}</span>
-                <span className={styles.entryMeta}>{c.year}</span>
-              </div>
-              <p className={styles.entryDesc}>{c.description}</p>
-            </Link>
-          ))}
-        </div>
-
-        {/* Core */}
-        <div className={styles.group}>
-          <div className={styles.groupLabel}>Core</div>
-          <Link href="/objects/core" className={styles.entry}>
-            <div className={styles.entryRow}>
-              <span className={styles.entryTitle}>Core Objects</span>
-            </div>
-            <p className={styles.entryDesc}>
-              Foundational pieces in primary production. Direct presentation,
-              less editorial weight.
-            </p>
-          </Link>
-        </div>
-
-        {/* Commissions */}
-        <div className={styles.group}>
-          <div className={styles.groupLabel}>Commissions</div>
-          <Link href="/objects/commissions" className={styles.entry}>
-            <div className={styles.entryRow}>
-              <span className={styles.entryTitle}>Commissioned Work</span>
-            </div>
-            <p className={styles.entryDesc}>
-              Custom furniture, spatial pieces, and site-specific installations.
-              Examples and inquiry.
-            </p>
-          </Link>
-        </div>
-
       </div>
+
+      {/* Right panel — cols 6–16, entry list */}
+      <div className={styles.entries}>
+        {entries.map((e) => (
+          <Link key={e.href} href={e.href} className={styles.entry}>
+            <div className={styles.entryRow}>
+              <span className={styles.entryTitle}>{e.title}</span>
+              {e.year && <span className={styles.entryMeta}>{e.year}</span>}
+            </div>
+            <p className={styles.entryDesc}>{e.description}</p>
+          </Link>
+        ))}
+      </div>
+
     </main>
   )
 }

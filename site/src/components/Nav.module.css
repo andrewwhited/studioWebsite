@@ -1,15 +1,14 @@
 /* ─────────────────────────────────────────────────────
-   Nav — always fixed, always floating over content.
+   Nav — fixed, floating, 12-col grid matching every
+   content page.
 
-   Desktop: AW wordmark in col 1 (over dark image), links in col 3.
-   Mobile:  flex row, wordmark left, hamburger right.
+   Col map (desktop):
+     Wordmark  → cols 1–2
+     Links     → cols 9–12  (right third)
 
-   .navLight: home route — wordmark + hamburger go light (over dark image).
-   .navOpen:  overlay open — wordmark + hamburger go light (over dark overlay).
-
-   Weight hierarchy:
-   Wordmark → 300 (identity, architectural, not shouting)
-   Links    → 400 (functional, clear, subordinate)
+   .navLight:       home — wordmark goes light (over dark image)
+   .navLinksLight:  studio — links go light (over dark image panel)
+   .navOpen:        overlay open — wordmark + close go light
 ───────────────────────────────────────────────────── */
 
 .nav {
@@ -21,29 +20,22 @@
   height: var(--nav-h);
 }
 
+/* 12-col grid — same system as every content section */
 .inner {
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--col-gap);
   align-items: center;
-}
-
-/* Column 3 — same grid position as the hero title block */
-.navContent {
-  grid-column: 3;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   padding: 0 var(--gutter);
-  gap: var(--sp-2);
 }
 
-/* ─── Wordmark ────────────────────────────────────── */
+/* ─── Wordmark — cols 1–2 ─────────────────────────── */
 
 .wordmark {
-  grid-column: 1;
-  padding-left: var(--gutter);
-  font-size: 13px;
+  grid-column: 1 / 3;
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
   font-weight: var(--font-light);
   letter-spacing: 0.02em;
   color: var(--color-text);
@@ -54,7 +46,15 @@
   opacity: 0.5;
 }
 
-/* ─── Desktop links ───────────────────────────────── */
+/* ─── Desktop links — cols 9–12 ──────────────────── */
+
+.navContent {
+  grid-column: 9 / 13;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--sp-2);
+}
 
 .links {
   display: flex;
@@ -98,20 +98,16 @@
 
 /* ─── Color states ────────────────────────────────── */
 
-/* Wordmark (col 1) is over the dark image column — goes light on home */
 .navLight .wordmark,
 .navLight .menuBtn {
   color: var(--color-bg);
 }
-/* .navLight .navContent links — intentionally stays dark (over light bg) */
 
-/* Studio: image is in right 2/3 — links (col 3) go light, wordmark stays dark */
 .navLinksLight .links a,
 .navLinksLight .menuBtn {
   color: var(--color-bg);
 }
 
-/* Overlay open: overlay is dark, nav text goes light */
 .navOpen .wordmark,
 .navOpen .menuBtn {
   color: var(--color-bg);
@@ -119,11 +115,6 @@
 
 /* ─────────────────────────────────────────────────────
    Mobile full-page overlay
-
-   Same design language as the hero: content anchored
-   to the bottom-left, dark background, light type.
-   Overlay sits below nav (z-index 90 vs 100) so the
-   wordmark and close button stay accessible.
 ───────────────────────────────────────────────────── */
 
 .overlay {
@@ -136,13 +127,11 @@
   justify-content: flex-end;
   padding: var(--nav-h) var(--gutter) var(--sp-10);
   opacity: 0;
-  visibility: hidden;        /* inherited — disables all children too */
+  visibility: hidden;
   pointer-events: none;
-  /* visibility delay on close: wait for opacity to finish, then hide */
   transition: opacity 0.2s ease, visibility 0s 0.2s;
 }
 
-/* higher specificity (.overlay + .overlayOpen) so it always wins */
 .overlay.overlayOpen {
   opacity: 1;
   visibility: visible;
@@ -177,17 +166,22 @@
 
 /* ─── Responsive ──────────────────────────────────── */
 
-@media (max-width: 768px) {
+/* Tablet: move links slightly left */
+@media (max-width: 1055px) {
+  .navContent {
+    grid-column: 8 / 13;
+  }
+}
+
+@media (max-width: 672px) {
   .inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 var(--gutter);
   }
 
   .wordmark {
     grid-column: unset;
-    padding-left: 0;
   }
 
   .navContent {
