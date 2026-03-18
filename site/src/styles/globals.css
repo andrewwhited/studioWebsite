@@ -90,6 +90,19 @@
 }
 
 /* ─────────────────────────────────────────────────────
+   UX subdomain dark theme
+   Palette inversion: main-site bg → UX text, main-site
+   text → UX bg. Same warm undertone, flipped value.
+───────────────────────────────────────────────────── */
+[data-theme="ux"] {
+  --color-bg:      #111110;
+  --color-text:    #F0F0EC;
+  --color-muted:   #969690;
+  --color-rule:    #252520;
+  --color-nav-bg:  rgba(17, 17, 16, 0.92);
+}
+
+/* ─────────────────────────────────────────────────────
    Reset
 ───────────────────────────────────────────────────── */
 *,
