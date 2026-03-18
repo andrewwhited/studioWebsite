@@ -1,40 +1,14 @@
 import Link from 'next/link'
+import { getCollectionPreviews } from '@/data/objects'
 import styles from './objects.module.css'
 
-const entries = [
-  {
-    title: 'Vessel Series',
-    href: '/objects/vessel-series',
-    description:
-      'Turned forms in hardwood and laminated composites. Exploring volume, surface, and the logic of rotation.',
-    year: '2022–',
-  },
-  {
-    title: 'Field Objects',
-    href: '/objects/field-objects',
-    description:
-      'Objects for use and contemplation. Tools, vessels, and forms developed for the workshop and the world around it.',
-    year: '2023–',
-  },
-  {
-    title: 'Core Objects',
-    href: '/objects/core',
-    description:
-      'Foundational pieces in primary production. Direct presentation, less editorial weight.',
-  },
-  {
-    title: 'Commissioned Work',
-    href: '/objects/commissions',
-    description:
-      'Custom furniture, spatial pieces, and site-specific installations. Examples and inquiry.',
-  },
-]
-
 export default function Objects() {
+  const previews = getCollectionPreviews()
+
   return (
     <main className={styles.main}>
 
-      {/* Left panel — cols 1–5, sticky */}
+      {/* Left panel — cols 1–4, sticky */}
       <div className={styles.left}>
         <h1 className={styles.title}>Objects</h1>
         <p className={styles.intro}>
@@ -44,15 +18,20 @@ export default function Objects() {
         </p>
       </div>
 
-      {/* Right panel — cols 6–16, entry list */}
+      {/* Right panel — cols 5–12, entry list */}
       <div className={styles.entries}>
-        {entries.map((e) => (
-          <Link key={e.href} href={e.href} className={styles.entry}>
+        {previews.map((c) => (
+          <Link
+            key={c.slug}
+            href={`/objects/${c.slug}`}
+            className={styles.entry}
+            style={{ '--entry-bg': c.image ? `url(${c.image})` : undefined } as React.CSSProperties}
+          >
             <div className={styles.entryRow}>
-              <span className={styles.entryTitle}>{e.title}</span>
-              {e.year && <span className={styles.entryMeta}>{e.year}</span>}
+              <span className={styles.entryTitle}>{c.title}</span>
+              {c.year && <span className={styles.entryMeta}>{c.year}</span>}
             </div>
-            <p className={styles.entryDesc}>{e.description}</p>
+            <p className={styles.entryDesc}>{c.short_text}</p>
           </Link>
         ))}
       </div>

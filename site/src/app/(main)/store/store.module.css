@@ -1,0 +1,236 @@
+/* ─────────────────────────────────────────────────────
+   Store — 12-col grid, same page pattern as Art/Image.
+
+   Stage: ~30vh negative space, label + intro at bottom.
+   Filters: collection + type, inline row.
+   Grid: 4-col product cards.
+───────────────────────────────────────────────────── */
+
+.main {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--col-gap);
+  padding: var(--nav-h) var(--gutter) var(--sp-20);
+  align-items: start;
+}
+
+/* ─── Left panel — cols 1–4 ───────────────────────── */
+
+.left {
+  grid-column: 1 / 5;
+  position: sticky;
+  top: var(--nav-h);
+  max-height: calc(100svh - var(--nav-h));
+  overflow-y: auto;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 80px);
+  mask-image: linear-gradient(to bottom, transparent 0px, black 80px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-10);
+  padding-top: var(--sp-12);
+  padding-right: var(--sp-section);
+  padding-bottom: var(--sp-16);
+}
+
+.left::-webkit-scrollbar {
+  display: none;
+}
+
+.leftText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xxl);
+}
+
+.title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-light);
+  letter-spacing: -0.01em;
+  line-height: var(--lh-xl);
+  color: var(--color-text);
+}
+
+.intro {
+  font-size: var(--text-sm);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+}
+
+/* ─── Filters ─────────────────────────────────────── */
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xxxl);
+}
+
+.filterRow {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  padding: var(--sp-lg) 0;
+}
+
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.filterBtn {
+  background: none;
+  border: none;
+  border-top: 1px solid var(--color-rule);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding: var(--sp-lg) 0;
+  transition: color 0.15s;
+  line-height: var(--lh-xs);
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.filterBtn:hover {
+  color: var(--color-text);
+}
+
+.filterBtn.active {
+  color: var(--color-text);
+}
+
+.filterBtn.active::after {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: currentColor;
+  margin-left: auto;
+  margin-right: var(--sp-lg);
+  flex-shrink: 0;
+}
+
+/* ─── Product grid — cols 5–12 ────────────────────── */
+
+.grid {
+  grid-column: 5 / 13;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-section) var(--col-gap);
+  padding-top: var(--sp-12);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  padding: var(--sp-10) 0;
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ─── Product card ────────────────────────────────── */
+
+.product {
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.15s;
+}
+
+.product:hover {
+  opacity: 0.7;
+}
+
+.productImage {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-color: var(--color-placeholder);
+  margin-bottom: var(--sp-md);
+}
+
+.productImage.soldOut {
+  opacity: 0.4;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.productTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--font-regular);
+  line-height: var(--lh-sm);
+  color: var(--color-text);
+}
+
+.productCollection {
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
+  color: var(--color-muted);
+}
+
+.productPrice {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-xs);
+  color: var(--color-text);
+  margin-top: var(--sp-xs);
+}
+
+.productSoldOut {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  line-height: var(--lh-xs);
+  color: var(--color-muted);
+  margin-top: var(--sp-xs);
+}
+
+/* ─── Responsive ──────────────────────────────────── */
+
+@media (max-width: 1055px) {
+  .left {
+    grid-column: 1 / 5;
+  }
+  .grid {
+    grid-column: 5 / 13;
+  }
+}
+
+@media (max-width: 672px) {
+  .main {
+    display: block;
+    padding: calc(var(--nav-h) + var(--sp-large-section)) var(--gutter) var(--sp-16);
+  }
+
+  .left {
+    position: static;
+    padding-top: 0;
+    padding-right: 0;
+    margin-bottom: var(--sp-10);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-large-section) var(--col-gap);
+  }
+}
