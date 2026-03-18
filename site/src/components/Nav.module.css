@@ -53,18 +53,18 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--sp-2);
+  gap: var(--sp-lg);
 }
 
 .links {
   display: flex;
-  gap: var(--sp-2);
+  gap: var(--sp-lg);
   align-items: center;
 }
 
 .links a {
   font-size: var(--text-xs);
-  font-weight: var(--font-regular);
+  font-weight: var(--font-medium);
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
   color: var(--color-text);
@@ -145,14 +145,14 @@
 }
 
 .overlayLink {
-  font-size: clamp(32px, 9vw, 56px);
+  font-size: clamp(var(--text-4xl), 8vw, var(--text-display)); /* H2 → display, anchored to scale */
   font-weight: var(--font-light);
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: var(--lh-5xl); /* 48px — closest fixed token for large display type */
   color: var(--color-bg);
   display: block;
-  padding: var(--sp-1) 0;
-  border-top: 1px solid rgba(246, 246, 242, 0.1);
+  padding: var(--sp-sm) 0;
+  border-top: 1px solid var(--color-bg-faint);
   transition: opacity 0.15s;
 }
 

@@ -35,7 +35,7 @@
 
 .links {
   display: flex;
-  gap: var(--sp-4);
+  gap: var(--sp-xxl);
   align-items: center;
 }
 
@@ -54,7 +54,7 @@
 
 @media (max-width: 480px) {
   .links {
-    gap: var(--sp-3);
+    gap: var(--sp-xl);
   }
 
   .links a {

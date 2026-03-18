@@ -22,7 +22,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 0 var(--col-gap);
-  padding: var(--sp-8) var(--gutter) var(--sp-5);
+  padding: var(--sp-large-section) var(--gutter) var(--sp-xxxl);
   align-items: end;
 }
 
@@ -84,10 +84,10 @@
 }
 
 .workText {
-  padding: var(--sp-3) 0;
+  padding: var(--sp-xl) 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: var(--sp-xs);
   flex-shrink: 0;
 }
 
@@ -101,7 +101,6 @@
 .workDetail {
   font-size: var(--text-xs);
   color: var(--color-muted);
-  letter-spacing: 0.01em;
 }
 
 /* Image is exactly 50svh — its top sits at the viewport midpoint */
@@ -131,7 +130,7 @@
     display: block;
     flex: none;
     min-height: 30vh;
-    padding: var(--sp-8) var(--gutter) var(--sp-5);
+    padding: var(--sp-large-section) var(--gutter) var(--sp-xxxl);
   }
 
   .workImage {

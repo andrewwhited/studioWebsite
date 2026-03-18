@@ -9,6 +9,10 @@
   --color-rule:         #DEDED8;
   --color-placeholder:  #3E3C38; /* hero/image placeholder — dark to simulate photograph weight */
   --color-nav-bg:       rgba(246, 246, 242, 0.92); /* UX nav frosted background */
+  /* Derived — semi-transparent bg for use over dark surfaces (lightbox, hero overlays) */
+  --color-bg-muted:     rgba(246, 246, 242, 0.5);
+  --color-bg-subtle:    rgba(246, 246, 242, 0.3);
+  --color-bg-faint:     rgba(246, 246, 242, 0.1);
 
   /* Typography */
   --font-sans: 'aktiv-grotesk', system-ui, sans-serif;
@@ -65,15 +69,6 @@
   --sp-12: 96px;
   --sp-16: 128px;
   --sp-20: 160px;
-  /* Aliases — backward compat with existing modules */
-  --sp-1: var(--sp-sm);
-  --sp-2: var(--sp-lg);
-  --sp-3: var(--sp-xl);
-  --sp-4: var(--sp-xxl);
-  --sp-5: var(--sp-xxxl);
-  --sp-6: var(--sp-section);
-  --sp-8: var(--sp-large-section);
-
   /* Layout */
   --max-w:     1160px;
   --gutter:    48px;   /* outer page margin — 12× 4px base */

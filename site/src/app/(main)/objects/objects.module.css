@@ -20,12 +20,12 @@
 .left {
   grid-column: 1 / 5;
   position: sticky;
-  top: calc(var(--nav-h) + var(--sp-8));
+  top: calc(var(--nav-h) + var(--sp-large-section));
   display: flex;
   flex-direction: column;
-  gap: var(--sp-5);
-  padding-right: var(--sp-6);
-  padding-top: 38vh; /* negative space — text floats in lower half of panel */
+  gap: var(--sp-xxxl);
+  padding-right: var(--sp-section);
+  padding-top: var(--sp-20); /* negative space — text floats in lower portion of panel */
 }
 
 .title {
@@ -53,7 +53,7 @@
 
 .entry {
   display: block;
-  padding: var(--sp-5) 0;
+  padding: var(--sp-xxxl) 0;
   border-top: 1px solid var(--color-rule);
   position: relative;
   overflow: hidden;
@@ -87,15 +87,15 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: var(--sp-2);
+  margin-bottom: var(--sp-lg);
   position: relative;
   z-index: 1;
 }
 
 .entryTitle {
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: clamp(var(--text-lg), 2vw, var(--text-2xl)); /* H6 → H4, anchored to scale */
   font-weight: var(--font-light);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   line-height: var(--lh-2xl);
   color: var(--color-text);
 }
@@ -130,17 +130,17 @@
 @media (max-width: 672px) {
   .main {
     display: block;
-    padding: calc(var(--nav-h) + var(--sp-8)) var(--gutter) var(--sp-16);
+    padding: calc(var(--nav-h) + var(--sp-large-section)) var(--gutter) var(--sp-16);
   }
 
   .left {
     position: static;
     padding-top: var(--sp-10);
     padding-right: 0;
-    margin-bottom: var(--sp-8);
+    margin-bottom: var(--sp-large-section);
   }
 
   .entry {
-    padding: var(--sp-4) 0;
+    padding: var(--sp-xxl) 0;
   }
 }

@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Audit — Andrew Whited Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ─── SIDEBAR ──────────────────────────────────────── -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-eyebrow">Design Audit</div>
+    <div class="sidebar-title">Andrew Whited<br>Studio</div>
+    <div class="sidebar-meta">March 2026<br>design-pass-1</div>
+  </div>
+  <ol class="sidebar-toc">
+    <li><a href="#overview"><span class="toc-num">01</span>Overview</a></li>
+    <li><a href="#methodology"><span class="toc-num">02</span>Methodology</a></li>
+    <li><a href="#grid"><span class="toc-num">03</span>Grid &amp; Layout</a></li>
+    <li><a href="#typography"><span class="toc-num">04</span>Typography</a></li>
+    <li><a href="#spacing"><span class="toc-num">05</span>Spacing</a></li>
+    <li><a href="#color"><span class="toc-num">06</span>Color &amp; Interaction</a></li>
+    <li><a href="#pages"><span class="toc-num">07</span>Page Analysis</a></li>
+    <li><a href="#inspiration"><span class="toc-num">08</span>Market &amp; Inspiration</a></li>
+    <li><a href="#intention"><span class="toc-num">09</span>Intention vs. Execution</a></li>
+    <li><a href="#recommendations"><span class="toc-num">10</span>Recommendations</a></li>
+    <li><a href="#verdict"><span class="toc-num">11</span>Verdict</a></li>
+  </ol>
+  <div class="sidebar-footer">
+    <span>14 CSS Modules</span>
+    <span>7 Page Templates</span>
+    <span>Code Audit · No Visual Render</span>
+  </div>
+</nav>
+
+<!-- ─── REPORT ───────────────────────────────────────── -->
+<div class="report">
+
+  <!-- COVER -->
+  <header class="cover" id="cover">
+    <div class="cover-overline">Design Audit — Andrew Whited Studio — March 2026</div>
+    <h1 class="cover-h1">Andrew Whited<br>Studio Website</h1>
+    <p class="cover-sub">
+      A thorough, honest assessment of design system adherence, typographic discipline, compositional ambition, brief alignment, and competitive position. Produced from complete source analysis across 14 CSS modules, 7 page templates, and the full brief package.
+    </p>
+
+    <div class="cover-grades">
+      <div class="grade-cell">
+        <div class="grade-label">Grid</div>
+        <div class="grade-mark grade-a-minus">A−</div>
+      </div>
+      <div class="grade-cell">
+        <div class="grade-label">Typography</div>
+        <div class="grade-mark grade-b-plus">B+</div>
+      </div>
+      <div class="grade-cell">
+        <div class="grade-label">Spacing</div>
+        <div class="grade-mark grade-b">B</div>
+      </div>
+      <div class="grade-cell">
+        <div class="grade-label">Color</div>
+        <div class="grade-mark grade-a">A</div>
+      </div>
+      <div class="grade-cell">
+        <div class="grade-label">Brief Alignment</div>
+        <div class="grade-mark grade-a-minus">A−</div>
+      </div>
+      <div class="grade-cell">
+        <div class="grade-label">Market Position</div>
+        <div class="grade-mark grade-b">B</div>
+      </div>
+    </div>
+
+    <p class="cover-caveat">
+      Audit methodology note: This review is derived entirely from source code — globals.css, all 14 CSS module files, and all page components — cross-referenced against the full brief package. The site was not rendered. Where conclusions are visual inferences from code rather than observed pixels, this is noted. Structural, systemic, and typographic findings are fully code-grounded. Compositional and atmospheric findings are assessments based on the designed layouts.
+    </p>
+  </header>
+
+  <!-- 01 — OVERVIEW -->
+  <section class="section" id="overview">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Overview</h2>
+    </div>
+
+    <p class="lede">The foundations are correct. The ambition is genuine. The system mostly holds. What it is not yet is finished — and several current weaknesses will resolve with real content and a final pass. The ones that won't self-resolve are what this report is for.</p>
+
+    <p class="body-text">This is a technically disciplined site built around a coherent editorial philosophy. Every page uses the same 12-column grid at the same gutter and gap values. The navigation participates in the grid at the same column widths as every content section. The three-color text hierarchy (text / muted / rule) is applied consistently throughout. The token system is comprehensive and mostly honored. The section differentiation — each page having a distinct character without becoming disconnected from the whole — is more difficult than it looks and the implementation earns it.</p>
+
+    <p class="body-text">Where the site falls short: there are too many distinct type styles (13 is too many; 8 or 9 is the target). Some clamp() ranges don't land on type scale steps. A handful of spacing values violate the 4px base unit. Some viewport-relative values create positional unpredictability. And the site is compositionally conservative — correct and clean, but not yet bold. The layouts are technically right but don't yet make a strong visual argument in the way the best Swiss and editorial work does.</p>
+
+    <p class="body-text">The biggest unresolved risk is not code — it is content. The site is designed around photography that does not yet exist. Until it does, no final judgment about atmospheric success is possible. The placeholder panels suggest the right scale and proportion relationships. But the editorial warmth the brief describes has no vehicle yet.</p>
+
+    <div class="scorecard">
+      <div class="score-row">
+        <span class="score-name">Grid Adherence</span>
+        <div class="score-bar"><div class="score-bar-fill" style="width:88%"></div></div>
+        <span class="score-grade">A−</span>
+      </div>
+      <div class="score-row">
+        <span class="score-name">Typography System</span>
+        <div class="score-bar"><div class="score-bar-fill" style="width:74%"></div></div>
+        <span class="score-grade">B+</span>
+      </div>
+      <div class="score-row">
+        <span class="score-name">Spacing Consistency</span>
+        <div class="score-bar"><div class="score-bar-fill" style="width:76%"></div></div>
+        <span class="score-grade">B</span>
+      </div>
+      <div class="score-row">
+        <span class="score-name">Color System</span>
+        <div class="score-bar"><div class="score-bar-fill" style="width:92%"></div></div>
+        <span class="score-grade">A</span>
+      </div>
+      <div class="score-row">
+        <span class="score-name">Brief Alignment</span>
+        <div class="score-bar"><div class="score-bar-fill" style="width:82%"></div></div>
+        <span class="score-grade">A−</span>
+      </div>
+      <div class="score-row">
+        <span class="score-name">Compositional Ambition</span>
+        <div class="score-bar"><div class="score-bar-fill" style="width:60%"></div></div>
+        <span class="score-grade">B−</span>
+      </div>
+      <div class="score-row">
+        <span class="score-name">Market Position</span>
+        <div class="score-bar"><div class="score-bar-fill" style="width:68%"></div></div>
+        <span class="score-grade">B</span>
+      </div>
+      <div class="score-row score-row--total">
+        <span class="score-name">Overall</span>
+        <div class="score-bar"><div class="score-bar-fill" style="width:79%"></div></div>
+        <span class="score-grade">B+</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — METHODOLOGY -->
+  <section class="section" id="methodology">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Methodology</h2>
+    </div>
+
+    <p class="lede">Four frameworks applied simultaneously. No one frame is sufficient alone. Together they give a complete picture.</p>
+
+    <h3>Heuristic Evaluation (Nielsen, 1994)</h3>
+    <p class="body-text">Jakob Nielsen's 10 usability heuristics were applied across all page templates. For this site, the most operative heuristics are: <strong>Consistency and standards</strong> (are spacing, type sizes, and interactive behaviors consistent?), <strong>Aesthetic and minimalist design</strong> (every element that is not load-bearing content is a liability — the principle most aligned with the Swiss aesthetic), and <strong>Visibility of system status</strong> (is location always clear within the site?). The audit notes where the site satisfies or violates each.</p>
+
+    <h3>Swiss Design Principles (Crouwel, Hofmann, Müller-Brockmann)</h3>
+    <p class="body-text">Wim Crouwel: "Everything should be straightforward and informative — information was number one." His grid-based methodology for the Stedelijk Museum (1963–1985) established that a grid is not a constraint but a system of liberation. The grid should make the design <em>possible</em>, not just <em>ordered</em>. Application here: is the grid doing structural work, or just constraining placement?</p>
+    <p class="body-text">Armin Hofmann: all visual communication reduces to point, line, and plane. His <em>Graphic Design Manual</em> (1965) presents visual contrast — black/white, large/small, static/dynamic — as the structural grammar of all graphic design. Application: evaluate each page for contrast ratios, scale drama, and figure/ground clarity.</p>
+    <p class="body-text">Josef Müller-Brockmann: "The grid system is an aid, not a guarantee." It enables a range of possible solutions; the designer's judgment fills the space. Application: the grid alone does not produce good design. The question is what is done within it.</p>
+
+    <h3>Elements of Typographic Style (Bringhurst)</h3>
+    <p class="body-text">Key principles applied: <strong>typography exists to honor content</strong> (all type choices serve the text, not the designer); <strong>the measure</strong> (45–75 characters per line; too wide breaks tracking, too narrow creates racing); <strong>hierarchy through scale and weight</strong>, not color; and <strong>the page is a proportion</strong> — the mathematics of the column and margin should be deliberate, not arbitrary.</p>
+
+    <h3>Design Thinking / Intention Alignment</h3>
+    <p class="body-text">The brief package is treated as the primary evaluative standard. Design Thinking principles (empathy, problem definition, ideation, prototyping, testing) are applied to assess whether the site's design decisions are solving the right problems. The question is not only "is this well-executed?" but "is this the right problem to be solving?"</p>
+
+    <div class="pullquote">
+      "I am a functionalist troubled by aesthetics."
+      <cite>— Wim Crouwel. The self-description that should sit above this entire project.</cite>
+    </div>
+  </section>
+
+  <!-- 03 — GRID -->
+  <section class="section" id="grid">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Grid &amp; Layout</h2>
+    </div>
+
+    <p class="lede">The grid discipline is the strongest element of the site. Every page template uses the same system, and the column assignments are not just consistent — they are <em>meaningful</em>.</p>
+
+    <p class="body-text">The 12-column grid with 24px column gap and 48px outer gutter is the structural backbone. Every section — including the navigation — uses <span class="mono">repeat(12, 1fr)</span> with identical padding. This creates continuous vertical key lines from top to bottom of every page: the wordmark, the nav links, the left content edge, the right rail, all share the same x-positions across all pages. This is Crouwel's principle in practice: the grid provides continuity across formats.</p>
+
+    <p class="body-text">The consistent column assignment pattern — label/wordmark in cols 1–2, primary content in cols 3–9, right rail in cols 9–12 or 10–12 — mirrors the nav's own structure (wordmark 1–2, links 9–12). When the reader sees nav links and page content aligning to the same column, the system becomes legible. This is correct editorial thinking.</p>
+
+    <div class="findings-grid">
+      <div class="finding">
+        <div class="finding-label">Column System</div>
+        <div class="finding-value">12-col, 24px gap</div>
+        <div class="finding-note">Consistent across all 7 pages and navigation. No exceptions at desktop.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-label">Outer Gutter</div>
+        <div class="finding-value">48px desktop</div>
+        <div class="finding-note">Brief says "24px recommended default" — the implementation uses 48px for outer margin and 24px for col-gap. Ambiguous brief, defensible execution. 48px = 12× base unit.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-label">Image Bleeds</div>
+        <div class="finding-value">Negative margin</div>
+        <div class="finding-note">Correctly implemented via <span class="mono">margin-left: calc(-1 * var(--gutter))</span> and <span class="mono">margin-right: calc(-1 * var(--gutter))</span>. Bleeds are structural, not decorative.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-label">Nav Integration</div>
+        <div class="finding-value">Grid-participant</div>
+        <div class="finding-note">Navigation uses the same 12-col grid and padding as every content section. Wordmark sits at cols 1–2, links at cols 9–12. This alignment with content keylines is exemplary.</div>
+      </div>
+    </div>
+
+    <h3>Issues Found</h3>
+    <div class="issues">
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Viewport-relative padding on Objects left panel</div>
+          <div class="issue-desc">The left panel uses <span class="mono">padding-top: 38vh</span> to float the text in the lower half. Compositionally motivated, but at a 600px viewport height this equals 228px; at 1200px it equals 456px. This positional instability can produce unwanted results at unusual screen proportions. A fixed token (e.g. <span class="mono">--sp-20: 160px</span>) would be more predictable while achieving a similar effect.</div>
+          <span class="issue-code">objects.module.css → .left</span>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Viewport-relative min-height on Image header</div>
+          <div class="issue-desc"><span class="mono">min-height: 40vh</span> on the Image page header has the same unpredictability problem. At 600px viewport this is 240px of void; at 1400px it is 560px — which is close to the full viewport. A fixed extended spacing token would behave predictably.</div>
+          <span class="issue-code">image.module.css → .headerBody</span>
+        </div>
+      </div>
+      <div class="issue tag-strength">
+        <div class="issue-tag"><span>Strength</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Home page void — active negative space</div>
+          <div class="issue-desc">Columns 5–8 of the homepage are intentionally empty. The comment in code reads "intentionally empty — negative space is part of the composition." This is the Hofmann principle of figure/ground in action. The void creates tension and pushes the text into the right third, where the nav links sit. This is compositionally correct and should not be changed.</div>
+          <span class="issue-code">home.module.css → comment at line 31</span>
+        </div>
+      </div>
+      <div class="issue tag-strength">
+        <div class="issue-tag"><span>Strength</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Art horizontal scroll — format as design</div>
+          <div class="issue-desc">The works strip uses <span class="mono">overflow-x: auto</span> with card widths calculated from viewport height (<span class="mono">calc(50svh * 6/7)</span>). This treats the format constraint as a design element — the scroll is the content experience, not a workaround for overflow. This is the most formally ambitious layout decision on the site.</div>
+          <span class="issue-code">art.module.css → .works</span>
+        </div>
+      </div>
+      <div class="issue tag-opportunity">
+        <div class="issue-tag"><span>Opportunity</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Every page uses the same column logic — consider one bold exception</div>
+          <div class="issue-desc">The grid discipline is correct and necessary. But Crouwel and Hofmann's best work creates visual tension <em>within</em> the grid, not just order. Currently no page makes a bold compositional argument of its own. One section — perhaps the Collection hero, or a future editorial spread — could use the grid more dramatically: full-bleed type at scale, an unexpected ratio, asymmetric content placement. The system is set up for this. The opportunity hasn't been taken yet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 — TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Typography</h2>
+    </div>
+
+    <p class="lede">The type system is correctly conceived but not yet fully rationalized. The scale is right. The weights are right. The line heights are right. Too many styles have been introduced, and some clamp() ranges escape the scale.</p>
+
+    <h3>The Scale</h3>
+    <p class="body-text">The minor third (1.2) from a 14px base, with 4px-aligned fixed line heights, is correct and well-implemented in globals.css. The progression from 11.7px (xs) through 41.8px (H1) gives seven usable steps. Line heights from 16px to 48px are clean multiples that create genuine vertical rhythm. This is the right foundation.</p>
+
+    <h3>Weight Convention</h3>
+    <p class="body-text">The three-weight system is applied correctly throughout most of the site: Light (300) for display and titles, Regular (400) for body text, Medium (500) for labels, tags, and metadata. This is the correct Swiss convention — weight does semantic work. One violation: the service card titles in Studio use Medium weight while functioning as display titles, not labels. This breaks the convention without justification.</p>
+
+    <h3>Type Style Inventory</h3>
+    <p class="body-text">Across all 14 modules, the following distinct type treatments exist. Thirteen is too many. The brief calls for typography to function as architecture — architecture has few materials, used with precision. The target is 8–9 styles maximum.</p>
+
+    <table class="type-table">
+      <thead>
+        <tr>
+          <th>Style</th>
+          <th>Size / Weight</th>
+          <th>Tracking</th>
+          <th>Where Used</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Label / Tag</td>
+          <td><span class="mono">xs / medium</span></td>
+          <td><span class="mono">0.1em + uppercase</span></td>
+          <td>All pages, all sections</td>
+          <td>The system's primary metadata voice. Correct.</td>
+        </tr>
+        <tr>
+          <td>Body</td>
+          <td><span class="mono">sm / regular</span></td>
+          <td>—</td>
+          <td>All pages</td>
+          <td>Clean. Used consistently.</td>
+        </tr>
+        <tr>
+          <td>Muted / Caption</td>
+          <td><span class="mono">xs / regular</span></td>
+          <td>—</td>
+          <td>All pages</td>
+          <td>Could consolidate with body at muted color.</td>
+        </tr>
+        <tr>
+          <td>Section Title</td>
+          <td><span class="mono">xl / light</span></td>
+          <td><span class="mono">-0.01em or -0.02em</span></td>
+          <td>Objects, Image, Store, Art stage</td>
+          <td>Inconsistent tracking between −0.01 and −0.02. Resolve to one value.</td>
+        </tr>
+        <tr>
+          <td>Bio Name</td>
+          <td><span class="mono">xl / light</span></td>
+          <td><span class="mono">-0.02em</span></td>
+          <td>Studio bio</td>
+          <td>Identical to some section titles. Redundant style.</td>
+        </tr>
+        <tr>
+          <td>Contact Heading</td>
+          <td><span class="mono">xl / light</span></td>
+          <td><span class="mono">-0.02em</span></td>
+          <td>Studio contact</td>
+          <td>Identical to bio name. Not a distinct style.</td>
+        </tr>
+        <tr>
+          <td>Workshop Statement</td>
+          <td><span class="mono">lg / light</span></td>
+          <td><span class="mono">-0.01em</span></td>
+          <td>Studio workshop</td>
+          <td>One step below section title. Could merge with it.</td>
+        </tr>
+        <tr class="flag">
+          <td>Reading Title (italic)</td>
+          <td><span class="mono">sm / regular / italic</span></td>
+          <td>—</td>
+          <td>Studio reading list only</td>
+          <td><strong>Isolated italic use.</strong> Italics appear only here and in the listening heading. Either establish italic as a system-level semantic choice (book/film titles) or remove it.</td>
+        </tr>
+        <tr class="flag">
+          <td>Listening Heading</td>
+          <td><span class="mono">sm / light / italic</span></td>
+          <td>—</td>
+          <td>Studio listening col</td>
+          <td><strong>Light italic — unique combination.</strong> Appears only once. Not a system style.</td>
+        </tr>
+        <tr>
+          <td>Service Title</td>
+          <td><span class="mono">sm / medium</span></td>
+          <td>—</td>
+          <td>Studio services</td>
+          <td>Medium weight used for content title, breaking the label-only convention for medium.</td>
+        </tr>
+        <tr class="flag">
+          <td>Work Detail</td>
+          <td><span class="mono">xs / regular</span></td>
+          <td><span class="mono">0.01em</span></td>
+          <td>Art landing cards</td>
+          <td><strong>0.01em tracking is not a system token.</strong> The system defines 0.06em (wide) and 0.10em (wider). 0.01em is an ad hoc value that should be removed.</td>
+        </tr>
+        <tr>
+          <td>Nav Links</td>
+          <td><span class="mono">xs / regular</span></td>
+          <td><span class="mono">0.1em + uppercase</span></td>
+          <td>Navigation</td>
+          <td>Matches label convention but uses regular weight, not medium. Intentional distinction.</td>
+        </tr>
+        <tr class="flag">
+          <td>Overlay Links</td>
+          <td><span class="mono">clamp(32px, 9vw, 56px) / light</span></td>
+          <td><span class="mono">-0.02em</span></td>
+          <td>Mobile nav overlay</td>
+          <td><strong>Both clamp endpoints are off the type scale.</strong> 32px and 56px do not correspond to any scale step. This is the strongest display moment on the mobile experience and it has no scale relationship to the rest of the system.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>The clamp() Problem</h3>
+    <p class="body-text">Six clamp() uses across the site set fluid type sizes. Four of these set min or max values that don't land on type scale steps. This means the fluid type jumps off the rational scale during viewport transitions. Bringhurst is explicit: the typeface's optical behavior at a given size matters — you can't slide arbitrarily between sizes. These ranges should be re-anchored to scale steps.</p>
+
+    <div class="issues">
+      <div class="issue tag-violation">
+        <div class="issue-tag"><span>Violation</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Home title: max value not on scale</div>
+          <div class="issue-desc"><span class="mono">clamp(20px, 2.5vw, 36px)</span> — 36px is the <strong>line-height</strong> of H3, not a font size. H2 is 34.8px, H1 is 41.8px. The title of the site, the primary identity marker, currently sits between scale steps at its maximum. Given that the name is the only content on the home page, this deserves a committed size. Consider anchoring to H1 (2.985rem) as maximum.</div>
+          <span class="issue-code">home.module.css → .title</span>
+        </div>
+      </div>
+      <div class="issue tag-violation">
+        <div class="issue-tag"><span>Violation</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Collection hero title: both endpoints off-scale</div>
+          <div class="issue-desc"><span class="mono">clamp(32px, 5vw, 64px)</span> — neither 32px nor 64px is in the type scale. This is the first text visitors see on a collection page, at full-bleed scale. It should be anchored: perhaps H1 (41.8px) to display (4.5rem = 63px), with a more precise minimum.</div>
+          <span class="issue-code">collection.module.css → .heroTitle</span>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Objects entry title and Collection intro: off-scale minimums</div>
+          <div class="issue-desc"><span class="mono">clamp(18px, 2vw, 24px)</span> and <span class="mono">clamp(18px, 2vw, 26px)</span> — 18px appears in both as a minimum, but 18px is between body (14px) and H6 (16.8px). These could use 16.8px (H6) as minimum and 24px (H4) as maximum for the first, and 16.8px to 28.8px (between H4 and H3) for the second.</div>
+          <span class="issue-code">objects.module.css → .entryTitle / collection.module.css → .intro</span>
+        </div>
+      </div>
+      <div class="issue tag-opportunity">
+        <div class="issue-tag"><span>Opportunity</span></div>
+        <div class="issue-body">
+          <div class="issue-title">The home page name should be more committed</div>
+          <div class="issue-desc">The brief says the site should not feel like a "Squarespace template minimalism." But the home page name "Andrew Whited" at a maximum of 36px in font-weight light reads cautiously. The Chipperfield site uses a typeface that carries the entire brand load. Andrew's name is the brand. At full viewport, it should be a presence, not a caption. Consider H1 (41.8px) or the display size (clamp up to 4.5rem) at font-weight light. The light weight is correct; the size is not.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — SPACING -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Spacing</h2>
+    </div>
+
+    <p class="lede">The spacing token system is well-designed and used correctly in most places. Eight violations exist — small in number, but the brief explicitly states "do not introduce arbitrary spacing values." These should be resolved.</p>
+
+    <p class="body-text">The 4px base unit with named steps from xs (4px) through large-section (64px), and an extended scale to 160px, gives ample range. The structural use of 2px gaps in image grids and service card grids is a deliberate compositional choice (the "ruled gap"), not a system violation — this is correct design thinking. The problems are elsewhere.</p>
+
+    <div class="issues">
+      <div class="issue tag-violation">
+        <div class="issue-tag"><span>Violation</span></div>
+        <div class="issue-body">
+          <div class="issue-title">10px padding on reading list rows</div>
+          <div class="issue-desc"><span class="mono">padding: 10px 0</span> on .readingLink — 10px is not a 4px multiple. Should be <span class="mono">--sp-sm (8px)</span> or <span class="mono">--sp-md (12px)</span>. This affects every row in the reading list on Studio — approximately 12 instances.</div>
+          <span class="issue-code">studio.module.css → .readingLink</span>
+        </div>
+      </div>
+      <div class="issue tag-violation">
+        <div class="issue-tag"><span>Violation</span></div>
+        <div class="issue-body">
+          <div class="issue-title">3px gaps in work cards and product info</div>
+          <div class="issue-desc"><span class="mono">gap: 3px</span> in .workText (Art landing) and .productInfo (Store). 3px is not a 4px multiple. Should be <span class="mono">--sp-xs (4px)</span>. This is a micro-detail but the build brief explicitly prohibits arbitrary values.</div>
+          <span class="issue-code">art.module.css → .workText / store.module.css → .productInfo</span>
+        </div>
+      </div>
+      <div class="issue tag-violation">
+        <div class="issue-tag"><span>Violation</span></div>
+        <div class="issue-body">
+          <div class="issue-title">3px optical padding on label elements</div>
+          <div class="issue-desc"><span class="mono">padding-top: 3px</span> appears in multiple label elements across Studio, Collection, and Work pages — a recurring optical alignment hack to vertically align uppercase labels with adjacent text. The intent is correct (baseline alignment), but the method is off-system. Either use 4px (--sp-xs) or solve it with a CSS translate or line-height adjustment.</div>
+          <span class="issue-code">studio.module.css, collection.module.css, work.module.css → .bioLabel, .workshopLabel, .metaLabel, etc.</span>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">min-height: 38px on reading list title</div>
+          <div class="issue-desc">The .readingTitle has <span class="mono">min-height: 38px</span> — an arbitrary pixel value used to prevent text from clipping on short titles. 38px is close to 40px (--sp-xxxl), but not equal. Should use the token or remove the constraint and rely on line-height.</div>
+          <span class="issue-code">studio.module.css → .readingTitle</span>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Store product grid top padding uses a fragile calc</div>
+          <div class="issue-desc"><span class="mono">padding-top: calc(var(--sp-12) + var(--lh-xl) + var(--sp-4))</span> — this complex expression attempts to align the product grid with the filter row by accounting for its line-height and spacing. The intention is correct (visual alignment), but the expression is brittle and depends on the filter label's exact rendering. If the filter changes, this breaks silently.</div>
+          <span class="issue-code">store.module.css → .grid</span>
+        </div>
+      </div>
+      <div class="issue tag-strength">
+        <div class="issue-tag"><span>Strength</span></div>
+        <div class="issue-body">
+          <div class="issue-title">2px structural gaps — a deliberate compositional device</div>
+          <div class="issue-desc">The 2px gaps between service cards, image grid cells, and art work images create a "ruled gap" that gives the compositions a printed-grid quality. These are not spacing violations — they are structural design decisions that produce a visual effect (the gap as rule, not as breathing room). This is correct.</div>
+          <span class="issue-code">studio.module.css, image.module.css, work.module.css</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — COLOR & INTERACTION -->
+  <section class="section" id="color">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Color &amp; Interaction</h2>
+    </div>
+
+    <p class="lede">The color system is the strongest component of the site. Five values, rigorously applied. The warmth of the cream background creates the right atmospheric register without falling into lifestyle-brand territory.</p>
+
+    <p class="body-text">The palette: background (#F6F6F2 cream), text (#111110 near-black), muted (#72726E gray), rule (#DEDED8 light border), placeholder (#3E3C38 dark). This is nearly monochromatic — the Swiss design principle of black, white, and one accent, applied to a warmer register. The cream versus near-black is a more considered pair than pure white on black: it reads as material and warm without softening the structure.</p>
+
+    <div class="findings-grid">
+      <div class="finding">
+        <div class="finding-label">Palette Size</div>
+        <div class="finding-value">5 values</div>
+        <div class="finding-note">Minimum viable and sufficient. No color has been introduced for decoration. Müller-Brockmann would approve.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-label">Hover Model</div>
+        <div class="finding-value">Opacity reduction</div>
+        <div class="finding-note">Consistent: 0.5 for nav/labels, 0.6–0.7 for cards. Opacity hover reads as refinement. 0.15s transition throughout.</div>
+      </div>
+    </div>
+
+    <h3>Issues Found</h3>
+    <div class="issues">
+      <div class="issue tag-violation">
+        <div class="issue-tag"><span>Violation</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Hardcoded rgba() values duplicate the background token</div>
+          <div class="issue-desc"><span class="mono">rgba(246, 246, 242, 0.5)</span> and <span class="mono">rgba(246, 246, 242, 0.3)</span> appear in the lightbox meta and heroBack — these hardcode the background color value instead of referencing <span class="mono">var(--color-bg)</span>. If the background color ever changes, these will drift. Should be implemented with CSS color-mix or a workaround like <span class="mono">color: var(--color-bg); opacity: 0.5</span> on a wrapper.</div>
+          <span class="issue-code">image.module.css → .lightboxMeta, .lightboxCount / collection.module.css → .heroBack</span>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Hardcoded placeholder variation in art work detail</div>
+          <div class="issue-desc">The second image wrap uses <span class="mono">background-color: #b0a89a</span> — a specific warm gray that suggests a second tonal value for the placeholder system. This is intentional (differentiating the two image panels) but the color is not a system token and should be defined as one if it's intended as a permanent pattern.</div>
+          <span class="issue-code">work.module.css → .imageWrap:nth-child(2) .image</span>
+        </div>
+      </div>
+      <div class="issue tag-opportunity">
+        <div class="issue-tag"><span>Opportunity</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Corner-mark CTA: the site's one decorative gesture</div>
+          <div class="issue-desc">The inquiry button in the art work detail uses 8 layered gradients to create growing corner marks on hover. This is the most complex interaction on the site and the only gesture that risks being ornamental rather than functional. The brief says "Restraint over decoration." This deserves a design conversation: is this a signature moment that earns its complexity, or is it the kind of "one-off gesture" the brief warns against? It's well-executed but its presence here, isolated from the rest of the site's simpler hover model, makes it feel imported from a different site.</div>
+          <span class="issue-code">work.module.css → .inquireBtn</span>
+        </div>
+      </div>
+      <div class="issue tag-strength">
+        <div class="issue-tag"><span>Strength</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Nav color states are thoughtfully managed</div>
+          <div class="issue-desc">The three nav color states — .navLight (wordmark goes cream over dark image), .navLinksLight (links go cream over dark panel), .navOpen (overlay dark background) — are correctly implemented and cover the actual visual contexts of each page. This is functional foresight about how the fixed nav will interact with each section's image content.</div>
+          <span class="issue-code">Nav.module.css → .navLight, .navLinksLight, .navOpen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 — PAGE ANALYSIS -->
+  <section class="section" id="pages">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Page Analysis</h2>
+    </div>
+
+    <p class="lede">Each page evaluated for design system adherence, compositional strength, brief alignment, and outstanding issues.</p>
+
+    <!-- HOME -->
+    <div class="page-block">
+      <div class="page-block-header">
+        <span class="page-name">Home</span>
+        <span class="page-route">/</span>
+        <span class="page-grade">A−</span>
+      </div>
+      <p class="page-summary">The clearest expression of the grid as composition. Image (cols 1–4), void (cols 5–8), text (cols 9–12). The void is active, not empty. The column assignment mirrors the nav, creating a top-to-bottom alignment at the right third of the page. This is correct Hofmann thinking.</p>
+      <div class="issues">
+        <div class="issue tag-opportunity">
+          <div class="issue-tag"><span>Opportunity</span></div>
+          <div class="issue-body">
+            <div class="issue-title">The name is undersized for its purpose</div>
+            <div class="issue-desc">The home page has one job: establish identity. Andrew Whited at <span class="mono">clamp(20px, 2.5vw, 36px)</span> in font-weight light is cautious for a name that carries the entire site. At 1440px this renders at approximately 36px. This is the H3 line-height, not the H1 size. The Chipperfield, Jasper Morrison, and Caruso St John sites all lead with the name at a committed, commanding size. The light weight is correct. The size should be larger — anchored to H1 (2.985rem) minimum.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Descriptor at xs size is barely legible at a glance</div>
+            <div class="issue-desc">"Studio, objects, art, and image." at <span class="mono">--text-xs (11.7px)</span> with a <span class="mono">max-width: 160px</span> is the first and only text after the name. At 11.7px the line length will be approximately 20–25 characters — near the lower bound of Bringhurst's acceptable range (45–75). This descriptor is an important orienting statement. At xs size it reads as a caption, not a statement. Consider sm (14px) with wider max-width.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">The void is the design</div>
+            <div class="issue-desc">Cols 5–8 are intentionally empty and the code comment says so. This is a rare and correct decision — most designers fill every column. The void here creates breath, forces the eye to find the text, and creates a compositional tension. This should not be changed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDIO -->
+    <div class="page-block">
+      <div class="page-block-header">
+        <span class="page-name">Studio</span>
+        <span class="page-route">/studio</span>
+        <span class="page-grade">B+</span>
+      </div>
+      <p class="page-summary">The richest and most complex page. Eight sections — Hero, Bio, Workshop, Services, Reading, Listening, Contact. The reading list is the most distinctive content element on the site. The services section is the most generic. The contact section is unfinished.</p>
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Reading list — the site's best content idea</div>
+            <div class="issue-desc">The "Required Reading" section — 12 items (books, films, essays) in a tabular list with floating hover thumbnails — establishes cultural voice without text-heavy biography. The structure (title, author, type, note) is rigorous. The floating thumbnails appearing on hover is a delightful micro-interaction that fits the reading experience. This is the page's high point.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Contact section is visually incomplete</div>
+            <div class="issue-desc">The contact section uses <span class="mono">grid-column: 1 / 7</span>, leaving cols 7–12 empty. With no right-side content this reads as a half-finished layout — not as intentional negative space. Either add content (secondary contact, physical address, exhibition schedule) to the right, or redesign as full-width.</div>
+            <span class="issue-code">studio.module.css → .contactInner</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hero heading is very small for the opening statement</div>
+            <div class="issue-desc">The studio hero heading uses <span class="mono">clamp(15px, 1.5vw, 20px)</span> — at 1440px this renders at 21.6px (between H6 and H5). The text in this position introduces the entire practice. At 20px it reads as body text, not as an editorial statement. Consider anchoring to H4 (1.728rem = 24px) or H3 (2.074rem = 29px) at maximum, with the light weight preserved.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Services section uses generic card layout</div>
+            <div class="issue-desc">The four service cards — Custom Furniture, Spatial Installation, Material Consulting, Small-Batch Production — are presented in a 4-column card grid with 16/9 placeholder images and body text. This is the most "template" feeling section on the site. The brief warns against "startup portfolio" styling. The services section currently reads closest to one. Consider a different presentation: a list format, or a statement-led section, rather than icon-card grid.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTS -->
+    <div class="page-block">
+      <div class="page-block-header">
+        <span class="page-name">Objects</span>
+        <span class="page-route">/objects</span>
+        <span class="page-grade">A−</span>
+      </div>
+      <p class="page-summary">The split-panel layout with a sticky left panel and scrollable entry list is correctly conceived for an editorial discovery layer. The hover background image effect is the site's most distinctive interaction.</p>
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hover background images — the site's most distinctive interaction</div>
+            <div class="issue-desc">Clicking/hovering a collection row fades in a masked background image of the collection — centered, softened at edges with a linear gradient mask. This is image-led behavior: the work appears at the moment of interest, not preemptively. This is the Apparatus Studio approach: reveal work through interaction rather than displaying it statically. This should be developed and refined, not simplified away.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">38vh push creates positional unpredictability</div>
+            <div class="issue-desc">The sticky left panel uses <span class="mono">padding-top: 38vh</span> to float the title text in the lower third of the viewport. The intent — creating negative space above the text — is correct. But at a 500px viewport (some tablets in landscape) this is 190px; at 1200px it is 456px. Consider a fixed value (<span class="mono">--sp-20: 160px</span> or similar) that achieves similar spatial effect without viewport-dependency.</div>
+          </div>
+        </div>
+        <div class="issue tag-opportunity">
+          <div class="issue-tag"><span>Opportunity</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Entry typography could be stronger</div>
+            <div class="issue-desc">The entry title at <span class="mono">clamp(18px, 2vw, 24px)</span> is reasonable but conservative. For a list that represents the primary editorial content of the Objects section, these titles could carry more weight — not in the CSS weight property, but in size. At 24px maximum they are H4 level. Consider H3 (29px) or H2 (35px) as maximum, letting the title be genuinely bold against the smaller descriptor text.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ART -->
+    <div class="page-block">
+      <div class="page-block-header">
+        <span class="page-name">Art</span>
+        <span class="page-route">/art</span>
+        <span class="page-grade">A−</span>
+      </div>
+      <p class="page-summary">The horizontal scroll works strip is the most formally ambitious layout on the site. The 50/50 viewport split, image cards at 50svh height, and the scrollable gallery format treat the browser as a display case. This is the right approach for artwork.</p>
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Horizontal scroll as format-conscious design</div>
+            <div class="issue-desc">Card widths derived from <span class="mono">calc(50svh * 6/7)</span> maintain the 6:7 aspect ratio regardless of viewport height. Images are exactly 50svh — pinned to the viewport midpoint. This is not a workaround for overflow; it's a conscious treatment of the page as a horizontal gallery. Crouwel's principle: accept the format constraint and design within it.</div>
+          </div>
+        </div>
+        <div class="issue tag-opportunity">
+          <div class="issue-tag"><span>Opportunity</span></div>
+          <div class="issue-body">
+            <div class="issue-title">The stage void needs to earn its space</div>
+            <div class="issue-desc">The top half of the Art page is entirely empty except for a small label and intro text in cols 9–12. This is the largest void on any page. With placeholder content it reads as blank. With a strong artwork image or a compelling typographic moment in the void, it would read as powerful. The design is set up for something; it doesn't yet deliver it. Consider whether the stage void should do more work — perhaps showing a featured work, or using a large typographic element to fill the compositional weight.</div>
+          </div>
+        </div>
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">0.01em tracking and 3px gap are off-system</div>
+            <div class="issue-desc"><span class="mono">letter-spacing: 0.01em</span> on .workDetail is not a defined tracking token. The system has <span class="mono">--tracking-wide: 0.06em</span> and <span class="mono">--tracking-wider: 0.1em</span>. 0.01em is essentially no tracking; use 0 or use a token. The <span class="mono">gap: 3px</span> in .workText should be 4px.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGE -->
+    <div class="page-block">
+      <div class="page-block-header">
+        <span class="page-name">Image</span>
+        <span class="page-route">/image</span>
+        <span class="page-grade">A−</span>
+      </div>
+      <p class="page-summary">Clean and correctly designed. The 4-col grid with 2px gaps creates a precise contact-sheet quality appropriate for photography. The lightbox is well-engineered. The header correctly mirrors the Art page's right-pinned label convention.</p>
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Lightbox is correctly built</div>
+            <div class="issue-desc">The visibility+opacity transition pattern, keyboard navigation (Escape, arrow keys), the 56px bar with set metadata — location, year, counter — and the clean close button are all correctly implemented. The lightbox stays within its photo set scope. This is functional and restrained.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">6:7 aspect ratio will crop landscape photography</div>
+            <div class="issue-desc">All grid cells use <span class="mono">aspect-ratio: 6/7</span> — portrait. If the photography includes significant landscape-oriented images, these will be cropped. Consider whether a 1:1 grid or mixed ratios might serve the actual photography better, or confirm that all image work is portrait-dominant.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORE -->
+    <div class="page-block">
+      <div class="page-block-header">
+        <span class="page-name">Store</span>
+        <span class="page-route">/store</span>
+        <span class="page-grade">B+</span>
+      </div>
+      <p class="page-summary">The store handles functional complexity — filtering, state management, empty states — without compromising the editorial aesthetic. The left-panel filter / right-panel grid structure correctly mirrors Objects, creating continuity between the discovery and transaction layers.</p>
+      <div class="issues">
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Filter label weight breaks the label convention</div>
+            <div class="issue-desc"><span class="mono">.filterLabel</span> uses <span class="mono">font-weight: var(--font-light)</span> — the only label in the system using light weight instead of medium. All other labels (section headers, metadata, tags) use medium weight. This creates an inconsistency in the filter UI that reads as unfinished.</div>
+            <span class="issue-code">store.module.css → .filterLabel</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">No product detail page template visible in codebase</div>
+            <div class="issue-desc">The Store landing and product grid are complete, but no <span class="mono">/store/[slug]</span> page template exists in the visible file structure. The build brief places Product Detail in Phase 3 ("after editorial system feels correct"). Given the Store is functionally in place, the detail page is now the critical gap for Phase 3 completion.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Filter active state indicator is well-designed</div>
+            <div class="issue-desc">The <span class="mono">::after</span> dot indicator on active filter buttons uses <span class="mono">12px circular filled dot, background-color: currentColor</span>. It's clear, small, and non-decorative. This is the correct approach for an active state — signal without noise.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="page-block">
+      <div class="page-block-header">
+        <span class="page-name">Navigation</span>
+        <span class="page-route">Components/Nav</span>
+        <span class="page-grade">A</span>
+      </div>
+      <p class="page-summary">The navigation is one of the site's strongest design decisions. It participates in the 12-column grid at the exact column positions as page content, creating continuous key lines. The mobile overlay with large display type is bold and correct.</p>
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Grid-integrated navigation</div>
+            <div class="issue-desc">Wordmark at cols 1–2, links at cols 9–12. This is identical to the content column assignments on every page. The vertical key lines created by the grid extend from nav through every section. This is what Crouwel's Stedelijk system did: consistent alignment across all formats. This decision is architecturally correct and should be preserved absolutely.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Mobile overlay — bold and appropriate</div>
+            <div class="issue-desc">The full-screen dark overlay with large display type links is a strong contrast to the site's otherwise small type. The bottom-alignment, large tracking, and border separators make this the most typographically dramatic moment on mobile. This is correct: mobile navigation should command the full screen rather than hiding in a tiny drawer.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Overlay link clamp endpoints off-scale</div>
+            <div class="issue-desc"><span class="mono">clamp(32px, 9vw, 56px)</span> for overlay links — neither 32px nor 56px is a type scale step. At 9vw on a 375px phone this is 33.75px ≈ H2 territory, which is fine. But the anchoring should reference the scale. H2 (34.8px) to a display value (56px ≈ --text-display max) would be cleaner.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 08 — MARKET & INSPIRATION -->
+  <section class="section" id="inspiration">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">Market &amp; Inspiration</h2>
+    </div>
+
+    <p class="lede">The design philosophy is correctly oriented relative to the competitive field. The influences named in the brief are legible in the work. The site is not there yet, but the vector is right.</p>
+
+    <h3>Competitive Landscape</h3>
+    <p class="body-text">The market for this site sits at the intersection of boutique furniture, art practice, and editorial photography — a specific intersection that is not well-served by most portfolio platforms. The closest parallels are studios that operate at the gallery-design boundary: Apparatus Studio, Muller Van Severen, Rick Owens furniture (represented through Salon 94 Design and Carpenters Workshop Gallery), and design-literate architects like Caruso St John and 6a.</p>
+
+    <table class="market-table">
+      <thead>
+        <tr>
+          <th>Reference</th>
+          <th>What They Do Well</th>
+          <th>Lesson for This Site</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Apparatus Studio</td>
+          <td>Site IS the editorial voice. Atmospheric photography, restrained type, gallery-not-store feeling. Commerce present but not dominant.</td>
+          <td>The site should feel like an authored object, not a display platform. Currently correct in structure; needs photography to fulfill it.</td>
+        </tr>
+        <tr>
+          <td>Jasper Morrison</td>
+          <td>"Super Normal" philosophy. The UI disappears; the object is the interface. Typology-organized, store integrated without commerce dominating.</td>
+          <td>Most directly relevant comparison. Morrison's site is less complex in structure (one practice type) but the same restraint principle applies.</td>
+        </tr>
+        <tr>
+          <td>Muller Van Severen</td>
+          <td>Extreme restraint. Photographs of pieces in natural light. Almost no copy. Flat list navigation. The work looks deceptively simple — the site mirrors it.</td>
+          <td>When the design is stripped down, material quality and form carry everything. Confirms the palette and typographic restraint as correct.</td>
+        </tr>
+        <tr>
+          <td>David Chipperfield</td>
+          <td>Custom typeface carries entire brand load. White on white on white. Identity through absence. "Simple, Ordinary, Complex" — three words do the positioning.</td>
+          <td>Invest in the typeface. Aktiv Grotesk is a good choice. Use it with enough conviction that the type itself carries identity.</td>
+        </tr>
+        <tr>
+          <td>Caruso St John</td>
+          <td>Text-led at times, image-led at others. Restrained site mirrors restrained practice. Strong typographic hierarchy.</td>
+          <td>The reading list section on Studio is already doing this — cultural references doing character work. Develop this approach.</td>
+        </tr>
+        <tr>
+          <td>Formafantasma</td>
+          <td>Research-led practice; site carries essay-level rigor. Typography controlled enough that long text doesn't feel dense.</td>
+          <td>For Objects collection pages, the editorial sections should be developed with this level of care — proper text hierarchy, correct measure, deliberate pacing.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Crouwel and Hofmann — Alignment Assessment</h3>
+    <p class="body-text">The site correctly reflects several principles from both designers. Grid discipline, spare palette, sans-serif type, structural use of negative space. The Art horizontal scroll is the closest thing to a Crouwel-level compositional argument: it accepts the browser format as a constraint and designs within it, producing something that could not exist in print.</p>
+    <p class="body-text">Where the site doesn't yet reach the level of the references: neither Crouwel nor Hofmann produced work that was merely correct. Their work creates visual tension — dramatic scale contrast, strong figure/ground relationships, compositional arguments. The site is ordered and disciplined but not yet tense. There is no moment of the Hofmann theater poster: large type at a scale that commands, against an image that pushes back.</p>
+
+    <div class="pullquote">
+      "The grid system is an aid, not a guarantee. It enables a number of possible uses and each designer can look for a solution appropriate to his personal style. But one must learn how to use the grid; it is an art that requires practice."
+      <cite>— Josef Müller-Brockmann, Grid Systems in Graphic Design</cite>
+    </div>
+
+    <h3>Where the Site Can Push</h3>
+    <div class="issues">
+      <div class="issue tag-opportunity">
+        <div class="issue-tag"><span>Opportunity</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Scale contrast — the missing dramatic element</div>
+          <div class="issue-desc">The type sizes are modest and consistent across the site. The largest settled type on any page is approximately 24–29px. The largest display type (collection hero) reaches 64px but only through clamp. No section makes a bold typographic statement at large scale. Consider one section where type is the composition — a full-width statement heading at H1 or display size, perhaps on the Studio hero or the Objects left panel, that creates genuine scale contrast against the small body type below it.</div>
+        </div>
+      </div>
+      <div class="issue tag-opportunity">
+        <div class="issue-tag"><span>Opportunity</span></div>
+        <div class="issue-body">
+          <div class="issue-title">Type lockups — there are none yet</div>
+          <div class="issue-desc">A type lockup is a designed typographic composition — name + discipline + location, or a statement set with intentional visual relationships between size, weight, and spacing. The home page has the elements for a lockup (name + descriptor) but doesn't commit to the composition. The Studio hero has the opportunity. The best editorial sites have at least one moment where the type is a designed object, not just a label. This doesn't exist yet.</div>
+        </div>
+      </div>
+      <div class="issue tag-opportunity">
+        <div class="issue-tag"><span>Opportunity</span></div>
+        <div class="issue-body">
+          <div class="issue-title">The Collection pages are the closest to editorial ambition — develop them</div>
+          <div class="issue-desc">The Collection detail pages — with 70svh full-bleed hero, overlaid title, intro text, labeled sections, references — are the closest the site gets to the editorial catalog mode that distinguishes the best boutique furniture presentation. This template deserves the most photographic and copywriting investment. When a collection has great photography and precise text, this page format will deliver.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 — INTENTION VS EXECUTION -->
+  <section class="section" id="intention">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2 class="section-title">Intention vs. Execution</h2>
+    </div>
+
+    <p class="lede">The brief is unusually good. It is specific, self-aware, and anti-generic. Most of it is being honored. A few principles are being honored in structure but not yet in practice.</p>
+
+    <h3>What the Brief Says — What the Site Does</h3>
+
+    <div class="issues">
+      <div class="issue tag-strength">
+        <div class="issue-tag"><span>Strength</span></div>
+        <div class="issue-body">
+          <div class="issue-title">"Editorial over corporate" — Being honored</div>
+          <div class="issue-desc">The layouts do not read as templates. The Objects hover effect, the Art horizontal scroll, the Collection hero — these feel authored. The site does not look like Squarespace.</div>
+        </div>
+      </div>
+      <div class="issue tag-strength">
+        <div class="issue-tag"><span>Strength</span></div>
+        <div class="issue-body">
+          <div class="issue-title">"Restraint over decoration" — Being honored</div>
+          <div class="issue-desc">There is one exception (corner-mark CTA) but the site is otherwise clean. No gradients, no shadows, no illustration, no icon libraries. The restraint is genuine.</div>
+        </div>
+      </div>
+      <div class="issue tag-strength">
+        <div class="issue-tag"><span>Strength</span></div>
+        <div class="issue-body">
+          <div class="issue-title">"Distinct modes within one system" — Being honored</div>
+          <div class="issue-desc">Home (hero split), Studio (long-form), Objects (list), Art (scroll gallery), Image (grid), Store (filter+grid) — each is visually distinct while sharing the same type, spacing, color, and grid vocabulary. This is the site's strongest achievement.</div>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">"Typography as architecture" — Partially honored</div>
+          <div class="issue-desc">The grid uses type correctly as structure. But with 13 type styles, the typographic architecture is not as clear as it should be. Architecture has few materials, used with precision and intention. When the type system is tightened to 8–9 styles, the remaining styles will carry more weight and meaning.</div>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">"Image-led experience" — Structurally honored, atmospherically pending</div>
+          <div class="issue-desc">Every layout prioritizes image in scale and placement. The bleeds, the horizontal scroll, the 70svh collection hero — these are image-led decisions. But there are no images. The atmosphere the brief describes ("warmth should come from the work itself") cannot be assessed until photography exists. This is the site's most significant open question. All placeholder panels should be replaced with actual work as early as possible.</div>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">"Negative space should be active and meaningful" — Mostly honored, one exception</div>
+          <div class="issue-desc">The home void is active. The Art stage void is motivated. But the Objects left panel's 38vh push creates negative space above the text that feels positional rather than compositional. Active negative space creates tension; positional emptiness is just a gap. The 38vh value should be reconsidered as a compositional decision, not a layout trick.</div>
+        </div>
+      </div>
+      <div class="issue tag-warning">
+        <div class="issue-tag"><span>Warning</span></div>
+        <div class="issue-body">
+          <div class="issue-title">"Commerce without dilution" — Structurally correct, functionally incomplete</div>
+          <div class="issue-desc">The Store doesn't feel like Amazon. The editorial hierarchy is maintained. But without product detail pages, the store is currently a filtered gallery that leads nowhere. The store must complete Phase 3 (product detail template) before this principle can be fully honored.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 — RECOMMENDATIONS -->
+  <section class="section" id="recommendations">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2 class="section-title">Recommendations</h2>
+    </div>
+
+    <p class="lede">Twenty specific recommendations, prioritized. Critical items are blockers for launch. High items weaken the site if unresolved. Medium items affect coherence. Low items are polish.</p>
+
+    <h3>Critical — Pre-Launch Blockers</h3>
+    <div class="rec-list">
+      <div class="rec">
+        <div class="rec-num">1</div>
+        <div class="rec-body">
+          <div class="rec-title">Replace all placeholder panels with real photography</div>
+          <div class="rec-desc">Every page is currently a framework without content. Photography is not decoration — it is the atmospheric vehicle the entire brief depends on. The editorial warmth, material specificity, and compositional pacing described in the brief cannot be evaluated or delivered without it. This is not a design refinement; it is the site's primary function.</div>
+          <span class="rec-priority priority-critical">Critical</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">2</div>
+        <div class="rec-body">
+          <div class="rec-title">Build the product detail page template</div>
+          <div class="rec-desc">No <span class="mono">/store/[slug]</span> page exists. The store grid links to nowhere. Before the store functions as a commercial layer, the product detail template — images, dimensions, materials, price, availability, purchase action — must exist. This is Phase 3 of the build brief and is currently the most significant structural gap.</div>
+          <span class="rec-priority priority-critical">Critical</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>High — Will Weaken the Site at Launch</h3>
+    <div class="rec-list">
+      <div class="rec">
+        <div class="rec-num">3</div>
+        <div class="rec-body">
+          <div class="rec-title">Increase the home page name size</div>
+          <div class="rec-desc">Change <span class="mono">clamp(20px, 2.5vw, 36px)</span> to anchor at H1 minimum (<span class="mono">2.985rem = 41.8px</span>) or use the display size (<span class="mono">--text-display: clamp(2.985rem, 5vw, 4.5rem)</span>). The name is the primary identity marker. It should be a presence, not a label. Light weight is correct; size must be larger.</div>
+          <span class="rec-priority priority-high">High</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">4</div>
+        <div class="rec-body">
+          <div class="rec-title">Reduce type styles from 13 to 8–9</div>
+          <div class="rec-desc">Consolidate: (1) Merge bio name, contact heading, and section titles — all are xl/light/−0.02em, they are the same style. (2) Resolve italic use: either make italic a semantic choice for book/film/essay titles across the site, or remove it from the reading list. (3) Remove the light italic listening heading — it has no system analog. (4) Fix service titles to use regular weight instead of medium. (5) Remove the 0.01em tracking from work detail.</div>
+          <span class="rec-priority priority-high">High</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">5</div>
+        <div class="rec-body">
+          <div class="rec-title">Anchor all clamp() ranges to type scale steps</div>
+          <div class="rec-desc">Review all six clamp() uses. Re-anchor min and max values to defined scale steps: xs (11.7px), sm (14px), lg (16.8px), xl (20px), 2xl (24px), 3xl (29px), 4xl (35px), H1 (41.8px), display (up to 63px). The collection hero title and mobile nav overlay are the most visible violations.</div>
+          <span class="rec-priority priority-high">High</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">6</div>
+        <div class="rec-body">
+          <div class="rec-title">Fix all off-system spacing values</div>
+          <div class="rec-desc">The eight violations: <span class="mono">padding: 10px 0</span> → 12px; <span class="mono">gap: 3px</span> (×2) → 4px; <span class="mono">padding-top: 3px</span> (labels, ×4) → 4px or remove; <span class="mono">min-height: 38px</span> → 40px or remove; <span class="mono">margin-bottom: 4px</span> in readingHeading → use var(--sp-xs). These are individually minor but cumulatively they signal an unfinished system.</div>
+          <span class="rec-priority priority-high">High</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">7</div>
+        <div class="rec-body">
+          <div class="rec-title">Fix hardcoded rgba() colors in lightbox and heroBack</div>
+          <div class="rec-desc">Replace <span class="mono">rgba(246, 246, 242, 0.5)</span> and <span class="mono">rgba(246, 246, 242, 0.3)</span> with token-referenced values. CSS doesn't currently support <span class="mono">color-mix(in srgb, var(--color-bg) 50%, transparent)</span> universally, but a wrapper approach with opacity or defining explicit derived tokens works. This is a color system integrity issue.</div>
+          <span class="rec-priority priority-high">High</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Medium — Coherence Improvements</h3>
+    <div class="rec-list">
+      <div class="rec">
+        <div class="rec-num">8</div>
+        <div class="rec-body">
+          <div class="rec-title">Resolve the Objects left panel positioning</div>
+          <div class="rec-desc">Replace <span class="mono">padding-top: 38vh</span> with a fixed token. The compositional intent (text in lower half) is correct; the method is unpredictable. Use <span class="mono">--sp-16 (128px)</span> or <span class="mono">--sp-20 (160px)</span> which achieves a similar lower-third effect without viewport dependency.</div>
+          <span class="rec-priority priority-medium">Medium</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">9</div>
+        <div class="rec-body">
+          <div class="rec-title">Complete the Studio contact section</div>
+          <div class="rec-desc">The right half of the contact grid is empty. Add content or redesign as full-width. Options: physical workshop location and visiting hours (cols 7–9), press/exhibition inquiries (cols 10–12), or a small pulled quote/statement. The half-column empty space reads as incomplete rather than minimal.</div>
+          <span class="rec-priority priority-medium">Medium</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">10</div>
+        <div class="rec-body">
+          <div class="rec-title">Fix filter label weight to medium</div>
+          <div class="rec-desc">The only label in the system using light weight instead of medium. Change <span class="mono">.filterLabel font-weight</span> to <span class="mono">var(--font-medium)</span>. One-line fix, important for consistency.</div>
+          <span class="rec-priority priority-medium">Medium</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">11</div>
+        <div class="rec-body">
+          <div class="rec-title">Reconsider the Services section layout</div>
+          <div class="rec-desc">The four-card icon grid reads as the most template-like section on the site. Consider a list format (similar to the reading list), or a statement-led format where each service is one line with a brief descriptor — no image placeholders. The services are text-definable; they don't require images.</div>
+          <span class="rec-priority priority-medium">Medium</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">12</div>
+        <div class="rec-body">
+          <div class="rec-title">Resolve the store grid padding-top fragility</div>
+          <div class="rec-desc">The <span class="mono">calc(var(--sp-12) + var(--lh-xl) + var(--sp-4))</span> calculation is brittle. Consider either aligning the product grid through a simpler fixed padding, or using CSS grid row alignment on the parent to align grid and filter rows without manual calculation.</div>
+          <span class="rec-priority priority-medium">Medium</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">13</div>
+        <div class="rec-body">
+          <div class="rec-title">Define image aspect ratio policy</div>
+          <div class="rec-desc">The Image grid uses 6:7 (portrait). Product cards use 3:4 (portrait). Preview cards in Collections use 3:4. Art work images have no enforced aspect ratio. The lightbox maintains 6:7. Confirm all photography is portrait-dominant, or introduce a policy that handles landscape images (object-fit: cover with intentional cropping, or a mixed-ratio grid system).</div>
+          <span class="rec-priority priority-medium">Medium</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Low — Polish and Ambition</h3>
+    <div class="rec-list">
+      <div class="rec">
+        <div class="rec-num">14</div>
+        <div class="rec-body">
+          <div class="rec-title">Design one bold typographic moment</div>
+          <div class="rec-desc">The site needs one section where type is a composition, not a label. Consider: the Studio hero heading at H2 or H3 (29–35px), set with intention — a statement about the practice that earns the scale. Or the home page descriptor at a size that creates tension with the name above it. Type at scale costs nothing; used deliberately it creates the kind of visual argument the brief references.</div>
+          <span class="rec-priority priority-low">Low</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">15</div>
+        <div class="rec-body">
+          <div class="rec-title">Evaluate the corner-mark CTA against the restraint principle</div>
+          <div class="rec-desc">The inquiry button's 8-gradient corner-mark hover effect is well-executed but isolated from the rest of the site's interaction vocabulary. Decide: is this a signature moment for the Art section (in which case, develop it as a system — use similar treatment elsewhere), or is it an outlier (in which case, simplify to the site's standard opacity-hover or underline treatment)?</div>
+          <span class="rec-priority priority-low">Low</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">16</div>
+        <div class="rec-body">
+          <div class="rec-title">Resolve the Image header min-height</div>
+          <div class="rec-desc">Replace <span class="mono">min-height: 40vh</span> with a fixed extended spacing token. <span class="mono">--sp-20 (160px)</span> or <span class="mono">--sp-16 (128px)</span> creates a similar negative space effect without viewport dependency.</div>
+          <span class="rec-priority priority-low">Low</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">17</div>
+        <div class="rec-body">
+          <div class="rec-title">Complete the UX subdomain</div>
+          <div class="rec-desc">The UX site (separate subdomain, one-page with sections, hiring-focused) appears to be in early or stub state. The UX nav is built but section implementation appears incomplete. This is separate from the main site's concerns but should be tracked on its own timeline.</div>
+          <span class="rec-priority priority-low">Low</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">18</div>
+        <div class="rec-body">
+          <div class="rec-title">Make italic a semantic system choice</div>
+          <div class="rec-desc">Italic appears only in Studio (reading list titles, listening heading). Either: (a) establish italic as the semantic treatment for book/film/essay titles throughout the site — this would make sense and be consistent with typographic convention — or (b) remove italic and use regular weight. Currently it appears as a contextual style rather than a system choice.</div>
+          <span class="rec-priority priority-low">Low</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">19</div>
+        <div class="rec-body">
+          <div class="rec-title">Develop the Collection page as the editorial showcase</div>
+          <div class="rec-desc">The Collection detail template is the site's richest editorial format. With strong photography, precise copy, and the companion (hit list + playlist) section filled in, this page is where the site's cultural voice can be most fully expressed. Invest in this page first when real content becomes available.</div>
+          <span class="rec-priority priority-low">Low</span>
+        </div>
+      </div>
+      <div class="rec">
+        <div class="rec-num">20</div>
+        <div class="rec-body">
+          <div class="rec-title">Consider one asymmetric layout exception</div>
+          <div class="rec-desc">The grid is consistent across all pages, which is correct. But Crouwel and Hofmann's work creates tension within the grid. Consider whether one section — perhaps the Art stage, or a collection hero — can use the grid to create a more unexpected proportion: a full-width text element that spans more than 4 columns, or an image placed in an unusual column relationship. The system supports this. The opportunity hasn't been taken.</div>
+          <span class="rec-priority priority-low">Low</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 11 — VERDICT -->
+  <section class="verdict" id="verdict">
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2 class="section-title">Verdict</h2>
+    </div>
+
+    <p class="lede">B+. A disciplined, intelligent, system-driven site that is not yet finished — and whose strongest qualities are structural rather than atmospheric. The system is correct. The ambition is present. The voice is not yet audible.</p>
+
+    <div class="verdict-grid">
+      <div class="verdict-cell">
+        <div class="verdict-cell-title">Strengths</div>
+        <ul>
+          <li>Grid discipline is exemplary — consistent column assignments across all 7 pages and navigation create continuous key lines throughout the site</li>
+          <li>Color palette is correct and rigorously applied — 5 values, zero decorative use, nothing introduced for style</li>
+          <li>Section differentiation without disconnection — each page has a distinct mode while sharing the same typographic and spatial vocabulary</li>
+          <li>Art horizontal scroll — the site's formally most ambitious decision, using format constraint as compositional material</li>
+          <li>Objects hover background effect — the most distinctive interaction, image-led and editorial in character</li>
+          <li>Navigation participates in the grid — one of the most disciplined structural decisions in the codebase</li>
+          <li>Reading list — the site's best content idea and strongest cultural voice moment</li>
+          <li>Mobile overlay navigation — bold and appropriate, full-screen with large display type</li>
+          <li>Token system is comprehensive — the brief's "no arbitrary values" standard is mostly met</li>
+          <li>The brief is excellent — self-aware, specific, well-referenced, anti-generic</li>
+        </ul>
+      </div>
+      <div class="verdict-cell">
+        <div class="verdict-cell-title">Weaknesses</div>
+        <ul>
+          <li>13 type styles is too many — the typographic architecture is diluted; 8–9 would make the remaining styles carry more weight and meaning</li>
+          <li>Home page name is undersized — the site's primary identity moment is cautious when it should be committed</li>
+          <li>No real photography — the site cannot communicate warmth, material specificity, or editorial atmosphere without it; this is not a code problem but it is the largest risk</li>
+          <li>Compositionally conservative — correct and clean but not yet bold; no moment makes a strong visual argument the way the cited references do</li>
+          <li>Eight spacing violations break the 4px system the brief explicitly mandates</li>
+          <li>clamp() ranges escape the type scale at key moments</li>
+          <li>Services section reads as generic card grid — closest thing on the site to "startup portfolio"</li>
+          <li>Product detail page missing — Phase 3 commerce layer is structurally incomplete</li>
+          <li>Contact section unfinished — empty right half</li>
+          <li>No type lockup anywhere — no moment where type is a designed composition, not just a label</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="verdict-final">
+      <div class="verdict-score">B+</div>
+      <div class="verdict-statement">The architecture is right. The vocabulary is right. The system mostly holds. What it needs now is commitment — bolder type, real images, and the willingness to push the grid to make an argument, not just an order.</div>
+      <p class="verdict-close">This is a strong foundation for a genuinely distinctive site at the intersection of object design, art practice, and editorial photography. The brief describes something specific and rare: "editorial, not corporate — refined, not cliché-luxury — minimal, but not empty." That is exactly what the site could be. It is not yet there. But the structure that would support it is almost entirely in place. The remaining work is less construction than it is finishing — and a few bold design decisions that are currently being left on the table.</p>
+    </div>
+  </section>
+
+</div><!-- /report -->
+
+<script>
+/* Active state for sidebar TOC */
+const sections = document.querySelectorAll('.section, .verdict, .cover');
+const links = document.querySelectorAll('.sidebar-toc a');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      links.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + entry.target.id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

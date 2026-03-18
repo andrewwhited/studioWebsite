@@ -30,7 +30,7 @@
   flex-direction: column;
   gap: var(--sp-10);
   padding-top: var(--sp-12);
-  padding-right: var(--sp-6);
+  padding-right: var(--sp-section);
   padding-bottom: var(--sp-16);
 }
 
@@ -41,7 +41,7 @@
 .leftText {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-4);
+  gap: var(--sp-xxl);
 }
 
 .title {
@@ -63,7 +63,7 @@
 .filters {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-5);
+  gap: var(--sp-xxxl);
 }
 
 .filterRow {
@@ -73,10 +73,10 @@
 
 .filterLabel {
   font-size: var(--text-sm);
-  font-weight: var(--font-light);
+  font-weight: var(--font-medium);
   letter-spacing: -0.01em;
   color: var(--color-text);
-  padding: var(--sp-2) 0;
+  padding: var(--sp-lg) 0;
 }
 
 .filterOptions {
@@ -97,7 +97,7 @@
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
   color: var(--color-muted);
-  padding: var(--sp-2) 0;
+  padding: var(--sp-lg) 0;
   transition: color 0.15s;
   line-height: var(--lh-xs);
   width: 100%;
@@ -121,7 +121,7 @@
   border-radius: 50%;
   background-color: currentColor;
   margin-left: auto;
-  margin-right: var(--sp-2);
+  margin-right: var(--sp-lg);
   flex-shrink: 0;
 }
 
@@ -132,7 +132,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--sp-section) var(--col-gap);
-  padding-top: calc(var(--sp-12) + var(--lh-xl) + var(--sp-4));
+  padding-top: var(--sp-12);
 }
 
 .empty {
@@ -171,7 +171,7 @@
 .productInfo {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: var(--sp-xs);
 }
 
 .productTitle {
@@ -219,7 +219,7 @@
 @media (max-width: 672px) {
   .main {
     display: block;
-    padding: calc(var(--nav-h) + var(--sp-8)) var(--gutter) var(--sp-16);
+    padding: calc(var(--nav-h) + var(--sp-large-section)) var(--gutter) var(--sp-16);
   }
 
   .left {
@@ -231,6 +231,6 @@
 
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-8) var(--col-gap);
+    gap: var(--sp-large-section) var(--col-gap);
   }
 }
