@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { products, productTypes, collectionNames } from '@/data/store'
 import styles from './store.module.css'
 
@@ -67,7 +68,7 @@ export default function StorePage() {
         ) : (
           filtered.map((product) => (
             <li key={product.slug}>
-              <div className={styles.product}>
+              <Link href={`/store/${product.slug}`} className={styles.product}>
                 <div
                   className={`${styles.productImage} ${product.status === 'sold_out' ? styles.soldOut : ''}`}
                 />
@@ -82,7 +83,7 @@ export default function StorePage() {
                     <span className={styles.productSoldOut}>Sold out</span>
                   )}
                 </div>
-              </div>
+              </Link>
             </li>
           ))
         )}

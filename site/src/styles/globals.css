@@ -51,8 +51,10 @@
   --leading-base:  1.65;
 
   /* Tracking */
-  --tracking-wide:  0.06em;
-  --tracking-wider: 0.1em;
+  --tracking-tight:   -0.02em;
+  --tracking-tighter: -0.03em;
+  --tracking-wide:    0.06em;
+  --tracking-wider:   0.1em;
 
   /* Spacing — 4px base unit */
   --sp-xs:            4px;

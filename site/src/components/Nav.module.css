@@ -147,7 +147,7 @@
 .overlayLink {
   font-size: clamp(var(--text-4xl), 8vw, var(--text-display)); /* H2 → display, anchored to scale */
   font-weight: var(--font-light);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tighter);
   line-height: var(--lh-5xl); /* 48px — closest fixed token for large display type */
   color: var(--color-bg);
   display: block;

@@ -54,7 +54,7 @@
 .heroName {
   font-size: var(--text-hero);
   font-weight: var(--font-light);
-  letter-spacing: -0.025em;
+  letter-spacing: var(--tracking-tighter);
   line-height: var(--leading-tight);
   color: var(--color-text);
   margin-bottom: var(--sp-xxxl);

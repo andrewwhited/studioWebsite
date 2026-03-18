@@ -1,9 +1,11 @@
 /* ─────────────────────────────────────────────────────
-   Work page — canonical artwork detail.
+   Product detail — 12-col grid. Catalogue register.
 
-   Two-column split: images left (~60%), details right.
-   On mobile: images on top, details below.
-   Nav floats over the page; padding-top clears it.
+   Images left (cols 1–7), bleed to left edge.
+   Details right (cols 9–12), sticky.
+   One gap column (8) between panels.
+   Right panel: systematic meta table throughout —
+   every field is data, nothing is decorated.
 ───────────────────────────────────────────────────── */
 
 .main {
@@ -13,8 +15,6 @@
 
 /* ─── Two-column layout ──────────────────────────────── */
 
-/* 12-col grid — same system as nav, so details col 9
-   shares the exact left keyline as the nav links.       */
 .layout {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -23,7 +23,7 @@
   min-height: calc(100svh - var(--nav-h));
 }
 
-/* ─── Left — images cols 1–8, bleeds to left edge ──── */
+/* ─── Images — cols 1–7, bleed to left edge ─────────── */
 
 .images {
   grid-column: 1 / 8;
@@ -42,15 +42,16 @@
 .image {
   width: 100%;
   height: 100%;
-  min-height: 400px;
+  min-height: 480px;
   background-color: var(--color-placeholder);
 }
 
-.imageWrap:nth-child(2) .image {
-  background-color: var(--color-placeholder);
+/* Secondary images — 1px gap, smaller proportion */
+.imageWrap:not(:first-child) .image {
+  min-height: 320px;
 }
 
-/* ─── Right — details cols 9–12 ─────────────────────── */
+/* ─── Details — cols 9–12, sticky ───────────────────── */
 
 .details {
   grid-column: 9 / 13;
@@ -66,8 +67,13 @@
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  scrollbar-width: none;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 80px);
   mask-image: linear-gradient(to bottom, transparent 0px, black 80px);
+}
+
+.detailsScroll::-webkit-scrollbar {
+  display: none;
 }
 
 .detailsInner {
@@ -83,16 +89,56 @@
   font-size: clamp(var(--text-xl), 2vw, var(--text-3xl));
   font-weight: var(--font-light);
   letter-spacing: var(--tracking-tight);
-  line-height: var(--lh-2xl); /* 32px — H4 range */
+  line-height: var(--lh-2xl);
   color: var(--color-text);
 }
 
-/* ─── Metadata ───────────────────────────────────────── */
+/* ─── Price ──────────────────────────────────────────── */
+
+.price {
+  font-size: var(--text-lg);
+  font-weight: var(--font-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  margin-top: calc(-1 * var(--sp-sm)); /* tighten gap with title */
+}
+
+/* ─── Provenance ─────────────────────────────────────── */
+
+.provenance {
+  font-size: var(--text-sm);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+}
+
+/* ─── Description ────────────────────────────────────── */
+
+.description {
+  font-size: var(--text-sm);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+}
+
+/* ─── Fulfillment note ───────────────────────────────── */
+
+.fulfillmentNote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
+  color: var(--color-muted);
+}
+
+/* ─── Meta table ─────────────────────────────────────── */
+/* Every field — materials, dimensions, shipping,
+   price, pickup — lives in the same table.
+   Price is data, not a hero element.                    */
 
 .meta {
   display: flex;
   flex-direction: column;
-  gap: 0;
   border-top: 1px solid var(--color-rule);
 }
 
@@ -115,31 +161,29 @@
 
 .metaValue {
   font-size: var(--text-sm);
+  line-height: var(--lh-sm);
   color: var(--color-text);
-  line-height: var(--lh-sm);
 }
 
-/* ─── Description ────────────────────────────────────── */
+/* ─── CTA ────────────────────────────────────────────── */
+/* Corner-mark system — same pattern as inquireBtn.
+   Extends the pattern to a second context, making
+   it a site signature rather than a one-off.           */
 
-.description {
-  font-size: var(--text-sm);
-  line-height: var(--lh-sm);
-  color: var(--color-muted);
-}
-
-/* ─── Inquiry CTA — corner marks ────────────────────── */
-
-.inquireBtn {
+.addBtn {
   display: inline-block;
   position: relative;
   align-self: flex-start;
   padding: var(--sp-sm) var(--sp-xl);
+  font-family: var(--font-sans);
   font-size: var(--text-xs);
   font-weight: var(--font-medium);
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
   color: var(--color-text);
-  /* 4 corners × 2 lines (H + V) = 8 gradients */
+  background: none;
+  border: none;
+  cursor: pointer;
   background-image:
     linear-gradient(currentColor, currentColor),
     linear-gradient(currentColor, currentColor),
@@ -163,13 +207,21 @@
   transition: background-size 0.2s ease, color 0.15s;
 }
 
-/* Hover — corners extend to meet and form a full border */
-.inquireBtn:hover {
+.addBtn:hover {
   background-size:
     51% 1px, 1px 51%,
     51% 1px, 1px 51%,
     51% 1px, 1px 51%,
     51% 1px, 1px 51%;
+}
+
+.soldOutLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  line-height: var(--lh-xs);
 }
 
 /* ─── Back link ──────────────────────────────────────── */
@@ -217,6 +269,10 @@
     scroll-snap-align: start;
     min-height: unset;
     height: 100%;
+  }
+
+  .imageWrap:not(:first-child) .image {
+    min-height: unset;
   }
 
   .image {
