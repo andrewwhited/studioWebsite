@@ -28,19 +28,18 @@ const services = [
 ]
 
 const reading = [
-  // url: fill in real links — Wikipedia, publisher, YouTube, etc.
-  { type: 'Book',  author: 'Donald Judd',          title: 'Complete Writings',                                     year: '1975', url: '#' },
-  { type: 'Essay', author: 'Donald Judd',          title: 'Specific Objects',                                      year: '1964', url: '#' },
-  { type: 'Book',  author: 'Bruno Munari',          title: 'Design as Art',                                         year: '1966', url: '#' },
-  { type: 'Book',  author: 'Robert Venturi',        title: 'Complexity and Contradiction in Architecture',          year: '1966', url: '#' },
-  { type: 'Essay', author: 'Robert Morris',         title: 'Notes on Sculpture',                                    year: '1966', url: '#' },
-  { type: 'Book',  author: 'Anni Albers',           title: 'On Weaving',                                            year: '1965', url: '#' },
-  { type: 'Book',  author: 'Christopher Alexander', title: 'Notes on the Synthesis of Form',                        year: '1964', url: '#' },
-  { type: 'Book',  author: 'Jane Jacobs',           title: 'The Death and Life of Great American Cities',           year: '1961', url: '#' },
-  { type: 'Book',  author: 'Georges Perec',         title: 'Species of Spaces',                                     year: '1974', url: '#' },
-  { type: 'Book',  author: 'Gaston Bachelard',      title: 'The Poetics of Space',                                  year: '1958', url: '#' },
-  { type: 'Book',  author: 'Ulrich Conrads, ed.',   title: 'Programs and Manifestoes on 20th-Century Architecture', year: '1964', url: '#' },
-  { type: 'Film',  author: 'Charles & Ray Eames',   title: 'Powers of Ten',                                         year: '1977', url: '#' },
+  { type: 'Book',  creator: 'Donald Judd',          title: 'Complete Writings',                                     year: '1975', link: '#', note: 'Judd on furniture, space, and the logic of making things as an integrated act.' },
+  { type: 'Essay', creator: 'Donald Judd',          title: 'Specific Objects',                                      year: '1964', link: '#', note: 'The case for work that is neither painting nor sculpture — just the thing itself.' },
+  { type: 'Book',  creator: 'Bruno Munari',          title: 'Design as Art',                                         year: '1966', link: '#', note: 'Design as a creative and cultural act. Still the clearest short argument for the field.' },
+  { type: 'Book',  creator: 'Robert Venturi',        title: 'Complexity and Contradiction in Architecture',          year: '1966', link: '#', note: 'Against reductive simplicity. An argument for richness, tension, and layered meaning.' },
+  { type: 'Essay', creator: 'Robert Morris',         title: 'Notes on Sculpture',                                    year: '1966', link: '#', note: 'How objects work in space. Useful language for thinking about presence and scale.' },
+  { type: 'Book',  creator: 'Anni Albers',           title: 'On Weaving',                                            year: '1965', link: '#', note: 'Material intelligence. Structure as meaning. The most rigorous thinking about textile as form.' },
+  { type: 'Book',  creator: 'Christopher Alexander', title: 'Notes on the Synthesis of Form',                        year: '1964', link: '#', note: 'A systems approach to design problems. Useful for furniture and joinery thinking.' },
+  { type: 'Book',  creator: 'Jane Jacobs',           title: 'The Death and Life of Great American Cities',           year: '1961', link: '#', note: 'On use, density, and the conditions that make spaces livable. Object-scale lessons at city scale.' },
+  { type: 'Book',  creator: 'Georges Perec',         title: 'Species of Spaces',                                     year: '1974', link: '#', note: 'An inventory of space from the page to the world. Changes how you see rooms and surfaces.' },
+  { type: 'Book',  creator: 'Gaston Bachelard',      title: 'The Poetics of Space',                                  year: '1958', link: '#', note: 'The phenomenology of inhabited space. Corners, drawers, nests — objects as psychological architecture.' },
+  { type: 'Book',  creator: 'Ulrich Conrads, ed.',   title: 'Programs and Manifestoes on 20th-Century Architecture', year: '1964', link: '#', note: 'The arguments architects made about what building should be. Useful as a foil and as a foundation.' },
+  { type: 'Film',  creator: 'Charles & Ray Eames',   title: 'Powers of Ten',                                         year: '1977', link: '#', note: 'Scale as a design problem. Nine minutes that reframe every question about proportion.' },
 ]
 
 export default function Studio() {
@@ -73,6 +72,27 @@ export default function Studio() {
           </div>
         </div>
         <div className={styles.heroImage} />
+      </section>
+
+      {/* ── Bio ───────────────────────────────────────────
+          About Andrew as a person — separate from the
+          workshop/practice framing.
+      ─────────────────────────────────────────────────── */}
+      <section className={styles.bio}>
+        <div className={styles.bioGrid}>
+          <div className={styles.bioLabel}>About</div>
+          <div className={styles.bioContent}>
+            <p className={styles.bioName}>Andrew Whited</p>
+            <p className={styles.bioText}>
+              Designer and maker based in Austin, Texas. Work spans furniture,
+              turned objects, spatial commissions, and editions. Trained in
+              architecture and visual art; practice shaped by the workshop.
+              Most interested in the intersection of material logic, use, and
+              presence — objects that earn their place.
+            </p>
+          </div>
+          <div className={styles.bioImage} />
+        </div>
       </section>
 
       {/* ── Workshop ──────────────────────────────────────
@@ -145,7 +165,7 @@ export default function Studio() {
               {reading.map((item, i) => (
                 <li key={i} className={styles.readingItem}>
                   <a
-                    href={item.url}
+                    href={item.link}
                     className={styles.readingLink}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -153,7 +173,8 @@ export default function Studio() {
                     {/* Thumb first in DOM so text layers above it */}
                     <div className={styles.readingThumb} aria-hidden="true" />
                     <span className={styles.readingTitle}>{item.title}</span>
-                    <span className={styles.readingAuthor}>{item.author}</span>
+                    <span className={styles.readingAuthor}>{item.creator}</span>
+                    {item.note && <span className={styles.readingNote}>{item.note}</span>}
                     <span className={styles.readingTag}>{item.type}</span>
                   </a>
                 </li>
@@ -180,7 +201,7 @@ export default function Studio() {
               studio@andrewwhited.com
             </a>
             <a href="#" className={styles.contactLink}>Instagram</a>
-            <a href="#" className={styles.contactLink}>Are.na</a>
+            <a href="#" className={styles.contactLink}>TikTok</a>
           </div>
         </div>
       </section>
