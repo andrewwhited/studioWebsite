@@ -43,9 +43,9 @@
 
 .heroHeading {
   grid-row: 1;
-  font-size: clamp(15px, 1.5vw, 20px);
+  font-size: clamp(var(--text-sm), 1.5vw, var(--text-xl));
   font-weight: var(--font-light);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   line-height: var(--lh-xl); /* 28px — H5 range */
   color: var(--color-text);
   max-width: 320px;
@@ -118,7 +118,7 @@
 .bioName {
   font-size: var(--text-xl);
   font-weight: var(--font-light);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
   line-height: var(--lh-xl);
   color: var(--color-text);
 }
@@ -173,7 +173,7 @@
   font-weight: var(--font-light);
   line-height: var(--lh-xl);
   color: var(--color-text);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
 }
 
 .workshopLocation {
@@ -317,7 +317,7 @@
 .readingHeading {
   font-size: var(--text-xl);
   font-weight: var(--font-light);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
   line-height: var(--lh-xl);
   color: var(--color-text);
   margin-bottom: var(--sp-xs);
@@ -360,7 +360,7 @@
   font-size: var(--text-xs);
   color: var(--color-muted);
   letter-spacing: var(--tracking-wide);
-  padding-top: 2px;
+  padding-top: var(--sp-xs);
 }
 
 .readingNote {
@@ -368,7 +368,7 @@
   font-size: var(--text-xs);
   line-height: var(--lh-xs);
   color: var(--color-muted);
-  padding-top: 2px;
+  padding-top: var(--sp-xs);
 }
 
 .readingTag {
@@ -378,7 +378,7 @@
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
   color: var(--color-muted);
-  padding-top: 2px;
+  padding-top: var(--sp-xs);
   white-space: nowrap;
 }
 
@@ -456,7 +456,7 @@
 .contactHeading {
   font-size: var(--text-xl);
   font-weight: var(--font-light);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
   line-height: var(--lh-xl);
   color: var(--color-text);
 }
@@ -570,7 +570,7 @@
   }
 
   .heroHeading {
-    font-size: clamp(15px, 4.5vw, 20px);
+    font-size: clamp(var(--text-sm), 4.5vw, var(--text-xl));
     line-height: var(--lh-xl);
     max-width: 100%;
   }

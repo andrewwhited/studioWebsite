@@ -44,7 +44,7 @@
 .heroTitle {
   font-size: var(--text-display);
   font-weight: var(--font-light);
-  letter-spacing: -0.03em;
+  letter-spacing: var(--tracking-tighter);
   line-height: 1.0;
   color: var(--color-bg);
 }
@@ -62,7 +62,7 @@
 .intro {
   font-size: clamp(var(--text-2xl), 2vw, var(--text-3xl));
   font-weight: var(--font-light);
-  letter-spacing: -0.015em;
+  letter-spacing: var(--tracking-tight);
   line-height: var(--lh-2xl); /* 32px — H4 range */
   color: var(--color-text);
   max-width: 560px;

@@ -39,7 +39,7 @@
 .title {
   font-size: var(--text-xl);
   font-weight: var(--font-light);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   line-height: var(--lh-xl);
   color: var(--color-text);
 }
@@ -219,7 +219,7 @@
 
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
+    gap: var(--sp-xs);
     padding: 0 var(--gutter) var(--sp-16);
   }
 

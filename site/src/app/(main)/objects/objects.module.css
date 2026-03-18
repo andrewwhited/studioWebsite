@@ -31,7 +31,7 @@
 .title {
   font-size: var(--text-xl);
   font-weight: var(--font-light);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   line-height: var(--lh-xl);
   color: var(--color-text);
 }
@@ -95,7 +95,7 @@
 .entryTitle {
   font-size: clamp(var(--text-lg), 2vw, var(--text-2xl)); /* H6 → H4, anchored to scale */
   font-weight: var(--font-light);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
   line-height: var(--lh-2xl);
   color: var(--color-text);
 }
