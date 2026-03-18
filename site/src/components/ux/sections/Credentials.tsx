@@ -1,12 +1,6 @@
 import styles from './sections.module.css'
 
-const talks = [
-  { title: 'AI and the Designer\u2019s Role', meta: 'AIGA — 2023' },
-  { title: 'Designing Enterprise AI', meta: 'IBM Design Symposium — 2022' },
-  { title: 'Systems Thinking in Product Design', meta: '2021' },
-]
-
-const patents = [
+const publications = [
   {
     title: 'Method and system for adaptive interface generation in conversational AI environments',
     meta: 'US Patent Application',
@@ -17,54 +11,49 @@ const patents = [
   },
 ]
 
-const other = [
-  { title: 'AIGA', meta: 'Former chapter board member' },
+const talks = [
+  { title: 'AI and the Designer\u2019s Role', meta: 'AIGA \u2014 2023' },
+  { title: 'Designing Enterprise AI', meta: 'IBM Design Symposium \u2014 2022' },
+  { title: 'Systems Thinking in Product Design', meta: '2021' },
 ]
+
 
 export default function Credentials() {
   return (
-    <section id="credentials" className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.layout}>
-          <div className={styles.label}>Credentials</div>
-          <div>
-            <div className={styles.credGroup}>
-              <div className={styles.credGroupTitle}>Talks</div>
-              <ul className={styles.credList}>
-                {talks.map((item) => (
-                  <li key={item.title} className={styles.credItem}>
-                    <span className={styles.credItemTitle}>{item.title}</span>
-                    <span className={styles.credItemMeta}>{item.meta}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+    <section id="links" className={styles.section}>
+      <div className={styles.layout}>
 
-            <div className={styles.credGroup}>
-              <div className={styles.credGroupTitle}>Patent Publications</div>
-              <ul className={styles.credList}>
-                {patents.map((item) => (
-                  <li key={item.title} className={styles.credItem}>
-                    <span className={styles.credItemTitle}>{item.title}</span>
-                    <span className={styles.credItemMeta}>{item.meta}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className={styles.credGroup}>
-              <div className={styles.credGroupTitle}>Other</div>
-              <ul className={styles.credList}>
-                {other.map((item) => (
-                  <li key={item.title} className={styles.credItem}>
-                    <span className={styles.credItemTitle}>{item.title}</span>
-                    <span className={styles.credItemMeta}>{item.meta}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        <div className={styles.credLogo}>
+          <span className={styles.credLogoMark}>
+            <span>Andrew</span>
+            <span>Whited</span>
+          </span>
         </div>
+
+        <div className={styles.credPublications}>
+          <div className={styles.colLabel}>Publications</div>
+          <ul className={styles.colList}>
+            {publications.map((item) => (
+              <li key={item.title} className={styles.colItem}>
+                <span className={styles.colItemTitle}>{item.title}</span>
+                <span className={styles.colItemMeta}>{item.meta}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className={styles.credTalks}>
+          <div className={styles.colLabel}>Talks</div>
+          <ul className={styles.colList}>
+            {talks.map((item) => (
+              <li key={item.title} className={styles.colItem}>
+                <span className={styles.colItemTitle}>{item.title}</span>
+                <span className={styles.colItemMeta}>{item.meta}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
       </div>
     </section>
   )

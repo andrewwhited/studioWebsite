@@ -13,9 +13,9 @@ export default function UxLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <div data-theme="ux" style={{ minHeight: '100svh', backgroundColor: 'var(--color-bg)' }}>
       <UxNav />
       {children}
-    </>
+    </div>
   )
 }
