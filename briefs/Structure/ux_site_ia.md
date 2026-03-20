@@ -1,48 +1,28 @@
 # Andrew Whited — UX Site IA
 
 ## Primary Model
-The UX site is primarily a one-page homepage with anchored sections.
-
-It also includes separate child pages for:
-- featured projects
-- featured thought pieces / talks
+The UX site is a one-page homepage with anchored sections, plus separate child pages for featured projects and thought pieces.
 
 The site should remain lean and hiring-focused.
 
 ---
 
 ## Navigation
-The top navigation should anchor-scroll to sections on the homepage.
-
-Suggested nav:
+Minimal top nav. Anchor links:
 - Work
 - Thoughts
-- Credentials
-- Links
-
-Optional:
-- Resume as a direct external/download link
-
-Home is the landing page and the main hub.
+- Resume (direct link)
 
 ---
 
-## Homepage
-## Purpose
-- Introduce Andrew as a designer
-- Establish expertise and credibility quickly
-- Surface selected work
-- Surface selected thought content
-- Provide direct paths to resume, LinkedIn, and the main studio site
-
 ## Homepage Sections
+
 1. Hero
-2. About / Perspective
-3. Background / Experience
-4. Selected Work
+2. About
+3. Publications & Talks  *(compact — biographical context, not a feature section)*
+4. Work
 5. Thoughts
-6. Credentials
-7. Links / Elsewhere
+6. [Closing CTA — not a section]
 
 ---
 
@@ -50,142 +30,116 @@ Home is the landing page and the main hub.
 
 ### 1. Hero
 **Purpose**
-- Quickly establish who Andrew is and what kind of designer he is
+- Immediately establish who Andrew is and what kind of designer he is — before any scroll
 
 **Content**
-- Name
-- Title / positioning line
-- Optional short subhead
+- Positioning line: seniority + domain + type of work
+
+**Note**
+- Must communicate value in the first sentence. Name and location alone is not enough.
 
 ---
 
-### 2. About / Perspective
+### 2. About
 **Purpose**
-- Communicate design perspective, strengths, and orientation
+- Establish identity, perspective, and professional orientation
 
 **Content**
-- Short about text
-- Perspective statement
-- Optional focus areas
+- Identity/perspective paragraph (heading weight)
+- 3–4 theme/focus area blocks
+
+**Note**
+- The site is present-focused. Career timeline / Background has been removed. The resume carries career history.
+- File-icon links for LinkedIn and Resume live in the Closing CTA only — not duplicated here.
 
 ---
 
-### 3. Background / Experience
+### 3. Publications & Talks
 **Purpose**
-- Establish level, trajectory, and relevant history
+- Biographical context that completes the identity layer established in About. Patents filed. Invited to speak internationally. Readers scan and move on.
+
+**Narrative function**
+- Part of the identity layer, not a proof moment. Functions like stats in a bio — answers "who is this person and what have they done" before the work examples begin.
 
 **Content**
-- Short career summary
-- Selected role/company/domain highlights
-- Optional timeline or compact list
+- IBM patent applications: title + "US Patent Application"
+- Speaking engagements: talk title + venue + city/country per event
+  - If a talk was given at multiple conferences, list all venues and locations
+  - International geography is a signal — let the record surface it without stating it
+
+**Design direction**
+- Compact and different in visual register from Work and Thoughts — not a full feature section
+- Two columns (Publications · Talks)
+- Talks entries should show venue and city prominently
+- Should feel like a tight, clean biographical record — not a padded section
 
 ---
 
-### 4. Selected Work
+### 4. Work
 **Purpose**
-- Provide the strongest proof of capability
+- Proof of capability through selected projects
 
 **Content**
-- Small number of featured project entries
-- Each entry should include:
-  - title
-  - short summary
-  - context / role
-  - link to full project page
+- 2–4 projects: title, summary, role/context, link to project page
 
 ---
 
 ### 5. Thoughts
 **Purpose**
-- Demonstrate communication, expertise, and point of view
+- Demonstrate communication, expertise, and point of view through written work
 
 **Content**
-- Essays
-- Talks
-- Presentation-derived pieces
-- Each entry should include:
-  - title
-  - short summary
-  - context (event/year if relevant)
-  - link to full thought page
-
----
-
-### 6. Credentials
-**Purpose**
-- Provide compact credibility signals
-
-**Content may include**
-- talks list
-- IBM patent publications
-- AIGA involvement
-- other selected recognition
+- Visual essays
+- Adapted talk content developed into written pieces
+- Each entry: title, summary, context, link to thought page
 
 **Note**
-- If a talk has substantial content, it may also appear in Thoughts
+- Thoughts are written/visual pieces, not a speaking record.
+- Some may originate from talks — the section presents the piece, not the event.
+- The speaking record lives in Publications & Talks.
 
 ---
 
-### 7. Links / Elsewhere
+### 6. Closing CTA
 **Purpose**
-- Direct visitors outward to the most useful destinations
+- Close the page cleanly and provide primary exit paths
 
-**Content**
-- Resume
-- LinkedIn
-- Main studio site
+**Design — Option B**
+- Quiet rule at the top, no section label, no nav item
+- File-icon style links for Resume, LinkedIn, and studio site (andrewwhited.com) — all three at the same scale
+- Studio link uses alias-style icon to indicate external destination
+- No section-level padding — this is a page close, not a section
 
 ---
 
 ## Child Pages
 
-## Project Page
-**Purpose**
-- Present a selected project in enough depth to demonstrate capability and thinking
+### Project Page
+- Title, role, context
+- Problem · Constraints · Approach · Key Decisions · Outcome
+- Text-led; avoid restricted IBM material
 
-**Suggested content**
-- Title
-- Role / context
-- Problem
-- Constraints
-- Approach
-- Key decisions
-- Outcome / impact
-- Reflection
-- Optional sanitized diagrams or reconstructed visuals
-
-**Important note**
-- Avoid restricted or proprietary IBM materials
-- Prefer abstracted, recreated, or text-led storytelling where needed
-
----
-
-## Thought Page
-**Purpose**
-- Present an essay, talk, or presentation-derived piece
-
-**Suggested content**
-- Title
-- Context (event/publication/year)
-- Intro
-- Main content
-- Optional images/slides
-- Closing / takeaway
+### Thought Page
+- Title, context (essay / talk origin, year)
+- Visual essay format with support for pull quotes and image blocks
 
 ---
 
 ## Relationship to Main Site
-The UX site is a sibling subdomain to the main studio site.
+UX site: narrow, practical, hiring-focused, present-focused.
+Main site: broader creative identity, editorial, expressive.
 
-### UX site
-- narrower
-- more practical
-- hiring-focused
-- more legible and direct
+---
 
-### Main site
-- broader creative identity
-- studio / objects / art / image
-- more editorial and expressive
+## Decisions Log
 
-The two sites should feel related in taste and authorship, but not identical in structure or purpose.
+| Decision | Rationale |
+|----------|-----------|
+| Background/Experience removed | Duplicates About; site is present-focused; resume carries career history |
+| Publications & Talks moved before Work (after About) | Functions as biographical context completing the identity layer — patents and speaking record answer "who is this" before the work begins. Most visitors exit at Work; placing P&T after it means they miss it. |
+| Publications & Talks is biographical, not a proof moment | Not "here's the evidence" — just stats. Readers scan it and move on. No need to make it a dramatic section. |
+| Talks kept separate from Thoughts | Not all Thoughts have associated talks; speaking record belongs with publications |
+| Speaking venues + cities shown explicitly | International travel is a signal; the record communicates it without stating it |
+| Links/Elsewhere replaced by Closing CTA | Three links don't earn a full section; page-close treatment is cleaner |
+| Closing CTA = three file-icon links | Resume, LinkedIn, and studio site (andrewwhited.com) all at the same scale. Studio uses alias icon to signal external destination. No bridge note needed — the links speak for themselves. |
+| Nav: Work + Thoughts + Resume | Matches content; no nav link to Publications & Talks or CTA |

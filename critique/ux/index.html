@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Critique — Andrew Whited UX Site</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ─── SIDEBAR ──────────────────────────────────────── -->
+<nav class="sidebar">
+
+  <div class="version-selector">
+    <span class="version-eyebrow">UX Site Critique</span>
+    <div class="version-select-wrap">
+      <select id="versionSelect" aria-label="Select critique version">
+        <option value="1">v1 · March 2026</option>
+        <option value="2" selected>v2 · March 2026</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sidebar-brand">
+    <div class="sidebar-title">Andrew Whited<br>UX Site</div>
+    <div class="sidebar-meta" id="sidebarMeta">March 2026 · design-pass-2</div>
+  </div>
+
+  <ol class="sidebar-toc" id="sidebarToc">
+    <li><a href="#v1-overview"><span class="toc-num">01</span>Overview</a></li>
+    <li><a href="#v1-methodology"><span class="toc-num">02</span>Methodology</a></li>
+    <li><a href="#v1-grid"><span class="toc-num">03</span>Grid &amp; Layout</a></li>
+    <li><a href="#v1-typography"><span class="toc-num">04</span>Typography</a></li>
+    <li><a href="#v1-spacing"><span class="toc-num">05</span>Spacing</a></li>
+    <li><a href="#v1-color"><span class="toc-num">06</span>Color &amp; Interaction</a></li>
+    <li><a href="#v1-ia"><span class="toc-num">07</span>Information Architecture</a></li>
+    <li><a href="#v1-content"><span class="toc-num">08</span>Content Effectiveness</a></li>
+    <li><a href="#v1-market"><span class="toc-num">09</span>Market &amp; Inspiration</a></li>
+    <li><a href="#v1-intention"><span class="toc-num">10</span>Intention vs. Execution</a></li>
+    <li><a href="#v1-recommendations"><span class="toc-num">11</span>Recommendations</a></li>
+    <li><a href="#v1-verdict"><span class="toc-num">12</span>Verdict</a></li>
+  </ol>
+
+  <div class="sidebar-footer">
+    <span>5 CSS Modules</span>
+    <span>5 Page Templates</span>
+    <span>Code Audit · No Visual Render</span>
+  </div>
+
+</nav>
+
+<!-- ─── REPORT ───────────────────────────────────────── -->
+<div class="report">
+
+  <!-- ═══════════════════════════════════════════════════
+       VERSION 1 — March 2026
+  ════════════════════════════════════════════════════ -->
+  <div class="version-panel active" data-version="1">
+
+    <!-- COVER -->
+    <header class="cover" id="v1-cover">
+      <div class="cover-overline">Design Critique — Andrew Whited UX Site</div>
+      <div class="cover-version-badge" id="coverVersionBadge">v1</div>
+
+      <h1 class="cover-h1">Andrew Whited<br>UX Site</h1>
+      <p class="cover-sub">
+        An honest assessment of design system adherence, information architecture completeness, hiring signal quality, and competitive positioning. Produced from complete source analysis across 5 CSS modules, 5 page templates, and the full UX brief package.
+      </p>
+
+      <div class="cover-grades">
+        <div class="grade-cell">
+          <div class="grade-label">Grid</div>
+          <div class="grade-mark grade-b-plus">B+</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="83"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Typography</div>
+          <div class="grade-mark grade-b">B</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="76"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Spacing</div>
+          <div class="grade-mark grade-a-minus">A−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="87"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Color</div>
+          <div class="grade-mark grade-b-plus">B+</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="82"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">IA</div>
+          <div class="grade-mark grade-c">C+</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="67"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Content</div>
+          <div class="grade-mark grade-b">B</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="76"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Market</div>
+          <div class="grade-mark grade-b-minus">B−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="71"></div></div>
+        </div>
+      </div>
+
+      <p class="cover-caveat">
+        Audit methodology: Derived entirely from source code — globals.css, 5 CSS module files, and all UX page and section components — cross-referenced against the full UX brief package (ux_site_brief.md, ux_site_ia.md, ux_homepage_outline.md). The site was not rendered.
+      </p>
+    </header>
+
+    <!-- 01 — OVERVIEW -->
+    <section class="section section--dark" data-num="01" id="v1-overview">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Overview</h2>
+      </div>
+
+      <p class="lede">The design system is well applied. The content is mostly good. The architecture is incomplete. These are not equivalent problems — incomplete architecture is the most urgent, because two sections don't render and the one that does is misidentified.</p>
+
+      <p class="body-text">The UX site has the right bones: a coherent dark theme, 12-column grid applied consistently across every template, strong token discipline in spacing and color, and case study content that reads senior and is appropriately abstracted from IBM material. The About section is the strongest element on the page — the four theme blocks (Enterprise experience, Systems and IA, AI product design, Design leadership) deliver exactly what the brief asks for and do it with specificity, not boilerplate.</p>
+
+      <p class="body-text">What undermines the site right now: the Background and Links sections are not rendered in page.tsx despite their components existing. The Credentials section uses <span class="mono">id="links"</span> instead of <span class="mono">id="credentials"</span>, which means anchor navigation is broken. The hero delivers only a name and a city — it does not communicate seniority, domain, or value proposition. For a site whose entire purpose is to support hiring, the hero gap is not a design problem, it's a strategic one.</p>
+
+      <p class="body-text">The system-level work is clearly ahead of the content-level work. The infrastructure is trustworthy; the content completeness is not. Fix the IA violations first. Then address the hero. The typography and spacing refinements are secondary.</p>
+
+      <div class="scorecard">
+        <div class="score-row">
+          <span class="score-name">Grid &amp; Layout</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="83"></div></div>
+          <span class="score-grade grade-text-b-plus" data-score-key="grid">B+</span>
+          <span class="score-delta" data-score-key="grid"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Typography</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="76"></div></div>
+          <span class="score-grade grade-text-b" data-score-key="typography">B</span>
+          <span class="score-delta" data-score-key="typography"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Spacing</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="87"></div></div>
+          <span class="score-grade grade-text-a-minus" data-score-key="spacing">A−</span>
+          <span class="score-delta" data-score-key="spacing"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Color &amp; Interaction</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="82"></div></div>
+          <span class="score-grade grade-text-b-plus" data-score-key="color">B+</span>
+          <span class="score-delta" data-score-key="color"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Information Architecture</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="67"></div></div>
+          <span class="score-grade grade-text-c" data-score-key="ia">C+</span>
+          <span class="score-delta" data-score-key="ia"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Content Effectiveness</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="76"></div></div>
+          <span class="score-grade grade-text-b" data-score-key="content">B</span>
+          <span class="score-delta" data-score-key="content"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Market Position</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="71"></div></div>
+          <span class="score-grade grade-text-b-minus" data-score-key="market">B−</span>
+          <span class="score-delta" data-score-key="market"></span>
+        </div>
+        <div class="score-row score-row--total">
+          <span class="score-name">Overall</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="77"></div></div>
+          <span class="score-grade grade-text-b" data-score-key="overall">B</span>
+          <span class="score-delta" data-score-key="overall"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 — METHODOLOGY -->
+    <section class="section section--white" data-num="02" id="v1-methodology">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Methodology</h2>
+      </div>
+
+      <p class="lede">This critique evaluates the UX site against a different primary standard than the main studio site: the brief is explicitly hiring-focused, not creative-expression-focused.</p>
+
+      <p class="body-text">The main site critique applies Swiss design principles, editorial ambition, and compositional boldness as primary standards. Here, those apply to system execution — but the overriding question is: does this site help Andrew get hired for a senior design role? Every category is evaluated through that lens first.</p>
+
+      <div class="frameworks-grid">
+        <div class="framework-block">
+          <h3>Design System Adherence</h3>
+          <p class="body-text">Token usage, grid discipline, type scale compliance, spacing rule adherence — evaluated against globals.css as the single source of truth. Same standards as the main site critique.</p>
+        </div>
+        <div class="framework-block">
+          <h3>IA Completeness</h3>
+          <p class="body-text">Section render order in page.tsx vs. ux_site_ia.md spec. Anchor ID accuracy. Nav alignment. Evaluated as a functional requirement, not a design judgment.</p>
+        </div>
+        <div class="framework-block">
+          <h3>Hiring Signal Quality</h3>
+          <p class="body-text">Does the content communicate seniority, domain, and credibility? Does it read as authored rather than template-generic? Is it selective and outcome-forward? Evaluated against ux_site_brief.md.</p>
+        </div>
+        <div class="framework-block">
+          <h3>Swiss Formal Principles</h3>
+          <p class="body-text">Grid discipline, typographic rhythm, weight hierarchy — evaluated against Crouwel, Hofmann, and Müller-Brockmann. These apply to the execution of the design system, not to creative expression goals.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 — GRID & LAYOUT -->
+    <section class="section section--tinted" data-num="03" id="v1-grid">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Grid &amp; Layout</h2>
+      </div>
+
+      <p class="lede">The grid is consistently applied across every template. Column discipline is strong. Three violations are structural rather than visual.</p>
+
+      <div class="section-cols">
+        <div>
+          <p class="body-text">All five CSS modules implement <span class="mono">grid-template-columns: repeat(12, 1fr)</span> correctly. The gap token <span class="mono">var(--col-gap)</span> and outer padding <span class="mono">var(--gutter)</span> are used consistently without exception. The label/content column split — label at columns 1–3, content at columns 3–10 — is applied coherently across all homepage sections and detail pages, creating a persistent left-weighted typographic column that reads as authored rather than accidental.</p>
+          <p class="body-text">The hero places the typewriter text at columns 3–11, which mirrors the content column offset from the sections below. This is a good decision — it creates vertical rhythm across the page and makes the hero feel compositionally integrated rather than a standalone splash element.</p>
+          <p class="body-text">The About section breaks from the label/content pattern intentionally: the heading spans 1–7, the four theme blocks use <span class="mono">span 3</span> each to form a 4×3 grid in the second row (12 columns total), and the logo/photo occupy 1–7 and 7–13. This is more complex than the standard pattern but it resolves correctly and creates the most compositionally interesting section on the page.</p>
+        </div>
+        <div class="section-col-aside">
+          <div class="stat-item">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Column grid — correctly applied in all 5 modules</div>
+            <div class="stat-target good">Target met</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Grid-level violations found</div>
+            <div class="stat-target warn">Structural</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issues">
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Links section uses undefined .container class</div>
+            <div class="issue-desc">Links.tsx wraps its layout in <span class="mono">styles.container</span>, which is not defined in sections.module.css. The grid wrapper is missing, meaning the Links section will render without its column grid. This is a layout-breaking bug.</div>
+            <span class="issue-code">Links.tsx → &lt;div className={styles.container}&gt;</span>
+          </div>
+        </div>
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Duplicate id="links" on two sections</div>
+            <div class="issue-desc">Credentials.tsx uses <span class="mono">id="links"</span> on its section element. Links.tsx also uses <span class="mono">id="links"</span>. Duplicate IDs break anchor navigation — only the first match resolves. Credentials should use <span class="mono">id="credentials"</span>.</div>
+            <span class="issue-code">Credentials.tsx → &lt;section id="links"&gt;</span>
+          </div>
+        </div>
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Background and Links sections not rendered</div>
+            <div class="issue-desc">page.tsx renders: Hero, About, Work, Thoughts, Credentials. Background and Links component files exist but are not imported. Two of seven brief-specified sections are absent from the page.</div>
+            <span class="issue-code">app/ux/page.tsx → missing &lt;Background /&gt; and &lt;Links /&gt;</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">12-col grid applied consistently across all 5 modules</div>
+            <div class="issue-desc">sections.module.css, project.module.css, and thought.module.css all implement the grid correctly with token-compliant gap and gutter values. No off-grid layouts found.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hero column offset mirrors content column — intentional integration</div>
+            <div class="issue-desc">Typewriter text at columns 3–11 aligns with the content column used below. Creates vertical key-line continuity across the full page without explicit spacing coordination.</div>
+            <span class="issue-code">sections.module.css → .heroTypewriter { grid-column: 3 / 11 }</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 — TYPOGRAPHY -->
+    <section class="section section--tinted" data-num="04" id="v1-typography">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Typography</h2>
+      </div>
+
+      <p class="lede">Token adherence is near-complete. Two violations: wrong display token in the hero, and ratio-based leading used where pixel tokens are specified. Style proliferation is high but manageable.</p>
+
+      <div class="section-cols">
+        <div>
+          <p class="body-text">Every type size in the codebase uses a defined token from globals.css. No arbitrary rem values, no hardcoded pixel sizes. Weight discipline is correct throughout: <span class="mono">--font-light</span> for display and headings, <span class="mono">--font-regular</span> for body text, <span class="mono">--font-medium</span> for all label and meta contexts. This is the typographic standard the main studio site also achieves and it matters — it is what prevents the type system from fragmenting as the site grows.</p>
+          <p class="body-text">The label pattern (xs size, medium weight, tracking-wider, uppercase) appears in approximately 8 distinct class names across the codebase: <span class="mono">.label</span>, <span class="mono">.colLabel</span>, <span class="mono">.themeBlockLabel</span>, <span class="mono">.timelineRole</span>, <span class="mono">.projectContext</span>, <span class="mono">.thoughtContext</span>, <span class="mono">.metaLabel</span>, <span class="mono">.sectionHeading</span>. Same properties, different names. This isn't a violation — CSS Modules forces local scoping — but it creates maintenance surface and inflates the apparent style count.</p>
+          <p class="body-text">The detail page titles use <span class="mono">clamp(var(--text-3xl), 4vw, var(--text-5xl))</span> — correct fluid type implementation using named tokens as bounds. This is a strong pattern.</p>
+        </div>
+        <div class="section-col-aside">
+          <div class="stat-item">
+            <div class="stat-number">22</div>
+            <div class="stat-label">Distinct type styles found across 5 modules</div>
+            <div class="stat-target warn">Above ideal range</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">~8</div>
+            <div class="stat-label">Label pattern duplicates (same properties, different class names)</div>
+            <div class="stat-target warn">Consolidation opportunity</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Arbitrary rem values — all sizes use tokens</div>
+            <div class="stat-target good">Clean</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Type Style Inventory</h3>
+      <table class="type-table">
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Size</th>
+            <th>Weight</th>
+            <th>Leading</th>
+            <th>File</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="flag">
+            <td><span class="mono">.heroTypewriter</span></td>
+            <td><span class="mono">--text-display</span></td>
+            <td>light</td>
+            <td><span class="mono">--leading-tight</span></td>
+            <td>sections</td>
+            <td>Should use <span class="mono">--text-hero</span>; ratio leading vs. px token</td>
+          </tr>
+          <tr>
+            <td><span class="mono">.aboutHeading</span></td>
+            <td><span class="mono">--text-2xl</span></td>
+            <td>light</td>
+            <td><span class="mono">--lh-2xl</span></td>
+            <td>sections</td>
+            <td>Correct — pixel token used</td>
+          </tr>
+          <tr>
+            <td><span class="mono">.label</span> (×8 variants)</td>
+            <td><span class="mono">--text-xs</span></td>
+            <td>medium</td>
+            <td>—</td>
+            <td>sections</td>
+            <td>Label pattern — duplicated across ~8 class names</td>
+          </tr>
+          <tr>
+            <td><span class="mono">.bodyText</span></td>
+            <td><span class="mono">--text-base</span></td>
+            <td>regular</td>
+            <td><span class="mono">--lh-lg</span></td>
+            <td>sections</td>
+            <td>Correct</td>
+          </tr>
+          <tr>
+            <td><span class="mono">.themeBlockBody</span></td>
+            <td><span class="mono">--text-sm</span></td>
+            <td>regular</td>
+            <td><span class="mono">--lh-lg</span></td>
+            <td>sections</td>
+            <td>Muted color — correct</td>
+          </tr>
+          <tr>
+            <td><span class="mono">.timelineName</span></td>
+            <td><span class="mono">--text-xl</span></td>
+            <td>light</td>
+            <td><span class="mono">--lh-xl</span></td>
+            <td>sections</td>
+            <td>Correct</td>
+          </tr>
+          <tr>
+            <td><span class="mono">.projectTitle / .thoughtTitle</span></td>
+            <td><span class="mono">--text-lg</span></td>
+            <td>regular</td>
+            <td><span class="mono">--lh-lg</span></td>
+            <td>sections</td>
+            <td>Correct</td>
+          </tr>
+          <tr class="flag">
+            <td><span class="mono">.projectTitle</span> (detail)</td>
+            <td><span class="mono">clamp(text-3xl, 4vw, text-5xl)</span></td>
+            <td>light</td>
+            <td><span class="mono">--leading-tight</span></td>
+            <td>project</td>
+            <td>Ratio leading — should use <span class="mono">--lh-5xl</span></td>
+          </tr>
+          <tr class="flag">
+            <td><span class="mono">.title</span> (thought detail)</td>
+            <td><span class="mono">clamp(text-3xl, 4vw, text-5xl)</span></td>
+            <td>light</td>
+            <td><span class="mono">--leading-tight</span></td>
+            <td>thought</td>
+            <td>Ratio leading — should use <span class="mono">--lh-5xl</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">.intro</span></td>
+            <td><span class="mono">--text-lg</span></td>
+            <td>regular</td>
+            <td><span class="mono">--lh-xl</span></td>
+            <td>thought</td>
+            <td>Correct</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="issues" style="margin-top: 32px;">
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hero uses --text-display instead of --text-hero</div>
+            <div class="issue-desc">globals.css defines <span class="mono">--text-hero: clamp(3.5rem, 8vw, 7rem)</span> explicitly for "hero name — UX site." The hero instead uses <span class="mono">--text-display</span> (clamp to 4.5rem max). The purpose-built token delivers a larger, more commanding range that better suits the hero's full-viewport role.</div>
+            <span class="issue-code">sections.module.css → .heroTypewriter { font-size: var(--text-display) }</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Ratio-based leading on display contexts</div>
+            <div class="issue-desc"><span class="mono">var(--leading-tight)</span> (ratio 1.1) is used on .heroTypewriter, .projectTitle (project.module.css), and .title (thought.module.css). The design system specifies fixed pixel <span class="mono">--lh-*</span> tokens. Ratio-based leading may produce non-4px-aligned line heights at some viewport sizes.</div>
+            <span class="issue-code">sections.module.css → .heroTypewriter { line-height: var(--leading-tight) }</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Fluid type in detail page titles uses token bounds correctly</div>
+            <div class="issue-desc"><span class="mono">clamp(var(--text-3xl), 4vw, var(--text-5xl))</span> on project and thought detail page titles. Fluid within the scale, not outside it. This is the correct approach.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Weight discipline correct throughout</div>
+            <div class="issue-desc">Light for all display and heading contexts. Regular for all body text. Medium exclusively for label, meta, and navigation contexts. No weight exceptions found.</div>
+          </div>
+        </div>
+        <div class="issue tag-opportunity">
+          <div class="issue-tag"><span>Opportunity</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Label pattern duplication (~8 class names)</div>
+            <div class="issue-desc">The xs/medium/tracking-wider/uppercase label pattern appears as .label, .colLabel, .themeBlockLabel, .timelineRole, .projectContext, .thoughtContext, .metaLabel, .sectionHeading. CSS Modules prevents true sharing, but a global utility could reduce this duplication or at minimum the count signals bloat.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 — SPACING -->
+    <section class="section section--tinted" data-num="05" id="v1-spacing">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Spacing</h2>
+      </div>
+
+      <p class="lede">Strong token discipline throughout. The only concern is semantic — section padding rhythm creates a very generous scroll depth that may work against the brief's call for concise and scannable.</p>
+
+      <div class="section-cols">
+        <div>
+          <p class="body-text">All margin, padding, and gap values use defined tokens. No arbitrary pixel values found in any of the five CSS modules, with the expected exception of <span class="mono">1px</span> for border widths and the optical <span class="mono">padding-bottom: 1px</span> on underlined link elements. The cursor animation in the hero uses em-relative values (<span class="mono">0.045em</span>, <span class="mono">0.85em</span>) which are typographically relative and not spacing violations.</p>
+          <p class="body-text">The extended scale tokens — <span class="mono">--sp-10</span> (80px), <span class="mono">--sp-12</span> (96px) — are used correctly for large section-level spacing. No undefined multiples or half-steps were found.</p>
+          <p class="body-text">The section rhythm pattern is: <span class="mono">--sp-12</span> (96px) padding-top on <span class="mono">.section</span>, and <span class="mono">--sp-12</span> (96px) padding-bottom on <span class="mono">.layout</span>. This creates 192px of vertical space around each section's content area — double <span class="mono">--sp-large-section</span>. The brief specifies "high-signal, concise, easy to scan" — 192px section gaps push against that intent.</p>
+        </div>
+        <div class="section-col-aside">
+          <div class="stat-item">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Arbitrary px values in margin/padding/gap</div>
+            <div class="stat-target good">Clean</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">192px</div>
+            <div class="stat-label">Effective vertical space around each section content area</div>
+            <div class="stat-target warn">May conflict with scan density brief</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Zero arbitrary spacing values — full token coverage</div>
+            <div class="issue-desc">Every spacing value in all 5 modules resolves to a defined token. The extended scale tokens (--sp-10, --sp-12) are used correctly for large section-level gaps.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Section padding creates 192px vertical gaps</div>
+            <div class="issue-desc"><span class="mono">.section { padding-top: var(--sp-12) }</span> plus <span class="mono">.layout { padding-bottom: var(--sp-12) }</span> = 192px between content areas. Brief calls for concise and easy to scan. Consider reducing section padding-top to <span class="mono">--sp-large-section</span> (64px) or adjusting the layout padding-bottom.</div>
+            <span class="issue-code">sections.module.css → .section + .layout both at --sp-12</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">80px margin-bottom before About theme blocks</div>
+            <div class="issue-desc"><span class="mono">.aboutHeading { margin-bottom: var(--sp-10) }</span> — 80px gap between the heading paragraph and the four theme blocks. This is a large structural gap inside the section. May feel loose in context.</div>
+            <span class="issue-code">sections.module.css → .aboutHeading { margin-bottom: var(--sp-10) }</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 — COLOR & INTERACTION -->
+    <section class="section section--tinted" data-num="06" id="v1-color">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Color &amp; Interaction</h2>
+      </div>
+
+      <p class="lede">No hardcoded colors. Dark theme applied correctly. Hover model is mostly consistent with one minor inconsistency in opacity values.</p>
+
+      <p class="body-text">All color values in every UX CSS module use tokens exclusively. The <span class="mono">[data-theme="ux"]</span> dark theme is applied at the layout wrapper level in layout.tsx — the correct application point — and the token overrides are complete: bg, text, muted, rule, and nav-bg all flip. The palette inversion is coherent: main-site background becomes UX text, main-site text becomes UX background. Same warm undertone, flipped value.</p>
+
+      <p class="body-text">All interactive transition durations are <span class="mono">0.15s</span> across all interactive elements — consistent. The two hover models in use — opacity fade and border/color reveal — are each internally consistent and applied to different link contexts. The small inconsistency is that <span class="mono">.fileLink:hover</span> uses <span class="mono">opacity: 0.6</span> while <span class="mono">.projectLink:hover</span> and <span class="mono">.thoughtLink:hover</span> both use <span class="mono">opacity: 0.5</span>. These are the same idiom at different values.</p>
+
+      <div class="findings-grid">
+        <div class="finding">
+          <div class="finding-label">Hover Model A</div>
+          <div class="finding-value">Opacity fade</div>
+          <div class="finding-note">Used on: fileLink (0.6), projectLink (0.5), thoughtLink (0.5). Values should be unified to one opacity.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Hover Model B</div>
+          <div class="finding-value">Border / color reveal</div>
+          <div class="finding-note">Used on: colLink (border-color → text), aboutHeadingLink (border-color → text), backLink (color → text). Internally consistent.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Transition Duration</div>
+          <div class="finding-value">0.15s across all</div>
+          <div class="finding-note">Consistent. No outlier durations found.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Hardcoded Colors</div>
+          <div class="finding-value">Zero</div>
+          <div class="finding-note">All color values resolve to tokens in all 5 CSS modules.</div>
+        </div>
+      </div>
+
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Zero hardcoded color values — full token coverage</div>
+            <div class="issue-desc">Every color in the UX site (sections, project, thought CSS modules) uses --color-* tokens. The dark theme inversion works because of this discipline.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Dark theme applied correctly at layout wrapper</div>
+            <div class="issue-desc"><span class="mono">data-theme="ux"</span> placed on the outermost wrapper in layout.tsx. The token cascade handles all child elements without per-component overrides. Clean implementation.</div>
+            <span class="issue-code">app/ux/layout.tsx → &lt;div data-theme="ux"&gt;</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Opacity hover values inconsistent: 0.6 vs. 0.5</div>
+            <div class="issue-desc"><span class="mono">.fileLink:hover { opacity: 0.6 }</span> vs. <span class="mono">.projectLink:hover</span> and <span class="mono">.thoughtLink:hover { opacity: 0.5 }</span>. Same idiom, different values. Unify to a single opacity — 0.5 is the more common value in the codebase.</div>
+            <span class="issue-code">sections.module.css → .fileLink vs. .projectLink hover opacities</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — INFORMATION ARCHITECTURE -->
+    <section class="section section--white" data-num="07" id="v1-ia">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Information Architecture</h2>
+      </div>
+
+      <p class="lede">The IA spec exists and is good. The implementation is incomplete: two sections missing, one section misidentified, anchor navigation partially broken.</p>
+
+      <p class="body-text">The ux_site_ia.md specifies seven sections: Hero, About/Perspective, Background/Experience, Selected Work, Thoughts, Credentials, Links/Elsewhere. page.tsx renders five: Hero, About, Work, Thoughts, Credentials. The Background and Links components exist as separate files but are not imported into the page. This is not a design problem — the sections are designed. It is a build-completeness problem.</p>
+
+      <h3>Section Render Audit</h3>
+      <table class="type-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Section</th>
+            <th>Component File</th>
+            <th>Rendered</th>
+            <th>Anchor ID</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Hero</td>
+            <td><span class="mono">Hero.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">hero</span></td>
+            <td>Correct</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>About / Perspective</td>
+            <td><span class="mono">About.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">about</span></td>
+            <td>Correct</td>
+          </tr>
+          <tr class="flag">
+            <td>3</td>
+            <td>Background / Experience</td>
+            <td><span class="mono">Background.tsx</span></td>
+            <td>✗</td>
+            <td>—</td>
+            <td>Not rendered</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Selected Work</td>
+            <td><span class="mono">Work.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">work</span></td>
+            <td>Correct</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Thoughts</td>
+            <td><span class="mono">Thoughts.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">thoughts</span></td>
+            <td>Correct</td>
+          </tr>
+          <tr class="flag">
+            <td>6</td>
+            <td>Credentials</td>
+            <td><span class="mono">Credentials.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">links</span></td>
+            <td>Wrong ID — should be <span class="mono">credentials</span></td>
+          </tr>
+          <tr class="flag">
+            <td>7</td>
+            <td>Links / Elsewhere</td>
+            <td><span class="mono">Links.tsx</span></td>
+            <td>✗</td>
+            <td><span class="mono">links</span></td>
+            <td>Not rendered; duplicate ID</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="issues" style="margin-top: 32px;">
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Background section not rendered</div>
+            <div class="issue-desc">Background.tsx exists in the components directory. It is not imported or rendered in page.tsx. The Background/Experience section is specified in ux_site_ia.md as section 3 of 7 and is a key hiring signal for level and trajectory.</div>
+            <span class="issue-code">app/ux/page.tsx → missing import Background</span>
+          </div>
+        </div>
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Links section not rendered</div>
+            <div class="issue-desc">Links.tsx exists. Not imported or rendered in page.tsx. The Links/Elsewhere section provides the critical outbound paths: LinkedIn, resume, main studio site. Without it, there is no clear conversion endpoint from the page.</div>
+            <span class="issue-code">app/ux/page.tsx → missing import Links</span>
+          </div>
+        </div>
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Credentials section uses id="links"</div>
+            <div class="issue-desc">Credentials.tsx assigns <span class="mono">id="links"</span> to its section element. This should be <span class="mono">id="credentials"</span>. If UxNav has an anchor link to "credentials", it will fail. The nav anchor to "links" may also resolve to Credentials rather than the Links section.</div>
+            <span class="issue-code">Credentials.tsx → &lt;section id="links"&gt;</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hero content doesn't meet brief section requirement</div>
+            <div class="issue-desc">The hero currently delivers: name + city. The ux_homepage_outline.md specifies the hero should communicate seniority, domain focus, and type of work. "Andrew Whited is a product designer working in Austin, TX." does not fulfill this. This is evaluated in detail in Section 08 (Content Effectiveness).</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 — CONTENT EFFECTIVENESS -->
+    <section class="section section--tinted" data-num="08" id="v1-content">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2 class="section-title">Content Effectiveness</h2>
+      </div>
+
+      <p class="lede">The content is mostly strong and clearly senior. The hero is the significant exception — it is the first thing a recruiter or hiring manager sees, and it delivers almost nothing.</p>
+
+      <p class="body-text">This site exists to help Andrew get hired. Every content decision should be evaluated against that filter. The good news: the About section, the work case studies, and the Thoughts pieces all pass this test. The About heading paragraph — "Structural designer with fifteen years in enterprise software, AI product design, and complex systems. Most recently at IBM for over a decade before forming a multidiscipline creative studio." — is direct, specific, and senior. It is the best single sentence on the site.</p>
+      <p class="body-text">The case study content is appropriately abstracted. No restricted IBM material is visible. The framing is senior — problem-led, constraint-aware, outcome-referenced. The AI interface case study in particular is well-argued at the right level of abstraction: it discusses mental model design and uncertainty signaling rather than UI component decisions.</p>
+
+      <h3>Section-by-Section Signal Assessment</h3>
+
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Hero</span>
+          <span class="page-route">/ux</span>
+          <span class="page-grade grade-text-c">C</span>
+        </div>
+        <p class="page-summary">The typewriter animation of "Andrew Whited is a product designer working in Austin, TX." establishes name and location only. A visitor who leaves before scrolling — common behavior for recruiters scanning dozens of portfolios — gets nothing actionable.</p>
+        <div class="issues">
+          <div class="issue tag-violation">
+            <div class="issue-tag"><span>Violation</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Hero fails brief content requirements</div>
+              <div class="issue-desc">ux_homepage_outline.md requires the hero to communicate: seniority, domain focus, type of work, level of clarity and confidence. The current line communicates: name, role title, location. Seniority ("senior", "15 years"), domain ("enterprise, AI, complex systems"), and value proposition are all absent.</div>
+              <span class="issue-code">Hero.tsx → FULL_TEXT = 'Andrew Whited is a product designer working in Austin, TX.'</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">About</span>
+          <span class="page-route">/ux#about</span>
+          <span class="page-grade grade-text-a-minus">A−</span>
+        </div>
+        <p class="page-summary">The strongest section on the site. The heading paragraph and four theme blocks deliver exactly what the brief asks for: perspective, domain, strengths, and professional orientation — without generic portfolio language.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Heading paragraph is specific, senior, and non-generic</div>
+              <div class="issue-desc">"Structural designer with fifteen years in enterprise software, AI product design, and complex systems. Most recently at IBM for over a decade before forming a multidiscipline creative studio." Communicates level, domain, and trajectory in two sentences. This is what the hero should be doing.</div>
+            </div>
+          </div>
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Four theme blocks map directly to brief requirements</div>
+              <div class="issue-desc">Enterprise experience, Systems and IA, AI product design, Design leadership — these are exactly the domains ux_site_brief.md calls out as secondary goals. The section is well-executed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Work</span>
+          <span class="page-route">/ux#work</span>
+          <span class="page-grade grade-text-b-plus">B+</span>
+        </div>
+        <p class="page-summary">Three selected projects. Selection is appropriate. Case study content is senior in framing, text-led, avoids restricted material. The AI interface case study is the strongest.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Case studies are outcome-referenced and appropriately abstracted</div>
+              <div class="issue-desc">All three projects cite outcomes (task completion improvement, contribution volume increase, ticket volume reduction). No IBM-restricted visual assets referenced. Framing is problem-and-decision-led, not process-heavy.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Thoughts</span>
+          <span class="page-route">/ux#thoughts</span>
+          <span class="page-grade grade-text-b">B</span>
+        </div>
+        <p class="page-summary">Two pieces: one essay, one talk. Both are high quality and demonstrate the right kind of senior perspective. Two is thin for a section — but what's here is good enough to not be a liability.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">"On Designing for Complexity" is a strong hiring signal</div>
+              <div class="issue-desc">Argues a specific, defensible position (clarify vs. simplify in enterprise/AI contexts). Shows exactly the kind of design thinking that distinguishes a senior practitioner from a generalist. Well-argued and specific to Andrew's domain.</div>
+            </div>
+          </div>
+          <div class="issue tag-opportunity">
+            <div class="issue-tag"><span>Opportunity</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Two entries is thin</div>
+              <div class="issue-desc">The brief supports more thought content. Two high-quality pieces is better than four mediocre ones, but the section could carry 3–4 without dilution. Additional pieces covering design leadership, AI interface patterns, or systems governance would reinforce the expertise narrative.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Credentials</span>
+          <span class="page-route">/ux#credentials</span>
+          <span class="page-grade grade-text-b-plus">B+</span>
+        </div>
+        <p class="page-summary">Patent applications and talks are handled correctly. Publications are described as applications, not granted patents — accurate per the brief's explicit guidance. Talks list is specific and credible.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Patent applications accurately described</div>
+              <div class="issue-desc">Listed as "US Patent Application" — correctly not presented as granted patents. This follows the brief's explicit guidance and is factually accurate.</div>
+            </div>
+          </div>
+          <div class="issue tag-opportunity">
+            <div class="issue-tag"><span>Opportunity</span></div>
+            <div class="issue-body">
+              <div class="issue-title">AIGA involvement underrepresented</div>
+              <div class="issue-desc">AIGA is cited in the brief as a credential signal but appears only as a talk venue in the Talks column. If there is additional involvement (board, chapter leadership, event organizing), it is not surfaced. Brief says to frame it honestly, including past vs. current involvement.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 — MARKET & INSPIRATION -->
+    <section class="section section--dark" data-num="09" id="v1-market">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2 class="section-title">Market &amp; Inspiration</h2>
+      </div>
+
+      <p class="lede">The UX portfolio market is dominated by light-background, conventional layouts. This site's dark theme and typographic system stand out — which is an advantage, if the hiring audience reads "authored" rather than "design-culture."</p>
+
+      <h3>Market Positioning</h3>
+      <p class="body-text">Three axes define the space senior UX/product designers occupy when seeking hiring-focused positions. The intended position targets authored and senior; execution is close but the hero gap costs position on the senior axis.</p>
+
+      <div class="spectrum-group">
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Generic Portfolio</span>
+            <span class="spectrum-label-right">Authored Practice</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 75%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 80%" title="Intended: strongly authored"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 75%" title="Current: authored, distinctive"></div>
+          </div>
+          <p class="spectrum-note">Dark theme, 12-col grid, no template scaffolding — reads as designed, not assembled. Close to intended.</p>
+        </div>
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Junior Signal</span>
+            <span class="spectrum-label-right">Senior Signal</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 65%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 80%" title="Intended: clearly senior"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 65%" title="Current: senior in content, weak in first impression"></div>
+          </div>
+          <p class="spectrum-note">Content reads senior (About, Work, Thoughts). Hero reads nothing. A recruiter who bounces early misses the senior signal entirely.</p>
+        </div>
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Process-Heavy</span>
+            <span class="spectrum-label-right">Outcome-Forward</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 60%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 65%" title="Intended: outcome-forward"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 60%" title="Current: good outcome references, still text-dense"></div>
+          </div>
+          <p class="spectrum-note">Cases cite outcomes (28% task time reduction, contribution volume increase). Still mostly text. No visual artifacts yet — appropriate given content constraints, but limits impact.</p>
+        </div>
+      </div>
+
+      <div class="spectrum-legend">
+        <span class="legend-item"><span class="legend-marker legend-marker--intended">○</span> Intended position</span>
+        <span class="legend-item"><span class="legend-marker legend-marker--current">●</span> Current execution</span>
+      </div>
+
+      <h3>Reference Sites</h3>
+      <table class="market-table">
+        <thead><tr><th>Reference</th><th>Lesson</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="https://linear.app" target="_blank" rel="noopener" class="reference-link">Linear</a></td>
+            <td>Dark mode done right at product scale — tight grid, authored voice, system clarity. Shows dark doesn't mean unapproachable.</td>
+          </tr>
+          <tr>
+            <td><a href="https://stripe.com" target="_blank" rel="noopener" class="reference-link">Stripe</a></td>
+            <td>Information hierarchy for a sophisticated audience. Every section earns its place. Professional authority without corporate coldness.</td>
+          </tr>
+          <tr>
+            <td><a href="https://basecamp.com" target="_blank" rel="noopener" class="reference-link">Basecamp / HEY</a></td>
+            <td>Opinionated, direct voice that reads senior. "Here's what we believe and why" — this site should project the same confidence about Andrew's design perspective.</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.ibm.com/design" target="_blank" rel="noopener" class="reference-link">IBM Design</a></td>
+            <td>The standard Andrew's audience will compare against, consciously or not. The design rigor here sets the bar for what "IBM-trained designer" implies.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Targeted Study</h3>
+      <p class="body-text">Specific references for specific weaknesses identified in this critique:</p>
+
+      <div class="study-grid">
+        <div class="study-item">
+          <div class="study-score">Hero — C</div>
+          <div class="study-title">About pages of senior designers you admire</div>
+          <p class="body-text">Study how designers like Jessica Hische, Frank Chimero, or Tobias Sahlin introduce themselves. What do they lead with? How do they frame seniority without claiming it directly? The best hero statements are the result of editing, not drafting.</p>
+        </div>
+        <div class="study-item">
+          <div class="study-score">Content — B</div>
+          <div class="study-title">The Resume Design System (Butterick's Practical Typography)</div>
+          <p class="body-text">The principles that make a resume scannable — information hierarchy, white space as signal, leading with strength — apply directly to portfolio content. Bringhurst on editorial clarity is the same conversation at a different level.</p>
+        </div>
+        <div class="study-item">
+          <div class="study-score">Market — B−</div>
+          <div class="study-title">Study recruiting context directly</div>
+          <p class="body-text">Ask a recruiter or hiring manager who reviews senior UX portfolios what they look for in the first 10 seconds. The gap between the designed intent and the hiring-context read is worth pressure-testing before the site goes live.</p>
+        </div>
+        <div class="study-item">
+          <div class="study-score">IA — C+</div>
+          <div class="study-title">One-page portfolio sites with strong conversion architecture</div>
+          <p class="body-text">The page should have a clear exit: LinkedIn, resume, or a contact prompt. Right now there is no conversion endpoint because Links is not rendered. Study sites that handle the "call to action" gracefully within a restrained aesthetic — this site should solve that without feeling like a landing page.</p>
+        </div>
+      </div>
+
+      <h3>Design Influence Alignment</h3>
+      <p class="body-text">The UX site shares the same formal influences as the main studio site (Crouwel, Hofmann, Müller-Brockmann), applied to a different brief context — professional portfolio rather than creative studio.</p>
+
+      <div class="influence-grid">
+        <div class="influence-item">
+          <div class="influence-name">Wim Crouwel</div>
+          <div class="influence-principle">"Grid as visual law."</div>
+          <div class="influence-alignment alignment-strong">Strong alignment</div>
+          <p class="body-text">The 12-col grid is consistently applied. The label/content column split creates a persistent vertical key line across the full page. The hero column offset mirrors the content column below. This is Crouwel-level grid discipline in a web context.</p>
+        </div>
+        <div class="influence-item">
+          <div class="influence-name">Armin Hofmann</div>
+          <div class="influence-principle">"Reduction to essential form."</div>
+          <div class="influence-alignment alignment-strong">Strong alignment</div>
+          <p class="body-text">No decoration, no ornament. The About section's theme block grid reduces complex content to essential form — four equal-weight blocks, identical treatment, content as the only differentiator. This is Hofmann's reduction principle applied to data structure.</p>
+        </div>
+        <div class="influence-item">
+          <div class="influence-name">Josef Müller-Brockmann</div>
+          <div class="influence-principle">"Order as the foundation of clarity."</div>
+          <div class="influence-alignment alignment-partial">Partial alignment</div>
+          <p class="body-text">The section rhythm is consistent but the section padding may be creating false spaciousness rather than earned breathing room. MüB's spacing is purposeful — it creates tension and resolution, not just room. The current 192px section gaps are generous without being argued.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 — INTENTION VS. EXECUTION -->
+    <section class="section" data-num="10" id="v1-intention">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2 class="section-title">Intention vs. Execution</h2>
+      </div>
+
+      <p class="lede">The UX brief is clear and specific. The execution is well-aligned on design system and content quality, but incomplete on build completeness and first-impression signal.</p>
+
+      <p class="body-text">The brief says the site should feel: clear, senior, thoughtful, credible, restrained, authored. Let's score each:</p>
+
+      <div class="findings-grid">
+        <div class="finding">
+          <div class="finding-label">Clear</div>
+          <div class="finding-value">Partially</div>
+          <div class="finding-note">The layout system is clear. The hero is not — it delays the professional context until the user scrolls past the fold.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Senior</div>
+          <div class="finding-value">Yes — below the fold</div>
+          <div class="finding-note">About, Work, Thoughts, and Credentials all read senior. The hero does not. First impression ≠ senior.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Thoughtful</div>
+          <div class="finding-value">Yes</div>
+          <div class="finding-note">The About theme blocks show genuine professional reflection. The Thoughts pieces argue specific positions. Not boilerplate.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Credible</div>
+          <div class="finding-value">Yes</div>
+          <div class="finding-note">Patent applications correctly described. IBM tenure specific. AIGA cited accurately. No overclaiming found.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Restrained</div>
+          <div class="finding-value">Yes</div>
+          <div class="finding-note">No decorative gestures, no animation beyond the cursor blink and typewriter. Motion is subtle and purposeful.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Authored</div>
+          <div class="finding-value">Yes</div>
+          <div class="finding-note">The dark theme, typographic system, and grid discipline create a distinctive authored feel. This is not a Squarespace portfolio.</div>
+        </div>
+      </div>
+
+      <p class="body-text" style="margin-top: 32px;">The brief says, relative to the main site, the UX site should be: simpler, more legible, more direct, more obviously professional. Simpler and more legible: yes — fewer layout types, consistent section structure. More direct: partially — content is direct but the hero doesn't lead with the most important information. More obviously professional: at risk — the dark theme is a deliberate authorial choice that differentiates, but requires visitors to read past the aesthetic to find the professional signal.</p>
+
+      <blockquote class="pullquote">
+        "The point is not to express everything Andrew does, but to make a strong case for why he should be hired."
+        <cite>— ux_site_brief.md</cite>
+      </blockquote>
+
+      <p class="body-text">The current hero does not make that case. Everything below the hero does. The gap between the first-impression experience and the scrolled experience is the most important thing to resolve.</p>
+    </section>
+
+    <!-- 11 — RECOMMENDATIONS -->
+    <section class="section" data-num="11" id="v1-recommendations">
+      <div class="section-header">
+        <span class="section-num">11</span>
+        <h2 class="section-title">Recommendations</h2>
+      </div>
+
+      <p class="lede">13 items. Fix the IA before anything else — two sections missing and a broken anchor ID are structural problems, not design ones.</p>
+
+      <h3>Critical</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">01</div>
+          <div class="rec-body">
+            <div class="rec-title">Import and render &lt;Links /&gt; in page.tsx</div>
+            <div class="rec-desc">The Links section is the primary conversion endpoint: LinkedIn, resume, main studio site. Without it, the page has no clear exit path. This is the most urgent missing piece.</div>
+            <span class="rec-priority priority-critical">Critical</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">02</div>
+          <div class="rec-body">
+            <div class="rec-title">Fix id="links" on Credentials section → id="credentials"</div>
+            <div class="rec-desc">Credentials.tsx uses the wrong anchor ID. Change to <span class="mono">id="credentials"</span>. Then verify UxNav anchor links are consistent with all section IDs.</div>
+            <span class="rec-priority priority-critical">Critical</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">03</div>
+          <div class="rec-body">
+            <div class="rec-title">Fix undefined .container in Links.tsx</div>
+            <div class="rec-desc">Remove <span class="mono">styles.container</span> wrapper or add the class to sections.module.css. Without it, the Links section renders without its grid container.</div>
+            <span class="rec-priority priority-critical">Critical</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>High</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">04</div>
+          <div class="rec-body">
+            <div class="rec-title">Rewrite the hero sentence to lead with seniority and domain</div>
+            <div class="rec-desc">The current typewriter text establishes name and city. The brief requires: seniority, domain focus, type of work. A sentence like "Senior product designer with fifteen years in enterprise software, AI, and complex systems" would be closer. This is a content problem, not a code problem.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">05</div>
+          <div class="rec-body">
+            <div class="rec-title">Import and render &lt;Background /&gt; in page.tsx</div>
+            <div class="rec-desc">Background/Experience is section 3 of 7 in the IA spec and a key hiring signal for level and trajectory. The component exists. Add it between About and Work.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">06</div>
+          <div class="rec-body">
+            <div class="rec-title">Change .heroTypewriter from --text-display to --text-hero</div>
+            <div class="rec-desc">globals.css defines <span class="mono">--text-hero: clamp(3.5rem, 8vw, 7rem)</span> for exactly this use. <span class="mono">--text-display</span> caps at 4.5rem; <span class="mono">--text-hero</span> scales to 7rem. At viewport width, this is the difference between a statement and a whisper.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Medium</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">07</div>
+          <div class="rec-body">
+            <div class="rec-title">Replace ratio-based leading with pixel tokens on display titles</div>
+            <div class="rec-desc"><span class="mono">var(--leading-tight)</span> on .heroTypewriter, .projectTitle, and .title should become <span class="mono">var(--lh-5xl)</span> (48px) or an appropriate <span class="mono">--lh-*</span> token. The system specifies pixel tokens for baseline-grid alignment.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">08</div>
+          <div class="rec-body">
+            <div class="rec-title">Unify hover opacity to a single value</div>
+            <div class="rec-desc"><span class="mono">.fileLink:hover</span> uses 0.6; <span class="mono">.projectLink:hover</span> and <span class="mono">.thoughtLink:hover</span> use 0.5. Pick one — 0.5 is the more common value in the codebase.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">09</div>
+          <div class="rec-body">
+            <div class="rec-title">Reduce section vertical spacing to improve scan density</div>
+            <div class="rec-desc">The current <span class="mono">--sp-12</span> (96px) for both section padding-top and layout padding-bottom creates 192px between sections. The brief calls for "concise, easy to scan." Consider reducing to <span class="mono">--sp-large-section</span> (64px) for section padding-top, keeping the current layout padding-bottom.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">10</div>
+          <div class="rec-body">
+            <div class="rec-title">Verify UxNav anchor links against actual section IDs</div>
+            <div class="rec-desc">With Credentials using the wrong ID and Links not rendered, it is likely the UxNav anchor targets do not resolve correctly. Audit all nav href values against rendered section IDs after fixing recommendations 01–03.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Low</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">11</div>
+          <div class="rec-body">
+            <div class="rec-title">Add 1–2 more Thoughts entries</div>
+            <div class="rec-desc">Two pieces is thin for a section. Both current pieces are high quality. 3–4 total would reinforce expertise without diluting the section. Candidates: design leadership perspective, AI interface patterns, systems governance.</div>
+            <span class="rec-priority priority-low">Low</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">12</div>
+          <div class="rec-body">
+            <div class="rec-title">Expand AIGA signal in Credentials if additional involvement exists</div>
+            <div class="rec-desc">AIGA is cited in the brief as a credibility signal. Currently only appears as a talk venue. If there is chapter involvement, board membership, or event organizing, this should be surfaced accurately and with honest framing (past vs. current).</div>
+            <span class="rec-priority priority-low">Low</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">13</div>
+          <div class="rec-body">
+            <div class="rec-title">Consider consolidating label pattern duplication</div>
+            <div class="rec-desc">8 class names use the identical xs/medium/tracking-wider/uppercase pattern. CSS Modules prevents true sharing, but a global utility class for this pattern or a shared composition approach would reduce maintenance surface as the site grows.</div>
+            <span class="rec-priority priority-low">Low</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 — VERDICT -->
+    <div class="verdict" data-num="12" id="v1-verdict">
+      <div class="section-header">
+        <span class="section-num">12</span>
+        <h2 class="section-title">Verdict</h2>
+      </div>
+
+      <p class="lede">The system is trustworthy. The content is mostly strong. The architecture is incomplete. The first impression underdelivers the rest of the page.</p>
+
+      <p class="body-text">This is a well-built site that is not yet a complete site. The design system work — grid, tokens, dark theme, type scale — is solid and does not need to be relitigated. The case study content and About section demonstrate the level of thinking the brief calls for. The problem is structural: two sections aren't rendered, one section has the wrong anchor ID, and the hero — the first thing every visitor sees — communicates almost nothing about why Andrew should be hired.</p>
+
+      <p class="body-text">The fixes are not design work. They are build-completeness work. Once the IA violations are resolved and the hero sentence is updated, the site achieves most of what it was designed to achieve. The secondary refinements (leading tokens, hover opacity, section spacing) are worthwhile but won't change the hiring impact meaningfully.</p>
+
+      <div class="verdict-grid">
+        <div class="verdict-cell">
+          <div class="verdict-cell-title">What Works</div>
+          <ul>
+            <li>Design system discipline — grid, tokens, dark theme, weight hierarchy</li>
+            <li>About section — the best hiring signal on the page</li>
+            <li>Work case studies — senior framing, outcome-referenced, appropriately abstracted</li>
+            <li>Credentials accuracy — patent applications not overstated</li>
+            <li>Thoughts pieces — specific POV, well-argued, hiring-relevant</li>
+            <li>Formal discipline — Crouwel-level grid consistency across all templates</li>
+          </ul>
+        </div>
+        <div class="verdict-cell">
+          <div class="verdict-cell-title">What Needs Work</div>
+          <ul>
+            <li>Hero sentence — fails the brief's content requirements</li>
+            <li>Background and Links sections — not rendered</li>
+            <li>Credentials anchor ID — id="links" is wrong</li>
+            <li>Links.tsx undefined .container class</li>
+            <li>Section spacing — 192px gaps may conflict with scan density</li>
+            <li>--text-hero not used in the hero</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="verdict-final">
+        <div class="verdict-score">B</div>
+        <div class="verdict-statement">Solid foundations, incomplete build. Fix the IA, then fix the hero. The rest of the work is polish.</div>
+        <p class="verdict-close">March 2026 · design-pass-2 branch · Code audit from source, no visual render. Evaluated against ux_site_brief.md, ux_site_ia.md, ux_homepage_outline.md, and the shared design system token spec.</p>
+      </div>
+    </div>
+
+  </div><!-- /version-panel v1 -->
+
+  <!-- ═══════════════════════════════════════════════════
+       VERSION 2 — March 2026
+  ════════════════════════════════════════════════════ -->
+  <div class="version-panel" data-version="2">
+
+    <!-- COVER -->
+    <header class="cover" id="v2-cover">
+      <div class="cover-overline">Design Critique — Andrew Whited UX Site</div>
+      <div class="cover-version-badge">v2</div>
+
+      <h1 class="cover-h1">Andrew Whited<br>UX Site</h1>
+      <p class="cover-sub">
+        All content is declared placeholder. This critique evaluates structure, system adherence, and brief alignment — not content quality. System-level violations from v1 are resolved. Remaining gaps reflect the revised IA brief and are known, planned items.
+      </p>
+
+      <div class="cover-grades">
+        <div class="grade-cell">
+          <div class="grade-label">Grid</div>
+          <div class="grade-mark grade-a-minus">A−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="87"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Typography</div>
+          <div class="grade-mark grade-b-plus">B+</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="81"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Spacing</div>
+          <div class="grade-mark grade-a-minus">A−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="87"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Color</div>
+          <div class="grade-mark grade-a-minus">A−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="86"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">IA</div>
+          <div class="grade-mark grade-b">B</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="77"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Content</div>
+          <div class="grade-mark grade-b">B</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="76"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Market</div>
+          <div class="grade-mark grade-b-minus">B−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="71"></div></div>
+        </div>
+      </div>
+
+      <p class="cover-caveat">
+        ⚠ All content is placeholder. Scores for Content and IA reflect structural and brief-alignment gaps only — not content quality, which cannot be evaluated yet. System scores (Grid, Typography, Spacing, Color) reflect the actual code state. Audit from source, no visual render.
+      </p>
+    </header>
+
+    <!-- 01 — OVERVIEW -->
+    <section class="section section--dark" data-num="01" id="v2-overview">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Overview</h2>
+      </div>
+
+      <p class="lede">The system work is done. The structural violations from v1 are all resolved. What remains is content and brief-alignment work — some of it declared in-progress, some of it still needing decisions.</p>
+
+      <p class="body-text">Between v1 and v2: the Links section renders, the Credentials anchor ID is fixed, the hero uses the correct display token, hover opacity is unified, and the undefined class in Links.tsx is resolved. The IA brief has been substantially revised — Background removed, Publications & Talks defined as the intent for Credentials, Links/Elsewhere replaced by a Closing CTA treatment. These decisions are documented but not yet implemented in the components.</p>
+
+      <p class="body-text">All content is placeholder. This critique evaluates structure and system adherence. Content quality — the actual essays, talks, case studies, and speaking record — cannot be evaluated yet. Where content issues appear (the hero sentence, the talks data lacking venue/city), they are noted as structural gaps, not content quality judgments.</p>
+
+      <p class="body-text">The meaningful remaining gaps: the hero sentence still violates its brief requirement, the Credentials component doesn't yet reflect the Publications & Talks brief direction, the Links component is still a full section rather than a CTA treatment, and the talks data model lacks the venue/city fields the brief now requires. These are all known next steps, not surprises.</p>
+
+      <div class="scorecard">
+        <div class="score-row">
+          <span class="score-name">Grid &amp; Layout</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="87"></div></div>
+          <span class="score-grade grade-text-a-minus" data-score-key="grid">A−</span>
+          <span class="score-delta" data-score-key="grid"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Typography</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="81"></div></div>
+          <span class="score-grade grade-text-b-plus" data-score-key="typography">B+</span>
+          <span class="score-delta" data-score-key="typography"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Spacing</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="87"></div></div>
+          <span class="score-grade grade-text-a-minus" data-score-key="spacing">A−</span>
+          <span class="score-delta" data-score-key="spacing"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Color &amp; Interaction</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="86"></div></div>
+          <span class="score-grade grade-text-a-minus" data-score-key="color">A−</span>
+          <span class="score-delta" data-score-key="color"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Information Architecture</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="77"></div></div>
+          <span class="score-grade grade-text-b" data-score-key="ia">B</span>
+          <span class="score-delta" data-score-key="ia"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Content Effectiveness</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="76"></div></div>
+          <span class="score-grade grade-text-b" data-score-key="content">B</span>
+          <span class="score-delta" data-score-key="content"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Market Position</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="71"></div></div>
+          <span class="score-grade grade-text-b-minus" data-score-key="market">B−</span>
+          <span class="score-delta" data-score-key="market"></span>
+        </div>
+        <div class="score-row score-row--total">
+          <span class="score-name">Overall</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="82"></div></div>
+          <span class="score-grade grade-text-b-plus" data-score-key="overall">B+</span>
+          <span class="score-delta" data-score-key="overall"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 — METHODOLOGY -->
+    <section class="section section--white" data-num="02" id="v2-methodology">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Methodology</h2>
+      </div>
+
+      <p class="lede">Same four frameworks as v1. One addition: this version evaluates against the revised IA brief, not the original seven-section spec.</p>
+
+      <div class="frameworks-grid">
+        <div class="framework-block">
+          <h3>Design System Adherence</h3>
+          <p class="body-text">Token usage, grid discipline, type scale compliance, spacing rule adherence against globals.css. This is fully evaluable regardless of placeholder content.</p>
+        </div>
+        <div class="framework-block">
+          <h3>IA Completeness</h3>
+          <p class="body-text">Evaluated against the revised ux_site_ia.md (5 sections + CTA), not the original 7-section spec. Background correctly absent. Gaps noted against new brief targets.</p>
+        </div>
+        <div class="framework-block">
+          <h3>Hiring Signal Quality</h3>
+          <p class="body-text">Structural signals only — hero sentence, section order, content type presence. Quality of placeholder content not evaluated. A placeholder essay is not evaluated as a real essay.</p>
+        </div>
+        <div class="framework-block">
+          <h3>Swiss Formal Principles</h3>
+          <p class="body-text">Grid discipline, typographic rhythm, weight hierarchy. These are fully evaluable from code.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 — GRID & LAYOUT -->
+    <section class="section section--tinted" data-num="03" id="v2-grid">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Grid &amp; Layout</h2>
+      </div>
+
+      <p class="lede">All three v1 violations resolved. One remaining item: dead code and a misfit logo column that will need to be addressed when Credentials becomes Publications &amp; Talks.</p>
+
+      <div class="section-cols">
+        <div>
+          <p class="body-text">The three structural violations from v1 are gone. Links renders correctly using the standard <span class="mono">.section + .layout</span> pattern with the label/content column split. Credentials has the correct <span class="mono">id="credentials"</span>. The <span class="mono">.container</span> undefined class is removed.</p>
+          <p class="body-text">What remains: the Credentials component uses a <span class="mono">.credLogo</span> column (cols 1–4) rendering "Andrew / Whited" as a typographic name mark. This was a reasonable design choice in the old Credentials layout but has no home in a Publications &amp; Talks section. When the component is rebuilt for its new purpose, this column should go. The fourth CSS column <span class="mono">.credElsewhere</span> (cols 10–13) is defined in the stylesheet but nothing renders into it — three grid columns sit empty.</p>
+          <p class="body-text">The Timeline CSS classes (<span class="mono">.timelineEntry</span>, <span class="mono">.timelineName</span>, <span class="mono">.timelineRole</span>, <span class="mono">.timelineDetail</span>) remain in sections.module.css but are now dead code — Background is removed from the render. These can be cleaned up when convenient.</p>
+        </div>
+        <div class="section-col-aside">
+          <div class="stat-item">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Grid violations — all v1 violations resolved</div>
+            <div class="stat-target good">Clean</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Dead CSS classes from removed Background section</div>
+            <div class="stat-target warn">Cleanup item</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">All v1 structural violations resolved</div>
+            <div class="issue-desc">Links renders. Credentials ID is correct. Links.tsx undefined class removed. Background correctly absent per updated brief. The page renders all five intended sections.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Credentials logo column doesn't fit Publications &amp; Talks direction</div>
+            <div class="issue-desc">The <span class="mono">.credLogo</span> column (cols 1–4) renders "Andrew / Whited" as a name mark. This made sense in the old Credentials layout. In a Publications &amp; Talks section it occupies 3 columns of grid with decorative content. Rebuild needed when implementing the new brief.</div>
+            <span class="issue-code">Credentials.tsx → &lt;div className={styles.credLogo}&gt;</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Dead CSS — Timeline classes no longer used</div>
+            <div class="issue-desc"><span class="mono">.timelineEntry</span>, <span class="mono">.timelineName</span>, <span class="mono">.timelineRole</span>, <span class="mono">.timelineDetail</span> remain in sections.module.css. Background is removed from the render. These are now unreferenced.</div>
+            <span class="issue-code">sections.module.css → Background timeline classes (~30 lines)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 — TYPOGRAPHY -->
+    <section class="section section--tinted" data-num="04" id="v2-typography">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Typography</h2>
+      </div>
+
+      <p class="lede">The hero token violation is fixed. One warning remains on the hero — ratio-based leading at display scale — but at <span class="mono">--text-hero</span> size (up to 7rem) this is defensible. Style count and label pattern duplication unchanged.</p>
+
+      <div class="section-cols">
+        <div>
+          <p class="body-text"><span class="mono">.heroTypewriter</span> now uses <span class="mono">var(--text-hero)</span> — the token defined specifically for the UX hero, clamping from 3.5rem to 7rem. At maximum scale this is nearly 100px. The <span class="mono">--leading-tight</span> ratio (1.1) on the hero is the remaining warning from v1. At 7rem it produces roughly 110px of line height — technically a non-pixel-token value. For a single-line or tight-wrap hero line this is functionally correct, and applying a fixed pixel token at this scale would be inappropriate. Softening this from a warning to a note.</p>
+          <p class="body-text">All other type findings from v1 carry forward unchanged. Style count is still high (~22 across 5 modules). The label pattern duplication (~8 class names, same properties) is a maintenance surface issue, not a visual one. No new violations introduced.</p>
+        </div>
+        <div class="section-col-aside">
+          <div class="stat-item">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Active type violations — hero token fixed</div>
+            <div class="stat-target good">Clean</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">~8</div>
+            <div class="stat-label">Label pattern class duplicates — unchanged</div>
+            <div class="stat-target warn">Maintenance surface</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hero now uses --text-hero as intended</div>
+            <div class="issue-desc"><span class="mono">var(--text-hero)</span> clamps from 3.5rem to 7rem — the purpose-built UX hero token. At wide viewports the hero will be commanding. The v1 cap of 4.5rem from <span class="mono">--text-display</span> has been corrected.</div>
+            <span class="issue-code">sections.module.css → .heroTypewriter { font-size: var(--text-hero) }</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Ratio leading on hero — defensible at this scale</div>
+            <div class="issue-desc"><span class="mono">var(--leading-tight)</span> (1.1 ratio) on <span class="mono">.heroTypewriter</span>. With <span class="mono">--text-hero</span> scaling to 7rem, a fixed pixel <span class="mono">--lh-*</span> token would be inappropriate — ratio is correct here. The same warning applies to detail page titles with fluid clamp sizing. Downgraded from violation to informational note.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 — SPACING -->
+    <section class="section section--tinted" data-num="05" id="v2-spacing">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Spacing</h2>
+      </div>
+
+      <p class="lede">No changes. Full token coverage holds. The section rhythm warning from v1 carries forward.</p>
+
+      <p class="body-text">All spacing values continue to use defined tokens. No arbitrary pixel values introduced in the new link styles added to sections.module.css. The new <span class="mono">.linkList</span>, <span class="mono">.linkItem</span>, and <span class="mono">.sectionNote</span> classes all use token values correctly.</p>
+
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">New link styles use tokens correctly</div>
+            <div class="issue-desc">The five new CSS classes added for Links.tsx (<span class="mono">.linkList</span>, <span class="mono">.linkItem</span>, <span class="mono">.linkLabel</span>, <span class="mono">.linkHref</span>, <span class="mono">.sectionNote</span>) all use spacing tokens. No arbitrary values introduced.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">192px effective section gaps — carry forward from v1</div>
+            <div class="issue-desc"><span class="mono">--sp-12</span> (96px) for both <span class="mono">.section</span> padding-top and <span class="mono">.layout</span> padding-bottom creates 192px between content areas. Brief calls for concise and scannable. Not resolved in this pass.</div>
+            <span class="issue-code">sections.module.css → .section + .layout both at --sp-12</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 — COLOR & INTERACTION -->
+    <section class="section section--tinted" data-num="06" id="v2-color">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Color &amp; Interaction</h2>
+      </div>
+
+      <p class="lede">Hover opacity unified. No hardcoded values. The new link styles use the border-reveal hover model consistently with other link types in the same context.</p>
+
+      <p class="body-text">The <span class="mono">.fileLink</span> hover opacity is now 0.5, matching <span class="mono">.projectLink</span> and <span class="mono">.thoughtLink</span>. The new <span class="mono">.linkHref</span> uses the border-color reveal model (<span class="mono">--color-rule</span> → <span class="mono">--color-text</span> on hover) consistent with <span class="mono">.colLink</span> and <span class="mono">.aboutHeadingLink</span>. The two hover idioms — opacity fade for action links, border reveal for underlined reference links — are now internally consistent within each group.</p>
+
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hover model now consistent within each idiom</div>
+            <div class="issue-desc">Opacity fade links (fileLink, projectLink, thoughtLink) all use 0.5. Border-reveal links (linkHref, colLink, aboutHeadingLink) all use the same <span class="mono">--color-rule → --color-text</span> transition. Two idioms, each internally consistent.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — INFORMATION ARCHITECTURE -->
+    <section class="section section--white" data-num="07" id="v2-ia">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Information Architecture</h2>
+      </div>
+
+      <p class="lede">Major structural improvement from v1. All render violations resolved. Remaining gaps are known brief-alignment targets: Credentials needs to become Publications &amp; Talks, Links needs to become a Closing CTA, and talks data needs venue/city fields.</p>
+
+      <h3>Section Render Audit — v2 Brief</h3>
+      <table class="type-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Brief Section</th>
+            <th>Component</th>
+            <th>Renders</th>
+            <th>Anchor ID</th>
+            <th>Brief Alignment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Hero</td>
+            <td><span class="mono">Hero.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">hero</span></td>
+            <td>Structure correct; content violates brief</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>About</td>
+            <td><span class="mono">About.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">about</span></td>
+            <td>Correct — placeholder content</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Work</td>
+            <td><span class="mono">Work.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">work</span></td>
+            <td>Correct — placeholder content</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Thoughts</td>
+            <td><span class="mono">Thoughts.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">thoughts</span></td>
+            <td>Correct — placeholder content</td>
+          </tr>
+          <tr class="flag">
+            <td>5</td>
+            <td>Publications &amp; Talks</td>
+            <td><span class="mono">Credentials.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">credentials</span></td>
+            <td>Renders but doesn't match new brief direction — logo column, no venue/city data</td>
+          </tr>
+          <tr class="flag">
+            <td>6</td>
+            <td>Closing CTA</td>
+            <td><span class="mono">Links.tsx</span></td>
+            <td>✓</td>
+            <td><span class="mono">links</span></td>
+            <td>Renders as full section — brief calls for CTA treatment</td>
+          </tr>
+          <tr>
+            <td>—</td>
+            <td>Background (removed)</td>
+            <td><span class="mono">Background.tsx</span></td>
+            <td>✗</td>
+            <td>—</td>
+            <td>Correctly absent per updated brief</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="issues" style="margin-top: 32px;">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">All v1 render violations resolved</div>
+            <div class="issue-desc">Links renders. Credentials ID is correct. Background is correctly absent. The page now renders all five intended content sections plus the Links/CTA placeholder.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Credentials.tsx structure doesn't match Publications &amp; Talks brief</div>
+            <div class="issue-desc">The component still uses the old layout: logo column (1–4) with a name mark, publications (4–7), talks (7–10), empty fourth slot (10–13). The updated brief calls for a compact two-column list: Publications · Talks with venue and city data. The logo column has no role in the new brief direction.</div>
+            <span class="issue-code">Credentials.tsx → needs rebuild for Publications &amp; Talks</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Talks data model missing venue and city fields</div>
+            <div class="issue-desc">Current talks data: <span class="mono">{ title, meta }</span> where meta is "AIGA — 2023". The updated brief requires venue and city/country per engagement, and lists all locations if a talk toured. The data structure needs a <span class="mono">venues</span> array or equivalent before the component can reflect the brief's intent for the speaking record.</div>
+            <span class="issue-code">Credentials.tsx → talks[n].meta = 'AIGA — 2023' (no city)</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Links.tsx renders as a full section — brief calls for CTA treatment</div>
+            <div class="issue-desc">The updated brief specifies the Closing CTA should not carry section-level padding or a nav label. Links.tsx currently renders as a standard <span class="mono">.section</span> with a label ("Elsewhere") and full layout padding. The structure, label text, and visual register all need to change when implementing the CTA design.</div>
+            <span class="issue-code">Links.tsx → &lt;section id="links" className={styles.section}&gt;</span>
+          </div>
+        </div>
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hero content still violates brief requirement</div>
+            <div class="issue-desc">Unchanged from v1. "Andrew Whited is a product designer working in Austin, TX." delivers name and location only. The brief requires seniority, domain, and type of work in the first sentence. This is an editorial decision, not a code change — but it is the highest-priority content gap on the page.</div>
+            <span class="issue-code">Hero.tsx → FULL_TEXT = 'Andrew Whited is a product designer working in Austin, TX.'</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 — CONTENT EFFECTIVENESS -->
+    <section class="section section--tinted" data-num="08" id="v2-content">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2 class="section-title">Content Effectiveness</h2>
+      </div>
+
+      <p class="lede">⚠ All content is declared placeholder. This section evaluates structure and data model only — not the quality of the essays, cases, or talks. Structural signals are noted; content quality will be evaluated in v3.</p>
+
+      <p class="body-text">Because content is placeholder, scores here reflect what the structure can and cannot support — not whether the content itself achieves its goals. Three structural observations matter regardless of placeholder status:</p>
+
+      <div class="findings-grid">
+        <div class="finding">
+          <div class="finding-label">Hero Sentence</div>
+          <div class="finding-value">Structural violation</div>
+          <div class="finding-note">Content is not placeholder — it is the single live line in the hero. It violates the brief regardless of the broader placeholder state. This requires an editorial decision, not content production.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">About Structure</div>
+          <div class="finding-value">Strong scaffold</div>
+          <div class="finding-note">Four theme blocks, identity heading, file links — the structure is correct and will carry real content well. Placeholder text is well-shaped for its role.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Thoughts Format</div>
+          <div class="finding-value">Ready for essays</div>
+          <div class="finding-note">The thought page template supports the visual essay format with heading/paragraph blocks. The data model handles arbitrary content length. Ready for real pieces.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Talks Data Model</div>
+          <div class="finding-value">Insufficient for brief</div>
+          <div class="finding-note">The current <span class="mono">{ title, meta }</span> structure can't represent multiple venues per talk or separate city/country data. The data model needs updating before the speaking record can reflect the brief's intent.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Work Cases</div>
+          <div class="finding-value">Placeholder — structure correct</div>
+          <div class="finding-note">Three cases with title, summary, context, and link. The project page template handles all brief-required sections. Cases can be replaced or expanded without structural changes.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Visual Essay Format</div>
+          <div class="finding-value">Not yet implemented</div>
+          <div class="finding-note">Thought pages currently use a simple heading/paragraph block model. The brief calls for visual essays. This will require layout additions — image blocks, pull quotes, section-level visual treatments — when real content is produced.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 — MARKET & INSPIRATION -->
+    <section class="section section--dark" data-num="09" id="v2-market">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2 class="section-title">Market &amp; Inspiration</h2>
+      </div>
+
+      <p class="lede">Market position unchanged from v1 — placeholder content means the site hasn't shifted on any of the three spectrums. The structural improvements strengthen the authored signal slightly.</p>
+
+      <h3>Market Positioning</h3>
+      <div class="spectrum-group">
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Generic Portfolio</span>
+            <span class="spectrum-label-right">Authored Practice</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 77%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 80%" title="Intended"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 77%" title="Current: slightly improved — no broken layouts"></div>
+          </div>
+          <p class="spectrum-note">Slight improvement — no more broken layout (missing sections, undefined classes) detracting from the authored feel.</p>
+        </div>
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Junior Signal</span>
+            <span class="spectrum-label-right">Senior Signal</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 65%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 80%" title="Intended"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 65%" title="Current: unchanged — hero still weak"></div>
+          </div>
+          <p class="spectrum-note">Unchanged. Hero still delivers no seniority signal. The first impression is the same as v1.</p>
+        </div>
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Process-Heavy</span>
+            <span class="spectrum-label-right">Outcome-Forward</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 60%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 65%" title="Intended"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 60%" title="Current: unchanged"></div>
+          </div>
+          <p class="spectrum-note">Unchanged. Placeholder content. Will shift when real case studies with visual artifacts and specific outcome framing are in place.</p>
+        </div>
+      </div>
+
+      <div class="spectrum-legend">
+        <span class="legend-item"><span class="legend-marker legend-marker--intended">○</span> Intended position</span>
+        <span class="legend-item"><span class="legend-marker legend-marker--current">●</span> Current execution</span>
+      </div>
+
+      <h3>Design Influence Alignment</h3>
+      <div class="influence-grid">
+        <div class="influence-item">
+          <div class="influence-name">Wim Crouwel</div>
+          <div class="influence-principle">"Grid as visual law."</div>
+          <div class="influence-alignment alignment-strong">Strong alignment</div>
+          <p class="body-text">All structural violations resolved. The grid is now clean across all five sections. The column discipline Crouwel demands is met.</p>
+        </div>
+        <div class="influence-item">
+          <div class="influence-name">Armin Hofmann</div>
+          <div class="influence-principle">"Reduction to essential form."</div>
+          <div class="influence-alignment alignment-strong">Strong alignment</div>
+          <p class="body-text">Unchanged from v1. About section theme block grid is the clearest expression of reduction on the page. No new decoration introduced.</p>
+        </div>
+        <div class="influence-item">
+          <div class="influence-name">Josef Müller-Brockmann</div>
+          <div class="influence-principle">"Order as the foundation of clarity."</div>
+          <div class="influence-alignment alignment-partial">Partial alignment</div>
+          <p class="body-text">Section spacing rhythm (192px gaps) unchanged. MüB's spacing argues — the current gaps are generous without a clear compositional reason. Carry-forward from v1.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 — INTENTION VS. EXECUTION -->
+    <section class="section" data-num="10" id="v2-intention">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2 class="section-title">Intention vs. Execution</h2>
+      </div>
+
+      <p class="lede">The structural argument is now correct. The IA decisions made in this session are sound. The site needs content, not more architecture work.</p>
+
+      <p class="body-text">The revised IA brief — Background removed, Publications &amp; Talks as a compact proof layer, Closing CTA rather than a Links section — is a cleaner structure than the original seven-section spec. The page flow now argues: establish identity (About) → prove capability (Work) → demonstrate thinking (Thoughts) → show external validation (Publications &amp; Talks) → exit. That is a well-sequenced hiring argument.</p>
+
+      <div class="findings-grid">
+        <div class="finding">
+          <div class="finding-label">Clear</div>
+          <div class="finding-value">Structure yes; hero no</div>
+          <div class="finding-note">The section flow is clear. The hero sentence is still the single biggest clarity problem on the page. One editorial change fixes this.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Senior</div>
+          <div class="finding-value">Below the fold — unchanged</div>
+          <div class="finding-note">Everything after the hero reads senior. The hero itself does not. This is the only remaining first-impression problem.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Credible</div>
+          <div class="finding-value">Structure in place</div>
+          <div class="finding-note">Publications &amp; Talks exists in the render. The data is placeholder-quality (no venue/city). Once real data is in, this section will carry significant credibility weight.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Authored</div>
+          <div class="finding-value">Yes — stronger than v1</div>
+          <div class="finding-note">No more broken renders or undefined classes. The page now reads as a finished structure, not a work-in-progress. The dark theme and grid read as intentional throughout.</div>
+        </div>
+      </div>
+
+      <blockquote class="pullquote">
+        "The point is not to express everything Andrew does, but to make a strong case for why he should be hired."
+        <cite>— ux_site_brief.md</cite>
+      </blockquote>
+
+      <p class="body-text">The structure now makes that case in the right order. The hero still doesn't open it. Fix the hero sentence first — everything else is content production.</p>
+    </section>
+
+    <!-- 11 — RECOMMENDATIONS -->
+    <section class="section" data-num="11" id="v2-recommendations">
+      <div class="section-header">
+        <span class="section-num">11</span>
+        <h2 class="section-title">Recommendations</h2>
+      </div>
+
+      <p class="lede">6 items. The critical list is down to one. Content production is the primary work now.</p>
+
+      <h3>Critical</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">01</div>
+          <div class="rec-body">
+            <div class="rec-title">Rewrite the hero sentence</div>
+            <div class="rec-desc">This has been flagged in every critique. "Andrew Whited is a product designer working in Austin, TX." communicates name and location only. One sentence that leads with seniority and domain fixes the single biggest hiring signal gap on the page. This is editorial, not code.</div>
+            <span class="rec-priority priority-critical">Critical</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>High</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">02</div>
+          <div class="rec-body">
+            <div class="rec-title">Rebuild Credentials.tsx as Publications &amp; Talks</div>
+            <div class="rec-desc">Remove the logo column. Rebuild as a compact two-column list with Publications and Talks. Update the talks data model to include venue and city/country per engagement — multiple venues per talk if applicable. This is the highest-priority structural task.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">03</div>
+          <div class="rec-body">
+            <div class="rec-title">Rebuild Links.tsx as the Closing CTA</div>
+            <div class="rec-desc">Remove the section structure and "Elsewhere" label. Implement Option B: quiet top rule, larger file-icon links for Resume and LinkedIn, studio site as a text link, optional bridge note. This should not read as a section.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Medium</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">04</div>
+          <div class="rec-body">
+            <div class="rec-title">Add visual essay layout support to Thought pages</div>
+            <div class="rec-desc">The current heading/paragraph block model is functional but won't support the visual essay format when real content arrives. Plan for image blocks, pull quotes, and section-level visual treatments before writing the first real piece.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">05</div>
+          <div class="rec-body">
+            <div class="rec-title">Remove dead Timeline CSS classes</div>
+            <div class="rec-desc"><span class="mono">.timelineEntry</span>, <span class="mono">.timelineName</span>, <span class="mono">.timelineRole</span>, <span class="mono">.timelineDetail</span> are unreferenced since Background was removed from the render. Clean up to reduce stylesheet surface.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Low</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">06</div>
+          <div class="rec-body">
+            <div class="rec-title">Revisit section padding rhythm when real content is in</div>
+            <div class="rec-desc">The 192px effective section gaps (--sp-12 top and bottom) may feel appropriate or oversized once real content fills the sections. Evaluate against actual scroll depth before changing — the brief calls for concise and scannable but some breathing room supports the dark, typographic register.</div>
+            <span class="rec-priority priority-low">Low</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 — VERDICT -->
+    <div class="verdict" data-num="12" id="v2-verdict">
+      <div class="section-header">
+        <span class="section-num">12</span>
+        <h2 class="section-title">Verdict</h2>
+      </div>
+
+      <p class="lede">The structure is correct. The system is clean. The content is placeholder. Fix the hero sentence. Then produce the content.</p>
+
+      <p class="body-text">This is a well-structured site with a clear IA argument and a clean design system. All structural violations from v1 are resolved. The revised IA brief — five sections and a closing CTA, with Publications &amp; Talks as a compact proof layer — is the right structure for the hiring purpose. The components aren't all renamed and rebuilt yet, but the render order and IDs are correct.</p>
+
+      <p class="body-text">The only remaining urgent item is the hero sentence. It has been flagged in both critiques. It is one sentence. The content production work — real visual essays, real case studies with visual artifacts, a speaking record with venue and city data — is the primary work from here. That work will move the Market and Content scores significantly when evaluated in v3.</p>
+
+      <div class="verdict-grid">
+        <div class="verdict-cell">
+          <div class="verdict-cell-title">Resolved Since v1</div>
+          <ul>
+            <li>Links renders — conversion endpoint exists</li>
+            <li>Credentials anchor ID correct</li>
+            <li>Links.tsx undefined class removed</li>
+            <li>Background correctly absent — brief updated</li>
+            <li>Hero uses --text-hero token</li>
+            <li>Hover opacity unified</li>
+            <li>IA brief revised and documented</li>
+          </ul>
+        </div>
+        <div class="verdict-cell">
+          <div class="verdict-cell-title">Remaining Work</div>
+          <ul>
+            <li>Hero sentence — one editorial change, highest priority</li>
+            <li>Rebuild Credentials as Publications &amp; Talks</li>
+            <li>Rebuild Links as Closing CTA</li>
+            <li>Talks data model needs venue/city fields</li>
+            <li>Visual essay layout support for Thought pages</li>
+            <li>All content is placeholder — production ahead</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="verdict-final">
+        <div class="verdict-score">B+</div>
+        <div class="verdict-statement">Structure correct, system clean, content placeholder. One sentence to fix now. Everything else is production work.</div>
+        <p class="verdict-close">March 2026 · design-pass-2 branch · Code audit from source, no visual render. All content declared placeholder — scores reflect structure and system adherence only.</p>
+      </div>
+    </div>
+
+  </div><!-- /version-panel v2 -->
+
+</div><!-- /report -->
+
+<script>
+  /* ─── DATA ─────────────────────────────────────────── */
+  const VERSIONS = [
+    {
+      id: 1,
+      label: 'v1 · March 2026',
+      date: 'March 2026',
+      branch: 'design-pass-2',
+      scores: {
+        grid:       { grade: 'B+', pct: 83 },
+        typography: { grade: 'B',  pct: 76 },
+        spacing:    { grade: 'A−', pct: 87 },
+        color:      { grade: 'B+', pct: 82 },
+        ia:         { grade: 'C+', pct: 67 },
+        content:    { grade: 'B',  pct: 76 },
+        market:     { grade: 'B−', pct: 71 },
+        overall:    { grade: 'B',  pct: 77 }
+      }
+    },
+    {
+      id: 2,
+      label: 'v2 · March 2026',
+      date: 'March 2026',
+      branch: 'design-pass-2',
+      scores: {
+        grid:       { grade: 'A−', pct: 87 },
+        typography: { grade: 'B+', pct: 81 },
+        spacing:    { grade: 'A−', pct: 87 },
+        color:      { grade: 'A−', pct: 86 },
+        ia:         { grade: 'B',  pct: 77 },
+        content:    { grade: 'B',  pct: 76 },
+        market:     { grade: 'B−', pct: 71 },
+        overall:    { grade: 'B+', pct: 82 }
+      }
+    }
+  ];
+
+  /* Grade → CSS class mapping */
+  const GRADE_CLASS = {
+    'A+': 'grade-text-a', 'A': 'grade-text-a', 'A−': 'grade-text-a-minus',
+    'B+': 'grade-text-b-plus', 'B': 'grade-text-b', 'B−': 'grade-text-b-minus',
+    'C+': 'grade-text-c', 'C': 'grade-text-c', 'C−': 'grade-text-c',
+    'D':  'grade-text-default', 'F': 'grade-text-default'
+  };
+
+  function pctToGrade(pct) {
+    if (pct >= 90) return 'A';
+    if (pct >= 85) return 'A−';
+    if (pct >= 80) return 'B+';
+    if (pct >= 75) return 'B';
+    if (pct >= 70) return 'B−';
+    if (pct >= 65) return 'C+';
+    if (pct >= 60) return 'C';
+    return 'C−';
+  }
+
+  /* ─── SHOW VERSION ──────────────────────────────────── */
+  function showVersion(id) {
+    const v = VERSIONS.find(x => x.id === id);
+    if (!v) return;
+    const prev = VERSIONS.find(x => x.id === id - 1);
+
+    /* panels */
+    document.querySelectorAll('.version-panel').forEach(p => {
+      p.classList.toggle('active', +p.dataset.version === id);
+    });
+
+    /* sidebar meta */
+    const meta = document.getElementById('sidebarMeta');
+    if (meta) meta.textContent = `${v.date} · ${v.branch}`;
+
+    /* cover badge */
+    const badge = document.getElementById('coverVersionBadge');
+    if (badge) badge.textContent = `v${id}`;
+
+    /* score bars — animate in */
+    const panel = document.querySelector(`.version-panel[data-version="${id}"]`);
+    if (panel) {
+      panel.querySelectorAll('.score-bar-fill, .grade-bar-thin-fill').forEach(bar => {
+        const pct = +bar.dataset.pct || 0;
+        bar.style.width = '0%';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { bar.style.width = pct + '%'; });
+        });
+      });
+
+      /* score deltas */
+      panel.querySelectorAll('[data-score-key]').forEach(el => {
+        const key = el.dataset.scoreKey;
+        const curr = v.scores[key];
+        if (!curr) return;
+
+        if (el.classList.contains('score-grade')) {
+          el.className = `score-grade ${GRADE_CLASS[curr.grade] || 'grade-text-default'}`;
+          el.setAttribute('data-score-key', key);
+        }
+
+        if (el.classList.contains('score-delta') && prev) {
+          const p = prev.scores[key];
+          if (!p) return;
+          const delta = curr.pct - p.pct;
+          el.classList.add('visible');
+          if (delta > 0)      { el.textContent = '↑'; el.className = 'score-delta visible delta-up'; }
+          else if (delta < 0) { el.textContent = '↓'; el.className = 'score-delta visible delta-down'; }
+          else                { el.textContent = '→'; el.className = 'score-delta visible delta-same'; }
+        }
+      });
+    }
+
+    /* TOC hrefs — rewrite to active version namespace */
+    const toc = document.getElementById('sidebarToc');
+    if (toc) {
+      toc.querySelectorAll('a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const base = href.replace(/^#v\d+-/, '#');
+          a.setAttribute('href', base.replace('#', `#v${id}-`));
+        }
+      });
+    }
+  }
+
+  /* ─── SELECT HANDLER ────────────────────────────────── */
+  const sel = document.getElementById('versionSelect');
+  if (sel) sel.addEventListener('change', e => showVersion(+e.target.value));
+
+  /* ─── TOC ACTIVE HIGHLIGHT ──────────────────────────── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      document.querySelectorAll('.sidebar-toc a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    });
+  }, { threshold: 0.15, rootMargin: '-60px 0px -60px 0px' });
+
+  document.querySelectorAll('section[id], header[id], .verdict[id]').forEach(s => observer.observe(s));
+
+  /* ─── INIT ──────────────────────────────────────────── */
+  showVersion(2);
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import styles from './sections.module.css'
 
-const FULL_TEXT = 'Andrew Whited is a product designer working in Austin, TX.'
+const FULL_TEXT = 'Andrew Whited is a senior design leader bringing order and elegance to complexity'
 
 export default function Hero() {
   const [displayed, setDisplayed] = useState('')
@@ -15,7 +15,7 @@ export default function Hero() {
         i++
         setDisplayed(FULL_TEXT.slice(0, i))
         if (i === FULL_TEXT.length) clearInterval(interval)
-      }, 42)
+      }, 30)
       return () => clearInterval(interval)
     }, 300)
     return () => clearTimeout(start)

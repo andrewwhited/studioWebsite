@@ -2,35 +2,39 @@ import styles from './sections.module.css'
 
 const publications = [
   {
-    title: 'Method and system for adaptive interface generation in conversational AI environments',
-    meta: 'US Patent Application',
+    title: 'Automatic Content Transfer to a Physically Present Person Based on NLP',
+    meta: 'US Patent Application · 2024',
   },
   {
-    title: 'Context-aware component recommendation in design systems',
-    meta: 'US Patent Application',
+    title: 'UXR System and Method using AI to Facilitate and Enhance Research Activities',
+    meta: 'US Patent Application · 2025',
   },
 ]
 
-const talks = [
-  { title: 'AI and the Designer\u2019s Role', meta: 'AIGA \u2014 2023' },
-  { title: 'Designing Enterprise AI', meta: 'IBM Design Symposium \u2014 2022' },
-  { title: 'Systems Thinking in Product Design', meta: '2021' },
+type Venue = { name: string; city: string; year: string }
+
+const talks: { title: string; venues: Venue[] }[] = [
+  {
+    title: 'User Testing vs. User Teaching',
+    venues: [
+      { name: 'UX+DEV Summit', city: 'Miami, FL', year: '2017' },
+      { name: 'INTERACT', city: 'Mumbai, India', year: '2017' },
+    ],
+  },
+  {
+    title: 'Collaboration: Design, Engineering, OM',
+    venues: [
+      { name: 'IBM', city: 'Austin, TX', year: '2018' },
+    ],
+  },
 ]
 
-
-export default function Credentials() {
+export default function PublicationsTalks() {
   return (
-    <section id="links" className={styles.section}>
+    <section id="credentials" className={styles.section}>
       <div className={styles.layout}>
 
-        <div className={styles.credLogo}>
-          <span className={styles.credLogoMark}>
-            <span>Andrew</span>
-            <span>Whited</span>
-          </span>
-        </div>
-
-        <div className={styles.credPublications}>
+        <div className={styles.pubCol}>
           <div className={styles.colLabel}>Publications</div>
           <ul className={styles.colList}>
             {publications.map((item) => (
@@ -42,13 +46,17 @@ export default function Credentials() {
           </ul>
         </div>
 
-        <div className={styles.credTalks}>
+        <div className={styles.talksCol}>
           <div className={styles.colLabel}>Talks</div>
           <ul className={styles.colList}>
-            {talks.map((item) => (
-              <li key={item.title} className={styles.colItem}>
-                <span className={styles.colItemTitle}>{item.title}</span>
-                <span className={styles.colItemMeta}>{item.meta}</span>
+            {talks.map((talk) => (
+              <li key={talk.title} className={styles.colItem}>
+                <span className={styles.colItemTitle}>{talk.title}</span>
+                {talk.venues.map((v) => (
+                  <span key={v.name + v.city} className={styles.colItemMeta}>
+                    {v.name} · {v.city} · {v.year}
+                  </span>
+                ))}
               </li>
             ))}
           </ul>
