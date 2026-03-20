@@ -3,27 +3,27 @@ import styles from './sections.module.css'
 const projects = [
   {
     num: '01',
-    title: 'Conversational AI Interface',
-    context: 'IBM — Lead Designer, 2023',
+    title: 'Unified AI Strategy — AIOps',
+    context: 'IBM · Senior Design Lead · 2020–2025',
     summary:
-      'Designed the interaction model, component system, and motion language for a conversational AI product deployed across multiple IBM enterprise software products. Led from concept through implementation across research, engineering, and product.',
-    href: '/ux/work/conversational-ai',
+      'Led design strategy across three product teams and developed a unified AI approach across twelve teams. Designed and shipped generative AI features and led an AI bot project end to end — aligning UX efforts, conducting user research, and defining information architecture across a large distributed organization.',
+    href: '/ux/work/aiops-ai-strategy',
   },
   {
     num: '02',
-    title: 'Enterprise Data Platform',
-    context: 'IBM — Senior Designer, 2022',
+    title: 'Platform Consolidation — Business Automation',
+    context: 'IBM · Senior Design Lead · 2016–2020',
     summary:
-      'Restructured the core information architecture and primary task flows of a data management platform used by enterprise teams in regulated industries. The redesign addressed significant usability debt while preserving established user workflows.',
-    href: '/ux/work/data-platform',
+      'Led a portfolio-wide initiative to unify over a dozen individual product offerings into a single platform. Served as key liaison between product teams and executive stakeholders, overseeing five design teams and driving user-centered design thinking across the organization.',
+    href: '/ux/work/business-automation-platform',
   },
   {
     num: '03',
-    title: 'Design System Governance',
-    context: 'IBM — Design Systems, 2021',
+    title: 'Cross-Product Research Framework',
+    context: 'IBM · Senior Design Lead · 2022–2024',
     summary:
-      'Built the contribution process, documentation framework, and governance model for a multi-team design system operating across a large product organization. Focused on enabling consistent quality without requiring centralized control.',
-    href: '/ux/work/design-system-governance',
+      'Built a unified user research framework adopted across multiple design teams with different product contexts and goals. Adapted processes and best practices to operate across organizational boundaries without requiring centralized control.',
+    href: '/ux/work/research-framework',
   },
 ]
 

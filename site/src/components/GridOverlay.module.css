@@ -1,0 +1,20 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* 12-column overlay — mirrors .layout grid exactly */
+.columns {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--col-gap);
+  padding: 0 var(--gutter);
+}
+
+.col {
+  background: rgba(255, 255, 255, 0.04);
+}

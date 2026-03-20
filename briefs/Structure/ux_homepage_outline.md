@@ -3,204 +3,119 @@
 ## Purpose
 This outline is a practical content and layout guide for the UX homepage.
 
-The homepage should be the main hiring-oriented hub of the subdomain. It should give a strong sense of:
-- who Andrew is
-- what kind of designer he is
-- what kinds of problems he solves
-- why he is credible
-- where to go next
-
-It should be high-signal, concise, and easy to scan.
+High-signal, concise, easy to scan. Optimized for hiring.
 
 ---
 
-## Suggested Page Flow
+## Page Flow
 
 1. Hero
-2. About / Perspective
-3. Background / Experience
-4. Selected Work
+2. About
+3. Publications & Talks
+4. Work
 5. Thoughts
-6. Credentials
-7. Links / Elsewhere
+6. [Closing CTA]
 
 ---
 
 ## 1. Hero
 
 ### Goal
-Establish identity and value quickly.
+Establish who Andrew is and what kind of designer he is — before any scroll.
 
-### Should include
-- Name
-- Title / positioning line
-- Optional short subhead
-
-### Content direction
-The hero should communicate:
-- seniority
-- domain focus
-- type of work
-- level of clarity and confidence
-
-### Example content shape
-- Andrew Whited
-- Product designer focused on complex systems, AI, and enterprise software
-- Optional short line expanding on systems thinking, UX strategy, or design leadership
-
----
-
-## 2. About / Perspective
-
-### Goal
-Briefly explain how Andrew thinks and what kind of designer he is.
-
-### Should include
-- short paragraph or two
-- perspective statement
-- optional strengths / focus areas
-
-### Content direction
-This section should answer:
-- what Andrew values in design
-- what he is drawn to
-- how he approaches problems
-- what he is particularly good at
+### Content
+- Seniority + domain + type of work in the first sentence
 
 ### Avoid
-- generic portfolio language
-- inflated self-description
-- long autobiography
+- Name and location only
+- Generic "designer" without seniority or domain signal
 
 ---
 
-## 3. Background / Experience
+## 2. About
 
 ### Goal
-Show level, experience, and trajectory without turning into a resume dump.
+Identity, perspective, strengths.
 
-### Should include
-- short career summary
-- selected role/company/domain highlights
-- optional compact timeline or grouped experience list
+### Content
+- Short identity/perspective paragraph (heading weight)
+- 3–4 theme blocks: what Andrew focuses on, what he's good at
 
-### Content direction
-This section should help a hiring person understand:
-- level
-- relevant domains
-- scale/complexity of work
-- professional maturity
+### Avoid
+- Career timeline — that's the resume
+- Generic portfolio language
+- Duplicating the file-icon links here — they live in the Closing CTA
 
 ---
 
-## 4. Selected Work
+## 3. Publications & Talks
 
 ### Goal
-Surface a small number of strong, relevant projects.
+Complete the identity layer. Biographical context, not a proof moment.
 
-### Should include
-- 2–4 project entries
-- title
-- short summary
-- role/context
-- link to full project page
+### Framing
+Stats in a bio. Patents filed. Invited to speak internationally. Readers scan it and move on — that's fine and expected.
 
-### Content direction
-The section should favor:
-- relevance
-- strength
-- clarity
-- selectivity
+### Content
+- IBM patent applications: title + "US Patent Application"
+- Speaking engagements: talk title + venue + city/country
+  - List all venues/locations if a talk was given in multiple places
+  - International geography surfaces naturally through the record
 
-It does not need to be exhaustive.
+### Design
+- Compact. Different visual register from Work and Thoughts.
+- Two columns (Publications · Talks).
+- Venue and city are first-class — not just year.
 
-### Page behavior
-Each project entry should link to a separate project page.
+---
+
+## 4. Work
+
+### Goal
+Surface 2–4 strong, relevant projects.
+
+### Content
+- Title, summary, role/context, link to project page
 
 ---
 
 ## 5. Thoughts
 
 ### Goal
-Show perspective, communication, and expertise through essays or talks.
+Demonstrate communication and expertise through written work.
 
-### Should include
-- selected thought pieces
-- selected talks with meaningful content
-- summaries and link-outs
+### Content
+- Visual essays
+- Adapted talk pieces developed into written form
+- Title, summary, context, link
 
-### Content direction
-This section can contain:
-- essays
-- talk adaptations
-- presentation-based pieces
-- design/AI thinking
-
-### Page behavior
-Each entry should link to a separate thought page.
+### Note
+- These are pieces, not events. The speaking record is in Publications & Talks.
 
 ---
 
-## 6. Credentials
+## 6. Closing CTA
 
 ### Goal
-Provide compact proof points that reinforce credibility.
+Clear exit paths. End the page with presence, not a whimper.
 
-### May include
-- talks list
-- IBM patent publications
-- AIGA involvement
-- other selected recognition
-
-### Content direction
-This section should be tighter and more list-like than Thoughts.
-
-It should reinforce expertise without becoming a long CV archive.
+### Design — Option B
+- Quiet rule at top
+- File-icon links for Resume, LinkedIn, and andrewwhited.com — all three at the same scale
+- Studio link uses alias-style icon (↗) to signal external destination
+- No section label, no nav item, no section-level padding
 
 ---
 
-## 7. Links / Elsewhere
-
-### Goal
-Provide the clearest next destinations.
-
-### Should include
-- Resume
-- LinkedIn
-- Main studio site
-
-### Content direction
-This section can also act as a bridge:
-- “Find me on LinkedIn”
-- “See the rest of my creative work on my main site”
-
----
-
-## Page-Level Notes
+## Page Notes
 
 ### Navigation
-- Minimal top nav
-- Anchor links to homepage sections
-- Optional direct resume link
+- Work, Thoughts, Resume
+- No nav link to Publications & Talks or the CTA
 
 ### Tone
-- clear
-- senior
-- thoughtful
-- restrained
-- credible
+- Clear, senior, restrained, credible, authored
 
-### Design attitude
-- simpler and more legible than the main site
-- still related in taste and authorship
-- no unnecessary complexity
-- no generic portfolio-template feel
-
-### Important caution
-Case studies should avoid restricted or proprietary IBM materials.
-Use:
-- abstracted diagrams
-- recreated visuals
-- text-led explanation
-- selective evidence
-instead of sensitive assets when needed.
+### Case study caution
+- Avoid restricted IBM material
+- Text-led, abstracted diagrams, selective evidence

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import UxNav from '@/components/UxNav'
+import GridOverlay from '@/components/GridOverlay'
 
 export const metadata: Metadata = {
   title: 'Andrew Whited — Product Designer',
@@ -16,6 +17,7 @@ export default function UxLayout({
     <div data-theme="ux" style={{ minHeight: '100svh', backgroundColor: 'var(--color-bg)' }}>
       <UxNav />
       {children}
+      <GridOverlay />
     </div>
   )
 }
