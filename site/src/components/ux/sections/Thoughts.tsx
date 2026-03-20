@@ -2,6 +2,13 @@ import styles from './sections.module.css'
 
 const thoughts = [
   {
+    title: 'User Testing vs. User Teaching',
+    context: 'Essay — 2016',
+    summary:
+      'What role does user testing play in the design practice, and what is our responsibility to progress our users\u2019 visual literacy?',
+    href: '/ux/thoughts/user-testing-vs-user-teaching',
+  },
+  {
     title: 'On Designing for Complexity',
     context: 'Essay — 2024',
     summary:

@@ -45,7 +45,7 @@ export default function About() {
           <LogoOutline className={styles.aboutLogoMark} />
         </div>
 
-        <div className={styles.aboutPhoto} aria-hidden="true" />
+        <img src="/andrew.jpg" alt="Andrew Whited" className={styles.aboutPhoto} />
 
       </div>
     </section>

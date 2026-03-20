@@ -4,6 +4,61 @@ This file is a running log of session handoffs. Read it at the start of a new ch
 
 ---
 
+## Session 7 — March 2026
+**Branch:** `design-pass-2`
+
+### What Happened
+
+Built the "User Testing vs. User Teaching" thought piece from scratch on the UX site.
+
+#### Source material
+- Retrieved original essay from `github.com/andrewwhited/portfolio_old` (`teachingTesting.php`) and RTF draft from local assets
+- All 13 original SVGs pulled from old repo into `site/public/thoughts/user-testing-vs-user-teaching/`
+- Beta 4/5 iOS call screen photos (4.jpg, 5.jpg from desktop) added as `call-screen-beta4.jpg` / `call-screen-beta5.jpg`
+- `andrew.jpg` added to `site/public/` and wired into the About photo block
+
+#### Thought detail page restructure (`app/ux/thoughts/[slug]/`)
+- Extended `Block` type with `split` (two-column image+text) and `fullbleed` (full-width image) block types
+- `split` supports: `side` (left/right image), `photoBg` (background color to fill letterbox), `srcs[]` (two side-by-side images), `heading`, `body[]`
+- Added `heroImage` field to `ThoughtData` — when present, header renders as a split (title left, image right)
+- Renderer: `hasSplitLayout` flag switches between new full-width layout and legacy narrow-column layout (other essays unaffected)
+- Removed back nav bar — nav handles return
+
+#### Layout and CSS (`thought.module.css`)
+- `.splitRow` — 100vh height, 1fr/1fr grid, `#DEDED8` borders
+- `.splitPhoto` — `object-fit: contain` with per-SVG `photoBg` background color
+- `.splitPhotoDouble` — two images side-by-side with padding (96px), used for call screen comparison
+- `.splitText` — light palette (`#F6F6F2` bg, `#111110` text) overriding dark UX theme; vertically centered
+- `.fullbleedRow` — full-width images
+- `.pullRow` / `.pullRowQuote` — full-width centered quote, `--text-2xl` light weight
+- `.headerSplit` — 60vh split header; text left (dark), image right
+
+#### Content
+- Essay updated to past tense for IBM, argument and section structure faithful to original
+- Alternating image sides: left on sections 1, 3, 5, 7, 9, 11 — right on 2, 4, 6, 8, 10
+- Closing: "A version of this talk was presented at UX+DEV Summit, Miami (2017) and INTERACT, Mumbai (2017)."
+
+#### Other fixes
+- `UxNav.tsx` — all anchor hrefs prefixed with `/ux` so nav works from thought detail pages
+- `Thoughts.tsx` — "User Testing vs. User Teaching" added as first entry in the list
+
+---
+
+### What's Outstanding
+
+#### UX subdomain
+- **Thoughts content** — only "User Testing vs. User Teaching" has real content. Other two essays are placeholder.
+- **Work case study pages** — slugs exist, content is all placeholder.
+- **Resume PDF** — `/resume.pdf` linked, doesn't exist yet.
+- **Thought detail page redesign** — layout may be revisited once work section shapes up.
+
+#### Main site (Stage 3 ongoing)
+- Real photography still the biggest open item
+- Collection pages need a design push
+- Studio contact section right half still empty
+
+---
+
 ## Session 6 — March 2026
 **Branch:** `design-pass-2`
 
