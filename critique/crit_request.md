@@ -284,19 +284,7 @@ Issue HTML structure:
 
 ## Market References
 
-When mentioning these studios/architects in the market section, link them:
-
-| Name | URL |
-|------|-----|
-| Apparatus Studio | https://apparatusstudio.com |
-| Jasper Morrison | https://jaspermorrison.com |
-| Muller Van Severen | https://www.mullervanserveren.be |
-| David Chipperfield | https://davidchipperfield.com |
-| Caruso St John | https://carusostjohn.com |
-| Formafantasma | https://formafantasma.com |
-| Salon 94 | https://www.salon94.com |
-| Carpenters Workshop Gallery | https://www.carpentersworkshopgallery.com |
-| 6a architects | https://6a.co.uk |
+References are drawn from the shared pool at `critique/reference_pool.md`. Do not use a fixed list — select 4–5 references most relevant to the lowest-scoring or most active categories this session. Match references to what needs work using the tag system in the pool file.
 
 ---
 

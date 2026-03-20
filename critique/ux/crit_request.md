@@ -179,14 +179,7 @@ The intended position is: Authored Practice (~75%), Senior Signal (~80%), Outcom
 
 ## Market References (UX Portfolio Tier)
 
-When referencing comparable sites or competitive examples in the market section:
-
-| Name | URL | Why |
-|------|-----|-----|
-| Linear | https://linear.app | Dark mode done right — system clarity, authored feel |
-| Stripe | https://stripe.com | Information hierarchy at scale, professional authority |
-| Basecamp / Hey | https://basecamp.com | Direct, opinionated, senior voice in product writing |
-| IBM Design | https://www.ibm.com/design | Relevant domain — shows the standard Andrew is held to |
+References are drawn from the shared pool at `critique/reference_pool.md`. Do not use a fixed list — select 4–5 references most relevant to the lowest-scoring or most active categories this session. Match references to what needs work using the tag system in the pool file.
 
 ---
 
