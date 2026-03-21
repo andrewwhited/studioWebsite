@@ -3,11 +3,11 @@ import styles from './sections.module.css'
 const publications = [
   {
     title: 'Automatic Content Transfer to a Physically Present Person Based on NLP',
-    meta: 'US Patent Application · 2024',
+    meta: 'US Patent Application \u00b7 2024',
   },
   {
     title: 'UXR System and Method using AI to Facilitate and Enhance Research Activities',
-    meta: 'US Patent Application · 2025',
+    meta: 'US Patent Application \u00b7 2025',
   },
 ]
 
@@ -34,6 +34,8 @@ export default function PublicationsTalks() {
     <section id="credentials" className={styles.section}>
       <div className={styles.layout}>
 
+        <img src="/andrew.jpg" alt="Andrew Whited" className={styles.aboutPhoto} />
+
         <div className={styles.pubCol}>
           <div className={styles.colLabel}>Publications</div>
           <ul className={styles.colList}>
@@ -54,7 +56,7 @@ export default function PublicationsTalks() {
                 <span className={styles.colItemTitle}>{talk.title}</span>
                 {talk.venues.map((v) => (
                   <span key={v.name + v.city} className={styles.colItemMeta}>
-                    {v.name} · {v.city} · {v.year}
+                    {v.name} \u00b7 {v.city} \u00b7 {v.year}
                   </span>
                 ))}
               </li>

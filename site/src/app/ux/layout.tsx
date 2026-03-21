@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import UxNav from '@/components/UxNav'
 import GridOverlay from '@/components/GridOverlay'
+import LogoOutlineStroke from '@/components/icons/LogoOutlineStroke'
 
 export const metadata: Metadata = {
   title: 'Andrew Whited — Product Designer',
@@ -14,10 +15,15 @@ export default function UxLayout({
   children: React.ReactNode
 }) {
   return (
-    <div data-theme="ux" style={{ minHeight: '100svh', backgroundColor: 'var(--color-bg)' }}>
-      <UxNav />
-      {children}
-      <GridOverlay />
+    <div data-theme="ux" style={{ minHeight: '100svh', backgroundColor: 'var(--color-bg)', position: 'relative', overflow: 'hidden' }}>
+      <LogoOutlineStroke
+        className="ux-bg-logo"
+      />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <UxNav />
+        {children}
+        <GridOverlay />
+      </div>
     </div>
   )
 }
