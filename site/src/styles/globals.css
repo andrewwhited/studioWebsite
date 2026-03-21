@@ -102,6 +102,19 @@
   --color-nav-bg:  rgba(17, 17, 16, 0.92);
 }
 
+.ux-bg-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vmax;
+  height: 100vmax;
+  color: #454540;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* ─────────────────────────────────────────────────────
    Reset
 ───────────────────────────────────────────────────── */

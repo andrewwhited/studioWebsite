@@ -50,7 +50,6 @@ function AliasFileIcon() {
     >
       <path d="M1 1H7.5L11 4.5V14H1V1Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
       <path d="M7.5 1V4.5H11" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
-      {/* Alias arrow: ↗ in the file body */}
       <path d="M6 7.5H8.5V10" stroke="currentColor" strokeWidth="0.85" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M4 11.5L8.5 7.5" stroke="currentColor" strokeWidth="0.85" strokeLinecap="round" />
     </svg>
@@ -60,6 +59,7 @@ function AliasFileIcon() {
 export default function ClosingCta() {
   return (
     <footer className={styles.cta}>
+      <p className={styles.ctaText}>Find me elsewhere</p>
       <div className={styles.ctaLinks}>
         <a
           href="https://linkedin.com/in/andrewwhited"

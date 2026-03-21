@@ -1,10 +1,9 @@
 import styles from './sections.module.css'
-import LogoOutline from '@/components/icons/LogoOutline'
 
 const themes = [
   {
-    label: 'Experience at scale',
-    body: 'Eleven years designing for enterprise contexts at IBM. Regulated industries, large-scale platforms, multi-team product organizations. Design decisions at this scale have organizational weight. Getting them right requires more than good taste.',
+    label: 'Design leadership at scale',
+    body: 'Over a decade leading design across enterprise product organizations at IBM. Regulated industries, multi-team platforms, senior stakeholders. I\u2019ve led teams, mentored designers, and worked to ensure user-centered design earns a seat at the table.',
   },
   {
     label: 'Systems and information architecture',
@@ -13,10 +12,6 @@ const themes = [
   {
     label: 'AI fluency',
     body: 'AI has been part of my work for most of my career. I design and ship products that extend user capabilities, with a focus on user experience, explainability, and trust.',
-  },
-  {
-    label: 'Design leadership',
-    body: 'I\u2019ve directed design teams, worked alongside senior leadership, and mentored designers at multiple levels to ensure user-centric design earns a seat at the table.',
   },
 ]
 
@@ -40,12 +35,6 @@ export default function About() {
             <p className={styles.themeBlockBody}>{theme.body}</p>
           </div>
         ))}
-
-        <div className={styles.aboutLogoBlock}>
-          <LogoOutline className={styles.aboutLogoMark} />
-        </div>
-
-        <img src="/andrew.jpg" alt="Andrew Whited" className={styles.aboutPhoto} />
 
       </div>
     </section>
