@@ -139,15 +139,17 @@ const projects: Record<string, ProjectData> = {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const project = projects[params.slug]
+  const { slug } = await params
+  const project = projects[slug]
   if (!project) return {}
   return { title: `${project.title} — Andrew Whited` }
 }
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = projects[params.slug]
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const project = projects[slug]
   if (!project) notFound()
 
   return (

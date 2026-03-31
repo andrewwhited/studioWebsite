@@ -163,6 +163,7 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   background-color: var(--color-placeholder);
+  object-fit: cover;
   margin-bottom: var(--sp-md);
 }
 

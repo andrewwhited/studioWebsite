@@ -1,10 +1,18 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { products, getProduct } from '@/data/store'
+import { getProduct, getProductSlugs } from '@/data/store'
+import AddToCartButton from './add-to-cart-button'
 import styles from './product.module.css'
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }))
+export const revalidate = 60
+
+export async function generateStaticParams() {
+  try {
+    const slugs = await getProductSlugs()
+    return slugs.map((slug) => ({ slug }))
+  } catch {
+    return []
+  }
 }
 
 export default async function ProductPage({
@@ -13,7 +21,14 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const product = getProduct(slug)
+
+  let product
+  try {
+    product = await getProduct(slug)
+  } catch {
+    product = null
+  }
+
   if (!product) notFound()
 
   const available = product.status === 'available'
@@ -24,9 +39,17 @@ export default async function ProductPage({
 
         {/* Left — images */}
         <div className={styles.images}>
-          {product.images.map((_, i) => (
+          {product.images.map((src, i) => (
             <div key={i} className={styles.imageWrap}>
-              <div className={styles.image} />
+              {src ? (
+                <img
+                  src={src}
+                  alt={`${product.title} — image ${i + 1}`}
+                  className={styles.image}
+                />
+              ) : (
+                <div className={styles.image} />
+              )}
             </div>
           ))}
         </div>
@@ -46,9 +69,16 @@ export default async function ProductPage({
                 {available ? product.price : <span className={styles.soldOutLabel}>Sold out</span>}
               </p>
 
-              {/* Collection provenance */}
+              {/* Collection */}
               {product.collection && (
-                <p className={styles.provenance}>From the {product.collection}.</p>
+                <p className={styles.provenance}>
+                  <Link
+                    href={`/objects/${product.collection.toLowerCase().replace(/\s+/g, '-')}`}
+                    className={styles.collectionLink}
+                  >
+                    {product.collection}
+                  </Link>
+                </p>
               )}
 
               {/* Description */}
@@ -64,23 +94,21 @@ export default async function ProductPage({
                 </div>
                 <div className={styles.metaRow}>
                   <dt className={styles.metaLabel}>Materials</dt>
-                  <dd className={styles.metaValue}>{product.materials}</dd>
+                  <dd className={styles.metaValue}>{product.materials || '—'}</dd>
                 </div>
                 <div className={styles.metaRow}>
                   <dt className={styles.metaLabel}>Dimensions</dt>
-                  <dd className={styles.metaValue}>{product.dimensions}</dd>
+                  <dd className={styles.metaValue}>{product.dimensions || '—'}</dd>
                 </div>
               </dl>
 
               <div className={styles.fulfillmentNote}>
-                <p>{product.shipping_note}</p>
-                {product.local_pickup_available && <p>Local pickup available in Austin, TX.</p>}
+                <p>Shipping calculated at checkout</p>
+                <p>Local pickup available in Austin, TX.</p>
               </div>
 
-              {available && (
-                <button type="button" className={styles.addBtn}>
-                  Add to cart
-                </button>
+              {available && product.variantId && (
+                <AddToCartButton variantId={product.variantId} />
               )}
 
             </div>

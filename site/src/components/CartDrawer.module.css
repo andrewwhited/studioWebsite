@@ -1,0 +1,272 @@
+/* ─────────────────────────────────────────────────────
+   Cart Drawer — slide-out from right.
+   Matches site design tokens. Minimal chrome.
+───────────────────────────────────────────────────── */
+
+/* ─── Backdrop ───────────────────────────────────────── */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 16, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 999;
+}
+
+.backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ─── Drawer panel ───────────────────────────────────── */
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(420px, 90vw);
+  background: var(--color-bg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+/* ─── Header ─────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-xl) var(--sp-xl);
+  border-bottom: 1px solid var(--color-rule);
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: var(--text-xl);
+  line-height: 1;
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: var(--sp-xs);
+  transition: color 0.15s;
+}
+
+.closeBtn:hover {
+  color: var(--color-text);
+}
+
+/* ─── Body ───────────────────────────────────────────── */
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: var(--sp-xl);
+}
+
+.body::-webkit-scrollbar {
+  display: none;
+}
+
+.empty {
+  font-size: var(--text-sm);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+  padding: var(--sp-section) 0;
+  text-align: center;
+}
+
+/* ─── Line items ─────────────────────────────────────── */
+
+.lineItems {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.lineItem {
+  display: flex;
+  gap: var(--sp-lg);
+  padding: var(--sp-lg) 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.lineItem:first-child {
+  padding-top: 0;
+}
+
+.lineImage {
+  width: 80px;
+  height: 107px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.lineImagePlaceholder {
+  width: 80px;
+  height: 107px;
+  background: var(--color-placeholder);
+  flex-shrink: 0;
+}
+
+.lineDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  min-width: 0;
+  flex: 1;
+}
+
+.lineTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--font-regular);
+  line-height: var(--lh-sm);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.lineTitle:hover {
+  color: var(--color-muted);
+}
+
+.lineVariant {
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
+  color: var(--color-muted);
+}
+
+.linePrice {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-xs);
+  color: var(--color-text);
+}
+
+/* ─── Quantity controls ──────────────────────────────── */
+
+.lineActions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  margin-top: var(--sp-xs);
+}
+
+.qtyBtn {
+  background: none;
+  border: 1px solid var(--color-rule);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.qtyBtn:hover {
+  border-color: var(--color-text);
+}
+
+.qtyBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.qty {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-xs);
+  color: var(--color-text);
+  min-width: 20px;
+  text-align: center;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.removeBtn:hover {
+  color: var(--color-text);
+}
+
+.removeBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ─── Footer ─────────────────────────────────────────── */
+
+.footer {
+  border-top: 1px solid var(--color-rule);
+  padding: var(--sp-xl);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-lg);
+}
+
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+}
+
+.footerNote {
+  font-size: var(--text-xs);
+  line-height: var(--lh-xs);
+  color: var(--color-muted);
+}
+
+.checkoutBtn {
+  display: block;
+  text-align: center;
+  padding: var(--sp-md) var(--sp-xl);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-bg);
+  background: var(--color-text);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.checkoutBtn:hover {
+  opacity: 0.8;
+}
