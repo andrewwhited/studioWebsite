@@ -193,15 +193,17 @@ const thoughts: Record<string, ThoughtData> = {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const thought = thoughts[params.slug]
+  const { slug } = await params
+  const thought = thoughts[slug]
   if (!thought) return {}
   return { title: `${thought.title} — Andrew Whited` }
 }
 
-export default function ThoughtPage({ params }: { params: { slug: string } }) {
-  const thought = thoughts[params.slug]
+export default async function ThoughtPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const thought = thoughts[slug]
   if (!thought) notFound()
 
   const hasSplitLayout = thought.blocks.some(b => b.type === 'split' || b.type === 'fullbleed')
@@ -292,7 +294,7 @@ export default function ThoughtPage({ params }: { params: { slug: string } }) {
                   </figure>
                 )
               }
-              return <p key={i} className={styles.bodyText}>{block.text}</p>
+              return <p key={i} className={styles.bodyText}>{'text' in block ? block.text : null}</p>
             })}
           </div>
         )}
