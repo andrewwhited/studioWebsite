@@ -524,10 +524,8 @@ art_work:
 
   text:
 
-  availability:
-    status:
-    price:
-    contact:
+  status:
+  price:
 ```
 
 ### Field notes
@@ -540,16 +538,14 @@ art_work:
 - `dimensions`
 - `text`: artwork description / framing text
 
-#### `availability`
-Allowed values for `status`:
-- `sold`
-- `available`
-- `inquiry`
+#### `status`
+Allowed values:
+- `private` — in personal/private collection, not for sale. No price shown, no inquiry.
+- `available` — for sale. Shows inquiry button. Price field visible.
 
 Rules:
-- `sold`: no price needed
-- `available`: price should be listed and contact should be present
-- `inquiry`: no listed price; contact should be present
+- `private`: no price, no inquiry
+- `available`: if price is set, display it with an inquiry button. If price is empty, show "Price on request" with an inquiry button. Inquiry goes to studio email.
 
 ---
 

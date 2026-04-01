@@ -25,6 +25,8 @@
   margin-left: calc(-1 * var(--gutter)); /* bleed to viewport edge */
   position: relative;
   background-color: var(--color-placeholder);
+  background-size: cover;
+  background-position: center;
 }
 
 /* ─── Cols 5–8 — void ────────────────────────────── */

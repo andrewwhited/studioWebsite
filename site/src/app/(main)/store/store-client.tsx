@@ -8,9 +8,11 @@ import styles from './store.module.css'
 type Props = {
   products: Product[] | null
   error: boolean
+  title: string
+  intro: string
 }
 
-export default function StoreClient({ products, error }: Props) {
+export default function StoreClient({ products, error, title, intro }: Props) {
   const [activeCollection, setActiveCollection] = useState<string | null>(null)
   const [activeType, setActiveType] = useState<string | null>(null)
 
@@ -44,11 +46,8 @@ export default function StoreClient({ products, error }: Props) {
       {/* Left — title, intro, filters */}
       <div className={styles.left}>
         <div className={styles.leftText}>
-          <p className={styles.title}>Store</p>
-          <p className={styles.intro}>
-            Small-batch production, vessels, tools, and objects made in the
-            workshop. Shipping calculated at checkout. Local pickup available.
-          </p>
+          <p className={styles.title}>{title}</p>
+          <p className={styles.intro}>{intro}</p>
         </div>
         <div className={styles.filters}>
           {collections.length > 0 && (

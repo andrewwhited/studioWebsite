@@ -4,6 +4,152 @@ This file is a running log of session handoffs. Read it at the start of a new ch
 
 ---
 
+## Session 9 — April 1, 2026
+**Branch:** `design-pass-2`
+
+### What Happened
+
+Sanity CMS integration and infrastructure setup.
+
+#### Sanity CMS
+- Created Sanity account, project ID `uwr1du4g`, dataset `production`
+- Initialized Sanity Studio in `/sanity/` (separate from Next.js site)
+- Studio sidebar organized into two groups: **Main Site** and **UX Site**
+- Singleton pages (homePage, studioPage, objectsPage, artPage, imagePage, storePage, uxPage) use fixed document IDs — no duplicate creation in Studio
+- Document types: artwork, collection, photoSet, work, thought
+
+#### Schemas created
+- `blockContent` — portable text (rich text with images, links, styles)
+- `homePage` — hero image, title, text
+- `studioPage` — hero, bio, location, services, reading list, what's playing, contact
+- `objectsPage` — title, tagline
+- `artPage` — title, text
+- `imagePage` — title, text
+- `storePage` — title, text
+- `uxPage` — hero text, about themes, timeline, credentials, publications, talks
+- `artwork` — simplified availability to two statuses: `private` (not for sale) and `available` (shows price or "Price on request" + inquiry button)
+- `collection` — hero, editorial (blockContent), objects, companion, hit list
+- `photoSet` — no title/slug per content model; cover image, images, location, year
+- `work` — case study structure (problem, constraints, approach, decisions, outcome)
+- `thought` — flexible block-based essays (heading, paragraph, pullquote, image, fullbleed, split layout)
+
+#### Pages swapped to Sanity
+- **Home page** — title, text, hero image from Sanity with hotspot support and CDN image sizing
+- **Art listing** — page copy + artwork cards from Sanity, primary images with hotspot
+- **Art detail** — all images from Sanity (primary + additional), natural aspect ratios via `<img>` + `object-fit: cover`, first image capped at 90% viewport height so next image peeks, availability logic matches new two-status model
+- **Objects listing** — title, tagline from Sanity (collection list still hardcoded)
+- **Image listing** — title, intro from Sanity (photo sets still hardcoded), refactored to server page + client component split
+- **Store listing** — title, intro from Sanity (products still from Shopify)
+
+#### Sanity client setup
+- `site/src/lib/sanity.ts` — client + `urlFor()` image helper using `createImageUrlBuilder`
+- `site/src/lib/sanity-queries.ts` — GROQ queries for all content types
+- Image pattern: `urlFor(image).width(n).quality(80).auto('format').url()` with hotspot data wired to `background-position` or `object-fit`
+- Installed `@sanity/client` and `@sanity/image-url`
+
+#### Content model update
+- `briefs/Structure/content_model.md` — artwork availability rewritten from three-way (sold/available/inquiry) to two-way (private/available) with price-on-request logic
+
+#### Infrastructure
+- **Domain** — transferring from Squarespace to Cloudflare (nameservers pointed, transfer initiated)
+- **Email** — Google Workspace planned (studio@, inquiry@ under andrewwhited.com)
+- **Hosting** — Vercel deployment not yet configured
+
+### What's Outstanding
+
+#### Sanity migration remaining
+- **Collections** — schema ready, pages still use hardcoded `data/objects.ts`
+- **Photo sets** — schema ready, page still uses hardcoded `data/image.ts`
+- **Studio page** — schema ready, not yet wired (Andrew deferred)
+- **UX page** — schema ready, not yet wired
+- **Work case studies** — schema ready, not yet wired
+- **Thought essays** — schema ready, not yet wired
+- **Legacy data files** (`data/art.ts`, `data/objects.ts`, `data/image.ts`) — can be removed once corresponding Sanity content is populated and pages are fully swapped
+
+#### Infrastructure
+- **Cloudflare** — nameserver propagation pending, domain transfer in progress (1–5 days)
+- **Google Workspace** — not yet set up. Waiting for domain to settle at Cloudflare before adding MX records
+- **Vercel** — not yet deployed. DNS A records still point to Squarespace (no live site there)
+- **Sanity Studio deployment** — running locally only. Can deploy to sanity.io hosting or Vercel
+
+#### Email addresses to wire into site
+- Inquiry mailto links currently hardcoded to `studio@andrewwhited.com`
+- Once Google Workspace is set up, confirm final addresses and update
+
+---
+
+## Session 8 — March 31, 2026
+**Branch:** `design-pass-2`
+
+### What Happened
+
+Shopify Storefront API integration — headless commerce layer for the store.
+
+#### Shopify setup
+- Created Headless sales channel in Shopify admin (not via dev dashboard/partners portal — that path was a dead end for this use case)
+- Store domain: `studio-97975.myshopify.com`
+- Public Storefront API token + private token stored in `.env.local` (gitignored)
+- Custom metafields created in Shopify: `custom.materials` (single-line text), `custom.dimensions` (single-line text)
+- Local pickup enabled in Shopify checkout settings (not a per-product field)
+- Shipping note hardcoded — same for all products
+
+#### New files
+- `src/lib/shopify.ts` — Storefront API GraphQL client. Product queries (list, detail, handles), collection query, cart mutations (create, add, update, remove, get), price formatter
+- `src/lib/cart-context.tsx` — React context provider. Cart state in memory, cart ID persisted to localStorage. Exposes addItem/updateItem/removeItem/openCart/closeCart
+- `src/components/CartDrawer.tsx` + `.module.css` — Slide-out drawer from right. Backdrop, line items with quantity controls, subtotal, checkout link. Escape to close, body scroll lock
+- `src/components/CartButton.tsx` + `.module.css` — Floating bottom-right button. Only renders when cart has items. Dark bg, light text, bag icon + count
+- `src/app/(main)/store/store-client.tsx` — Client component for store listing. Receives server-fetched products as props. Handles filter state
+- `src/app/(main)/store/[slug]/add-to-cart-button.tsx` — Client component wrapping useCart().addItem
+- `src/data/store-constants.ts` — Split out to avoid pulling shopify.ts into client bundle (was causing webpack errors)
+
+#### Modified files
+- `src/data/store.ts` — Rewired from static array to async Shopify fetchers. `Product` type is unchanged (site schema = source of truth). `mapProduct()` and `mapProductDetail()` normalize Shopify response. `parseMetafield()` handles both raw strings and JSON-wrapped list values. Removed `shipping_note` and `local_pickup_available` from type
+- `src/app/(main)/store/page.tsx` — Now a server component that fetches products, passes to store-client. ISR with 60s revalidate
+- `src/app/(main)/store/[slug]/page.tsx` — Fetches product by handle from Shopify. Collection name links to `/objects/[slug]`. Shipping note and local pickup hardcoded. Error fallback to notFound()
+- `src/app/(main)/layout.tsx` — Wrapped children with CartProvider, added CartDrawer and CartButton
+- `next.config.ts` — Added `cdn.shopify.com` to remote image patterns
+- `Nav.tsx` / `Nav.module.css` — Restored to original (cart button removed from nav)
+- `store.module.css` — Restored original layout. Added `object-fit: cover` for real product images
+- `product.module.css` — Added `object-fit: cover` for real images, image placeholder class. Restyled add-to-cart from corner-mark to solid primary button (dark bg, light text, opacity hover)
+- `art/[slug]/work.module.css` — Restyled inquire button from corner-mark to ghost/outline (border, border-color hover)
+- `ux/thoughts/[slug]/page.tsx` — Fixed pre-existing Next.js 15 async params type error
+- `ux/work/[slug]/page.tsx` — Same async params fix
+
+#### Architecture decisions
+- **Filters are dynamic** — collection and type lists derived from Shopify products at render time. No hardcoded filter values to maintain
+- **Collections are editorial/opt-in** — not every product needs one. Products without a collection just skip the collection line on the detail page and don't appear under any collection filter
+- **Cart UI** — floating button + slide-out drawer, not in the nav. Button only appears when cart has items. Felt less intrusive than a persistent nav element on non-store pages
+- **Checkout** — redirects to Shopify hosted checkout. No custom checkout (would require Shopify Plus at $2k/mo)
+- **Corner-mark CTA retired** — replaced with solid button (store) and ghost button (art inquire). Decision: corner marks weren't earning their complexity
+
+#### Shopify admin notes
+- Online Store channel can't be deleted — redirect recommended (add `window.location.href` to theme.liquid) so checkout logo link doesn't strand users on the Shopify-hosted store
+- Payments, shipping rates, and tax settings must be configured before checkout will complete
+- Product type field drives the Type filter (set to Vessel, Tool, Object, Supply, Chair, Light, etc.)
+- Collections in Shopify must match the slug pattern in `objects.ts` for cross-linking to work
+
+---
+
+### What's Outstanding
+
+#### Shopify admin
+- **Payments** — no payment provider configured yet. Checkout won't complete without it
+- **Shipping rates** — zones and rates not set up
+- **Taxes** — Texas sales tax needs confirming
+- **Online Store redirect** — theme.liquid JS redirect not yet added
+- **Store policies** — refund, shipping, terms not written
+
+#### Store features not yet built
+- **URL param filtering** — `/store?collection=Marfa` to pre-filter from collection pages. Not implemented yet
+- **Collection page → store link** — "See in store" on `/objects/[slug]` pages
+- **Cart error states** — addItem catches errors to console but no user-facing feedback
+
+#### Stage 6 (Commerce Layer) status
+- Core integration complete. Products, cart, checkout all functional
+- Remaining: payment setup, shipping config, real product content, cross-linking between editorial and store pages
+
+---
+
 ## Session 7 — March 2026
 **Branch:** `design-pass-2`
 
