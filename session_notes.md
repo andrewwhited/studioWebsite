@@ -4,6 +4,80 @@ This file is a running log of session handoffs. Read it at the start of a new ch
 
 ---
 
+## Session 9 — April 1, 2026
+**Branch:** `design-pass-2`
+
+### What Happened
+
+Sanity CMS integration and infrastructure setup.
+
+#### Sanity CMS
+- Created Sanity account, project ID `uwr1du4g`, dataset `production`
+- Initialized Sanity Studio in `/sanity/` (separate from Next.js site)
+- Studio sidebar organized into two groups: **Main Site** and **UX Site**
+- Singleton pages (homePage, studioPage, objectsPage, artPage, imagePage, storePage, uxPage) use fixed document IDs — no duplicate creation in Studio
+- Document types: artwork, collection, photoSet, work, thought
+
+#### Schemas created
+- `blockContent` — portable text (rich text with images, links, styles)
+- `homePage` — hero image, title, text
+- `studioPage` — hero, bio, location, services, reading list, what's playing, contact
+- `objectsPage` — title, tagline
+- `artPage` — title, text
+- `imagePage` — title, text
+- `storePage` — title, text
+- `uxPage` — hero text, about themes, timeline, credentials, publications, talks
+- `artwork` — simplified availability to two statuses: `private` (not for sale) and `available` (shows price or "Price on request" + inquiry button)
+- `collection` — hero, editorial (blockContent), objects, companion, hit list
+- `photoSet` — no title/slug per content model; cover image, images, location, year
+- `work` — case study structure (problem, constraints, approach, decisions, outcome)
+- `thought` — flexible block-based essays (heading, paragraph, pullquote, image, fullbleed, split layout)
+
+#### Pages swapped to Sanity
+- **Home page** — title, text, hero image from Sanity with hotspot support and CDN image sizing
+- **Art listing** — page copy + artwork cards from Sanity, primary images with hotspot
+- **Art detail** — all images from Sanity (primary + additional), natural aspect ratios via `<img>` + `object-fit: cover`, first image capped at 90% viewport height so next image peeks, availability logic matches new two-status model
+- **Objects listing** — title, tagline from Sanity (collection list still hardcoded)
+- **Image listing** — title, intro from Sanity (photo sets still hardcoded), refactored to server page + client component split
+- **Store listing** — title, intro from Sanity (products still from Shopify)
+
+#### Sanity client setup
+- `site/src/lib/sanity.ts` — client + `urlFor()` image helper using `createImageUrlBuilder`
+- `site/src/lib/sanity-queries.ts` — GROQ queries for all content types
+- Image pattern: `urlFor(image).width(n).quality(80).auto('format').url()` with hotspot data wired to `background-position` or `object-fit`
+- Installed `@sanity/client` and `@sanity/image-url`
+
+#### Content model update
+- `briefs/Structure/content_model.md` — artwork availability rewritten from three-way (sold/available/inquiry) to two-way (private/available) with price-on-request logic
+
+#### Infrastructure
+- **Domain** — transferring from Squarespace to Cloudflare (nameservers pointed, transfer initiated)
+- **Email** — Google Workspace planned (studio@, inquiry@ under andrewwhited.com)
+- **Hosting** — Vercel deployment not yet configured
+
+### What's Outstanding
+
+#### Sanity migration remaining
+- **Collections** — schema ready, pages still use hardcoded `data/objects.ts`
+- **Photo sets** — schema ready, page still uses hardcoded `data/image.ts`
+- **Studio page** — schema ready, not yet wired (Andrew deferred)
+- **UX page** — schema ready, not yet wired
+- **Work case studies** — schema ready, not yet wired
+- **Thought essays** — schema ready, not yet wired
+- **Legacy data files** (`data/art.ts`, `data/objects.ts`, `data/image.ts`) — can be removed once corresponding Sanity content is populated and pages are fully swapped
+
+#### Infrastructure
+- **Cloudflare** — nameserver propagation pending, domain transfer in progress (1–5 days)
+- **Google Workspace** — not yet set up. Waiting for domain to settle at Cloudflare before adding MX records
+- **Vercel** — not yet deployed. DNS A records still point to Squarespace (no live site there)
+- **Sanity Studio deployment** — running locally only. Can deploy to sanity.io hosting or Vercel
+
+#### Email addresses to wire into site
+- Inquiry mailto links currently hardcoded to `studio@andrewwhited.com`
+- Once Google Workspace is set up, confirm final addresses and update
+
+---
+
 ## Session 8 — March 31, 2026
 **Branch:** `design-pass-2`
 
