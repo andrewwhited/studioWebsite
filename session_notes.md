@@ -4,6 +4,65 @@ This file is a running log of session handoffs. Read it at the start of a new ch
 
 ---
 
+## Session 10 — April 1, 2026
+**Branch:** `ux-site`
+
+### What Happened
+
+#### UX page Sanity schema rewrite
+- Rewrote `uxPage.js` schema to match actual site content and content model
+- **Removed:** `title` (unnecessary singleton label), `timeline` (Background section was removed), `profilePhoto` (replaced by generic `image`)
+- **Added:** `image` (with hotspot), `footerCopy`, `linkedinUrl`, `resumeFile` (PDF upload), `studioUrl`
+- **Renamed:** `aboutIntro` → `aboutHeading`, theme `label` → `title`
+- **Restructured:** `publications` fields to `title`/`type`/`date` (was `title`/`meta`); `talks` flattened from nested venues to individual entries with `title`/`venue`/`location`/`date`
+
+#### UX page wired to Sanity
+- `page.tsx` is now an async server component fetching from `getUxPage()`, `getAllWork()`, `getAllThoughts()`
+- All 6 section components (Hero, About, Credentials, Work, Thoughts, Links) accept props instead of hardcoded data
+- Fallback content preserved in Hero and About components
+- Resume URL resolves from Sanity file asset if uploaded, falls back to `/resume.pdf`
+
+#### Sanity content imported
+- UX page document with all current hardcoded content (hero text, about heading, 3 themes, 2 publications, 3 talks, footer copy, LinkedIn/studio URLs)
+- 3 work documents (AIOps, Business Automation, Research Framework) with listing data — case study sections (problem, constraints, approach, decisions, outcome) empty for Studio entry
+- 1 thought document (User Testing vs. User Teaching) — detail page remains hardcoded with full split-layout content
+
+#### Work detail page wired to Sanity
+- `/ux/work/[slug]/page.tsx` fetches from `getWorkBySlug()` with `generateStaticParams()`
+- Sections render conditionally (only appear when content exists in Sanity)
+- Previous placeholder case studies removed
+
+#### Logo outline fix
+- Background logo outline (`LogoOutlineStroke`) moved from UX layout to homepage-only via CSS `:has(.ux-home)` selector
+- Thought and work detail pages now have clean backgrounds
+
+#### Responsive pass — UX homepage
+- Replaced single 480px breakpoint with three-breakpoint system matching main site: 1055px (grid fine-tuning), 768px (spacing variables via globals), 672px (mobile reflow)
+- At 1055px: content shifts left, themes start at col 1, labels move to cols 1–3
+- At 672px: 12-col grid preserved for indentation; hero text and themes indent 2 columns, about heading full-width, photo/publications/talks stack, CTA switches to block
+- UxNav responsive updated to match same breakpoints
+
+#### Main site nav logo
+- Swapped text "AW" wordmark with `LogoSolid` SVG component (matches UX nav)
+
+### What's Outstanding
+
+#### Sanity migration remaining
+- **Thought detail pages** — still hardcoded; schema supports all block types (split, fullbleed, pullquote, etc.) for future migration
+- **Work case study content** — documents created but case study sections empty; fill via Studio
+- **Image upload** — profile photo not yet uploaded to UX page document in Sanity
+- **Resume PDF** — not yet uploaded to Sanity file field
+- **Collections, photo sets, studio page** — still using hardcoded data (unchanged from Session 9)
+
+#### Design
+- **Work detail page** — needs design pass and schema refinement
+- **Responsive** — UX homepage improved; detail pages (work, thoughts) not yet addressed
+
+#### Infrastructure
+- Same as Session 9 (Cloudflare transfer, Google Workspace, Vercel deployment pending)
+
+---
+
 ## Session 9 — April 1, 2026
 **Branch:** `design-pass-2`
 

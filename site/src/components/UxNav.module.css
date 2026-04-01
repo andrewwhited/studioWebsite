@@ -55,17 +55,19 @@
   color: var(--color-text);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1055px) {
+  .links {
+    grid-column: 9 / 13;
+  }
+}
+
+@media (max-width: 672px) {
   .name {
     grid-column: 1 / 7;
   }
 
   .links {
     grid-column: 7 / 13;
-    gap: var(--sp-xl);
-  }
-
-  .links a {
-    font-size: 10px;
+    gap: var(--sp-lg);
   }
 }

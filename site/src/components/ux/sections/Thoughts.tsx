@@ -1,41 +1,25 @@
 import styles from './sections.module.css'
 
-const thoughts = [
-  {
-    title: 'User Testing vs. User Teaching',
-    context: 'Essay — 2016',
-    summary:
-      'What role does user testing play in the design practice, and what is our responsibility to progress our users\u2019 visual literacy?',
-    href: '/ux/thoughts/user-testing-vs-user-teaching',
-  },
-  {
-    title: 'On Designing for Complexity',
-    context: 'Essay — 2024',
-    summary:
-      'Most design guidance optimizes for simplicity. But in enterprise and AI products, the goal is often not to simplify — it\u2019s to clarify. To make genuine complexity navigable rather than pretending it does not exist.',
-    href: '/ux/thoughts/on-designing-for-complexity',
-  },
-  {
-    title: 'AI and the Designer\u2019s Role',
-    context: 'Talk — AIGA, 2023',
-    summary:
-      'How AI tools are reshaping the relationship between design thinking and production work, and what that means for designers working at the boundary of both.',
-    href: '/ux/thoughts/ai-and-the-designers-role',
-  },
-]
+type ThoughtItem = {
+  _id: string
+  title: string
+  context: string
+  summary: string
+  slug: { current: string }
+}
 
-export default function Thoughts() {
+export default function Thoughts({ items }: { items?: ThoughtItem[] }) {
   return (
     <section id="thoughts" className={styles.section}>
       <div className={styles.layout}>
         <div className={styles.label}>Thoughts</div>
         <ul className={`${styles.content} ${styles.thoughtList}`}>
-          {thoughts.map((piece) => (
-            <li key={piece.href} className={styles.thought}>
+          {(items ?? []).map((piece) => (
+            <li key={piece._id} className={styles.thought}>
               <div className={styles.thoughtContext}>{piece.context}</div>
               <div className={styles.thoughtTitle}>{piece.title}</div>
               <p className={styles.thoughtSummary}>{piece.summary}</p>
-              <a href={piece.href} className={styles.thoughtLink}>
+              <a href={`/ux/thoughts/${piece.slug?.current}`} className={styles.thoughtLink}>
                 Read →
               </a>
             </li>
