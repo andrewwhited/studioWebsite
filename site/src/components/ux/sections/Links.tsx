@@ -56,13 +56,20 @@ function AliasFileIcon() {
   )
 }
 
-export default function ClosingCta() {
+type Props = {
+  footerCopy?: string
+  linkedinUrl?: string
+  resumeUrl?: string
+  studioUrl?: string
+}
+
+export default function ClosingCta({ footerCopy, linkedinUrl, resumeUrl, studioUrl }: Props) {
   return (
     <footer className={styles.cta}>
-      <p className={styles.ctaText}>Find me elsewhere</p>
+      <p className={styles.ctaText}>{footerCopy || 'Find me elsewhere'}</p>
       <div className={styles.ctaLinks}>
         <a
-          href="https://linkedin.com/in/andrewwhited"
+          href={linkedinUrl || 'https://linkedin.com/in/andrewwhited'}
           className={styles.ctaFileLink}
           target="_blank"
           rel="noopener noreferrer"
@@ -70,12 +77,12 @@ export default function ClosingCta() {
           <WebFileIcon />
           linkedin
         </a>
-        <a href="/resume.pdf" className={styles.ctaFileLink} download>
+        <a href={resumeUrl || '/resume.pdf'} className={styles.ctaFileLink} download>
           <FileIcon />
           resume.pdf
         </a>
         <a
-          href="https://andrewwhited.com"
+          href={studioUrl || 'https://andrewwhited.com'}
           className={styles.ctaFileLink}
           target="_blank"
           rel="noopener noreferrer"

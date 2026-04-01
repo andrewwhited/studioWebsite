@@ -1,48 +1,52 @@
 import styles from './sections.module.css'
 
-const publications = [
-  {
-    title: 'Automatic Content Transfer to a Physically Present Person Based on NLP',
-    meta: 'US Patent Application \u00b7 2024',
-  },
-  {
-    title: 'UXR System and Method using AI to Facilitate and Enhance Research Activities',
-    meta: 'US Patent Application \u00b7 2025',
-  },
-]
+type Publication = {
+  _key: string
+  title: string
+  type: string
+  date: string
+}
 
-type Venue = { name: string; city: string; year: string }
+type Talk = {
+  _key: string
+  title: string
+  venue: string
+  location: string
+  date: string
+}
 
-const talks: { title: string; venues: Venue[] }[] = [
-  {
-    title: 'User Testing vs. User Teaching',
-    venues: [
-      { name: 'UX+DEV Summit', city: 'Miami, FL', year: '2017' },
-      { name: 'INTERACT', city: 'Mumbai, India', year: '2017' },
-    ],
-  },
-  {
-    title: 'Collaboration: Design, Engineering, OM',
-    venues: [
-      { name: 'IBM', city: 'Austin, TX', year: '2018' },
-    ],
-  },
-]
+type Props = {
+  image?: string
+  imageHotspot?: { x: number; y: number }
+  publications?: Publication[]
+  talks?: Talk[]
+}
 
-export default function PublicationsTalks() {
+export default function PublicationsTalks({ image, imageHotspot, publications, talks }: Props) {
   return (
     <section id="credentials" className={styles.section}>
       <div className={styles.layout}>
 
-        <img src="/andrew.jpg" alt="Andrew Whited" className={styles.aboutPhoto} />
+        {image && (
+          <img
+            src={image}
+            alt="Andrew Whited"
+            className={styles.aboutPhoto}
+            style={
+              imageHotspot
+                ? { objectPosition: `${imageHotspot.x * 100}% ${imageHotspot.y * 100}%` }
+                : undefined
+            }
+          />
+        )}
 
         <div className={styles.pubCol}>
           <div className={styles.colLabel}>Publications</div>
           <ul className={styles.colList}>
-            {publications.map((item) => (
-              <li key={item.title} className={styles.colItem}>
+            {(publications ?? []).map((item) => (
+              <li key={item._key} className={styles.colItem}>
                 <span className={styles.colItemTitle}>{item.title}</span>
-                <span className={styles.colItemMeta}>{item.meta}</span>
+                <span className={styles.colItemMeta}>{item.type} · {item.date}</span>
               </li>
             ))}
           </ul>
@@ -51,14 +55,12 @@ export default function PublicationsTalks() {
         <div className={styles.talksCol}>
           <div className={styles.colLabel}>Talks</div>
           <ul className={styles.colList}>
-            {talks.map((talk) => (
-              <li key={talk.title} className={styles.colItem}>
+            {(talks ?? []).map((talk) => (
+              <li key={talk._key} className={styles.colItem}>
                 <span className={styles.colItemTitle}>{talk.title}</span>
-                {talk.venues.map((v) => (
-                  <span key={v.name + v.city} className={styles.colItemMeta}>
-                    {v.name} \u00b7 {v.city} \u00b7 {v.year}
-                  </span>
-                ))}
+                <span className={styles.colItemMeta}>
+                  {talk.venue} · {talk.location} · {talk.date}
+                </span>
               </li>
             ))}
           </ul>

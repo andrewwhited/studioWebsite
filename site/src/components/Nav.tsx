@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import styles from './Nav.module.css'
+import LogoSolid from './icons/LogoSolid'
 
 const navLinks = [
   { label: 'Studio',  href: '/studio'  },
@@ -49,7 +50,9 @@ export default function Nav() {
     <>
       <header className={navClass}>
         <div className={styles.inner}>
-          <Link href="/" className={styles.wordmark}>AW</Link>
+          <Link href="/" className={styles.wordmark} aria-label="Andrew Whited">
+            <LogoSolid className={styles.navLogo} />
+          </Link>
 
           <div className={styles.navContent}>
             {/* Desktop */}

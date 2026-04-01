@@ -6,20 +6,15 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      initialValue: 'UX Page',
-    }),
-    defineField({
       name: 'heroText',
       title: 'Hero Text',
       type: 'string',
     }),
     defineField({
-      name: 'aboutIntro',
-      title: 'About Intro',
+      name: 'aboutHeading',
+      title: 'About Heading',
       type: 'text',
+      rows: 3,
     }),
     defineField({
       name: 'aboutThemes',
@@ -30,37 +25,18 @@ export default defineType({
           type: 'object',
           name: 'theme',
           fields: [
-            {name: 'label', type: 'string', title: 'Label'},
+            {name: 'title', type: 'string', title: 'Title'},
             {name: 'body', type: 'text', title: 'Body'},
           ],
           preview: {
-            select: {title: 'label'},
+            select: {title: 'title'},
           },
         },
       ],
     }),
     defineField({
-      name: 'timeline',
-      title: 'Background Timeline',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          name: 'timelineEntry',
-          fields: [
-            {name: 'name', type: 'string', title: 'Name'},
-            {name: 'role', type: 'string', title: 'Role'},
-            {name: 'detail', type: 'string', title: 'Detail'},
-          ],
-          preview: {
-            select: {title: 'name', subtitle: 'role'},
-          },
-        },
-      ],
-    }),
-    defineField({
-      name: 'profilePhoto',
-      title: 'Profile Photo',
+      name: 'image',
+      title: 'Image',
       type: 'image',
       options: {hotspot: true},
     }),
@@ -74,10 +50,11 @@ export default defineType({
           name: 'publication',
           fields: [
             {name: 'title', type: 'string', title: 'Title'},
-            {name: 'meta', type: 'string', title: 'Meta'},
+            {name: 'type', type: 'string', title: 'Type'},
+            {name: 'date', type: 'string', title: 'Date'},
           ],
           preview: {
-            select: {title: 'title'},
+            select: {title: 'title', subtitle: 'type'},
           },
         },
       ],
@@ -92,31 +69,38 @@ export default defineType({
           name: 'talk',
           fields: [
             {name: 'title', type: 'string', title: 'Title'},
-            {
-              name: 'venues',
-              type: 'array',
-              title: 'Venues',
-              of: [
-                {
-                  type: 'object',
-                  name: 'venue',
-                  fields: [
-                    {name: 'name', type: 'string', title: 'Name'},
-                    {name: 'city', type: 'string', title: 'City'},
-                    {name: 'year', type: 'string', title: 'Year'},
-                  ],
-                  preview: {
-                    select: {title: 'name', subtitle: 'year'},
-                  },
-                },
-              ],
-            },
+            {name: 'venue', type: 'string', title: 'Venue'},
+            {name: 'location', type: 'string', title: 'Location'},
+            {name: 'date', type: 'string', title: 'Date'},
           ],
           preview: {
-            select: {title: 'title'},
+            select: {title: 'title', subtitle: 'venue'},
           },
         },
       ],
+    }),
+    defineField({
+      name: 'footerCopy',
+      title: 'Footer Copy',
+      type: 'string',
+    }),
+    defineField({
+      name: 'linkedinUrl',
+      title: 'LinkedIn URL',
+      type: 'url',
+    }),
+    defineField({
+      name: 'resumeFile',
+      title: 'Resume PDF',
+      type: 'file',
+      options: {
+        accept: '.pdf',
+      },
+    }),
+    defineField({
+      name: 'studioUrl',
+      title: 'Studio URL',
+      type: 'url',
     }),
   ],
   preview: {

@@ -113,6 +113,11 @@
   opacity: 1;
   pointer-events: none;
   z-index: 0;
+  display: none;
+}
+
+.ux-root:has(.ux-home) > .ux-bg-logo {
+  display: block;
 }
 
 /* ─────────────────────────────────────────────────────
