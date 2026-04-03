@@ -66,24 +66,24 @@ type Props = {
 export default function ClosingCta({ footerCopy, linkedinUrl, resumeUrl, studioUrl }: Props) {
   return (
     <footer className={styles.cta}>
-      <p className={styles.ctaText}>{footerCopy || 'Find me elsewhere'}</p>
+      <p className={`${styles.secondary} ${styles.ctaText}`}>{footerCopy || 'Find me elsewhere'}</p>
       <div className={styles.ctaLinks}>
         <a
           href={linkedinUrl || 'https://linkedin.com/in/andrewwhited'}
-          className={styles.ctaFileLink}
+          className={`${styles.label} ${styles.ctaFileLink}`}
           target="_blank"
           rel="noopener noreferrer"
         >
           <WebFileIcon />
           linkedin
         </a>
-        <a href={resumeUrl || '/resume.pdf'} className={styles.ctaFileLink} download>
+        <a href={resumeUrl || '/resume.pdf'} className={`${styles.label} ${styles.ctaFileLink}`} download>
           <FileIcon />
           resume.pdf
         </a>
         <a
           href={studioUrl || 'https://andrewwhited.com'}
-          className={styles.ctaFileLink}
+          className={`${styles.label} ${styles.ctaFileLink}`}
           target="_blank"
           rel="noopener noreferrer"
         >

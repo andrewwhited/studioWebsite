@@ -13,10 +13,9 @@
 }
 
 .backLink {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: var(--font-medium);
   letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
   color: var(--color-muted);
   transition: color 0.15s;
 }
@@ -42,7 +41,7 @@
 .headerSplit {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid #DEDED8;
+  border-bottom: 1px solid var(--color-rule);
   min-height: 60vh;
 }
 
@@ -68,17 +67,16 @@
 }
 
 .context {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: var(--font-medium);
   letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
   color: var(--color-muted);
   margin-bottom: var(--sp-lg);
 }
 
 .title {
   font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
-  font-weight: var(--font-light);
+  font-weight: var(--font-medium);
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
   color: var(--color-text);
@@ -87,6 +85,7 @@
 
 .intro {
   font-size: var(--text-lg);
+  font-weight: var(--font-medium);
   line-height: var(--lh-xl);
   color: var(--color-muted);
 }
@@ -111,7 +110,7 @@
 .splitRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid #DEDED8;
+  border-top: 1px solid var(--color-rule);
   height: 100vh;
 }
 
@@ -159,34 +158,35 @@
   flex-direction: column;
   justify-content: center;
   gap: var(--sp-lg);
-  border-left: 1px solid #DEDED8;
-  background-color: #F6F6F2;
+  border-left: 1px solid var(--color-rule);
+  background-color: var(--color-essay-panel);
 }
 
 .splitReverse .splitText {
   border-left: none;
-  border-right: 1px solid #DEDED8;
+  border-right: 1px solid var(--color-rule);
 }
 
 .splitHeading {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
-  color: #72726E;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-essay-muted);
   margin-bottom: var(--sp-sm);
 }
 
 .splitBody {
   font-size: var(--text-base);
+  font-weight: var(--font-medium);
   line-height: var(--lh-lg);
-  color: #111110;
+  color: var(--color-essay-text);
 }
 
 .splitCaption {
-  font-size: var(--text-xs);
-  color: #72726E;
-  line-height: var(--lh-lg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-essay-muted);
+  line-height: var(--lh-xs);
   margin-top: var(--sp-sm);
 }
 
@@ -204,8 +204,10 @@
 }
 
 .fullbleedCaption {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   color: var(--color-muted);
+  line-height: var(--lh-xs);
   padding: var(--sp-sm) var(--gutter);
 }
 
@@ -224,7 +226,7 @@
   max-width: 52ch;
   text-align: center;
   font-size: var(--text-2xl);
-  font-weight: var(--font-light);
+  font-weight: var(--font-medium);
   letter-spacing: var(--tracking-tight);
   line-height: var(--lh-2xl);
   color: var(--color-text);
@@ -232,10 +234,9 @@
 }
 
 .sectionHeading {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
   color: var(--color-muted);
   margin-top: var(--sp-xxl);
 }
@@ -246,6 +247,7 @@
 
 .bodyText {
   font-size: var(--text-base);
+  font-weight: var(--font-medium);
   line-height: var(--lh-lg);
   color: var(--color-text);
 }
@@ -255,7 +257,7 @@
   padding-left: var(--sp-xl);
   margin: var(--sp-xxl) 0;
   font-size: var(--text-lg);
-  font-weight: var(--font-light);
+  font-weight: var(--font-medium);
   letter-spacing: var(--tracking-tight);
   line-height: var(--lh-xl);
   color: var(--color-text);
@@ -281,9 +283,10 @@
 }
 
 .imageCaption {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   color: var(--color-muted);
-  line-height: var(--lh-lg);
+  line-height: var(--lh-xs);
 }
 
 /* Closing */
@@ -297,9 +300,10 @@
 
 .closing {
   grid-column: 3 / 10;
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   color: var(--color-muted);
-  line-height: var(--lh-lg);
+  line-height: var(--lh-xs);
 }
 
 /* Responsive */

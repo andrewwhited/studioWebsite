@@ -16,7 +16,8 @@
     <div class="version-select-wrap">
       <select id="versionSelect" aria-label="Select critique version">
         <option value="1">v1 · March 2026</option>
-        <option value="2" selected>v2 · March 2026</option>
+        <option value="2">v2 · March 2026</option>
+        <option value="3" selected>v3 · April 2026</option>
       </select>
     </div>
   </div>
@@ -2526,6 +2527,1097 @@
 
   </div><!-- /version-panel v2 -->
 
+  <!-- ═══════════════════════════════════════════════════
+       VERSION 3 — April 2026
+  ════════════════════════════════════════════════════ -->
+  <div class="version-panel" data-version="3">
+
+    <!-- COVER -->
+    <header class="cover" id="v3-cover">
+      <div class="cover-overline">Design Critique — Andrew Whited Studio</div>
+      <div class="cover-version-badge" id="coverVersionBadge">v3</div>
+
+      <h1 class="cover-h1">Andrew Whited<br>Studio Website</h1>
+      <p class="cover-sub">
+        v3 follows the most consequential work since the project began: the product detail page is built, every remaining off-scale clamp is resolved, the corner-mark CTA is simplified, and the home title is escalated to a genuinely bold typographic statement. The site now has a functioning commerce layer, a cleaner type system, and its first real moment of compositional commitment. Two new issues surface — an undefined line-height token and a hardcoded rgba in the cart drawer — but the trajectory is clear: this is no longer a framework. It is approaching a finished site.
+      </p>
+
+      <div class="cover-grades">
+        <div class="grade-cell">
+          <div class="grade-label">Grid</div>
+          <div class="grade-mark grade-a">A</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="92"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Typography</div>
+          <div class="grade-mark grade-a-minus">A−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="85"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Spacing</div>
+          <div class="grade-mark grade-a-minus">A−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="87"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Color</div>
+          <div class="grade-mark grade-a-minus">A−</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="88"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Brief Alignment</div>
+          <div class="grade-mark grade-a">A</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="90"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Composition</div>
+          <div class="grade-mark grade-b-plus">B+</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="80"></div></div>
+        </div>
+        <div class="grade-cell">
+          <div class="grade-label">Market Position</div>
+          <div class="grade-mark grade-b-plus">B+</div>
+          <div class="grade-bar-thin"><div class="grade-bar-thin-fill" data-pct="75"></div></div>
+        </div>
+      </div>
+
+      <p class="cover-caveat">
+        Audit methodology: Derived entirely from source code — globals.css, 9 CSS module files (main site), 4 component modules, all page components — cross-referenced against the full brief package and v2 findings. Site not rendered. Delta indicators compare v3 scores against v2 scores.
+      </p>
+    </header>
+
+    <!-- 01 — OVERVIEW -->
+    <section class="section section--dark" data-num="01" id="v3-overview">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Overview</h2>
+      </div>
+
+      <p class="lede">This is the version where the site becomes structurally complete. The product detail page exists. The commerce path works end-to-end. Every off-scale clamp() is resolved. The home title is committed at a scale and weight that makes an argument. The system is no longer being built — it is being used.</p>
+
+      <p class="body-text">Seven v2 recommendations are resolved. The product detail page (<span class="mono">/store/[slug]</span>) follows the same 12-col grid, cols 1–7 images / cols 9–12 details architecture as the art work detail — creating a coherent pair of catalogue-register templates. The home title has escalated from <span class="mono">var(--text-5xl)</span> in v2 to <span class="mono">var(--text-6xl)</span> (3.583rem, ~50px) in font-weight medium — the site's first genuinely bold typographic gesture. All remaining clamp() ranges are anchored to type scale tokens: studio heroHeading (<span class="mono">clamp(var(--text-base), 1.5vw, var(--text-xl))</span>), work title (<span class="mono">clamp(var(--text-xl), 2vw, var(--text-3xl))</span>). The reading row 2px padding-top values are all <span class="mono">var(--sp-xs)</span>. The image mobile grid gap is <span class="mono">var(--sp-xs)</span>. The inquiry CTA corner-mark is gone — simplified to a clean border button with hover state.</p>
+
+      <p class="body-text">Two new issues surface. First: <span class="mono">var(--lh-display)</span> is referenced in collection.module.css but never defined in globals.css — the collection hero title's line-height falls through to inherit, creating unpredictable leading. Second: the cart drawer backdrop uses <span class="mono">rgba(17, 17, 16, 0.3)</span> — a hardcoded rgba value of the same kind that was systematically cleaned in v2. Additionally, the home title's <span class="mono">--font-medium</span> at display scale breaks the established weight convention (Light for display, Medium for labels). This is either a deliberate escalation or an architectural violation — the audit flags it; the designer decides.</p>
+
+      <p class="body-text">The remaining weaknesses are no longer system issues. They are design decisions: the services section layout, the contact section emptiness, the absence of photography. The token system is tight. The templates are built. The structural argument is complete. What the site needs now is content and a final design pass on the two sections that haven't earned their place.</p>
+
+      <div class="scorecard">
+        <div class="score-row">
+          <span class="score-name">Grid Adherence</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="92"></div></div>
+          <span class="score-grade grade-text-a" data-score-key="grid">A</span>
+          <span class="score-delta" data-score-key="grid"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Typography System</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="85"></div></div>
+          <span class="score-grade grade-text-a-minus" data-score-key="typography">A−</span>
+          <span class="score-delta" data-score-key="typography"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Spacing Consistency</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="87"></div></div>
+          <span class="score-grade grade-text-a-minus" data-score-key="spacing">A−</span>
+          <span class="score-delta" data-score-key="spacing"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Color System</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="88"></div></div>
+          <span class="score-grade grade-text-a-minus" data-score-key="color">A−</span>
+          <span class="score-delta" data-score-key="color"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Brief Alignment</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="90"></div></div>
+          <span class="score-grade grade-text-a" data-score-key="brief">A</span>
+          <span class="score-delta" data-score-key="brief"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Compositional Ambition</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="80"></div></div>
+          <span class="score-grade grade-text-b-plus" data-score-key="composition">B+</span>
+          <span class="score-delta" data-score-key="composition"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-name">Market Position</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="75"></div></div>
+          <span class="score-grade grade-text-b-plus" data-score-key="market">B+</span>
+          <span class="score-delta" data-score-key="market"></span>
+        </div>
+        <div class="score-row score-row--total">
+          <span class="score-name">Overall</span>
+          <div class="score-bar"><div class="score-bar-fill" data-pct="85"></div></div>
+          <span class="score-grade grade-text-a-minus" data-score-key="overall">A−</span>
+          <span class="score-delta" data-score-key="overall"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 — METHODOLOGY -->
+    <section class="section section--white" data-num="02" id="v3-methodology">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Methodology</h2>
+      </div>
+
+      <p class="lede">Same four frameworks. The additional v3 lens: structural completeness — does the site now function as a complete system, and where does it still fall short?</p>
+
+      <div class="frameworks-grid">
+        <div class="framework-block">
+          <h3>Heuristic Evaluation</h3>
+          <p class="body-text">Nielsen's 10 heuristics, third application. Focus this version: <strong>Consistency and standards</strong> — with the product detail page added, does it follow the same conventions? <strong>Match between system and world</strong> — the commerce path now exists; does it meet user expectations? <strong>Error prevention</strong> — the undefined <span class="mono">--lh-display</span> token is a silent failure that produces no visible error but creates unpredictable rendering.</p>
+        </div>
+        <div class="framework-block">
+          <h3>Swiss Design Principles</h3>
+          <p class="body-text">Crouwel: the home title at <span class="mono">--text-6xl</span> / <span class="mono">--font-medium</span> is the first time the site makes a declarative typographic argument at commanding scale. This is closer to the Stedelijk catalogs — identity stated at scale, no hedging. Hofmann: figure/ground tension remains limited to the home page void; the opportunity for a second bold moment is still open. MBJ: the system is now functionally complete. Nine type styles, well-rationalized. Close to the target.</p>
+        </div>
+        <div class="framework-block">
+          <h3>Elements of Typographic Style</h3>
+          <p class="body-text">Bringhurst's core test: does the typography honor the content? The home title at 50px / medium now commands the page. The product detail title at <span class="mono">clamp(xl→3xl)</span> correctly positions the object name as a catalogue heading. Measure is correct throughout. The weight convention violation (medium at display) is the one Bringhurst question the site doesn't cleanly answer.</p>
+        </div>
+        <div class="framework-block">
+          <h3>Intention Alignment</h3>
+          <p class="body-text">V3 intention question: is the site structurally complete enough to evaluate against its brief in full? Yes — for the first time. Store → product → cart → checkout is a functioning path. The editorial hierarchy includes all page types. What remains pending is content (photography) and two design decisions (services format, contact section). The brief can now be fairly applied.</p>
+        </div>
+      </div>
+
+      <div class="pullquote">
+        "The decisive factor is the designer's skill — not the grid system."
+        <cite>— Wim Crouwel. The system is complete. The skill is showing.</cite>
+      </div>
+    </section>
+
+    <!-- 03 — GRID & LAYOUT -->
+    <section class="section section--tinted" data-num="03" id="v3-grid">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Grid &amp; Layout</h2>
+      </div>
+
+      <p class="lede">The grid system now spans 8 page templates and 4 component modules with zero structural violations. The product detail page follows the exact same 12-col architecture as every other page. The image mobile gap is resolved. The grid is done.</p>
+
+      <p class="body-text">The product detail page (<span class="mono">/store/[slug]</span>) uses <span class="mono">repeat(12, 1fr)</span> with images at cols 1–7 (bleeding left via negative margin) and details at cols 9–12 (sticky). This is the same pattern as the art work detail page — creating a consistent "catalogue register" layout for both artwork and product. The column gap is <span class="mono">var(--col-gap)</span>, padding is <span class="mono">var(--gutter)</span>. The details panel is sticky at <span class="mono">top: var(--nav-h)</span> with scroll mask. Every structural decision mirrors the existing system.</p>
+
+      <div class="findings-grid">
+        <div class="finding">
+          <div class="finding-label">Column System</div>
+          <div class="finding-value">12-col, 24px gap</div>
+          <div class="finding-note">Consistent across all 8 page templates, nav, cart drawer. Zero exceptions at desktop.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Product Detail</div>
+          <div class="finding-value">Cols 1–7 / 9–12</div>
+          <div class="finding-note">NEW: mirrors art work detail. Left-bleed images, sticky right details. Same architecture, same tokens.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Image Mobile Gap</div>
+          <div class="finding-value">var(--sp-xs)</div>
+          <div class="finding-note">Was 1px in v2. Now on the 4px grid. V2 violation resolved.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Nav Integration</div>
+          <div class="finding-value">Grid-participant</div>
+          <div class="finding-note">Unchanged. Wordmark cols 1–2, links cols 9–12, continuous key lines through all content.</div>
+        </div>
+      </div>
+
+      <h3>Issues Found</h3>
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Product detail page — structurally exemplary</div>
+            <div class="issue-desc">The product detail template is not just present — it is well-designed. The cols 1–7 / 9–12 split mirrors the art work detail. The 2px ruled gap between product images creates the same contact-sheet quality as the work images. The sticky details panel with scroll mask matches the work detail behavior. The meta table uses the same <span class="mono">.metaRow</span> grid pattern. This is the right approach: the product is presented as a catalogue entry, not a storefront card.</div>
+            <span class="issue-code">product.module.css → .layout, .images, .details</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Image mobile grid gap resolved</div>
+            <div class="issue-desc">V2 violation: <span class="mono">gap: 1px</span> at <span class="mono">@media (max-width: 672px)</span>. V3: <span class="mono">gap: var(--sp-xs)</span>. The grid gap is now consistent across breakpoints at 4px — the base unit. The image grid is clean.</div>
+            <span class="issue-code">image.module.css → @media 672px → .grid</span>
+          </div>
+        </div>
+        <div class="issue tag-opportunity">
+          <div class="issue-tag"><span>Opportunity</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Two catalogue-register templates create a pattern language</div>
+            <div class="issue-desc">The art work detail and product detail pages now share a structural vocabulary: left-bleed image panels, sticky right details, scroll mask, meta table, back link. This is a design pattern, not a coincidence. Consider documenting it — if a third detail template is ever needed (collection detail, photo set detail), the pattern is established.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 — TYPOGRAPHY -->
+    <section class="section section--tinted" data-num="04" id="v3-typography">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Typography</h2>
+      </div>
+
+      <p class="lede">The most improved category. Every off-scale clamp endpoint is resolved. Type style count approaches the target. The home title is the site's first typographic argument at commanding scale. One new issue: an undefined line-height token. One open question: the weight convention.</p>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-number">~10</div>
+          <div class="stat-label">distinct type styles</div>
+          <div class="stat-target warn">target: 8–9 (was 11)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">0</div>
+          <div class="stat-label">off-scale clamp endpoints</div>
+          <div class="stat-target good">was 2 in v2, 4 in v1</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">font weights defined</div>
+          <div class="stat-target good">300 · 400 · 500</div>
+        </div>
+      </div>
+
+      <h3>What Changed</h3>
+      <p class="body-text">The home title escalated from <span class="mono">var(--text-5xl)</span> (42px) / <span class="mono">--font-light</span> to <span class="mono">var(--text-6xl)</span> (50px) / <span class="mono">--font-medium</span>. This is not a small change. The descriptor moved from <span class="mono">--text-sm</span> (14px) to <span class="mono">--text-lg</span> (16.8px). The studio heroHeading clamp floor is now <span class="mono">var(--text-base)</span> (on-scale). The work title ceiling is now <span class="mono">var(--text-3xl)</span> (on-scale). The work backLink line-height is now <span class="mono">var(--lh-xl)</span>. The mobile home title uses <span class="mono">clamp(var(--text-4xl), 8vw, var(--text-5xl))</span> — both endpoints on scale. Zero off-scale endpoints remain anywhere in the codebase.</p>
+
+      <h3>The Weight Question</h3>
+      <p class="body-text">The three-weight system established from v1: Light (300) for display and titles, Regular (400) for body, Medium (500) for labels and metadata. The home title at <span class="mono">--text-6xl</span> / <span class="mono">--font-medium</span> breaks this convention. Medium weight at 50px is the label weight used at display scale. This could be read two ways: (a) a deliberate escalation — the site name is not a title but an identity mark, and identity marks can break convention to establish authority; or (b) a violation — medium at display scale muddies the weight hierarchy that gives labels their distinctiveness. The audit flags it. If the intent is authority, document it. If it was a drift, restore <span class="mono">--font-light</span> — which at this size would still be commanding.</p>
+
+      <h3>Type Style Inventory</h3>
+
+      <table class="type-table">
+        <thead>
+          <tr>
+            <th>Style</th>
+            <th>Size / Weight</th>
+            <th>Tracking</th>
+            <th>Where Used</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Label / Tag</td>
+            <td><span class="mono">sm / medium</span></td>
+            <td><span class="mono">+0.1em + uppercase</span></td>
+            <td>All pages — metadata, section labels, nav links, filter buttons</td>
+            <td>System's primary metadata voice. Fully consistent.</td>
+          </tr>
+          <tr>
+            <td>Body</td>
+            <td><span class="mono">base / regular</span></td>
+            <td>—</td>
+            <td>All pages</td>
+            <td>Clean. Consistent. Used for descriptions, editorial text, meta values.</td>
+          </tr>
+          <tr>
+            <td>Caption / Muted</td>
+            <td><span class="mono">sm / regular</span></td>
+            <td>—</td>
+            <td>All pages</td>
+            <td>Differentiated from body by size and color. Art work details, bios, notes.</td>
+          </tr>
+          <tr>
+            <td>Section Title</td>
+            <td><span class="mono">xl / light</span></td>
+            <td><span class="mono">−0.02em or 0</span></td>
+            <td>Objects, Art, Image, Store, Studio bio/workshop/reading/contact</td>
+            <td>Consolidated to one role. Tracking inconsistency (0 vs −0.02em) still present.</td>
+          </tr>
+          <tr>
+            <td>Objects Entry Title</td>
+            <td><span class="mono">clamp(lg→2xl) / light</span></td>
+            <td><span class="mono">−0.02em</span></td>
+            <td>Objects landing — entry rows</td>
+            <td>Anchored to scale. Correct. Same tracking as section title variant.</td>
+          </tr>
+          <tr class="flag">
+            <td>Home Title</td>
+            <td><span class="mono">text-6xl / medium</span></td>
+            <td><span class="mono">−0.03em</span></td>
+            <td>Home only</td>
+            <td><strong>Medium weight at display scale.</strong> Breaks light-for-display convention. Intentional or drift?</td>
+          </tr>
+          <tr>
+            <td>Collection Hero</td>
+            <td><span class="mono">text-display / light</span></td>
+            <td><span class="mono">−0.03em</span></td>
+            <td>Collection page hero only</td>
+            <td>On scale. Line-height references undefined token (see issues).</td>
+          </tr>
+          <tr>
+            <td>Catalogue Title</td>
+            <td><span class="mono">clamp(xl→3xl) / light</span></td>
+            <td><span class="mono">−0.02em</span></td>
+            <td>Art work detail, product detail</td>
+            <td>Shared between both detail templates. On scale. Correct.</td>
+          </tr>
+          <tr>
+            <td>Nav Overlay</td>
+            <td><span class="mono">clamp(4xl→display) / medium</span></td>
+            <td><span class="mono">−0.03em</span></td>
+            <td>Mobile nav overlay only</td>
+            <td>Anchored to scale. Contextually justified as navigation moment.</td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td><span class="mono">lg / light</span></td>
+            <td><span class="mono">−0.02em</span></td>
+            <td>Product detail only</td>
+            <td>NEW: quiet, catalogue-appropriate. Correctly subordinate to title.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Issues Found</h3>
+      <div class="issues">
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Undefined token: var(--lh-display) in collection heroTitle</div>
+            <div class="issue-desc"><span class="mono">collection.module.css → .heroTitle</span> uses <span class="mono">line-height: var(--lh-display)</span>, but <span class="mono">--lh-display</span> is never defined in globals.css. The line-height token scale ends at <span class="mono">--lh-6xl: 56px</span>. When a CSS custom property is undefined, the property using it becomes invalid at computed-value time and falls through to the inherited value — creating unpredictable leading for the collection's most prominent text. Fix: either define <span class="mono">--lh-display: 56px</span> (same as 6xl) in globals.css, or use <span class="mono">var(--lh-6xl)</span> directly.</div>
+            <span class="issue-code">collection.module.css → .heroTitle / globals.css — missing --lh-display</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Home title weight: --font-medium at display scale</div>
+            <div class="issue-desc">The weight convention established across the entire site — Light (300) for display/titles, Regular (400) for body, Medium (500) for labels — is broken at the site's most visible location. At <span class="mono">--text-6xl</span> (50px), <span class="mono">--font-medium</span> creates a heavier, more assertive identity mark than <span class="mono">--font-light</span> would. If this is intentional — the name is an identity stamp, not a title — document it. If it was a compositional experiment, evaluate whether the authority gain is worth the convention cost. At 50px, even light weight would be commanding.</div>
+            <span class="issue-code">home.module.css → .title → font-weight: var(--font-medium)</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Section title tracking inconsistency: 0 vs −0.02em</div>
+            <div class="issue-desc">The xl/light section title style uses <span class="mono">letter-spacing: 0</span> in some contexts (Objects .title, Art .stageLabel, Image .title, Store .title) and <span class="mono">var(--tracking-tight)</span> (−0.02em) in others (Studio .bioName, .workshopStatement, .readingHeading, .contactHeading). These serve the same hierarchical role. Consolidate to one value.</div>
+            <span class="issue-code">objects, art, image, store vs. studio module.css — xl/light tracking</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Zero off-scale clamp endpoints — first time in project history</div>
+            <div class="issue-desc">V1: 4 off-scale endpoints. V2: 2. V3: 0. Every clamp() range in the codebase now uses type scale tokens as both floor and ceiling. Studio heroHeading: <span class="mono">clamp(var(--text-base), 1.5vw, var(--text-xl))</span>. Work title: <span class="mono">clamp(var(--text-xl), 2vw, var(--text-3xl))</span>. Product title: same. Objects entry: <span class="mono">clamp(var(--text-lg), 2vw, var(--text-2xl))</span>. Collection intro: <span class="mono">clamp(var(--text-2xl), 2vw, var(--text-3xl))</span>. Home mobile: <span class="mono">clamp(var(--text-4xl), 8vw, var(--text-5xl))</span>. Every fluid type size resolves to a scale step at its extremes. This is the system the brief demanded.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Home title — the site now has an identity moment</div>
+            <div class="issue-desc">V1: <span class="mono">clamp(20px, 2.5vw, 36px)</span> — cautious. V2: <span class="mono">var(--text-5xl)</span> (42px) / light — committed. V3: <span class="mono">var(--text-6xl)</span> (50px) / medium — declarative. The trajectory is correct: each version has been more committed than the last. At 50px, the name is unmissable. This is the Chipperfield principle: the identity is the first and largest thing you see. The weight question aside, the scale decision is right.</div>
+            <span class="issue-code">home.module.css → .title</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 — SPACING -->
+    <section class="section section--tinted" data-num="05" id="v3-spacing">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Spacing</h2>
+      </div>
+
+      <p class="lede">All v2 spacing violations resolved. The reading row 2px padding and the image mobile 1px gap are both fixed. What remains is a small cluster of sub-4px values in legacy contexts and one new off-grid dimension in the cart drawer.</p>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">spacing issues remaining</div>
+          <div class="stat-target warn">was 6 in v2</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4px</div>
+          <div class="stat-label">base grid unit</div>
+          <div class="stat-target good">correctly defined</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">spacing tokens in use</div>
+          <div class="stat-target good">xs → sp-20 + extended</div>
+        </div>
+      </div>
+
+      <div class="issues">
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Cart drawer line image: 107px height not 4px-aligned</div>
+            <div class="issue-desc"><span class="mono">CartDrawer.module.css → .lineImage, .lineImagePlaceholder</span> use <span class="mono">height: 107px</span>. 107 is not divisible by 4 (107 / 4 = 26.75). The width (80px) is correct (20 × 4). The 107px appears to be chosen to match a 3:4 aspect ratio from 80px width (80 × 4/3 = 106.67, rounded to 107). Consider using 108px (27 × 4) to land on the grid while maintaining a near-identical proportion.</div>
+            <span class="issue-code">CartDrawer.module.css → .lineImage, .lineImagePlaceholder</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Collection reference mobile gap: 2px persists</div>
+            <div class="issue-desc"><span class="mono">collection.module.css → @media 768px → .ref → gap: 2px</span>. Still the same v2 finding: this 2px gap appears only at mobile and replaces a <span class="mono">--sp-xxl</span> (32px) desktop gap. Unlike the compositionally consistent 2px ruled-gaps in work/collection images, this mobile-only gap reads as an oversight. Fix: <span class="mono">var(--sp-xs)</span>.</div>
+            <span class="issue-code">collection.module.css → @media 768px → .ref</span>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Collection previewDesc tracking: 0.01em off-system</div>
+            <div class="issue-desc"><span class="mono">collection.module.css → .previewDesc</span> uses <span class="mono">letter-spacing: 0.01em</span>. This is neither a defined tracking token nor a commonly used value elsewhere in the system. It was flagged in v1 for <span class="mono">.workDetail</span> and fixed there, but persists in this collection context. Remove or use <span class="mono">0</span>.</div>
+            <span class="issue-code">collection.module.css → .previewDesc</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Reading row 2px padding — fully resolved</div>
+            <div class="issue-desc">V2 found <span class="mono">padding-top: 2px</span> on <span class="mono">.readingAuthor</span>, <span class="mono">.readingNote</span>, and <span class="mono">.readingTag</span>. All three are now <span class="mono">var(--sp-xs)</span> (4px). The reading list's spacing is now fully token-based.</div>
+            <span class="issue-code">studio.module.css → .readingAuthor, .readingNote, .readingTag</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Product detail spacing: entirely on-system</div>
+            <div class="issue-desc">The new product detail template uses only system tokens for all spacing: <span class="mono">var(--sp-section)</span>, <span class="mono">var(--sp-12)</span>, <span class="mono">var(--sp-16)</span>, <span class="mono">var(--sp-xl)</span>, <span class="mono">var(--sp-lg)</span>, <span class="mono">var(--sp-md)</span>, <span class="mono">var(--sp-xs)</span>. Zero arbitrary values. The 2px image gap is the same ruled-gap convention as the work images. No new spacing violations introduced.</div>
+            <span class="issue-code">product.module.css — all spacing values</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">2px compositional gaps — now a documented pattern across three templates</div>
+            <div class="issue-desc">The 2px ruled-gap now appears in three places: work images (<span class="mono">work.module.css → .images</span>), product images (<span class="mono">product.module.css → .images</span>), and collection featured photos (<span class="mono">collection.module.css → .featuredPhotos</span>). This repetition elevates it from a one-off decision to a system convention. The hairline gap creates a printed-grid quality in all image compositions. This is a pattern, not an anomaly.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 — COLOR & INTERACTION -->
+    <section class="section section--tinted" data-num="06" id="v3-color">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Color &amp; Interaction</h2>
+      </div>
+
+      <p class="lede">The corner-mark CTA is gone — the site's interaction vocabulary is now fully unified around opacity-based hover states. One new color violation: the cart drawer backdrop uses a hardcoded rgba value. The hover opacity inconsistency persists but now has a clearer two-tier structure.</p>
+
+      <p class="body-text">The v2 deferred decision on the corner-mark CTA has been made: it was simplified to a clean <span class="mono">border: 1px solid var(--color-rule)</span> button with <span class="mono">border-color</span> hover transition. The product detail CTA (<span class="mono">.addBtn</span>) uses a filled button pattern: <span class="mono">background: var(--color-text); color: var(--color-bg)</span> with opacity hover. The inquiry and add-to-cart buttons are now the site's two CTA patterns: ghost border and filled. Both are restrained. Both are correct.</p>
+
+      <div class="findings-grid">
+        <div class="finding">
+          <div class="finding-label">Palette Size</div>
+          <div class="finding-value">5 base + 3 derived</div>
+          <div class="finding-note">Same as v2. One new hardcoded rgba in CartDrawer breaks the fully-tokenized state achieved in v2.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">CTA Patterns</div>
+          <div class="finding-value">2 — ghost + filled</div>
+          <div class="finding-note">NEW: ghost border (inquireBtn) and filled (addBtn, checkoutBtn, cartButton). Clean pair. Corner-mark eliminated.</div>
+        </div>
+        <div class="finding">
+          <div class="finding-label">Hover Model</div>
+          <div class="finding-value">Opacity — 2 tiers</div>
+          <div class="finding-note">Text/links: 0.4–0.5. Cards/images: 0.6–0.7. Filled buttons: 0.8. Clearer pattern than v2.</div>
+        </div>
+      </div>
+
+      <h3>Issues Found</h3>
+      <div class="issues">
+        <div class="issue tag-violation">
+          <div class="issue-tag"><span>Violation</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Cart drawer backdrop: hardcoded rgba(17, 17, 16, 0.3)</div>
+            <div class="issue-desc"><span class="mono">CartDrawer.module.css → .backdrop</span> uses <span class="mono">background: rgba(17, 17, 16, 0.3)</span>. This is the <span class="mono">--color-text</span> value (#111110 = rgb(17,17,16)) hardcoded with 30% alpha — the exact same pattern of hardcoded rgba values that was systematically cleaned in v2. The fix is identical: define a derived token <span class="mono">--color-text-overlay: rgba(17, 17, 16, 0.3)</span> in globals.css, or use an existing pattern with a color-mix or opacity approach.</div>
+            <span class="issue-code">CartDrawer.module.css → .backdrop</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Corner-mark CTA eliminated — interaction vocabulary unified</div>
+            <div class="issue-desc">V1 and v2 both flagged the 8-gradient corner-mark hover on the inquiry button as the site's one decorative outlier. V3 resolves it: the inquiry button is now a clean ghost button with <span class="mono">border: 1px solid var(--color-rule)</span> and a <span class="mono">border-color</span> hover transition. The decision was correct. The site's restraint principle is now consistently honored across all interactive elements. No exceptions.</div>
+            <span class="issue-code">work.module.css → .inquireBtn</span>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Product CTA pair: ghost and filled</div>
+            <div class="issue-desc">The art inquiry button (ghost border) and the product add-to-cart button (filled: <span class="mono">background: var(--color-text); color: var(--color-bg)</span>) form a clean CTA pair. Ghost for inquiry, filled for transaction. The checkout button in the cart drawer matches the filled pattern. The cart floating button matches the filled pattern. This is a small system: two CTA types, consistently applied.</div>
+            <span class="issue-code">work.module.css → .inquireBtn / product.module.css → .addBtn</span>
+          </div>
+        </div>
+        <div class="issue tag-opportunity">
+          <div class="issue-tag"><span>Opportunity</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Hover opacity could be formalized as tokens</div>
+            <div class="issue-desc">The emerging two-tier pattern (0.4–0.5 for text, 0.6–0.7 for cards, 0.8 for filled CTAs) is more coherent than v2 but still uses hardcoded values. Consider defining <span class="mono">--hover-text: 0.5</span>, <span class="mono">--hover-card: 0.7</span>, <span class="mono">--hover-button: 0.8</span> as interaction tokens. Three values, consistently applied. Not urgent, but it would complete the tokenization story.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — PAGE ANALYSIS -->
+    <section class="section section--white" data-num="07" id="v3-pages">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Page Analysis</h2>
+      </div>
+
+      <p class="lede">Eight page templates plus navigation, cart button, and cart drawer evaluated. Grade shifts from v2 noted. One new page (Product Detail) enters the audit.</p>
+
+      <!-- HOME -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Home</span>
+          <span class="page-route">/</span>
+          <span class="page-grade">A</span>
+        </div>
+        <p class="page-summary">Grade holds at A. The title escalation from <span class="mono">--text-5xl</span> to <span class="mono">--text-6xl</span> and from light to medium weight is the most significant typographic change on the site. The descriptor at <span class="mono">--text-lg</span> creates better proportion against the larger title. The compositional concept (image/void/text) is unchanged and still correct. The weight convention question is the only unresolved item.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Title escalation — the trajectory is correct</div>
+              <div class="issue-desc">V1: 36px max / light — cautious. V2: 42px / light — committed. V3: 50px / medium — declarative. Each version has been more committed than the last. The scale is right. The mobile responsive uses <span class="mono">clamp(var(--text-4xl), 8vw, var(--text-5xl))</span> — both endpoints on scale.</div>
+            </div>
+          </div>
+          <div class="issue tag-warning">
+            <div class="issue-tag"><span>Warning</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Medium weight at display: convention question</div>
+              <div class="issue-desc">Every other display-scale element on the site uses <span class="mono">--font-light</span>: collection hero, objects entries, studio headings, overlay nav. The home title at medium stands alone. This is either the correct exception or the wrong weight. Resolve by decision, not by drift.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUDIO -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Studio</span>
+          <span class="page-route">/studio</span>
+          <span class="page-grade">B+</span>
+        </div>
+        <p class="page-summary">Grade holds. The heroHeading clamp is now on-scale (floor: <span class="mono">var(--text-base)</span>). Reading row optical padding is <span class="mono">var(--sp-xs)</span>. Two structural problems persist: services section template grid and contact section right half empty. These require design decisions, not token fixes.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">heroHeading clamp resolved — both endpoints on scale</div>
+              <div class="issue-desc"><span class="mono">clamp(var(--text-base), 1.5vw, var(--text-xl))</span> — floor at 14px (body), ceiling at 20px (H5). The studio's opening statement now scales fluidly between system steps. V2 violation resolved.</div>
+              <span class="issue-code">studio.module.css → .heroHeading</span>
+            </div>
+          </div>
+          <div class="issue tag-warning">
+            <div class="issue-tag"><span>Warning</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Services section: still 4-card template grid</div>
+              <div class="issue-desc">Still the most template-feeling section on the site. Four <span class="mono">16/9</span> placeholder images above labeled text blocks. The brief warns against "startup portfolio" styling. This has been flagged in three consecutive versions. The layout needs a design decision, not a code fix.</div>
+              <span class="issue-code">studio.module.css → .servicesGrid, .serviceCard</span>
+            </div>
+          </div>
+          <div class="issue tag-warning">
+            <div class="issue-tag"><span>Warning</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Contact section right half: still empty</div>
+              <div class="issue-desc"><span class="mono">grid-column: 1 / 7</span>, cols 7–12 remain unused. At the bottom of the site's longest page, this reads as unfinished. Also flagged in three consecutive versions.</div>
+              <span class="issue-code">studio.module.css → .contactInner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ART -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Art</span>
+          <span class="page-route">/art</span>
+          <span class="page-grade">A−</span>
+        </div>
+        <p class="page-summary">Grade holds. All v1/v2 violations resolved. The horizontal scroll format and 50/50 viewport split remain correct and distinctive. Clean.</p>
+      </div>
+
+      <!-- ART WORK DETAIL -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Art — Work Detail</span>
+          <span class="page-route">/art/[slug]</span>
+          <span class="page-grade">A</span>
+        </div>
+        <p class="page-summary">Grade improves from A−. Work title clamp ceiling resolved (<span class="mono">var(--text-3xl)</span>). Back link line-height on-system (<span class="mono">var(--lh-xl)</span>). Inquiry CTA simplified to clean ghost button. Three v2 issues resolved in one page. The catalogue-register layout now pairs with the product detail to form a consistent pattern.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Inquiry CTA simplified — the right decision</div>
+              <div class="issue-desc">The 8-gradient corner-mark hover effect is gone. The inquiry button is now a clean ghost button: <span class="mono">border: 1px solid var(--color-rule)</span>, <span class="mono">border-color: var(--color-text)</span> on hover. This matches the site's restraint vocabulary. The interaction is clear without being decorative.</div>
+              <span class="issue-code">work.module.css → .inquireBtn</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OBJECTS -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Objects</span>
+          <span class="page-route">/objects</span>
+          <span class="page-grade">A−</span>
+        </div>
+        <p class="page-summary">Grade holds. Unchanged from v2. Hover background effect remains the site's most distinctive interaction. Entry titles still conservative at H4 ceiling.</p>
+      </div>
+
+      <!-- IMAGE -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Image</span>
+          <span class="page-route">/image</span>
+          <span class="page-grade">A</span>
+        </div>
+        <p class="page-summary">Grade improves from A−. The mobile grid gap is resolved (<span class="mono">var(--sp-xs)</span>). Lightbox is fully tokenized. The 6:7 aspect ratio policy is still open but this is a content decision, not a system issue.</p>
+      </div>
+
+      <!-- STORE -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Store</span>
+          <span class="page-route">/store</span>
+          <span class="page-grade">A−</span>
+        </div>
+        <p class="page-summary">Grade improves from B+. The critical blocker — no product detail page — is resolved. The store now functions as a complete commerce path: browse → filter → select → view product → add to cart → checkout. The editorial hierarchy is maintained throughout. The store filter/grid structure is clean.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Commerce path complete — store is functional</div>
+              <div class="issue-desc">V1 and v2 both flagged the missing product detail page as a critical blocker. It now exists. Every product card links to a fully-designed detail page. The cart drawer works. The checkout URL sends to Shopify. "Commerce without dilution" can now be properly evaluated — and it passes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT DETAIL (NEW) -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Product Detail</span>
+          <span class="page-route">/store/[slug]</span>
+          <span class="page-grade">A−</span>
+        </div>
+        <p class="page-summary">NEW template. The product detail page mirrors the art work detail: left-bleed image panel (cols 1–7), sticky details rail (cols 9–12), scroll mask, meta table, back link. The same structural vocabulary applied to a commerce context. Title uses <span class="mono">clamp(xl→3xl)</span>. Price is <span class="mono">--text-lg / light</span> — quiet and catalogue-appropriate. CTA is filled button. This is the right register: catalogue, not storefront.</p>
+        <div class="issues">
+          <div class="issue tag-strength">
+            <div class="issue-tag"><span>Strength</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Catalogue register, not storefront</div>
+              <div class="issue-desc">The product detail page does not feel like Shopify. The meta table treats materials, dimensions, and type as structured data in the same format as the art work detail. The price is quiet — body scale, light weight. The fulfillment note is muted-color small text. The CTA is one filled button, not a buy-now/add-to-cart/wishlist cluster. This is exactly what the brief asked for: commerce as a layer, not a takeover.</div>
+            </div>
+          </div>
+          <div class="issue tag-warning">
+            <div class="issue-tag"><span>Warning</span></div>
+            <div class="issue-body">
+              <div class="issue-title">Product images: min-height values are fixed px, not tokens</div>
+              <div class="issue-desc"><span class="mono">min-height: 480px</span> on primary images and <span class="mono">min-height: 320px</span> on secondary images. These are not 4px-grid violations (both divisible by 4), but they are fixed pixel values rather than spacing tokens. At the extended scale: 480px is not in the token set (nearest: <span class="mono">--sp-20: 160px</span>). Consider whether these should be aspect-ratio constraints instead, or accept as image-presentation-specific fixed values.</div>
+              <span class="issue-code">product.module.css → .image, .imageWrap:not(:first-child) .image</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="page-block">
+        <div class="page-block-header">
+          <span class="page-name">Navigation</span>
+          <span class="page-route">Components/Nav</span>
+          <span class="page-grade">A</span>
+        </div>
+        <p class="page-summary">Grade holds. Unchanged. Grid integration, overlay clamp, weight convention — all correct and stable across three versions.</p>
+      </div>
+
+    </section>
+
+    <!-- 08 — MARKET & INSPIRATION -->
+    <section class="section section--dark" data-num="08" id="v3-inspiration">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2 class="section-title">Market &amp; Inspiration</h2>
+      </div>
+
+      <p class="lede">Market position improves on all three axes. The functioning commerce layer, the bolder identity statement, and the two paired detail templates move the site closer to its intended register. Photography remains the single largest gap between intended and actual position.</p>
+
+      <!-- MARKET POSITIONING SPECTRUMS -->
+      <h3>Market Positioning</h3>
+      <p class="body-text">Three axes with intended (○) and current (●) positions. The gaps are narrowing. The product detail page and the home title commitment are the primary movers.</p>
+
+      <div class="spectrum-group">
+
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Vernacular Artisan</span>
+            <span class="spectrum-label-right">Design Culture</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 75%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 78%" title="Intended: strongly toward design culture, with craft roots"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 72%" title="Current: title commitment and system rigor move execution closer; photography gap remains"></div>
+          </div>
+          <p class="spectrum-note">The home title at 50px medium weight is a design-culture move — it states rather than suggests. The system is rigorous. The gap: still no photography to create the atmospheric register that separates design culture from clean design.</p>
+        </div>
+
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Commercial</span>
+            <span class="spectrum-label-right">Editorial</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 72%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 75%" title="Intended: editorial with commerce as secondary layer"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 72%" title="Current: commerce now functions but stays subordinate to editorial register"></div>
+          </div>
+          <p class="spectrum-note">The product detail page is the test of this axis — and it passes. The catalogue register, the quiet price, the meta table, the ghost CTA. Commerce works without changing the site's character. Nearly at intended position.</p>
+        </div>
+
+        <div class="spectrum-item">
+          <div class="spectrum-labels">
+            <span class="spectrum-label-left">Object-Focused</span>
+            <span class="spectrum-label-right">Practice-Focused</span>
+          </div>
+          <div class="spectrum-track">
+            <div class="spectrum-fill" style="width: 44%"></div>
+            <div class="spectrum-marker spectrum-marker--intended" style="left: 42%" title="Intended: objects primary, practice legible through Studio"></div>
+            <div class="spectrum-marker spectrum-marker--current" style="left: 45%" title="Current: product detail page adds object depth; Studio still the deepest section"></div>
+          </div>
+          <p class="spectrum-note">The product detail page adds object-level depth to the store. Combined with art detail, the site now has two object-presentation templates. Studio is still the deepest-developed section. Balance is nearly at intended position. Photography and collection content would close it.</p>
+        </div>
+
+      </div>
+
+      <div class="spectrum-legend">
+        <span class="legend-item"><span class="legend-marker legend-marker--intended">○</span> Intended position</span>
+        <span class="legend-item"><span class="legend-marker legend-marker--current">●</span> Current execution</span>
+      </div>
+
+      <!-- REFERENCE TABLE -->
+      <h3>Reference Studios</h3>
+      <table class="market-table">
+        <thead>
+          <tr>
+            <th>Studio</th>
+            <th>Lesson</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Medium-Small</td>
+            <td>Material-specific writing — the product detail page's meta table and restrained description approach this. Each object is treated as a proper noun. The store doesn't explain; it states. Close to the target register.</td>
+          </tr>
+          <tr>
+            <td>Jasper Morrison</td>
+            <td>Product pages with zero decoration. The product detail achieves this: image, data, price, action. Morrison would approve of the meta table approach. The remaining distance is photography.</td>
+          </tr>
+          <tr>
+            <td>David Chipperfield</td>
+            <td>Identity at scale — the home title at 50px / medium is the closest the site has come to Chipperfield's declarative approach. The name is the first thing, the largest thing, the most committed thing.</td>
+          </tr>
+          <tr>
+            <td>Formafantasma</td>
+            <td>Collection pages still the site's highest editorial potential and lowest development. The product detail template shows what careful detail-level work looks like; collection pages should match this care.</td>
+          </tr>
+          <tr>
+            <td>SavoirFaire</td>
+            <td>Minimal copy, lets the work carry the credibility. The product detail page follows this principle — short description, structured data, no persuasion copy. The commerce layer withholds rather than sells.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- TARGETED STUDY -->
+      <h3>Targeted Study</h3>
+      <p class="body-text">Four references tied to remaining v3 weaknesses.</p>
+
+      <div class="study-grid">
+        <div class="study-item">
+          <div class="study-score">Composition B+</div>
+          <div class="study-title">Hofmann Theater Posters — scale as argument</div>
+          <div class="study-desc">The home title is now the site's boldest moment. But it's the only one. Hofmann's work creates multiple points of tension per composition. Study how a second bold element — an image at commanding scale, a section heading at display weight — could create dialogue with the home title's authority.</div>
+        </div>
+        <div class="study-item">
+          <div class="study-score">Typography A−</div>
+          <div class="study-title">Crouwel, Stedelijk Catalogs — weight as identity</div>
+          <div class="study-desc">Crouwel used one weight at display scale — consistently. The home title's medium weight either establishes a new convention or breaks the existing one. Study how Crouwel handled the identity mark versus section headings in the Stedelijk system. Was the identity mark treated differently from content titles? If so, how was the distinction made systematic rather than arbitrary?</div>
+        </div>
+        <div class="study-item">
+          <div class="study-score">Market B+</div>
+          <div class="study-title"><a href="https://medium-small.com" target="_blank" rel="noopener" class="reference-link">Medium-Small</a> — Product as Proper Noun</div>
+          <div class="study-desc">The product detail page is correct. The next step: can the collection pages achieve the same level of care? Medium-Small treats each object as a document. The product detail is close to this. Collection pages should be closer.</div>
+        </div>
+        <div class="study-item">
+          <div class="study-score">Brief A</div>
+          <div class="study-title"><a href="https://salon94.com" target="_blank" rel="noopener" class="reference-link">Salon 94</a> — Gallery IA in Commerce</div>
+          <div class="study-desc">The store landing → product detail path now works. Study how Salon 94 handles the transition from browsing to buying — the moment where editorial becomes transactional. The Andrew Whited site handles this well; Salon 94 shows how to handle it perfectly.</div>
+        </div>
+      </div>
+
+      <!-- DESIGN INFLUENCE ALIGNMENT -->
+      <h3>Design Influence Alignment</h3>
+      <p class="body-text">Evaluated against v3 state. The system is measurably closer to all three references than either previous version.</p>
+
+      <div class="influence-grid">
+        <div class="influence-item">
+          <div class="influence-name">Wim Crouwel</div>
+          <div class="influence-principle">"Everything should be straightforward and informative."</div>
+          <div class="influence-alignment alignment-strong">Strong alignment</div>
+          <p class="body-text">Grid discipline is Crouwel-correct and now extends to 8 page templates plus components. The product detail page follows the same system as every other page — the grid is truly universal. The home title at 50px makes a Crouwel-level identity statement. Zero off-scale clamp endpoints is the kind of systematization Crouwel demanded. The remaining gap: Crouwel's work creates tension through asymmetry and scale contrast within the grid. The site is systematic but still mostly symmetrical.</p>
+        </div>
+        <div class="influence-item">
+          <div class="influence-name">Armin Hofmann</div>
+          <div class="influence-principle">Point, line, plane. Visual contrast as structural grammar.</div>
+          <div class="influence-alignment alignment-partial">Closer — one bold moment exists, more needed</div>
+          <p class="body-text">The home title at 50px / medium against the muted descriptor creates the first genuine scale contrast on the site. This is a Hofmann moment: a large, committed element that creates pressure against the elements around it. But it is still the only such moment. Hofmann's compositions typically have multiple points of tension. The site needs one more — a collection hero, a workshop image, a typographic moment on Studio — to move from "partial" to "strong" alignment.</p>
+        </div>
+        <div class="influence-item">
+          <div class="influence-name">Josef Müller-Brockmann</div>
+          <div class="influence-principle">"The grid system is an aid, not a guarantee."</div>
+          <div class="influence-alignment alignment-strong">Strong alignment</div>
+          <p class="body-text">V3 is the version where MBJ alignment moves from "partial" to "strong." The type system is nearly rationalized (10 styles, approaching 8–9). The spacing is mostly clean. The grid is universal. The token system is tight. The undefined <span class="mono">--lh-display</span> and the cart backdrop rgba are the remaining leaks, and they are minor. The designer's judgment — not the grid's structure — is now what determines quality. MBJ's principle is honored.</p>
+        </div>
+      </div>
+
+      <div class="pullquote">
+        "Precision and willpower — these are the tools."
+        <cite>— Armin Hofmann. The precision is demonstrated. The willpower is showing in the home title. Apply it further.</cite>
+      </div>
+    </section>
+
+    <!-- 09 — INTENTION VS EXECUTION -->
+    <section class="section" data-num="09" id="v3-intention">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2 class="section-title">Intention vs. Execution</h2>
+      </div>
+
+      <p class="lede">For the first time, the site can be fairly evaluated against the full brief. The commerce layer works. The templates are all built. The system is tight. What remains is content and two design decisions that have been deferred across three versions.</p>
+
+      <h3>What the Brief Says — What v3 Does</h3>
+
+      <div class="issues">
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">"Commerce without dilution" — honored</div>
+            <div class="issue-desc">The store now works end-to-end. The product detail page uses a catalogue register — structured data, quiet price, restrained CTA — that maintains the editorial hierarchy. The store landing filters without becoming a storefront. The cart drawer is minimal. The checkout hands off to Shopify. Commerce functions without changing the site's character. This principle is now fully honored.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">"Typography and spacing carry the design" — close to honored</div>
+            <div class="issue-desc">The type system is now nearly rationalized. Every clamp is on-scale. The home title makes a typographic argument. The spacing is mostly clean. The reading list, the meta tables, the section headings — these carry the design through structure, not decoration. The undefined <span class="mono">--lh-display</span> token and the weight convention question are the remaining gaps.</div>
+          </div>
+        </div>
+        <div class="issue tag-strength">
+          <div class="issue-tag"><span>Strength</span></div>
+          <div class="issue-body">
+            <div class="issue-title">"Distinct modes within one system" — fully honored</div>
+            <div class="issue-desc">Home (hero split), Studio (long-form), Objects (list+hover), Art (scroll gallery), Image (grid+lightbox), Store (filter+grid), Product Detail (catalogue register), Collection (editorial body) — eight distinct modes sharing the same 12-col grid, type scale, spacing tokens, and color palette. This is the site's strongest achievement and it has only gotten stronger with each new template.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">"Image-led experience" — structurally ready, content absent</div>
+            <div class="issue-desc">Still the largest gap. Every layout prioritizes image. Every placeholder has the right proportion. The image-led infrastructure is complete and correct. But photography doesn't exist. This is a content gap, not a code gap. The brief's atmospheric ambition — warmth, material specificity, editorial pacing — cannot be evaluated or delivered without it.</div>
+          </div>
+        </div>
+        <div class="issue tag-warning">
+          <div class="issue-tag"><span>Warning</span></div>
+          <div class="issue-body">
+            <div class="issue-title">Services section and contact section — three versions, no change</div>
+            <div class="issue-desc">Both sections have been flagged identically in v1, v2, and v3. The services 4-card template grid and the contact half-empty layout are design decisions that have been deferred, not technical issues that haven't been fixed. At this point, they should either be redesigned or explicitly accepted.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 — RECOMMENDATIONS -->
+    <section class="section" data-num="10" id="v3-recommendations">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2 class="section-title">Recommendations</h2>
+      </div>
+
+      <p class="lede">Thirteen recommendations for v4. The critical list is shorter: photography is the only remaining pre-launch blocker. The rest are design decisions, token fixes, and polish.</p>
+
+      <h3>Critical — Pre-Launch Blocker</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">1</div>
+          <div class="rec-body">
+            <div class="rec-title">Replace all placeholder panels with real photography</div>
+            <div class="rec-desc">Third time this appears as #1. The site is structurally complete. Every template is built. The token system is tight. The one thing the site cannot do without photographs is be itself. The atmospheric, editorial, image-led experience the brief describes requires images. Everything else is ready. This is the work.</div>
+            <span class="rec-priority priority-critical">Critical</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>High — Design Decisions Required</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">2</div>
+          <div class="rec-body">
+            <div class="rec-title">Define --lh-display token in globals.css</div>
+            <div class="rec-desc"><span class="mono">collection.module.css → .heroTitle</span> references <span class="mono">var(--lh-display)</span> which doesn't exist. The property falls through to inherit, creating unpredictable leading. Add <span class="mono">--lh-display: 56px</span> to the line-height tokens in globals.css (same as <span class="mono">--lh-6xl</span>), or use <span class="mono">var(--lh-6xl)</span> directly. One-line fix, high impact — this affects the collection hero, the site's highest editorial moment.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">3</div>
+          <div class="rec-body">
+            <div class="rec-title">Decide on home title weight: --font-medium or --font-light</div>
+            <div class="rec-desc">The medium weight at <span class="mono">--text-6xl</span> creates a bolder identity statement but breaks the light-for-display convention. If medium is the right choice, document it as an identity-mark exception. If the convention should hold, restore <span class="mono">--font-light</span> — at 50px it would still be the site's largest, most committed element. This is a design decision, not a bug.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">4</div>
+          <div class="rec-body">
+            <div class="rec-title">Redesign the services section</div>
+            <div class="rec-desc">Flagged in v1, v2, and v3. Three versions is enough deferral. The 4-card image grid is the least-authored section on the site. Choose a format: (a) statement-led text hierarchy without images; (b) horizontal-rule list format like the reading list; (c) two-column label+description grid. Remove the <span class="mono">16/9</span> placeholder images — they contribute nothing to the editorial register.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">5</div>
+          <div class="rec-body">
+            <div class="rec-title">Resolve the contact section</div>
+            <div class="rec-desc">Also flagged three times. <span class="mono">grid-column: 1 / 7</span> with empty cols 7–12. Either fill the right side (workshop address and hours, secondary email, exhibition schedule) or redesign as centered full-width with stronger typography. The bottom of the site's longest page should close with intention, not absence.</div>
+            <span class="rec-priority priority-high">High</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Medium — Token and System Fixes</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">6</div>
+          <div class="rec-body">
+            <div class="rec-title">Tokenize cart drawer backdrop color</div>
+            <div class="rec-desc"><span class="mono">rgba(17, 17, 16, 0.3)</span> → define <span class="mono">--color-text-overlay</span> in globals.css. Same pattern as the v2 lightbox cleanup. One new token, one file changed. Restores the fully-tokenized color state.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">7</div>
+          <div class="rec-body">
+            <div class="rec-title">Consolidate section title tracking</div>
+            <div class="rec-desc">xl/light titles use <span class="mono">letter-spacing: 0</span> in Objects/Art/Image/Store and <span class="mono">var(--tracking-tight)</span> (−0.02em) in Studio sections. Choose one. Recommend <span class="mono">0</span> — the lighter touch, consistent with the landing-page register where these titles appear.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">8</div>
+          <div class="rec-body">
+            <div class="rec-title">Fix collection previewDesc tracking</div>
+            <div class="rec-desc"><span class="mono">letter-spacing: 0.01em</span> on <span class="mono">.previewDesc</span>. Not a system token. Remove or set to <span class="mono">0</span>. Single-line fix, one file.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">9</div>
+          <div class="rec-body">
+            <div class="rec-title">Fix collection ref mobile gap</div>
+            <div class="rec-desc"><span class="mono">.ref</span> at <span class="mono">@media 768px</span> uses <span class="mono">gap: 2px</span>. Change to <span class="mono">var(--sp-xs)</span> (4px). Single-line fix, one file.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">10</div>
+          <div class="rec-body">
+            <div class="rec-title">Fix cart drawer line image height</div>
+            <div class="rec-desc"><span class="mono">height: 107px</span> → <span class="mono">height: 108px</span>. Lands on 4px grid (27 × 4 = 108) while maintaining the 80×108 ≈ 3:4 proportion. Two declarations in one file.</div>
+            <span class="rec-priority priority-medium">Medium</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Low — Polish</h3>
+      <div class="rec-list">
+        <div class="rec">
+          <div class="rec-num">11</div>
+          <div class="rec-body">
+            <div class="rec-title">Design a second bold typographic moment</div>
+            <div class="rec-desc">The home title is the site's one moment of compositional commitment. A second moment — the Studio workshop heading at H2 or H3, or the Collection hero with real photography behind it — would create the dialogue that Hofmann's work demonstrates. Two points of tension are more than twice as powerful as one.</div>
+            <span class="rec-priority priority-low">Low</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">12</div>
+          <div class="rec-body">
+            <div class="rec-title">Define hover opacity tokens</div>
+            <div class="rec-desc">The two-tier pattern (0.5 for text, 0.7 for cards, 0.8 for filled buttons) is coherent. Formalizing as tokens would complete the design system story. Not urgent — the current hardcoded values are consistent enough.</div>
+            <span class="rec-priority priority-low">Low</span>
+          </div>
+        </div>
+        <div class="rec">
+          <div class="rec-num">13</div>
+          <div class="rec-body">
+            <div class="rec-title">Develop collection pages as editorial showcase</div>
+            <div class="rec-desc">Fourth consecutive version with this recommendation. The template is correct. The product detail page shows what careful detail-level work looks like. Collection pages should match. This is the site's highest editorial potential. When photography exists, invest here first.</div>
+            <span class="rec-priority priority-low">Low</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 11 — VERDICT -->
+    <section class="verdict" data-num="11" id="v3-verdict">
+      <div class="section-header">
+        <span class="section-num">11</span>
+        <h2 class="section-title">Verdict</h2>
+      </div>
+
+      <p class="lede">A−. The site has made its most consequential jump. The product detail page closes the critical structural gap. The home title makes the site's first real typographic argument. The type system is nearly clean. The system is no longer a promising framework — it is an almost-finished site.</p>
+
+      <div class="verdict-grid">
+        <div class="verdict-cell">
+          <div class="verdict-cell-title">What Improved (v2 → v3)</div>
+          <ul>
+            <li>Product detail page built — commerce path now works end-to-end, v1/v2 critical blocker resolved</li>
+            <li>Home title escalated to <span class="mono">--text-6xl</span> (50px) — the site's first genuinely bold typographic moment</li>
+            <li>All off-scale clamp endpoints resolved — zero remain for the first time (was 4 in v1, 2 in v2)</li>
+            <li>Studio heroHeading clamp floor on-scale — <span class="mono">var(--text-base)</span> replaces 15px</li>
+            <li>Work title clamp ceiling on-scale — <span class="mono">var(--text-3xl)</span> replaces 28px</li>
+            <li>Work backLink line-height on-system — <span class="mono">var(--lh-xl)</span> replaces ratio <span class="mono">1</span></li>
+            <li>Reading row optical padding resolved — all three instances now <span class="mono">var(--sp-xs)</span></li>
+            <li>Image mobile grid gap resolved — <span class="mono">var(--sp-xs)</span> replaces 1px</li>
+            <li>Corner-mark CTA eliminated — inquiry button simplified to ghost border, interaction vocabulary unified</li>
+            <li>Product CTA pair established: ghost (inquiry) and filled (transaction) — clean, consistent</li>
+            <li>Two catalogue-register templates create a reusable pattern language</li>
+          </ul>
+        </div>
+        <div class="verdict-cell">
+          <div class="verdict-cell-title">What Remains</div>
+          <ul>
+            <li>No real photography — the atmospheric brief still has no vehicle; third version with this as #1</li>
+            <li>Undefined <span class="mono">--lh-display</span> token — collection hero line-height falls through to inherit</li>
+            <li>Home title weight convention: <span class="mono">--font-medium</span> at display scale needs a decision</li>
+            <li>Cart drawer backdrop: hardcoded <span class="mono">rgba(17, 17, 16, 0.3)</span> — new color violation</li>
+            <li>Section title tracking inconsistency: 0 vs −0.02em across same-role titles</li>
+            <li>Services section: still 4-card template grid — flagged three consecutive versions</li>
+            <li>Contact section: still half-empty — flagged three consecutive versions</li>
+            <li>Collection previewDesc: 0.01em off-system tracking persists</li>
+            <li>Collection ref mobile gap: 2px persists</li>
+            <li>Cart line image: 107px not 4px-aligned</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="verdict-final">
+        <div class="verdict-score">A−</div>
+        <div class="verdict-statement">The site crosses a threshold in v3. The structural completeness, the type system rigor, and the home title's commitment move it from "well-built framework" to "almost-finished site." The distance from B+ to A− is not just a grade change — it reflects a shift from system-building to design-finishing.</div>
+        <p class="verdict-close">The brief describes "editorial, minimal but not empty, image-led, typographically disciplined." The discipline is now genuine — zero off-scale clamp endpoints, a nearly rationalized type palette, consistent spacing, universal grid. The editorial structure is complete — eight page templates, each with a distinct character, sharing one vocabulary. The commerce layer works without dilution. What remains is known and finite: photography, two section redesigns, a handful of token fixes, and one weight convention decision. The site is no longer being built. It is being finished. The difference matters: construction tolerates imprecision; finishing demands it. The next version should be about those last decisions — the ones that separate a well-made site from a fully authored one.</p>
+      </div>
+    </section>
+
+  </div><!-- /version-panel v3 -->
+
 </div><!-- /report -->
 
 <script>
@@ -2563,6 +3655,22 @@ const VERSIONS = [
       composition: { grade: 'B',   pct: 65 },
       market:      { grade: 'B',   pct: 68 },
       overall:     { grade: 'B+',  pct: 82 }
+    }
+  },
+  {
+    id: 3,
+    label: 'v3 · April 2026',
+    date: 'April 2026',
+    branch: 'dev',
+    scores: {
+      grid:        { grade: 'A',   pct: 92 },
+      typography:  { grade: 'A−',  pct: 85 },
+      spacing:     { grade: 'A−',  pct: 87 },
+      color:       { grade: 'A−',  pct: 88 },
+      brief:       { grade: 'A',   pct: 90 },
+      composition: { grade: 'B+',  pct: 80 },
+      market:      { grade: 'B+',  pct: 75 },
+      overall:     { grade: 'A−',  pct: 85 }
     }
   }
 ];
@@ -2699,7 +3807,7 @@ if (sel) {
    INIT — run version 1 on load
 ───────────────────────────────────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
-  showVersion(2);
+  showVersion(3);
 });
 </script>
 

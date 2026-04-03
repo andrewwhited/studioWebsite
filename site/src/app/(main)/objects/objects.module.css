@@ -37,7 +37,7 @@
 }
 
 .intro {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   line-height: var(--lh-sm);
   color: var(--color-muted);
 }
@@ -101,14 +101,14 @@
 }
 
 .entryMeta {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: var(--font-regular);
   letter-spacing: var(--tracking-wide);
   color: var(--color-muted);
 }
 
 .entryDesc {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   line-height: var(--lh-sm);
   color: var(--color-muted);
   max-width: 480px;
