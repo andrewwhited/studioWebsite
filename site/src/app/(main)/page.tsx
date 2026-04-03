@@ -1,6 +1,16 @@
-import { getHomePage } from '@/lib/sanity-queries'
+import { getHomePage, getUxPage } from '@/lib/sanity-queries'
 import { urlFor } from '@/lib/sanity'
 import styles from './home.module.css'
+
+import Hero from '@/components/ux/sections/Hero'
+import About from '@/components/ux/sections/About'
+import Credentials from '@/components/ux/sections/Credentials'
+import Links from '@/components/ux/sections/Links'
+import LogoOutlineStroke from '@/components/icons/LogoOutlineStroke'
+import LogoSolid from '@/components/icons/LogoSolid'
+import GridOverlay from '@/components/GridOverlay'
+
+const comingSoon = process.env.COMING_SOON === 'true'
 
 function heroImageStyles(image: any) {
   if (!image) return undefined
@@ -11,7 +21,6 @@ function heroImageStyles(image: any) {
     backgroundImage: `url(${url})`,
   }
 
-  // Use hotspot data for background-position if set
   if (image.hotspot) {
     style.backgroundPosition = `${image.hotspot.x * 100}% ${image.hotspot.y * 100}%`
   }
@@ -19,7 +28,52 @@ function heroImageStyles(image: any) {
   return style
 }
 
+async function ComingSoonHome() {
+  const page = await getUxPage()
+
+  const resumeUrl = page?.resumeFile?.asset
+    ? `https://cdn.sanity.io/files/uwr1du4g/production/${page.resumeFile.asset._ref.replace('file-', '').replace('-pdf', '.pdf')}`
+    : '/resume.pdf'
+
+  return (
+    <div data-theme="ux" className="ux-root" style={{ minHeight: '100svh', backgroundColor: 'var(--color-bg)', position: 'relative', overflow: 'hidden' }}>
+      <LogoOutlineStroke className="ux-bg-logo" />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <header style={{ padding: 'var(--spacing-m) var(--grid-margin)' }}>
+          <div style={{ height: '20px', width: 'fit-content' }}>
+            <LogoSolid />
+          </div>
+        </header>
+        <main className="ux-home">
+          <Hero text={page?.heroText} />
+          <About
+            heading={page?.aboutHeading}
+            themes={page?.aboutThemes}
+          />
+          <Credentials
+            image={page?.image ? urlFor(page.image).width(800).quality(80).auto('format').url() : undefined}
+            imageHotspot={page?.image?.hotspot}
+            publications={page?.publications}
+            talks={page?.talks}
+          />
+          <Links
+            footerCopy={page?.footerCopy}
+            linkedinUrl={page?.linkedinUrl}
+            resumeUrl={resumeUrl}
+            studioUrl={page?.studioUrl}
+          />
+        </main>
+        <GridOverlay />
+      </div>
+    </div>
+  )
+}
+
 export default async function Home() {
+  if (comingSoon) {
+    return <ComingSoonHome />
+  }
+
   const page = await getHomePage()
 
   return (
