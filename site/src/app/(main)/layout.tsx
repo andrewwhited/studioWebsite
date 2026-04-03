@@ -10,15 +10,15 @@ export default function MainLayout({
 }: {
   children: React.ReactNode
 }) {
-  if (comingSoon) {
-    return <>{children}</>
-  }
-
   return (
     <CartProvider>
-      <Nav />
-      <CartButton />
-      <CartDrawer />
+      {!comingSoon && (
+        <>
+          <Nav />
+          <CartButton />
+          <CartDrawer />
+        </>
+      )}
       {children}
     </CartProvider>
   )
