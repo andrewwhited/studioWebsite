@@ -11,6 +11,7 @@ coverage/
 .env.test.local
 .env.production.local
 .DS_Store
+briefs/inspo/
 *.log
 *.tsbuildinfo
 .vscode/

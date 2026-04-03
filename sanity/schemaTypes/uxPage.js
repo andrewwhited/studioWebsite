@@ -69,12 +69,28 @@ export default defineType({
           name: 'talk',
           fields: [
             {name: 'title', type: 'string', title: 'Title'},
-            {name: 'venue', type: 'string', title: 'Venue'},
-            {name: 'location', type: 'string', title: 'Location'},
-            {name: 'date', type: 'string', title: 'Date'},
+            {
+              name: 'instances',
+              title: 'Instances',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  name: 'talkInstance',
+                  fields: [
+                    {name: 'venue', type: 'string', title: 'Venue'},
+                    {name: 'location', type: 'string', title: 'Location'},
+                    {name: 'date', type: 'string', title: 'Date'},
+                  ],
+                  preview: {
+                    select: {title: 'venue', subtitle: 'date'},
+                  },
+                },
+              ],
+            },
           ],
           preview: {
-            select: {title: 'title', subtitle: 'venue'},
+            select: {title: 'title'},
           },
         },
       ],

@@ -24,7 +24,7 @@ export default function Hero({ text }: { text?: string }) {
 
   return (
     <section id="hero" className={styles.hero}>
-      <p className={styles.heroTypewriter}>
+      <p className={`${styles.h1} ${styles.heroTypewriter}`}>
         {displayed}<span className={styles.cursor} />
       </p>
     </section>

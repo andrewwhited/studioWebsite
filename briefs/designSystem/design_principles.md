@@ -52,6 +52,16 @@ Reusable patterns, consistent logic, and content structure should drive the desi
 
 ---
 
+## Structural Constraints
+
+- The top navigation is always present and floats over hero imagery when present.
+- Navigation should feel integrated into the design, not like a separate utility bar.
+- Home is reached by clicking the logo — it does not appear as a labeled nav item.
+- Navigation order is fixed: Studio · Objects · Art · Image · Store.
+- The site must be fully responsive. Layout, navigation, typography, image handling, and spacing must hold their logic across screen sizes.
+
+---
+
 ## Anti-Principles
 The site should avoid feeling like:
 
@@ -190,6 +200,22 @@ Image should feel visual-first, fast, and immersive. The grid and lightbox behav
 
 ### Store
 Store should feel clear, functional, and coherent with the rest of the site. It can become more practical, but should not feel like a generic e-commerce template.
+
+---
+
+## Brief Priority Order
+
+If guidance across briefs appears to conflict, use this priority:
+
+1. This document (`design_principles.md`)
+2. `design_language.md`
+3. `content_model.md`
+6. `brand_voice.md`
+7. `site_ia.md`
+
+All layout, spacing, and typography must follow the systems defined in `design_language.md`. Do not introduce arbitrary values outside these systems.
+
+If a proposed implementation weakens the coherence of the site, defaults to generic e-commerce behavior, or creates duplicate page systems, it should be rejected even if it is technically easy.
 
 ---
 

@@ -39,14 +39,14 @@ export default function About({ heading, themes }: Props) {
     <section id="about" className={styles.section}>
       <div className={styles.layout}>
 
-        <p className={styles.aboutHeading}>
+        <p className={`${styles.h3} ${styles.aboutHeading}`}>
           {aboutHeading}
         </p>
 
         {aboutThemes.map((theme) => (
           <div key={theme._key || theme.title} className={styles.themeBlock}>
-            <div className={styles.themeBlockLabel}>{theme.title}</div>
-            <p className={styles.themeBlockBody}>{theme.body}</p>
+            <div className={`${styles.body} ${styles.themeBlockLabel}`}>{theme.title}</div>
+            <p className={styles.secondary}>{theme.body}</p>
           </div>
         ))}
 

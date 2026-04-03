@@ -43,7 +43,7 @@
 }
 
 .stageIntro {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   line-height: var(--lh-sm);
   color: var(--color-muted);
 }
@@ -80,7 +80,7 @@
 }
 
 .work:hover {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .workText {
@@ -92,14 +92,14 @@
 }
 
 .workTitle {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: var(--font-regular);
   color: var(--color-text);
   line-height: var(--lh-sm);
 }
 
 .workDetail {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--color-muted);
 }
 
