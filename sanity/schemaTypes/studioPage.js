@@ -5,13 +5,6 @@ export default defineType({
   title: 'Studio Page',
   type: 'document',
   fields: [
-    defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      initialValue: 'Studio',
-    }),
-
     // Hero
     defineField({
       name: 'heroHeading',
@@ -32,6 +25,12 @@ export default defineType({
     defineField({
       name: 'heroSecondaryImage',
       title: 'Hero Secondary Image',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+    defineField({
+      name: 'heroTertiaryImage',
+      title: 'Hero Tertiary Image',
       type: 'image',
       options: {hotspot: true},
     }),
