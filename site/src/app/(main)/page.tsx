@@ -80,7 +80,7 @@ export default async function Home() {
     <main>
       <section className={styles.hero}>
 
-        {/* Column 1 — image, full bleed left/top/bottom */}
+        {/* Column 1 — image, full bleed left */}
         <div
           className={styles.image}
           style={heroImageStyles(page?.heroImage)}
@@ -90,9 +90,11 @@ export default async function Home() {
 
         {/* Column 3 — text block, vertically centered */}
         <div className={styles.content}>
-          <h1 className={styles.title}>{page?.title ?? 'Andrew Whited'}</h1>
+          <h1 className={styles.title}>
+            {page?.title ?? 'Andrew Whited'}
+          </h1>
           <p className={styles.descriptor}>
-            {page?.text ?? 'Studio, objects, art, and image.'}
+            {page?.text ?? 'The studio produces furniture, objects, art, and image from a workshop in Austin, Texas.'}
           </p>
         </div>
 

@@ -4,6 +4,8 @@
 :root {
   /* Color */
   --color-bg:           #F6F6F2;
+  --color-bg-mid:       #EFEEE9; /* surface shift — middle panels */
+  --color-bg-alt:       #E8E7E2; /* surface shift — accent panels */
   --color-text:         #111110;
   --color-muted:        #72726E;
   --color-rule:         #DEDED8;

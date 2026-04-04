@@ -4,6 +4,20 @@ This file is a running log of session handoffs. Read it at the start of a new ch
 
 ---
 
+## 2026-04-03 — Domain & Coming-Soon Setup
+
+- Switched DNS from Squarespace to Vercel via Cloudflare (A records → `76.76.21.21` for `@`, `www`, `ux`)
+- Removed old Squarespace A records, Mailgun MX/TXT records
+- Added `andrewwhited.com`, `www.andrewwhited.com`, `ux.andrewwhited.com` in Vercel
+- Implemented coming-soon mode (`COMING_SOON=true` env var, Production only):
+  - Middleware redirects all routes to `/` except `/` and `/sanity`
+  - Home page renders UX-lite content (Hero, About, Credentials, Links — no Work/Thoughts)
+  - Main nav and cart UI hidden
+- To go live: delete `COMING_SOON` env var in Vercel — no code changes needed
+- Google Workspace email setup still to do
+
+---
+
 ## Session 10 — April 1, 2026
 **Branch:** `ux-site`
 

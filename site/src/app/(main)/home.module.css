@@ -1,4 +1,4 @@
-/* ─────────────────────────────────────────────────────
+/* ──────────────��────────────────────────��─────────────
    Homepage — 12-col grid, full viewport.
 
    Col map:
@@ -7,7 +7,7 @@
      Text    → cols 9–12  (aligns with nav links)
 
    Reference: Müller-Brockmann. The grid is the design.
-───────────────────────────────────────────────────── */
+───────────────────────────────────���───────────────── */
 
 .hero {
   height: 100svh;
@@ -18,7 +18,7 @@
   overflow: hidden;
 }
 
-/* ─── Col 1–4 — image (bleeds to left edge) ──────── */
+/* ─── Col 1–4 — image (bleeds to left edge) ──���───── */
 
 .image {
   grid-column: 1 / 5;
@@ -29,7 +29,7 @@
   background-position: center;
 }
 
-/* ─── Cols 5–8 — void ────────────────────────────── */
+/* ─── Cols 5–8 — void ────���─────────────���─────────── */
 
 /* intentionally empty — negative space is part of the composition */
 
@@ -43,22 +43,22 @@
 }
 
 .title {
-  font-size: var(--text-6xl); /* Display — 3.583rem (~50px) */
+  font-size: var(--text-2xl);
   font-weight: var(--font-medium);
-  letter-spacing: var(--tracking-tighter);
-  line-height: var(--lh-6xl); /* 56px — display line height */
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-2xl);
   color: var(--color-text);
 }
 
 .descriptor {
-  margin-top: var(--sp-xl);
+  margin-top: var(--sp-lg);
   font-size: var(--text-lg);
+  font-weight: var(--font-medium);
   line-height: var(--lh-lg);
-  font-weight: var(--font-regular);
   color: var(--color-muted);
 }
 
-/* ─── Mobile ──────────────────────────────────────── */
+/* ─── Mobile ──────���────────────────────────��──────── */
 
 @media (max-width: 672px) {
   .hero {
@@ -82,7 +82,7 @@
   }
 
   .title {
-    font-size: clamp(var(--text-4xl), 8vw, var(--text-5xl));
-    line-height: var(--lh-5xl);
+    font-size: var(--text-xl);
+    line-height: var(--lh-xl);
   }
 }
