@@ -4,6 +4,31 @@ This file is a running log of session handoffs. Read it at the start of a new ch
 
 ---
 
+## 2026-04-04 — Studio Page Layout + Home Page Type Treatment
+**Branch:** `feature/studio-page-layout` → merged to `dev`
+
+### What Happened
+- **Studio hero**: restructured into true thirds — text in cols 1–4, single photo cols 5–8, two stacked photos cols 9–12 (inverse of home layout)
+- **Bio section**: removed "About" label and image, name anchored in left third, bio text in middle
+- **Workshop section**: removed label, text + metadata (address, "visit by appointment") in left third, photo spanning right two-thirds
+- **Services**: replaced 4-card image grid with ruled text list (title left third, description middle)
+- **Type treatment**: Hoffman-inspired — flattened to medium weight throughout, minimal size contrast, same base size across sections
+- **Sanity wiring**: all studio page sections now pull from CMS (hero text + 3 images, bio, workshop + location image, services array, reading list, contact, listening embed)
+- **Schema changes**: added `heroTertiaryImage` field, removed unused `title` field
+- **Home page**: tightened type scale (title from ~50px to ~24px), both title and descriptor now medium weight, consolidated into heading + descriptor structure
+- Explored home page column treatments (tonal backgrounds, vertical rule) — reverted, keeping clean for now
+- Added `--color-bg-mid` and `--color-bg-alt` tokens to globals (available for future use)
+
+### Still To Do
+- Responsive polish on studio page (haven't tested mobile yet)
+- Finalize home page copy (top line ideological w/ name, bottom logistical)
+- Upload hero images to Sanity (3 needed)
+- Work/thoughts section refinements on studio page
+- Required reading + contact sections (design pass deferred)
+- Decide on services layout in context of full page flow
+
+---
+
 ## 2026-04-03 — Domain & Coming-Soon Setup
 
 - Switched DNS from Squarespace to Vercel via Cloudflare (A records → `76.76.21.21` for `@`, `www`, `ux`)
