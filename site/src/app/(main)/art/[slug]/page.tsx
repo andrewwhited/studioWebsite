@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getAllArtworks, getArtworkBySlug } from '@/lib/sanity-queries'
 import { urlFor } from '@/lib/sanity'
+import SanityImage from '@/lib/sanity-image'
 import styles from './work.module.css'
 
 export async function generateStaticParams() {
@@ -34,9 +35,12 @@ export default async function WorkPage({
         <div className={styles.images}>
           {allImages.map((img: any, i: number) => (
             <div key={i} className={styles.imageWrap}>
-              <img
-                src={urlFor(img).width(1200).quality(80).auto('format').url()}
+              <SanityImage
+                src={urlFor(img).url()}
                 alt={work.title}
+                width={1200}
+                height={1600}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className={styles.image}
               />
             </div>

@@ -36,6 +36,7 @@
 
 .imageWrap {
   flex: none;
+  overflow: hidden;
 }
 
 .imageWrap:first-child .image {
@@ -177,7 +178,7 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: var(--col-gap);
+    gap: 2px;
     height: 60svh;
     background-color: transparent;
   }

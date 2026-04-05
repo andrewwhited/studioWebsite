@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 import Link from 'next/link'
 import { getProduct, getProductSlugs } from '@/data/store'
 import AddToCartButton from './add-to-cart-button'
@@ -42,9 +43,12 @@ export default async function ProductPage({
           {product.images.map((src, i) => (
             <div key={i} className={styles.imageWrap}>
               {src ? (
-                <img
+                <Image
                   src={src}
                   alt={`${product.title} — image ${i + 1}`}
+                  width={1200}
+                  height={1600}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className={styles.image}
                 />
               ) : (

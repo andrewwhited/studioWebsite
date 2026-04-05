@@ -19,10 +19,23 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'context',
-      title: 'Context',
-      description: 'e.g. "Essay — 2024"',
+      name: 'type',
+      title: 'Type',
+      description: 'e.g. "Essay", "Talk", "Visual Essay"',
       type: 'string',
+    }),
+    defineField({
+      name: 'year',
+      title: 'Year',
+      description: 'e.g. "2024"',
+      type: 'string',
+    }),
+    defineField({
+      name: 'context',
+      title: 'Context (legacy)',
+      description: 'e.g. "Essay — 2024" — use Type + Year fields instead',
+      type: 'string',
+      hidden: true,
     }),
     defineField({
       name: 'summary',

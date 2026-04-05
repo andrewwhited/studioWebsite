@@ -51,7 +51,7 @@ export const collections: Collection[] = [
     slug: 'vessel-series',
     type: 'main',
     hero: {
-      image: '/placeholder-bar.jpeg',
+      image: null,
       text: 'Turned forms in hardwood and laminated composites. Exploring volume, surface, and the logic of rotation.',
       year: '2022–',
       location: 'Austin, TX',

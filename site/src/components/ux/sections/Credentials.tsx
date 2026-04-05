@@ -1,3 +1,4 @@
+import SanityImage from '@/lib/sanity-image'
 import styles from './sections.module.css'
 
 type Publication = {
@@ -33,9 +34,12 @@ export default function PublicationsTalks({ image, imageHotspot, publications, t
       <div className={styles.layout}>
 
         {image && (
-          <img
+          <SanityImage
             src={image}
             alt="Andrew Whited"
+            width={800}
+            height={600}
+            sizes="(max-width: 768px) 100vw, 50vw"
             className={styles.aboutPhoto}
             style={
               imageHotspot
