@@ -4,8 +4,6 @@
 :root {
   /* Color */
   --color-bg:           #F6F6F2;
-  --color-bg-mid:       #EFEEE9; /* surface shift — middle panels */
-  --color-bg-alt:       #E8E7E2; /* surface shift — accent panels */
   --color-text:         #111110;
   --color-muted:        #72726E;
   --color-rule:         #DEDED8;
@@ -111,6 +109,11 @@
   --color-essay-muted: #72726E;
 }
 
+/* Prevent light background bleed on overscroll */
+html:has([data-theme="ux"]) {
+  background-color: #111110;
+}
+
 .ux-bg-logo {
   position: fixed;
   top: 50%;
@@ -119,10 +122,14 @@
   width: 100vmax;
   height: 100vmax;
   color: #454540;
-  opacity: 1;
   pointer-events: none;
   z-index: 0;
   display: none;
+}
+
+.ux-bg-logo svg {
+  width: 100%;
+  height: 100%;
 }
 
 .ux-root:has(.ux-home) > .ux-bg-logo {

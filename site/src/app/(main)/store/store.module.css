@@ -159,15 +159,21 @@
   opacity: 0.5;
 }
 
-.productImage {
+.productImageWrap {
+  position: relative;
   width: 100%;
   aspect-ratio: 3 / 4;
   background-color: var(--color-placeholder);
-  object-fit: cover;
   margin-bottom: var(--sp-md);
+  overflow: hidden;
 }
 
-.productImage.soldOut {
+.productImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.productImageWrap.soldOut {
   opacity: 0.4;
 }
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { type Product } from '@/data/store'
 import styles from './store.module.css'
@@ -99,17 +100,17 @@ export default function StoreClient({ products, error, title, intro }: Props) {
           filtered.map((product) => (
             <li key={product.slug}>
               <Link href={`/store/${product.slug}`} className={styles.product}>
-                {product.primary_image ? (
-                  <img
-                    src={product.primary_image}
-                    alt={product.title}
-                    className={`${styles.productImage} ${product.status === 'sold_out' ? styles.soldOut : ''}`}
-                  />
-                ) : (
-                  <div
-                    className={`${styles.productImage} ${product.status === 'sold_out' ? styles.soldOut : ''}`}
-                  />
-                )}
+                <div className={`${styles.productImageWrap} ${product.status === 'sold_out' ? styles.soldOut : ''}`}>
+                  {product.primary_image ? (
+                    <Image
+                      src={product.primary_image}
+                      alt={product.title}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className={styles.productImage}
+                    />
+                  ) : null}
+                </div>
                 <div className={styles.productInfo}>
                   <span className={styles.productTitle}>{product.title}</span>
                   {product.collection && (

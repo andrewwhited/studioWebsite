@@ -117,15 +117,6 @@
   gap: var(--sp-section) var(--col-gap);
 }
 
-/* ─── Object preview grid (legacy — kept for fallback) ── */
-
-.previewGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-xxxl);
-  margin-bottom: var(--sp-section);
-}
-
 .preview {
   display: flex;
   flex-direction: column;
@@ -344,11 +335,6 @@ a.preview:hover {
   .objectsGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--sp-section) var(--col-gap);
-  }
-
-  .previewGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--sp-xl);
   }
 
   .ref {

@@ -1,7 +1,9 @@
+import dynamic from 'next/dynamic'
 import Nav from '@/components/Nav'
 import { CartProvider } from '@/lib/cart-context'
-import CartDrawer from '@/components/CartDrawer'
 import CartButton from '@/components/CartButton'
+
+const CartDrawer = dynamic(() => import('@/components/CartDrawer'))
 
 const comingSoon = process.env.COMING_SOON === 'true'
 

@@ -1,3 +1,4 @@
+import LogoSolid from '@/components/icons/LogoSolid'
 import styles from './sections.module.css'
 
 function FileIcon() {
@@ -66,7 +67,7 @@ type Props = {
 export default function ClosingCta({ footerCopy, linkedinUrl, resumeUrl, studioUrl }: Props) {
   return (
     <footer className={styles.cta}>
-      <p className={`${styles.secondary} ${styles.ctaText}`}>{footerCopy || 'Find me elsewhere'}</p>
+      <p className={styles.ctaText}>{footerCopy || 'Find me elsewhere'}</p>
       <div className={styles.ctaLinks}>
         <a
           href={linkedinUrl || 'https://linkedin.com/in/andrewwhited'}
@@ -90,6 +91,9 @@ export default function ClosingCta({ footerCopy, linkedinUrl, resumeUrl, studioU
           <AliasFileIcon />
           studio
         </a>
+      </div>
+      <div className={styles.ctaLogo}>
+        <LogoSolid />
       </div>
     </footer>
   )
