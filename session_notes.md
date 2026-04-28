@@ -4,6 +4,111 @@ This file is a running log of session handoffs. Read it at the start of a new ch
 
 ---
 
+## 2026-04-28 — Case Study Page Prototype (CS2 — Instana AI Strategy)
+**Branch:** `dev`
+
+### What Happened
+
+Built a hardcoded case study page prototype at `/ux/work/instana-ai-strategy` to nail the design language for UX work pages before porting to Sanity. CS2 (Instana AI Strategy) writeup used as the example content.
+
+#### Files Added
+- `site/src/app/ux/work/instana-ai-strategy/page.tsx` — full hardcoded page
+- `site/src/app/ux/work/instana-ai-strategy/page.module.css` — narrative case-study layout
+- `site/src/components/ux/work/Figure.tsx` — placeholder asset component (kinds: screenshot/diagram/matrix/flow/hero/multi)
+- `site/src/components/ux/work/Figure.module.css`
+
+#### Design Patterns Established
+- **Hero**: title + tagline + meta stacked left (cols 1–7) with `justify-content: space-between` for vertical drama. Image right (cols 8–13) full hero height. Title at `var(--text-hero)`. Back arrow `←` only (no "Work" text), replaces eyebrow.
+- **Section labels**: bumped to `text-xl` mixed-case heading style. Subsection labels stay as small uppercase tags.
+- **Section variants**:
+  - `.grid` + `.bodyTwoCol` — short sections (Thesis, §2 The realization). Label cols 1–5, prose cols 5–13 in 2 sub-columns via `column-count: 2`.
+  - `.grid` + `.gridAside` — section with side aside (figure or pull quote in cols 5–13).
+  - `.grid` + `.gridThirds` — title | text | image side by side (each 4 cols). Used in §1.
+  - `.gridFramework` + multiple `.frameworkBody` + `.fullVisual` siblings — multi-subsection sections (§3, §4, §5). Section title pinned cols 1–5; bodies auto-flow into rows in cols 5–13; full-width visuals break to cols 1–13.
+- **Tile grids**:
+  - 5-tile (taxonomy): `repeat(5, 1fr)`, vertical rules between tiles only, no wrapper rules.
+  - 2x2 (UI integration): short horizontal rule above each tile (width matched to body text, not full tile width).
+  - 3-tile (audience): demoted to em-dash bullet list inside body prose.
+- **Visuals**: in-band `.fullBleedFigure` lives inside `.frameworkBody` (cols 5–13). `.fullVisual` is sibling of `.frameworkBody` (breaks to cols 1–13 — for flow climaxes only).
+- **Stat callout**: compact block with `text-3xl` value, `max-width: 440px`, single top rule. Sits as a `.frameworkBody` child, not a wide row.
+- **Line length**: `.body p` capped at `max-width: 60ch`. `.bodyColumns` for 2-col overflow flow (used in §5 prose).
+- **Layout integrity**: every wrapper uses `padding: 0 var(--gutter)` only — no `max-width: var(--max-w)` constraint at wrapper level (matches rest of site).
+
+#### Key Iteration Decisions
+- Started with section grid pattern, evolved through several layouts before settling
+- Pull quote moved from standalone block under §2 to sit beside thesis-style 2-col body
+- §1 went through gridSideImage → gridThirds (title | text | image)
+- §3 framework restructured to "sticky-left" pattern (title pinned, content stacks in right band)
+- §4 added the `.fullVisual` breakout for flow climaxes
+- §5 stat callout simplified from `text-5xl+` keynote moment → compact card
+
+#### Open Decisions (Pending User)
+- §1 layout settled on title | text | image thirds — could revisit if other case studies need wider images
+- Whether to apply same patterns to CS1, CS3, CS4, CS5 next or do schema port first
+
+### Still To Do
+- Port to Sanity: header fields stay structured, body becomes Portable Text with custom block types (`figure`, `pullQuote`, `statCallout`, em-dash list)
+- Apply same patterns to CS1, CS3, CS4, CS5 (will be faster now that the system is settled)
+- Replace placeholder `Figure` blocks with real assets per `Assets.md` in each case study folder
+- Memory saved at `project_case_study_page.md` so next session can pick up the patterns without re-deriving
+
+---
+
+## 2026-04-05 — Performance Audit + UX Page Swiss Redesign
+**Branch:** `dev`
+
+### What Happened
+
+#### Performance & Cleanup
+- Full site audit across CSS, components, bundle, and images
+- Deleted 3 unused public images (~6.3MB removed: 5247432265-R1-022-9A.jpg, andrew.jpg, placeholder-bar.jpeg)
+- Deleted unused `LogoOutline.tsx` component
+- Removed unused CSS: `.previewGrid` class, `--color-bg-mid` and `--color-bg-alt` variables
+- Cleaned placeholder reference in objects.ts
+
+#### Image Optimization
+- Created `SanityImage` client component (`src/lib/sanity-image.tsx`) — wraps next/image with custom Sanity CDN loader (Sanity handles resize/format, next/image handles lazy loading/srcset/layout shift)
+- Shopify images go through next/image directly via remotePatterns (Next.js optimizes)
+- Converted all `<img>` → `<Image>`/`<SanityImage>` on art detail, store detail, store grid, and Credentials
+- Updated next.config.ts: AVIF+WebP formats, Sanity CDN in remotePatterns, 1-year image cache TTL
+- Store grid uses `fill` mode with wrapper div for aspect-ratio control
+- Art + store detail use explicit width/height with CSS `height: auto`
+- Added `object-position: center` for Shopify images (no hotspot data available)
+- CartDrawer dynamically imported via `next/dynamic` (code-split from initial bundle)
+
+#### UX Page — Swiss-Inspired Redesign (Brockmann/Hofmann)
+- **Section labels** ("Work", "Thoughts") → `--text-4xl` light weight, cols 1–3 — architectural chapter headers
+- **Baseline alignment**: section label baseline locks to first item title via `align-items: first baseline` (scoped via `.layoutBaseline` class)
+- **Item layout**: title spans full row at `--text-2xl` light, summary + metadata share second row with `first baseline` alignment
+- **Item grid**: body cols 4–8, gap col 9, metadata cols 10–11 (company/role/year stacked for Work; type/year for Thoughts)
+- **Whole row clickable**: Link wraps entire item, hover fades row to 0.5 opacity. Removed underlined "View project →" / "Read →" links
+- **Sanity schema**: added `type` and `year` fields to thought.js (legacy `context` field hidden). Work uses separate `company`, `role`, `year` fields
+- **Credentials**: photo cols 1–6, pubs/talks cols 10–12, padding-top on pubCol for vertical centering
+- **Closing CTA**: title matches section headers (`--text-4xl` light, cols 1–3), links cols 4–7 at `--text-base`, LogoSolid cols 10–11 in `--color-text`
+
+#### Background Logo & Overscroll
+- Created `ScrollFadeLogo` client component — fades logo to 0 opacity over one viewport height of scroll
+- Fixed overscroll white bleed: `html:has([data-theme="ux"])` gets dark background
+
+#### Mobile
+- Work/Thoughts: 2-column layout (summary left, meta right)
+- Art/store detail: tightened image gap to 2px, matched peek pattern (max-height on first image)
+- Store detail images aligned with art page behavior
+
+### Design Decisions
+- All-medium weight (500) for body/label text — mixing regular+medium reads as inconsistency in Aktiv Grotesk
+- Light weight (300) reserved for display/title elements where scale contrast justifies it
+- Removed section divider rules between Work/Thoughts items — link underline was sufficient, now whole row is the interaction
+- `--sp-section` (48px) gap between section label and first item content
+
+### Still To Do
+- Populate Sanity thought `type` and `year` fields
+- Responsive fine-tuning on type sizes
+- Decide on closing CTA phrase ("End of file." / "Work continues." / "Onward." being considered)
+- Upload images to Sanity for Credentials section
+
+---
+
 ## 2026-04-04 — Studio Page Layout + Home Page Type Treatment
 **Branch:** `feature/studio-page-layout` → merged to `dev`
 
