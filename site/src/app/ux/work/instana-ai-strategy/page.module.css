@@ -1,0 +1,789 @@
+/* ─────────────────────────────────────────────────────
+   Project detail page — narrative case-study layout
+   12-column grid, no buffer cols. Mixed layouts:
+   full-bleed figures, tile grids, splits, prose blocks.
+───────────────────────────────────────────────────── */
+
+.page {
+  padding-top: var(--nav-h);
+  padding-bottom: var(--sp-20);
+}
+
+/* Back arrow — sits inline in hero where eyebrow used to live */
+.heroBack {
+  grid-column: 1 / 2;
+  grid-row: 1;
+  align-self: start;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-medium);
+  color: var(--color-muted);
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.heroBack:hover {
+  color: var(--color-text);
+}
+
+/* ─────────────────────────────────────────────────────
+   HERO — above the fold
+   12-col grid, 3 row tracks: meta strip / title+image / lockup
+───────────────────────────────────────────────────── */
+.hero {
+  min-height: calc(100svh - var(--nav-h));
+  padding: var(--sp-xxl) var(--gutter) var(--sp-12);
+  border-bottom: 1px solid var(--color-rule);
+  display: flex;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto 1fr;
+  column-gap: var(--col-gap);
+  row-gap: var(--sp-xl);
+  width: 100%;
+  min-height: calc(100svh - var(--nav-h) - var(--sp-xxl) - var(--sp-12));
+}
+
+.heroLockup {
+  grid-column: 1 / 8;
+  grid-row: 2;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--sp-section);
+}
+
+.heroTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xxxl);
+}
+
+.heroTitle {
+  font-size: var(--text-hero);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tighter);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.heroFigure {
+  grid-column: 8 / 13;
+  grid-row: 1 / 3;
+  align-self: stretch;
+  display: flex;
+}
+
+.heroFigure :global(figure) {
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.heroSummary {
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-snug);
+  color: var(--color-muted);
+  max-width: 44ch;
+}
+
+.heroMeta {
+  display: flex;
+  gap: var(--sp-xxl);
+  flex-wrap: wrap;
+  margin-top: var(--sp-md);
+}
+
+.heroMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.heroMetaItem dt {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+.heroMetaItem dd {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+}
+
+/* ─────────────────────────────────────────────────────
+   Section structure — full 12 col, no edge buffer
+───────────────────────────────────────────────────── */
+.section {
+  border-top: 1px solid var(--color-rule);
+  padding: var(--sp-12) 0;
+}
+
+/* Section grid — label on row 1 (cols 1–4), body on row 2 spanning full 12 cols */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto auto;
+  row-gap: var(--sp-xl);
+  column-gap: var(--col-gap);
+  padding: 0 var(--gutter);
+}
+
+.label {
+  grid-column: 1 / 5;
+  grid-row: 1;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+/* Main section headers — one step up from .label, mixed-case heading */
+.sectionTitle {
+  grid-column: 1 / 5;
+  grid-row: 1;
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.body {
+  grid-column: 1 / 13;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Side-image layout — label/body stacked left in cols 1–5,
+   image takes the right 8 cols spanning both stacked rows */
+.gridAside .label {
+  grid-column: 1 / 5;
+  grid-row: 1;
+}
+
+.gridAside .body {
+  grid-column: 1 / 5;
+  grid-row: 2;
+}
+
+.gridAside .body > p {
+  max-width: none;
+}
+
+.gridAside .figureCell,
+.gridAside .quoteCell {
+  grid-column: 5 / 13;
+  grid-row: 1 / 3;
+}
+
+.gridAside .figureCell :global(figure) {
+  margin: 0;
+}
+
+.gridAside .quoteCell {
+  display: flex;
+  align-items: center;
+}
+
+.gridAside .quoteCell p {
+  font-size: clamp(var(--text-3xl), 4.5vw, var(--text-5xl));
+  font-weight: var(--font-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  max-width: 24ch;
+}
+
+.body > p {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  max-width: 68ch;
+}
+
+.body > p + p {
+  margin-top: var(--sp-lg);
+}
+
+/* 1/3-2/3 layout: label cols 1–5, prose flows in right 8 cols split
+   as 2 sub-columns. Used by thesis + realization. */
+.bodyTwoCol {
+  grid-column: 5 / 13;
+  grid-row: 1;
+  column-count: 2;
+  column-gap: var(--col-gap);
+}
+
+.bodyTwoCol > p {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  break-inside: avoid;
+}
+
+.bodyTwoCol > p + p {
+  margin-top: var(--sp-lg);
+}
+
+/* Three-column thirds layout: title | text | image (each spans 4 of 12) */
+.gridThirds .sectionTitle,
+.gridThirds .label {
+  grid-column: 1 / 5;
+  grid-row: 1;
+}
+
+.gridThirds .body {
+  grid-column: 5 / 9;
+  grid-row: 1;
+}
+
+.gridThirds .body > p {
+  max-width: none;
+}
+
+.gridThirds .figureCell {
+  grid-column: 9 / 13;
+  grid-row: 1;
+}
+
+.gridThirds .figureCell :global(figure) {
+  margin: 0;
+}
+
+/* Pull quote sitting under bodyTwoCol — cols 5–13, row 2 */
+.quoteUnder {
+  grid-column: 5 / 13;
+  grid-row: 2;
+  margin-top: var(--sp-xxl);
+}
+
+.quoteUnder p {
+  font-size: clamp(var(--text-3xl), 4.5vw, var(--text-5xl));
+  font-weight: var(--font-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  max-width: 24ch;
+}
+
+.split2 {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-xl) var(--col-gap);
+}
+
+.split2 > p {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+}
+
+/* Subsection header — used by §4 (and any non-framework section) */
+.subSectionHeader {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--col-gap);
+  padding: var(--sp-section) var(--gutter) var(--sp-xl);
+  margin-top: var(--sp-xxl);
+}
+
+.subSectionHeader .label {
+  grid-column: 1 / 5;
+  grid-row: 1;
+}
+
+.subSectionHeader .subSectionLead {
+  grid-column: 5 / 13;
+  grid-row: 1;
+}
+
+/* Framework layout — section title pinned left in row 1.
+   Children at cols 5–13 (frameworkBody) and cols 1–13 (fullVisual)
+   auto-flow into successive rows. */
+.gridFramework {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--col-gap);
+  row-gap: var(--sp-section);
+  padding: 0 var(--gutter);
+}
+
+.gridFramework .sectionTitle {
+  grid-column: 1 / 5;
+  grid-row: 1;
+}
+
+.frameworkBody {
+  grid-column: 5 / 13;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-large-section);
+}
+
+/* Full-width visual that breaks out of the right band — cols 1–13 */
+.fullVisual {
+  grid-column: 1 / 13;
+}
+
+.fullVisual :global(figure) {
+  margin: 0;
+}
+
+.frameworkIntro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-lg);
+}
+
+.frameworkIntro p {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  max-width: 60ch;
+}
+
+.subSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-section);
+}
+
+.subSection > header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+}
+
+.subSection > header .label {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+.subSectionLead {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  max-width: 50ch;
+}
+
+.subSection .body {
+  grid-column: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.subSection .body > p {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  max-width: 60ch;
+}
+
+.subSection .body > p + p {
+  margin-top: var(--sp-lg);
+}
+
+/* Em-dash bullet list — used inside body prose */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+  padding-left: var(--sp-lg);
+  margin: var(--sp-md) 0;
+  list-style: none;
+}
+
+.list li {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  position: relative;
+  max-width: 60ch;
+}
+
+.list li::before {
+  content: '—';
+  position: absolute;
+  left: calc(-1 * var(--sp-lg));
+  color: var(--color-muted);
+}
+
+.list em {
+  font-style: italic;
+  color: var(--color-text);
+}
+
+.subSection .body > .list + p {
+  margin-top: var(--sp-lg);
+}
+
+/* 2-column prose flow — for longer body blocks (e.g. §5) */
+.bodyColumns {
+  column-count: 2;
+  column-gap: var(--col-gap);
+}
+
+.bodyColumns > p {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  break-inside: avoid;
+}
+
+.bodyColumns > p + p {
+  margin-top: var(--sp-lg);
+}
+
+/* Stat callout + body side by side — stat takes its natural width,
+   prose fills the rest */
+.statRow {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-section);
+  align-items: start;
+}
+
+/* Override .body's grid-column inheritance when nested in statRow */
+.statRow .body,
+.statRow .statCallout {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+/* Inside frameworkBody, content blocks don't double-up on gutter padding.
+   The frameworkBody already lives inside the page gutter via .gridFramework. */
+.frameworkBody .tileGrid5,
+.frameworkBody .tileGrid2x2,
+.frameworkBody .tileGrid3,
+.frameworkBody .fullBleedFigure,
+.frameworkBody .splitGrid,
+.frameworkBody .grid {
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────
+   Tile grids — taxonomy, UI integration models, audience
+───────────────────────────────────────────────────── */
+.tileGrid2x2,
+.tileGrid3 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--col-gap);
+  row-gap: 0;
+  padding: var(--sp-xl) var(--gutter) var(--sp-section);
+}
+
+/* 5-tile taxonomy: even 5-col split, no wrapper rules — vertical
+   separators between tiles do the work. */
+.tileGrid5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: var(--col-gap);
+  padding: var(--sp-xl) 0 var(--sp-section);
+}
+
+/* 2x2 grid: each tile spans 6 cols */
+.tileGrid2x2 .tile {
+  grid-column: span 6;
+}
+
+/* 3-tile grid: each tile spans 4 cols */
+.tileGrid3 .tile {
+  grid-column: span 4;
+}
+
+.tile {
+  padding: var(--sp-xl) var(--sp-md) var(--sp-xl) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+  border-right: 1px solid var(--color-rule);
+  position: relative;
+}
+
+/* Narrower tiles in the 5-up taxonomy get tighter type */
+.tileGrid5 .tile {
+  padding-right: var(--sp-md);
+}
+
+.tileGrid5 .tileTitle {
+  font-size: var(--text-base);
+}
+
+.tileGrid5 .tileBody {
+  font-size: var(--text-sm);
+  line-height: var(--lh-sm);
+  max-width: none;
+}
+
+/* Remove right rule from end-of-row tiles in 5-tile and 3-tile grids */
+.tileGrid5 .tile:nth-child(5),
+.tileGrid3 .tile:nth-child(3n) {
+  border-right: none;
+  padding-right: 0;
+}
+
+/* 2x2 grid uses a short horizontal rule above each tile, matched to
+   the tile body text column width (not the full tile width). */
+.tileGrid2x2 .tile {
+  border-right: none;
+  padding: 0 var(--sp-md) var(--sp-xl) 0;
+}
+
+.tileGrid2x2 .tile::before {
+  content: '';
+  display: block;
+  width: 36ch;
+  max-width: 100%;
+  height: 1px;
+  background: var(--color-rule);
+  margin-bottom: var(--sp-lg);
+}
+
+.tileNumber {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
+.tileTitle {
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
+  color: var(--color-text);
+}
+
+.tileBody {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-muted);
+  max-width: 36ch;
+}
+
+/* ─────────────────────────────────────────────────────
+   Split layout — 50/50 prose + figure
+───────────────────────────────────────────────────── */
+.splitGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--sp-section) var(--col-gap);
+  padding: var(--sp-section) var(--gutter);
+  align-items: center;
+}
+
+.splitText {
+  grid-column: 1 / 7;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-lg);
+}
+
+.splitText > p {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+}
+
+.splitFigure {
+  grid-column: 7 / 13;
+}
+
+.splitFigure :global(figure) {
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────
+   Figure wrappers — 12-col grid containers for figures
+   `fullBleedFigure` spans 1–13 (climactic moments)
+   `figureMedium`    spans 1–9   (left-anchored, ~2/3)
+───────────────────────────────────────────────────── */
+.fullBleedFigure,
+.figureMedium {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--col-gap);
+  padding: var(--sp-section) var(--gutter);
+}
+
+.fullBleedFigure :global(figure) {
+  grid-column: 1 / 13;
+  margin: 0;
+}
+
+.figureMedium :global(figure) {
+  grid-column: 1 / 10;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────
+   Pull quote — full-width display moment
+───────────────────────────────────────────────────── */
+.pullQuote {
+  margin-top: var(--sp-large-section);
+  padding: var(--sp-large-section) var(--gutter) 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+.pullQuote p {
+  grid-column: 1 / 13;
+  font-size: clamp(var(--text-3xl), 4.5vw, var(--text-5xl));
+  font-weight: var(--font-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  max-width: 24ch;
+}
+
+/* ─────────────────────────────────────────────────────
+   Stat callout — keynote-style, full bleed
+───────────────────────────────────────────────────── */
+.statCallout {
+  border-top: 1px solid var(--color-rule);
+  padding: var(--sp-xl) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+  max-width: 440px;
+}
+
+.statValue {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.statLabel {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+}
+
+.statSource {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+  text-transform: uppercase;
+  margin-top: var(--sp-xs);
+}
+
+/* ─────────────────────────────────────────────────────
+   Footer
+───────────────────────────────────────────────────── */
+.footer {
+  margin-top: var(--sp-large-section);
+  padding: var(--sp-section) var(--gutter) 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+.ndaNote {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* ─────────────────────────────────────────────────────
+   Responsive
+───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero {
+    min-height: 0;
+    padding: var(--sp-section) var(--gutter);
+  }
+  .heroGrid {
+    grid-template-rows: auto auto auto;
+    min-height: 0;
+  }
+  .heroBack,
+  .heroLockup,
+  .heroFigure {
+    grid-column: 1 / 13;
+  }
+  .heroBack    { grid-row: 1; }
+  .heroFigure  { grid-row: 2; aspect-ratio: 4/5; }
+  .heroLockup  { grid-row: 3; }
+  .label,
+  .sectionTitle {
+    grid-column: 1 / 13;
+    margin-bottom: var(--sp-xl);
+  }
+  .body,
+  .bodyTwoCol,
+  .quoteUnder,
+  .split2,
+  .subSectionLead,
+  .gridAside .label,
+  .gridAside .body,
+  .gridAside .figureCell,
+  .gridAside .quoteCell,
+  .gridThirds .sectionTitle,
+  .gridThirds .label,
+  .gridThirds .body,
+  .gridThirds .figureCell,
+  .gridFramework .sectionTitle,
+  .frameworkBody,
+  .fullVisual {
+    grid-column: 1 / 13;
+    grid-row: auto;
+  }
+  .bodyTwoCol,
+  .bodyColumns {
+    column-count: 1;
+  }
+  .statRow {
+    grid-template-columns: 1fr;
+    gap: var(--sp-xl);
+  }
+  .quoteUnder {
+    margin-top: var(--sp-xl);
+  }
+  .split2 {
+    grid-template-columns: 1fr;
+  }
+  .splitText,
+  .splitFigure {
+    grid-column: 1 / 13;
+  }
+  .tileGrid5 .tile,
+  .tileGrid3 .tile,
+  .tileGrid2x2 .tile {
+    grid-column: span 12 !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-rule) !important;
+    padding: var(--sp-xl) 0 !important;
+  }
+  .tileGrid5 .tile:last-child,
+  .tileGrid3 .tile:last-child,
+  .tileGrid2x2 .tile:last-child {
+    border-bottom: none !important;
+  }
+}

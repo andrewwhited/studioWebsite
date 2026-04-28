@@ -1,0 +1,127 @@
+.figure {
+  margin: var(--sp-section) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-lg);
+}
+
+.fill {
+  margin: 0;
+  height: 100%;
+}
+
+.fill .placeholder,
+.fill .multi {
+  height: 100%;
+  flex: 1;
+}
+
+.column {
+  /* Sits within prose column; no extra width */
+}
+
+.wide {
+  /* Breaks out of prose column to a wider band */
+  width: calc(100% + 240px);
+  margin-left: -120px;
+}
+
+.full {
+  /* Full content max-width */
+  width: 100%;
+}
+
+.placeholder {
+  width: 100%;
+  border: 1px solid var(--color-rule);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 11px,
+      rgba(255, 255, 255, 0.025) 11px,
+      rgba(255, 255, 255, 0.025) 12px
+    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.placeholderInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-xs);
+}
+
+.kind {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+.multi {
+  display: grid;
+  gap: var(--sp-lg);
+}
+
+.frame {
+  border: 1px solid var(--color-rule);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 11px,
+      rgba(255, 255, 255, 0.025) 11px,
+      rgba(255, 255, 255, 0.025) 12px
+    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frameLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  font-size: var(--text-sm);
+}
+
+.captionTitle {
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  line-height: var(--lh-sm);
+}
+
+.tbd {
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+  text-transform: uppercase;
+  font-size: var(--text-sm);
+}
+
+.captionBody {
+  color: var(--color-muted);
+  line-height: var(--lh-sm);
+}
+
+@media (max-width: 900px) {
+  .wide {
+    width: 100%;
+    margin-left: 0;
+  }
+  .multi {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -16,3 +16,4 @@ briefs/inspo/
 *.tsbuildinfo
 .vscode/
 .idea/
+.claude/
