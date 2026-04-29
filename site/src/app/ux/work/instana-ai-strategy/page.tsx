@@ -103,6 +103,8 @@ export default function InstanaAIStrategyPage() {
           <div className={styles.figureCell}>
             <Figure
               kind="screenshot"
+              src="/work/instana-ai-strategy/v1-summarize-button.png"
+              alt="The existing Generate-Summary button on an incident page"
               title="The existing Generate-Summary button"
               caption="Notes and Activity panel on an incident page, with the “Preview” tag visible."
               width="full"
@@ -356,9 +358,15 @@ export default function InstanaAIStrategyPage() {
           </div>
           <div className={styles.fullVisual}>
             <Figure
-              kind="screenshot"
+              kind="multi"
+              images={[
+                '/work/instana-ai-strategy/v6a-chat-home.png',
+                '/work/instana-ai-strategy/v6b-chat-streaming.png',
+                '/work/instana-ai-strategy/v6c-chat-summary.png',
+              ]}
+              alt="Shipped Summarize feature in context"
               title="Shipped Summarize feature in context"
-              caption="Notes &amp; Activity panel with surrounding incident data and the AI summary output once invoked."
+              caption="Chat home with the Summarize affordance · streaming summary generation · final summary output in context."
               width="full"
             />
           </div>
@@ -396,9 +404,14 @@ export default function InstanaAIStrategyPage() {
           <div className={styles.fullVisual}>
             <Figure
               kind="multi"
-              frames={3}
+              images={[
+                '/work/instana-ai-strategy/v7a-share-modal.png',
+                '/work/instana-ai-strategy/v7b-executive-summary.png',
+                '/work/instana-ai-strategy/v7c-triage-report.png',
+              ]}
+              alt="Audience-aware share concept flow"
               title="Audience-aware share — three-screen concept flow"
-              caption="Incident page with Share affordance · sharing modal with three audience options · generated tailored summary view."
+              caption="Sharing modal with audience options · executive summary view · triage report view."
               width="full"
             />
           </div>
@@ -428,8 +441,12 @@ export default function InstanaAIStrategyPage() {
           <div className={styles.fullVisual}>
             <Figure
               kind="multi"
-              frames={3}
-              status="tbd"
+              images={[
+                '/work/instana-ai-strategy/v8a-chat-ask.png',
+                '/work/instana-ai-strategy/v8b-chat-generate.png',
+                '/work/instana-ai-strategy/v8c-dashboard-landed.png',
+              ]}
+              alt="Chat-to-dashboard concept flow"
               title="Chat-to-dashboard concept flow"
               caption="Chat input · chatbot generating a dashboard inline · user landed on the new persistent dashboard view."
               width="full"
@@ -466,8 +483,12 @@ export default function InstanaAIStrategyPage() {
           <div className={styles.fullVisual}>
             <Figure
               kind="multi"
-              frames={3}
-              status="tbd"
+              images={[
+                '/work/instana-ai-strategy/v9a-runbook-trigger.png',
+                '/work/instana-ai-strategy/v9b-runbook-generate.png',
+                '/work/instana-ai-strategy/v9c-runbook-iterate.png',
+              ]}
+              alt="AI-generated runbook with chat-refinement flow"
               title="AI-generated runbook with chat-refinement flow"
               caption="Chatbot generating a candidate runbook · runbook in the product with a “Refine in chat” affordance · chat thread refining the runbook."
               width="full"
