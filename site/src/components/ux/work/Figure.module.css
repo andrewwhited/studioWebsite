@@ -90,6 +90,112 @@
   color: var(--color-muted);
 }
 
+/* Real image inside a multi-frame slot — button for click-to-lightbox */
+.frameImage {
+  display: block;
+  border: 1px solid var(--color-rule);
+  background: var(--color-bg);
+  padding: 0;
+  width: 100%;
+  cursor: zoom-in;
+  transition: opacity 0.15s;
+}
+
+.frameImage:hover {
+  opacity: 0.85;
+}
+
+.frameImage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Real image for non-multi figures — button for click-to-lightbox */
+.imageWrap {
+  display: block;
+  border: 1px solid var(--color-rule);
+  background: var(--color-bg);
+  padding: 0;
+  width: 100%;
+  cursor: zoom-in;
+  transition: opacity 0.15s;
+}
+
+.imageWrap:hover {
+  opacity: 0.85;
+}
+
+.imageWrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ─────────────────────────────────────────────────────
+   Lightbox — fullscreen overlay for expanded images
+───────────────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-section);
+  cursor: zoom-out;
+}
+
+.lightboxImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: default;
+}
+
+.lightboxClose,
+.lightboxPrev,
+.lightboxNext {
+  position: absolute;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  line-height: 1;
+  padding: var(--sp-md);
+  transition: opacity 0.15s;
+  opacity: 0.7;
+}
+
+.lightboxClose:hover,
+.lightboxPrev:hover,
+.lightboxNext:hover {
+  opacity: 1;
+}
+
+.lightboxClose {
+  top: var(--sp-lg);
+  right: var(--sp-lg);
+  font-size: var(--text-2xl);
+}
+
+.lightboxPrev,
+.lightboxNext {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--text-3xl);
+}
+
+.lightboxPrev {
+  left: var(--sp-lg);
+}
+
+.lightboxNext {
+  right: var(--sp-lg);
+}
+
 .caption {
   display: flex;
   flex-direction: column;
