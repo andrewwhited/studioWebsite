@@ -4,93 +4,79 @@ export default defineType({
   name: 'work',
   title: 'Work',
   type: 'document',
+  groups: [
+    {name: 'header', title: 'Header'},
+    {name: 'body', title: 'Body'},
+  ],
   fields: [
+    // Header — always consistent
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+      group: 'header',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      group: 'header',
       options: {source: 'title', maxLength: 96},
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'company',
-      title: 'Company',
+      name: 'summary',
+      title: 'Summary',
+      description: 'Hero subtitle and listing description',
+      type: 'text',
+      rows: 3,
+      group: 'header',
+    }),
+    defineField({
+      name: 'client',
+      title: 'Client',
       type: 'string',
+      group: 'header',
     }),
     defineField({
       name: 'role',
       title: 'Role',
       type: 'string',
+      group: 'header',
     }),
     defineField({
       name: 'year',
-      title: 'Year / Date Range',
+      title: 'Year',
+      description: 'e.g. "2023–2025"',
       type: 'string',
+      group: 'header',
     }),
     defineField({
-      name: 'context',
-      title: 'Context Line',
-      description: 'e.g. "IBM · Senior Design Lead · 2020–2025"',
-      type: 'string',
+      name: 'heroImage',
+      title: 'Hero Image',
+      description: 'Square image for the hero (caption is hidden in hero context)',
+      type: 'image',
+      group: 'header',
+      options: {hotspot: true},
+      fields: [{name: 'alt', type: 'string', title: 'Alt text'}],
     }),
+
+    // Body — sections array
     defineField({
-      name: 'summary',
-      title: 'Summary',
-      description: 'Short description for the listing page',
-      type: 'text',
-    }),
-    defineField({
-      name: 'problem',
-      title: 'Problem',
+      name: 'sections',
+      title: 'Sections',
       type: 'array',
-      of: [{type: 'text'}],
+      group: 'body',
+      of: [{type: 'section'}],
     }),
-    defineField({
-      name: 'constraints',
-      title: 'Constraints',
-      type: 'array',
-      of: [{type: 'string'}],
-    }),
-    defineField({
-      name: 'approach',
-      title: 'Approach',
-      type: 'array',
-      of: [{type: 'text'}],
-    }),
-    defineField({
-      name: 'decisions',
-      title: 'Decisions',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          name: 'decision',
-          fields: [
-            {name: 'title', type: 'string', title: 'Title'},
-            {name: 'body', type: 'text', title: 'Body'},
-          ],
-          preview: {
-            select: {title: 'title'},
-          },
-        },
-      ],
-    }),
-    defineField({
-      name: 'outcome',
-      title: 'Outcome',
-      type: 'array',
-      of: [{type: 'text'}],
-    }),
+
+    // Display
     defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',
+      group: 'header',
     }),
   ],
   orderings: [
@@ -103,7 +89,8 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'context',
+      subtitle: 'summary',
+      media: 'heroImage',
     },
   },
 })

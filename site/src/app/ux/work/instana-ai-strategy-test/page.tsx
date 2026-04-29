@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Figure from '@/components/ux/work/Figure'
-import styles from './page.module.css'
+import styles from '@/components/ux/work/case-study.module.css'
 
 export const metadata: Metadata = {
   title: 'Instana AI Strategy — Andrew Whited',
@@ -40,10 +40,11 @@ export default function InstanaAIStrategyPage() {
           <div className={styles.heroFigure}>
             <Figure
               kind="hero"
+              src="/work/instana-ai-strategy/v3-hero.png"
+              alt="Hub-and-spoke interaction model"
               title="Hub-and-spoke interaction model"
               width="full"
               hideCaption
-              fill
             />
           </div>
         </div>
@@ -231,6 +232,8 @@ export default function InstanaAIStrategyPage() {
               <div className={styles.fullBleedFigure}>
                 <Figure
                   kind="hero"
+                  src="/work/instana-ai-strategy/v3-hub-spoke-detail.png"
+                  alt="Hub-and-spoke interaction model"
                   title="Hub-and-spoke interaction model"
                   caption="Chatbot at center; bidirectional spokes — outward to navigate, build, and trigger embedded AI; inward from page elements that launch chat threads."
                   width="full"
@@ -309,6 +312,8 @@ export default function InstanaAIStrategyPage() {
               <div className={styles.fullBleedFigure}>
                 <Figure
                   kind="flow"
+                  src="/work/instana-ai-strategy/v5-technical-flow.svg"
+                  alt="Technical flow diagram"
                   title="Technical flow"
                   caption="Input → LLM → branch (NL→API for REST/GraphQL · NL→Widget for UI artifacts) → Response."
                   width="full"
@@ -559,9 +564,9 @@ export default function InstanaAIStrategyPage() {
             </div>
           </div>
 
-          {/* Reflection — single column at the bottom */}
+          {/* Reflection — bigger type, reads as closing punctuation */}
           <div className={styles.frameworkBody}>
-            <div className={styles.body}>
+            <div className={styles.reflection}>
               <p>
                 The work was rewarding for what it required: looking past the assignment in front of me to
                 the system underneath, designing for a technology before its conventions had settled, and
@@ -572,14 +577,15 @@ export default function InstanaAIStrategyPage() {
               </p>
             </div>
           </div>
+
+          {/* NDA — quiet italic in the right band, integrated into the flow */}
+          <div className={styles.frameworkBody}>
+            <p className={styles.ndaNote}>
+              Note: Due to NDAs, some assets have been redrawn or generalized.
+            </p>
+          </div>
         </div>
       </section>
-
-      <footer className={styles.footer}>
-        <p className={styles.ndaNote}>
-          Note: Due to NDAs, some assets have been redrawn or generalized.
-        </p>
-      </footer>
     </main>
   )
 }

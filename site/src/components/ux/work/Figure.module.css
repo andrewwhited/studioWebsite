@@ -11,9 +11,16 @@
 }
 
 .fill .placeholder,
-.fill .multi {
+.fill .multi,
+.fill .imageWrap {
   height: 100%;
   flex: 1;
+}
+
+.fill .imageWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .column {
