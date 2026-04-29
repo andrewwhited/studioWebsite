@@ -58,12 +58,89 @@ export async function getAllPhotoSets() {
 
 // ---- Work (UX case studies) ----
 
+// Listing query — only fields needed for the index card on /ux
 export async function getAllWork() {
-  return sanity.fetch(`*[_type == "work"] | order(order asc)`)
+  return sanity.fetch(
+    `*[_type == "work"] | order(order asc) {
+      _id,
+      title,
+      slug,
+      summary,
+      client,
+      role,
+      year,
+      heroImage { asset, alt }
+    }`
+  )
 }
 
+// Polymorphic block projection used inside both section.blocks and subsection.blocks.
+// Sanity GROQ conditional projection — `_type == "x" => { ... }` adds fields when
+// the block matches that type.
+const blockProjection = `
+  _type,
+  _key,
+  _type == "figure" => {
+    image { asset, alt, hotspot },
+    alt,
+    caption,
+    fullWidth,
+    hideCaption
+  },
+  _type == "figureFlow" => {
+    images[] { asset, alt, hotspot },
+    alt,
+    caption,
+    fullWidth
+  },
+  _type == "prose" => { body },
+  _type == "pullQuote" => { text },
+  _type == "kpiCallout" => { value, label, source },
+  _type == "emDashList" => { items[] { _key, lead, body } },
+  _type == "reflection" => { body },
+  _type == "ndaNote" => { text },
+  _type == "taxonomyTiles" => { tiles[] { _key, number, title, body } },
+  _type == "integrationTiles" => { tiles[] { _key, number, title, body } }
+`
+
+const subsectionProjection = `
+  _type,
+  _key,
+  _type == "subsection" => {
+    title,
+    body,
+    blocks[]{ ${blockProjection} }
+  }
+`
+
 export async function getWorkBySlug(slug: string) {
-  return sanity.fetch(`*[_type == "work" && slug.current == $slug][0]`, { slug })
+  return sanity.fetch(
+    `*[_type == "work" && slug.current == $slug][0]{
+      _id,
+      title,
+      slug,
+      summary,
+      client,
+      role,
+      year,
+      heroImage { asset, alt, hotspot },
+      sections[]{
+        _type,
+        _key,
+        title,
+        layout,
+        body,
+        asideKind,
+        asideImage { asset, alt, caption, hotspot },
+        asidePullQuote,
+        blocks[]{
+          ${subsectionProjection},
+          ${blockProjection}
+        }
+      }
+    }`,
+    { slug }
+  )
 }
 
 // ---- Thoughts (essays) ----

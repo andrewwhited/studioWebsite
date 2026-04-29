@@ -12,9 +12,25 @@ import photoSet from './photoSet'
 import work from './work'
 import thought from './thought'
 
+// Case study (work) building blocks
+import simpleProse from './simpleProse'
+import section from './section'
+import subsection from './subsection'
+import prose from './prose'
+import figure from './figure'
+import figureFlow from './figureFlow'
+import pullQuote from './pullQuote'
+import kpiCallout from './kpiCallout'
+import emDashList from './emDashList'
+import reflection from './reflection'
+import ndaNote from './ndaNote'
+import taxonomyTiles from './taxonomyTiles'
+import integrationTiles from './integrationTiles'
+
 export const schemaTypes = [
   // Portable text
   blockContent,
+  simpleProse,
 
   // Singleton pages
   homePage,
@@ -31,4 +47,18 @@ export const schemaTypes = [
   photoSet,
   work,
   thought,
+
+  // Case study object types
+  section,
+  subsection,
+  prose,
+  figure,
+  figureFlow,
+  pullQuote,
+  kpiCallout,
+  emDashList,
+  reflection,
+  ndaNote,
+  taxonomyTiles,
+  integrationTiles,
 ]

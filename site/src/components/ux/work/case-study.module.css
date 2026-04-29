@@ -75,6 +75,8 @@
   grid-row: 1 / 3;
   align-self: stretch;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .heroFigure :global(figure) {
@@ -89,7 +91,7 @@
   font-weight: var(--font-medium);
   line-height: var(--leading-snug);
   color: var(--color-muted);
-  max-width: 44ch;
+  max-width: 34ch;
 }
 
 .heroMeta {
@@ -214,6 +216,50 @@
 
 .body > p + p {
   margin-top: var(--sp-lg);
+}
+
+/* Title-text-aside layout (for Sanity-driven sections):
+   body cols 5–9 row 1, aside cols 9–13 row 1 — works inside .gridFramework */
+.gridFramework .asideBody {
+  grid-column: 5 / 9;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.gridFramework .asideBody > p {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+  max-width: none;
+}
+
+.gridFramework .asideBody > p + p {
+  margin-top: var(--sp-lg);
+}
+
+.gridFramework .asideContent {
+  grid-column: 9 / 13;
+  grid-row: 1;
+}
+
+.gridFramework .asideContent :global(figure) {
+  margin: 0;
+}
+
+.gridFramework .asideContent blockquote p {
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+  font-weight: var(--font-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+/* Inline link inside prose */
+.proseLink {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 /* 1/3-2/3 layout: label cols 1–5, prose flows in right 8 cols split
@@ -453,6 +499,16 @@
   margin-top: var(--sp-lg);
 }
 
+/* Closing reflection — bigger type so it reads as ending punctuation */
+.reflection p {
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
+  color: var(--color-text);
+  max-width: 50ch;
+}
+
 /* Stat callout + body side by side — stat takes its natural width,
    prose fills the rest */
 .statRow {
@@ -485,13 +541,24 @@
 /* ─────────────────────────────────────────────────────
    Tile grids — taxonomy, UI integration models, audience
 ───────────────────────────────────────────────────── */
-.tileGrid2x2,
 .tileGrid3 {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: var(--col-gap);
   row-gap: 0;
   padding: var(--sp-xl) var(--gutter) var(--sp-section);
+}
+
+/* 2×2 integration tiles — 2-col grid with col-gap matching page col-gap.
+   Math: frameworkBody = 8 page cols + 7 page gaps. With (1fr 1fr) + col-gap
+   = page col-gap, each tile is exactly 4 page cols + 3 page gaps wide.
+   Tiles snap to page col 5–9 and 9–13 boundaries without needing subgrid. */
+.tileGrid2x2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--col-gap);
+  row-gap: 0;
+  padding: var(--sp-xl) 0 var(--sp-section);
 }
 
 /* 5-tile taxonomy: even 5-col split, no wrapper rules — vertical
@@ -503,9 +570,9 @@
   padding: var(--sp-xl) 0 var(--sp-section);
 }
 
-/* 2x2 grid: each tile spans 6 cols */
+/* 2x2 grid: each tile is one of the 2 internal cols (auto-flow handles 2x2) */
 .tileGrid2x2 .tile {
-  grid-column: span 6;
+  grid-column: span 1;
 }
 
 /* 3-tile grid: each tile spans 4 cols */
@@ -520,6 +587,10 @@
   gap: var(--sp-sm);
   border-right: 1px solid var(--color-rule);
   position: relative;
+  /* Allow grid tile to shrink below its content min-content, otherwise
+     the ::before's 36ch HR forces the grid wider than its parent at
+     mid-width viewports and tiles get cropped. */
+  min-width: 0;
 }
 
 /* Narrower tiles in the 5-up taxonomy get tighter type */
@@ -581,7 +652,6 @@
   font-weight: var(--font-medium);
   line-height: var(--lh-lg);
   color: var(--color-muted);
-  max-width: 36ch;
 }
 
 /* ─────────────────────────────────────────────────────
@@ -695,20 +765,13 @@
   margin-top: var(--sp-xs);
 }
 
-/* ─────────────────────────────────────────────────────
-   Footer
-───────────────────────────────────────────────────── */
-.footer {
-  margin-top: var(--sp-large-section);
-  padding: var(--sp-section) var(--gutter) 0;
-  border-top: 1px solid var(--color-rule);
-}
-
+/* NDA note — quiet italic line tucked into the §5 flow */
 .ndaNote {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   color: var(--color-muted);
   font-style: italic;
+  max-width: 60ch;
 }
 
 /* ─────────────────────────────────────────────────────
@@ -729,8 +792,8 @@
     grid-column: 1 / 13;
   }
   .heroBack    { grid-row: 1; }
-  .heroFigure  { grid-row: 2; aspect-ratio: 4/5; }
-  .heroLockup  { grid-row: 3; }
+  .heroLockup  { grid-row: 2; }
+  .heroFigure  { grid-row: 3; }
   .label,
   .sectionTitle {
     grid-column: 1 / 13;
@@ -750,6 +813,8 @@
   .gridThirds .body,
   .gridThirds .figureCell,
   .gridFramework .sectionTitle,
+  .gridFramework .asideBody,
+  .gridFramework .asideContent,
   .frameworkBody,
   .fullVisual {
     grid-column: 1 / 13;
@@ -773,7 +838,24 @@
   .splitFigure {
     grid-column: 1 / 13;
   }
-  .tileGrid5 .tile,
+  /* Taxonomy 5-tile: 2 cols on mobile, 5th tile spans both cols */
+  .tileGrid5 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tileGrid5 .tile {
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-rule);
+    padding: var(--sp-lg) 0;
+  }
+  .tileGrid5 .tile:nth-last-child(-n+1) {
+    grid-column: span 2;
+    border-bottom: none;
+  }
+
+  /* 2x2 + 3-tile: single col on mobile */
+  .tileGrid2x2 {
+    grid-template-columns: 1fr;
+  }
   .tileGrid3 .tile,
   .tileGrid2x2 .tile {
     grid-column: span 12 !important;
@@ -781,7 +863,6 @@
     border-bottom: 1px solid var(--color-rule) !important;
     padding: var(--sp-xl) 0 !important;
   }
-  .tileGrid5 .tile:last-child,
   .tileGrid3 .tile:last-child,
   .tileGrid2x2 .tile:last-child {
     border-bottom: none !important;
