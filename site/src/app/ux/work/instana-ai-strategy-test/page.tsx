@@ -12,7 +12,7 @@ export default function InstanaAIStrategyPage() {
       {/* ───────────────────────────── HERO ───────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroGrid}>
-          <a href="/ux#work" className={styles.heroBack} aria-label="Back to work">←</a>
+          <a href="/#work" className={styles.heroBack} aria-label="Back to work">←</a>
           <div className={styles.heroLockup}>
             <div className={styles.heroTitleGroup}>
               <h1 className={styles.heroTitle}>

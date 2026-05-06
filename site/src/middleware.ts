@@ -29,6 +29,13 @@ export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || ''
   const { pathname, search } = request.nextUrl
 
+  // Static assets in /public — pass through, never rewrite the path.
+  // Without this, an image at /thoughts/foo/1.svg requested from the
+  // ux. subdomain would be rewritten to /ux/thoughts/foo/1.svg and 404.
+  if (/\.[a-zA-Z0-9]+$/.test(pathname)) {
+    return NextResponse.next()
+  }
+
   const isApex =
     hostname === 'andrewwhited.com' ||
     hostname === 'www.andrewwhited.com'
