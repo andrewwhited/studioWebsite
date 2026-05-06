@@ -7,6 +7,10 @@
 .page {
   padding-top: var(--nav-h);
   padding-bottom: var(--sp-20);
+  /* Width of 5 page-grid cols + 4 internal col-gaps. Matches the
+     left-pinned label column (cols 1-5) so prose under it sits in
+     the matching mirror band. Reset to none on mobile via @media. */
+  --w-5col: calc((5 * (100vw - 2 * var(--gutter)) - 7 * var(--col-gap)) / 12);
 }
 
 /* Back arrow — sits inline in hero where eyebrow used to live */
@@ -211,7 +215,7 @@
   font-weight: var(--font-medium);
   line-height: var(--lh-lg);
   color: var(--color-text);
-  max-width: 68ch;
+  max-width: var(--w-5col);
 }
 
 .body > p + p {
@@ -400,7 +404,7 @@
   font-weight: var(--font-medium);
   line-height: var(--lh-lg);
   color: var(--color-text);
-  max-width: 60ch;
+  max-width: var(--w-5col);
 }
 
 .subSection {
@@ -439,7 +443,7 @@
   font-weight: var(--font-medium);
   line-height: var(--lh-lg);
   color: var(--color-text);
-  max-width: 60ch;
+  max-width: var(--w-5col);
 }
 
 .subSection .body > p + p {
