@@ -2,16 +2,16 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 /*
-  Subdomain routing + coming-soon mode.
+  Subdomain routing.
 
   Production:
-    andrewwhited.com      → serves (main) routes (/, /studio, /objects, …)
+    andrewwhited.com      → 301 redirect to ux.andrewwhited.com (same path)
+    www.andrewwhited.com  → 301 redirect to ux.andrewwhited.com (same path)
     ux.andrewwhited.com   → internally rewrites to /ux/* paths
 
-  Coming-soon mode (COMING_SOON=true env var):
-    All routes except / and /sanity redirect to /.
-    The home page renders a UX-lite landing page.
-    Remove the env var to go live with the full site.
+  Phase 1 posture: the apex redirect trains people toward the canonical
+  ux.andrewwhited.com URL. To start serving the studio (main) site from
+  the apex (Phase 2), remove the apex redirect block below.
 
   Local development options:
     Option A (recommended): Add to /etc/hosts:
@@ -25,25 +25,19 @@ import type { NextRequest } from 'next/server'
     full local fidelity.
 */
 
-const comingSoon = process.env.COMING_SOON === 'true'
-
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || ''
-  const { pathname } = request.nextUrl
+  const { pathname, search } = request.nextUrl
 
-  // Coming-soon mode: only allow / and /sanity, redirect everything else
-  if (comingSoon) {
-    const isAllowed =
-      pathname === '/' ||
-      pathname.startsWith('/sanity')
+  const isApex =
+    hostname === 'andrewwhited.com' ||
+    hostname === 'www.andrewwhited.com'
 
-    if (!isAllowed) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/'
-      return NextResponse.redirect(url)
-    }
-
-    return NextResponse.next()
+  if (isApex) {
+    return NextResponse.redirect(
+      `https://ux.andrewwhited.com${pathname}${search}`,
+      301,
+    )
   }
 
   const isUxSubdomain =
