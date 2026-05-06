@@ -20,7 +20,7 @@ export default function Work({ items }: { items?: WorkItem[] }) {
         <ul className={`${styles.content} ${styles.projectList}`}>
           {(items ?? []).map((project) => (
             <li key={project._id}>
-              <Link href={`/work/${project.slug?.current}`} className={styles.project}>
+              <Link href={`/${project.slug?.current}`} className={styles.project}>
                 <div className={styles.projectTitle}>{project.title}</div>
                 <p className={`${styles.secondary} ${styles.projectSummary}`}>{project.summary}</p>
                 <div className={styles.projectMeta}>
