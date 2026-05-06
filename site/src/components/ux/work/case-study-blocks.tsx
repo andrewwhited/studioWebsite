@@ -135,7 +135,7 @@ export function CaseStudyHero({ work }: { work: WorkData }) {
   return (
     <section className={styles.hero}>
       <div className={styles.heroGrid}>
-        <a href="/ux#work" className={styles.heroBack} aria-label="Back to work">
+        <a href="/#work" className={styles.heroBack} aria-label="Back to work">
           ←
         </a>
         <div className={styles.heroLockup}>
