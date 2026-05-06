@@ -44,6 +44,9 @@
   row-gap: var(--sp-xl);
   width: 100%;
   min-height: calc(100svh - var(--nav-h) - var(--sp-xxl) - var(--sp-12));
+  /* Containment so descendants can size with cqi against the 12-col grid */
+  container-type: inline-size;
+  container-name: hero;
 }
 
 .heroLockup {
@@ -91,7 +94,8 @@
   font-weight: var(--font-medium);
   line-height: var(--leading-snug);
   color: var(--color-muted);
-  max-width: 34ch;
+  /* 5 of 12 page-grid cols */
+  max-width: calc((5 * 100cqi - 7 * var(--col-gap)) / 12);
 }
 
 .heroMeta {
@@ -203,7 +207,8 @@
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
   color: var(--color-text);
-  max-width: 24ch;
+  /* 4 of 12 page-grid cols */
+  max-width: calc((4 * 100cqi - 8 * var(--col-gap)) / 12);
 }
 
 .body > p {
@@ -211,7 +216,11 @@
   font-weight: var(--font-medium);
   line-height: var(--lh-lg);
   color: var(--color-text);
-  max-width: 68ch;
+}
+
+/* Standalone prose block (.body inside .frameworkBody): same 5-col measure */
+.frameworkBody > .body {
+  max-width: calc((5 * 100cqi - 7 * var(--col-gap)) / 12);
 }
 
 .body > p + p {
@@ -248,7 +257,7 @@
   margin: 0;
 }
 
-.gridFramework .asideContent blockquote p {
+.gridFramework .asideContent p {
   font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
   font-weight: var(--font-light);
   letter-spacing: var(--tracking-tight);
@@ -321,7 +330,8 @@
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
   color: var(--color-text);
-  max-width: 24ch;
+  /* 4 of 12 page-grid cols */
+  max-width: calc((4 * 100cqi - 8 * var(--col-gap)) / 12);
 }
 
 .split2 {
@@ -366,6 +376,10 @@
   column-gap: var(--col-gap);
   row-gap: var(--sp-section);
   padding: 0 var(--gutter);
+  /* Containment so any descendant can size against the 12-col grid via cqi.
+     N-cols width formula: calc((N * 100cqi - (12 - N) * var(--col-gap)) / 12) */
+  container-type: inline-size;
+  container-name: page;
 }
 
 .gridFramework .sectionTitle {
@@ -393,6 +407,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-lg);
+  /* 5 of 12 page-grid cols */
+  max-width: calc((5 * 100cqi - 7 * var(--col-gap)) / 12);
 }
 
 .frameworkIntro p {
@@ -400,7 +416,6 @@
   font-weight: var(--font-medium);
   line-height: var(--lh-lg);
   color: var(--color-text);
-  max-width: 60ch;
 }
 
 .subSection {
@@ -420,18 +435,12 @@
   grid-row: auto;
 }
 
-.subSectionLead {
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  line-height: var(--lh-lg);
-  color: var(--color-text);
-  max-width: 50ch;
-}
-
 .subSection .body {
   grid-column: auto;
   display: flex;
   flex-direction: column;
+  /* 5 of 12 page-grid cols — matches .frameworkIntro */
+  max-width: calc((5 * 100cqi - 7 * var(--col-gap)) / 12);
 }
 
 .subSection .body > p {
@@ -439,14 +448,13 @@
   font-weight: var(--font-medium);
   line-height: var(--lh-lg);
   color: var(--color-text);
-  max-width: 60ch;
 }
 
 .subSection .body > p + p {
   margin-top: var(--sp-lg);
 }
 
-/* Em-dash bullet list — used inside body prose */
+/* Em-dash bullet list — used inside body prose. 4 of 12 page-grid cols. */
 .list {
   display: flex;
   flex-direction: column;
@@ -454,6 +462,7 @@
   padding-left: var(--sp-lg);
   margin: var(--sp-md) 0;
   list-style: none;
+  max-width: calc((4 * 100cqi - 8 * var(--col-gap)) / 12);
 }
 
 .list li {
@@ -462,7 +471,6 @@
   line-height: var(--lh-lg);
   color: var(--color-text);
   position: relative;
-  max-width: 60ch;
 }
 
 .list li::before {
@@ -499,14 +507,18 @@
   margin-top: var(--sp-lg);
 }
 
-/* Closing reflection — bigger type so it reads as ending punctuation */
+/* Closing reflection — bigger type so it reads as ending punctuation.
+   5 of 12 page-grid cols, matches body width. */
+.reflection {
+  max-width: calc((5 * 100cqi - 7 * var(--col-gap)) / 12);
+}
+
 .reflection p {
   font-size: var(--text-xl);
   font-weight: var(--font-medium);
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-snug);
   color: var(--color-text);
-  max-width: 50ch;
 }
 
 /* Stat callout + body side by side — stat takes its natural width,
@@ -625,8 +637,7 @@
 .tileGrid2x2 .tile::before {
   content: '';
   display: block;
-  width: 36ch;
-  max-width: 100%;
+  width: 100%;
   height: 1px;
   background: var(--color-rule);
   margin-bottom: var(--sp-lg);
@@ -700,6 +711,16 @@
   padding: var(--sp-section) var(--gutter);
 }
 
+/* Section-level placement: when .fullBleedFigure is a direct child of
+   gridFramework (a figure block sitting between the header and subsections),
+   pin it to the body band (cols 5–13) and drop the gutter padding —
+   gridFramework already supplies the page gutter. Without this it would
+   auto-place at col 1 and flow alongside the next subsection. */
+.gridFramework > .fullBleedFigure {
+  grid-column: 5 / 13;
+  padding: 0;
+}
+
 .fullBleedFigure :global(figure) {
   grid-column: 1 / 13;
   margin: 0;
@@ -726,7 +747,8 @@
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
   color: var(--color-text);
-  max-width: 24ch;
+  /* 4 of 12 page-grid cols */
+  max-width: calc((4 * 100cqi - 8 * var(--col-gap)) / 12);
 }
 
 /* ─────────────────────────────────────────────────────
@@ -738,7 +760,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-sm);
-  max-width: 440px;
+  /* 4 of 12 page-grid cols */
+  max-width: calc((4 * 100cqi - 8 * var(--col-gap)) / 12);
 }
 
 .statValue {
@@ -765,13 +788,13 @@
   margin-top: var(--sp-xs);
 }
 
-/* NDA note — quiet italic line tucked into the §5 flow */
+/* NDA note — quiet italic line tucked into the §5 flow. 4 of 12 page-grid cols. */
 .ndaNote {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   color: var(--color-muted);
   font-style: italic;
-  max-width: 60ch;
+  max-width: calc((4 * 100cqi - 8 * var(--col-gap)) / 12);
 }
 
 /* ─────────────────────────────────────────────────────
@@ -803,7 +826,6 @@
   .bodyTwoCol,
   .quoteUnder,
   .split2,
-  .subSectionLead,
   .gridAside .label,
   .gridAside .body,
   .gridAside .figureCell,
@@ -816,7 +838,8 @@
   .gridFramework .asideBody,
   .gridFramework .asideContent,
   .frameworkBody,
-  .fullVisual {
+  .fullVisual,
+  .gridFramework > .fullBleedFigure {
     grid-column: 1 / 13;
     grid-row: auto;
   }
@@ -866,5 +889,62 @@
   .tileGrid3 .tile:last-child,
   .tileGrid2x2 .tile:last-child {
     border-bottom: none !important;
+  }
+
+  /* Mobile: drop the desktop grid-cols max-widths so body text fills the
+     collapsed single-column layout. */
+  .frameworkIntro,
+  .subSection .body,
+  .frameworkBody > .body,
+  .list,
+  .reflection,
+  .ndaNote,
+  .statCallout,
+  .pullQuote p,
+  .quoteUnder p,
+  .gridAside .quoteCell p,
+  .heroSummary {
+    max-width: none;
+  }
+
+  /* Allow grid items to shrink below their min-content width. Without this,
+     long words in prose force the 12-col grid wider than the viewport,
+     which then either scrolls horizontally or gets clipped by the
+     ux-root's overflow:hidden — looking like text "overflowing" the page. */
+  .gridFramework > *,
+  .frameworkBody,
+  .subSection,
+  .body,
+  .frameworkBody > .body {
+    min-width: 0;
+  }
+
+  /* Long URLs / unbreakable strings: let them wrap mid-word rather than
+     forcing the column wider. */
+  .body p,
+  .frameworkIntro p,
+  .subSection .body p,
+  .list li,
+  .reflection p {
+    overflow-wrap: anywhere;
+  }
+
+  /* Collapse figure wrappers to plain blocks on mobile. The desktop
+     versions are 12-col grids with figures spanning 1/13; on mobile we
+     want figure to fill its parent without the grid math. */
+  .fullBleedFigure,
+  .gridFramework > .fullBleedFigure,
+  .fullVisual,
+  .frameworkBody .fullBleedFigure {
+    display: block;
+    padding: 0;
+    width: 100%;
+  }
+
+  .fullBleedFigure :global(figure),
+  .fullVisual :global(figure),
+  .frameworkBody .fullBleedFigure :global(figure) {
+    grid-column: auto;
+    width: 100%;
   }
 }
