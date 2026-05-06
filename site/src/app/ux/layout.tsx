@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import UxNav from '@/components/UxNav'
 import GridOverlay from '@/components/GridOverlay'
 import ScrollFadeLogo from '@/components/ScrollFadeLogo'
@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: 'Andrew Whited — Product Designer',
   description:
     'Senior product designer focused on complex systems, AI, and enterprise software.',
+}
+
+export const viewport: Viewport = {
+  themeColor: '#111110',
 }
 
 export default function UxLayout({
