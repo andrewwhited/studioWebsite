@@ -5,8 +5,6 @@ import CartButton from '@/components/CartButton'
 
 const CartDrawer = dynamic(() => import('@/components/CartDrawer'))
 
-const comingSoon = process.env.COMING_SOON === 'true'
-
 export default function MainLayout({
   children,
 }: {
@@ -14,13 +12,9 @@ export default function MainLayout({
 }) {
   return (
     <CartProvider>
-      {!comingSoon && (
-        <>
-          <Nav />
-          <CartButton />
-          <CartDrawer />
-        </>
-      )}
+      <Nav />
+      <CartButton />
+      <CartDrawer />
       {children}
     </CartProvider>
   )
