@@ -19,7 +19,7 @@ export default function Thoughts({ items }: { items?: ThoughtItem[] }) {
         <ul className={`${styles.content} ${styles.thoughtList}`}>
           {(items ?? []).map((piece) => (
             <li key={piece._id}>
-              <Link href={`/thoughts/${piece.slug?.current}`} className={styles.thought}>
+              <Link href={`/${piece.slug?.current}`} className={styles.thought}>
                 <div className={styles.thoughtTitle}>{piece.title}</div>
                 <p className={`${styles.secondary} ${styles.thoughtSummary}`}>{piece.summary}</p>
                 <div className={styles.thoughtMeta}>
