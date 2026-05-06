@@ -109,8 +109,12 @@
   --color-essay-muted: #72726E;
 }
 
-/* Prevent light background bleed on overscroll */
-html:has([data-theme="ux"]) {
+/* Prevent light background bleed on overscroll and behind iOS Safari
+   chrome overlays. body's bg can't pick up [data-theme="ux"] because
+   that selector lives on a child div, so we set both html and body
+   explicitly when UX theme is anywhere in the tree. */
+html:has([data-theme="ux"]),
+html:has([data-theme="ux"]) body {
   background-color: #111110;
 }
 
