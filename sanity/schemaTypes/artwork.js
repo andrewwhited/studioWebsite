@@ -19,14 +19,23 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'primaryImage',
-      title: 'Primary Image',
+      name: 'previewImage',
+      title: 'Preview Image',
+      description: 'Shown as the tile on the /art landing page.',
+      type: 'image',
+      options: {hotspot: true},
+    }),
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Image',
+      description: 'First image shown on the artwork detail page.',
       type: 'image',
       options: {hotspot: true},
     }),
     defineField({
       name: 'images',
-      title: 'Images',
+      title: 'Additional Images',
+      description: 'Supplementary documentation: details, install shots, alternate angles.',
       type: 'array',
       of: [{type: 'image', options: {hotspot: true}}],
     }),
@@ -75,7 +84,7 @@ export default defineType({
     select: {
       title: 'title',
       subtitle: 'year',
-      media: 'primaryImage',
+      media: 'previewImage',
     },
   },
 })

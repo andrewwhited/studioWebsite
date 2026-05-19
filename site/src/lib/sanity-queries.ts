@@ -47,7 +47,20 @@ export async function getAllArtworks() {
 }
 
 export async function getArtworkBySlug(slug: string) {
-  return sanity.fetch(`*[_type == "artwork" && slug.current == $slug][0]`, { slug })
+  return sanity.fetch(
+    `*[_type == "artwork" && slug.current == $slug][0] {
+      ...,
+      heroImage {
+        ...,
+        asset->{ _id, url, metadata { dimensions } }
+      },
+      images[] {
+        ...,
+        asset->{ _id, url, metadata { dimensions } }
+      }
+    }`,
+    { slug }
+  )
 }
 
 // ---- Photo Sets ----

@@ -21,11 +21,11 @@ export default async function WorkPage({
 
   const isAvailable = work.status === 'available'
 
-  // Combine primary image + additional images, filtering out nulls
+  // Combine hero image + additional images, dropping any without an asset
   const allImages = [
-    work.primaryImage,
+    work.heroImage,
     ...(work.images ?? []),
-  ].filter(Boolean)
+  ].filter((img: any) => img?.asset)
 
   return (
     <main className={styles.main}>
@@ -33,18 +33,21 @@ export default async function WorkPage({
 
         {/* Left — images */}
         <div className={styles.images}>
-          {allImages.map((img: any, i: number) => (
-            <div key={i} className={styles.imageWrap}>
-              <SanityImage
-                src={urlFor(img).url()}
-                alt={work.title}
-                width={1200}
-                height={1600}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className={styles.image}
-              />
-            </div>
-          ))}
+          {allImages.map((img: any, i: number) => {
+            const dims = img.asset?.metadata?.dimensions
+            return (
+              <div key={i} className={styles.imageWrap}>
+                <SanityImage
+                  src={urlFor(img).url()}
+                  alt={work.title}
+                  width={dims?.width ?? 1200}
+                  height={dims?.height ?? 1600}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className={styles.image}
+                />
+              </div>
+            )
+          })}
         </div>
 
         {/* Right — details */}
