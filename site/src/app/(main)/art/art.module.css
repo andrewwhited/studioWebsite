@@ -22,7 +22,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 0 var(--col-gap);
-  padding: var(--sp-large-section) var(--gutter) var(--sp-xxxl);
+  padding: var(--sp-xxxl) var(--gutter) var(--sp-large-section);
   align-items: end;
 }
 
@@ -79,8 +79,10 @@
   transition: opacity 0.15s;
 }
 
-.work:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .work:hover {
+    opacity: 0.5;
+  }
 }
 
 .workText {
@@ -115,11 +117,11 @@
 
 @media (max-width: 1055px) {
   .stageRight {
-    grid-column: 8 / 13;
+    grid-column: 7 / 13;
   }
 }
 
-@media (max-width: 672px) {
+@media (max-width: 768px) {
   .main {
     height: auto;
     min-height: 100svh;

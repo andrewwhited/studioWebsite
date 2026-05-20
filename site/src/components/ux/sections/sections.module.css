@@ -121,6 +121,21 @@
   align-self: start;
 }
 
+/* Visually-hidden span that holds the full hero text in the SSR markup.
+   Crawlers/AI tools read it from HTML source; sighted users don't see it;
+   screen readers announce it (the JS typewriter span is aria-hidden). */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .cursor {
   display: inline-block;
   width: 0.045em;
@@ -203,8 +218,10 @@
   transition: opacity 0.15s;
 }
 
-.project:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .project:hover {
+    opacity: 0.5;
+  }
 }
 
 .project:first-child {
@@ -251,8 +268,10 @@
   padding: var(--sp-xxxl) 0;
 }
 
-.thought:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .thought:hover {
+    opacity: 0.5;
+  }
 }
 
 .thought:first-child {
@@ -363,8 +382,10 @@
   transition: opacity 0.15s;
 }
 
-.ctaFileLink:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .ctaFileLink:hover {
+    opacity: 0.5;
+  }
 }
 
 .ctaFileIcon {

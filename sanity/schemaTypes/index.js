@@ -6,6 +6,8 @@ import artPage from './artPage'
 import imagePage from './imagePage'
 import storePage from './storePage'
 import uxPage from './uxPage'
+import uxSiteSettings from './uxSiteSettings'
+import seo from './seo'
 import artwork from './artwork'
 import collection from './collection'
 import photoSet from './photoSet'
@@ -32,6 +34,9 @@ export const schemaTypes = [
   blockContent,
   simpleProse,
 
+  // Reusable objects
+  seo,
+
   // Singleton pages
   homePage,
   studioPage,
@@ -40,6 +45,7 @@ export const schemaTypes = [
   imagePage,
   storePage,
   uxPage,
+  uxSiteSettings,
 
   // Document types
   artwork,

@@ -105,8 +105,10 @@
   align-items: center;
 }
 
-.filterBtn:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .filterBtn:hover {
+    color: var(--color-text);
+  }
 }
 
 .filterBtn.active {
@@ -155,8 +157,10 @@
   transition: opacity 0.15s;
 }
 
-.product:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .product:hover {
+    opacity: 0.5;
+  }
 }
 
 .productImageWrap {

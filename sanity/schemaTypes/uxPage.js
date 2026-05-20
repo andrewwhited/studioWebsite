@@ -39,6 +39,16 @@ export default defineType({
       title: 'Image',
       type: 'image',
       options: {hotspot: true},
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt text',
+          description:
+            'Describes the image for screen readers and AI tools. ' +
+            'e.g. "Andrew Whited, photographed in Austin, Texas".',
+          type: 'string',
+        },
+      ],
     }),
     defineField({
       name: 'publications',

@@ -37,8 +37,10 @@
   z-index: 2;
 }
 
-.heroBack:hover {
-  color: var(--color-bg);
+@media (hover: hover) {
+  .heroBack:hover {
+    color: var(--color-bg);
+  }
 }
 
 .heroTitle {
@@ -124,8 +126,10 @@
   transition: opacity 0.15s;
 }
 
-a.preview:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  a.preview:hover {
+    opacity: 0.5;
+  }
 }
 
 .previewImage {
@@ -165,8 +169,10 @@ a.preview:hover {
   margin-top: var(--sp-lg);
 }
 
-.storeLink:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .storeLink:hover {
+    opacity: 0.5;
+  }
 }
 
 /* ─── References ─────────────────────────────────────── */
@@ -307,8 +313,10 @@ a.preview:hover {
   transition: opacity 0.15s;
 }
 
-.backLink:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .backLink:hover {
+    opacity: 0.5;
+  }
 }
 
 /* ─── Responsive ─────────────────────────────────────── */

@@ -23,12 +23,13 @@ type Talk = {
 
 type Props = {
   image?: string
+  imageAlt?: string
   imageHotspot?: { x: number; y: number }
   publications?: Publication[]
   talks?: Talk[]
 }
 
-export default function PublicationsTalks({ image, imageHotspot, publications, talks }: Props) {
+export default function PublicationsTalks({ image, imageAlt, imageHotspot, publications, talks }: Props) {
   return (
     <section id="credentials" className={styles.section}>
       <div className={styles.layout}>
@@ -36,7 +37,7 @@ export default function PublicationsTalks({ image, imageHotspot, publications, t
         {image && (
           <SanityImage
             src={image}
-            alt="Andrew Whited"
+            alt={imageAlt || 'Andrew Whited — Senior Design Leader, photographed in Austin, Texas'}
             width={800}
             height={600}
             sizes="(max-width: 768px) 100vw, 50vw"

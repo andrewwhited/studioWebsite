@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getAllArtworks, getArtworkBySlug } from '@/lib/sanity-queries'
 import { urlFor } from '@/lib/sanity'
 import SanityImage from '@/lib/sanity-image'
+import WorkImageStrip from './WorkImageStrip'
 import styles from './work.module.css'
 
 export async function generateStaticParams() {
@@ -32,7 +33,7 @@ export default async function WorkPage({
       <div className={styles.layout}>
 
         {/* Left — images */}
-        <div className={styles.images}>
+        <WorkImageStrip className={styles.images}>
           {allImages.map((img: any, i: number) => {
             const dims = img.asset?.metadata?.dimensions
             return (
@@ -48,7 +49,7 @@ export default async function WorkPage({
               </div>
             )
           })}
-        </div>
+        </WorkImageStrip>
 
         {/* Right — details */}
         <aside className={styles.details}>

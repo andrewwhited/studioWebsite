@@ -143,8 +143,10 @@
   transition: border-color 0.15s;
 }
 
-.inquireBtn:hover {
-  border-color: var(--color-text);
+@media (hover: hover) {
+  .inquireBtn:hover {
+    border-color: var(--color-text);
+  }
 }
 
 /* ─── Back link ──────────────────────────────────────── */
@@ -158,8 +160,10 @@
   transition: color 0.15s;
 }
 
-.backLink:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .backLink:hover {
+    color: var(--color-text);
+  }
 }
 
 /* ─── Responsive ─────────────────────────────────────── */

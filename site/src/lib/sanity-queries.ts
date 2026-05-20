@@ -30,6 +30,10 @@ export async function getUxPage() {
   return sanity.fetch(`*[_type == "uxPage"][0]`)
 }
 
+export async function getUxSiteSettings() {
+  return sanity.fetch(`*[_type == "uxSiteSettings"][0]`)
+}
+
 // ---- Collections ----
 
 export async function getAllCollections() {
@@ -137,6 +141,7 @@ export async function getWorkBySlug(slug: string) {
       role,
       year,
       heroImage { asset, alt, hotspot },
+      seo,
       sections[]{
         _type,
         _key,

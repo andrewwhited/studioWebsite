@@ -116,8 +116,10 @@
   transition: color 0.15s;
 }
 
-.collectionLink:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .collectionLink:hover {
+    color: var(--color-text);
+  }
 }
 
 /* ─── Description ────────────────────────────────────── */
@@ -194,8 +196,10 @@
   transition: opacity 0.15s;
 }
 
-.addBtn:hover {
-  opacity: 0.8;
+@media (hover: hover) {
+  .addBtn:hover {
+    opacity: 0.8;
+  }
 }
 
 .addBtn:disabled {
@@ -223,8 +227,10 @@
   transition: color 0.15s;
 }
 
-.backLink:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .backLink:hover {
+    color: var(--color-text);
+  }
 }
 
 /* ─── Responsive ─────────────────────────────────────── */

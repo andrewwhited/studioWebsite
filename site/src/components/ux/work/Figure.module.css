@@ -108,8 +108,10 @@
   transition: opacity 0.15s;
 }
 
-.frameImage:hover {
-  opacity: 0.85;
+@media (hover: hover) {
+  .frameImage:hover {
+    opacity: 0.85;
+  }
 }
 
 .frameImage img {
@@ -129,8 +131,10 @@
   transition: opacity 0.15s;
 }
 
-.imageWrap:hover {
-  opacity: 0.85;
+@media (hover: hover) {
+  .imageWrap:hover {
+    opacity: 0.85;
+  }
 }
 
 .imageWrap img {
@@ -176,10 +180,12 @@
   opacity: 0.7;
 }
 
-.lightboxClose:hover,
-.lightboxPrev:hover,
-.lightboxNext:hover {
-  opacity: 1;
+@media (hover: hover) {
+  .lightboxClose:hover,
+  .lightboxPrev:hover,
+  .lightboxNext:hover {
+    opacity: 1;
+  }
 }
 
 .lightboxClose {

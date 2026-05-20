@@ -7,6 +7,7 @@ export default defineType({
   groups: [
     {name: 'header', title: 'Header'},
     {name: 'body', title: 'Body'},
+    {name: 'seo', title: 'SEO & sharing'},
   ],
   fields: [
     // Header — always consistent
@@ -77,6 +78,14 @@ export default defineType({
       title: 'Display Order',
       type: 'number',
       group: 'header',
+    }),
+
+    // SEO
+    defineField({
+      name: 'seo',
+      title: 'SEO & sharing',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   orderings: [

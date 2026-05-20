@@ -48,6 +48,7 @@ export default defineType({
       title: 'Hero Image',
       type: 'image',
       options: {hotspot: true},
+      fields: [{name: 'alt', type: 'string', title: 'Alt text'}],
     }),
     defineField({
       name: 'intro',
@@ -152,6 +153,11 @@ export default defineType({
       name: 'order',
       title: 'Display Order',
       type: 'number',
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO & sharing',
+      type: 'seo',
     }),
   ],
   orderings: [

@@ -30,8 +30,10 @@
   width: auto;
 }
 
-.name:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .name:hover {
+    opacity: 0.5;
+  }
 }
 
 .links {
@@ -50,8 +52,10 @@
   transition: color 0.15s;
 }
 
-.links a:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .links a:hover {
+    color: var(--color-text);
+  }
 }
 
 @media (max-width: 1055px) {

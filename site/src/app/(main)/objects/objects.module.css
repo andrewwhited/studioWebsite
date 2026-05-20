@@ -79,8 +79,10 @@
   z-index: 0;
 }
 
-.entry:hover::before {
-  opacity: 1;
+@media (hover: hover) {
+  .entry:hover::before {
+    opacity: 1;
+  }
 }
 
 .entryRow {
