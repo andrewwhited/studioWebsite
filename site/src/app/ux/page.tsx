@@ -15,7 +15,7 @@ import { buildPersonSchema } from './person-schema'
 export const metadata: Metadata = {
   openGraph: {
     images: [
-      { url: '/opengraph-image', width: 1200, height: 630, alt: 'Andrew Whited — Senior Design Leader' },
+      { url: '/opengraph-image', width: 2400, height: 1260, alt: 'Andrew Whited — Senior Design Leader' },
     ],
   },
   twitter: {
