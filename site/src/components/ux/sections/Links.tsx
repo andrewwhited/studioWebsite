@@ -57,18 +57,44 @@ function AliasFileIcon() {
   )
 }
 
+function EmailFileIcon() {
+  return (
+    <svg
+      width="28"
+      height="34"
+      viewBox="0 0 12 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className={styles.ctaFileIcon}
+    >
+      <path d="M1 1H7.5L11 4.5V14H1V1Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
+      <path d="M7.5 1V4.5H11" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
+      <rect x="3" y="8" width="6" height="4" stroke="currentColor" strokeWidth="0.85" />
+      <path d="M3 8L6 10.5L9 8" stroke="currentColor" strokeWidth="0.85" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 type Props = {
   footerCopy?: string
+  email?: string
   linkedinUrl?: string
   resumeUrl?: string
   studioUrl?: string
 }
 
-export default function ClosingCta({ footerCopy, linkedinUrl, resumeUrl, studioUrl }: Props) {
+export default function ClosingCta({ footerCopy, email, linkedinUrl, resumeUrl, studioUrl }: Props) {
   return (
     <footer className={styles.cta}>
       <p className={styles.ctaText}>{footerCopy || 'Find me elsewhere'}</p>
       <div className={styles.ctaLinks}>
+        {email && (
+          <a href={`mailto:${email}`} className={`${styles.label} ${styles.ctaFileLink}`}>
+            <EmailFileIcon />
+            email
+          </a>
+        )}
         <a
           href={linkedinUrl || 'https://linkedin.com/in/andrewwhited'}
           className={`${styles.label} ${styles.ctaFileLink}`}

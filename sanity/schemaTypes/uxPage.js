@@ -116,6 +116,12 @@ export default defineType({
       type: 'url',
     }),
     defineField({
+      name: 'contactEmail',
+      title: 'Contact email',
+      description: 'Shown in the closing footer as a mailto: link and added to the Person JSON-LD.',
+      type: 'string',
+    }),
+    defineField({
       name: 'resumeFile',
       title: 'Resume PDF',
       type: 'file',

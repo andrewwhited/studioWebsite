@@ -52,6 +52,7 @@ type Settings = {
 export function buildPersonSchema(
   settings: Settings | null,
   portraitUrl?: string,
+  email?: string,
 ) {
   const description = settings?.personDescription || FALLBACK.description
   const jobTitle = settings?.personJobTitle || FALLBACK.jobTitle
@@ -84,6 +85,7 @@ export function buildPersonSchema(
     image: portraitUrl || PORTRAIT_FALLBACK,
     jobTitle,
     description,
+    ...(email && { email: `mailto:${email}` }),
     address: {
       '@type': 'PostalAddress',
       addressLocality: address.locality,

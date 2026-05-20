@@ -35,7 +35,7 @@ export default async function UxHome() {
     ? urlFor(page.image).width(800).quality(80).auto('format').url()
     : undefined
 
-  const personSchema = buildPersonSchema(settings, portraitUrl)
+  const personSchema = buildPersonSchema(settings, portraitUrl, page?.contactEmail)
 
   // Resume is served from /resume.pdf — a stable URL that proxies to the
   // current Sanity asset. See app/resume.pdf/route.ts.
@@ -62,6 +62,7 @@ export default async function UxHome() {
       <Thoughts items={thoughts} />
       <Links
         footerCopy={page?.footerCopy}
+        email={page?.contactEmail}
         linkedinUrl={page?.linkedinUrl}
         resumeUrl="/resume.pdf"
         studioUrl={page?.studioUrl}
