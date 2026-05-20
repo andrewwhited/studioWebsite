@@ -63,7 +63,7 @@ export async function generateMetadata({
         description: shareDescription,
         url: `https://ux.andrewwhited.com/${slug}`,
         type: 'article',
-        images: [{ url: `/${slug}/opengraph-image`, width: 1200, height: 630, alt: work.title }],
+        images: [{ url: `/${slug}/opengraph-image`, width: 2400, height: 1260, alt: work.title }],
       },
       twitter: {
         card: 'summary_large_image',
@@ -88,7 +88,7 @@ export async function generateMetadata({
         description: shareDescription,
         url: `https://ux.andrewwhited.com/${slug}`,
         type: 'article',
-        images: [{ url: `/${slug}/opengraph-image`, width: 1200, height: 630, alt: sanityThought.title }],
+        images: [{ url: `/${slug}/opengraph-image`, width: 2400, height: 1260, alt: sanityThought.title }],
       },
       twitter: {
         card: 'summary_large_image',
@@ -109,7 +109,7 @@ export async function generateMetadata({
         description: localThought.intro,
         url: `https://ux.andrewwhited.com/${slug}`,
         type: 'article',
-        images: [{ url: `/${slug}/opengraph-image`, width: 1200, height: 630, alt: localThought.title }],
+        images: [{ url: `/${slug}/opengraph-image`, width: 2400, height: 1260, alt: localThought.title }],
       },
       twitter: {
         card: 'summary_large_image',
@@ -140,6 +140,7 @@ export default async function UxSlugPage({
       title: work.title,
       description: work.summary,
       imageUrl: heroImageUrl,
+      year: work.year,
       type: 'CaseStudy',
     })
     return (
@@ -165,6 +166,7 @@ export default async function UxSlugPage({
       imageUrl: localThought.heroImage
         ? `https://ux.andrewwhited.com${localThought.heroImage}`
         : undefined,
+      year: localThought.context,
       type: 'Essay',
     })
     return (

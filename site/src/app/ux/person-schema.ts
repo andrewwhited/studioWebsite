@@ -74,6 +74,8 @@ export function buildPersonSchema(
       ? settings.personSameAs
       : FALLBACK.sameAs
 
+  // Bare Person — simpler signal for AI tools / recruiter bots. ProfilePage
+  // would add a Google rich-snippet wrapper, but that's not the audience here.
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
