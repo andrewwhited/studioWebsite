@@ -71,8 +71,10 @@
   transition: opacity 0.15s;
 }
 
-.cell:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .cell:hover {
+    opacity: 0.5;
+  }
 }
 
 .cellImage {
@@ -141,8 +143,10 @@
   transition: opacity 0.15s;
 }
 
-.closeBtn:hover {
-  opacity: 0.5;
+@media (hover: hover) {
+  .closeBtn:hover {
+    opacity: 0.5;
+  }
 }
 
 /* ─── Lightbox stage ─────────────────────────────── */
@@ -191,8 +195,10 @@
   z-index: 1;
 }
 
-.navBtn:hover {
-  color: var(--color-bg);
+@media (hover: hover) {
+  .navBtn:hover {
+    color: var(--color-bg);
+  }
 }
 
 .navPrev { left:  var(--gutter); }

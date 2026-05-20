@@ -32,12 +32,12 @@ export default async function Art() {
               <div
                 className={styles.workImage}
                 style={
-                  work.primaryImage
+                  work.previewImage
                     ? {
-                        backgroundImage: `url(${urlFor(work.primaryImage).width(800).quality(80).auto('format').url()})`,
+                        backgroundImage: `url(${urlFor(work.previewImage).width(800).quality(80).auto('format').url()})`,
                         backgroundSize: 'cover',
-                        backgroundPosition: work.primaryImage.hotspot
-                          ? `${work.primaryImage.hotspot.x * 100}% ${work.primaryImage.hotspot.y * 100}%`
+                        backgroundPosition: work.previewImage.hotspot
+                          ? `${work.previewImage.hotspot.x * 100}% ${work.previewImage.hotspot.y * 100}%`
                           : 'center',
                       }
                     : undefined

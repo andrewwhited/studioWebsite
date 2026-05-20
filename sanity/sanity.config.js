@@ -11,6 +11,7 @@ const singletonTypes = new Set([
   'imagePage',
   'storePage',
   'uxPage',
+  'uxSiteSettings',
 ])
 
 const singletonListItem = (S, typeName, title) =>
@@ -62,6 +63,7 @@ export default defineConfig({
                   .title('UX Site')
                   .items([
                     singletonListItem(S, 'uxPage', 'UX Page'),
+                    singletonListItem(S, 'uxSiteSettings', 'Site Settings (SEO)'),
                     S.divider(),
                     S.documentTypeListItem('work').title('Work'),
                     S.documentTypeListItem('thought').title('Thoughts'),

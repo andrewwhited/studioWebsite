@@ -30,6 +30,10 @@ export async function getUxPage() {
   return sanity.fetch(`*[_type == "uxPage"][0]`)
 }
 
+export async function getUxSiteSettings() {
+  return sanity.fetch(`*[_type == "uxSiteSettings"][0]`)
+}
+
 // ---- Collections ----
 
 export async function getAllCollections() {
@@ -47,7 +51,20 @@ export async function getAllArtworks() {
 }
 
 export async function getArtworkBySlug(slug: string) {
-  return sanity.fetch(`*[_type == "artwork" && slug.current == $slug][0]`, { slug })
+  return sanity.fetch(
+    `*[_type == "artwork" && slug.current == $slug][0] {
+      ...,
+      heroImage {
+        ...,
+        asset->{ _id, url, metadata { dimensions } }
+      },
+      images[] {
+        ...,
+        asset->{ _id, url, metadata { dimensions } }
+      }
+    }`,
+    { slug }
+  )
 }
 
 // ---- Photo Sets ----
@@ -124,6 +141,7 @@ export async function getWorkBySlug(slug: string) {
       role,
       year,
       heroImage { asset, alt, hotspot },
+      seo,
       sections[]{
         _type,
         _key,

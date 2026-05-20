@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getAllArtworks, getArtworkBySlug } from '@/lib/sanity-queries'
 import { urlFor } from '@/lib/sanity'
 import SanityImage from '@/lib/sanity-image'
+import WorkImageStrip from './WorkImageStrip'
 import styles from './work.module.css'
 
 export async function generateStaticParams() {
@@ -21,31 +22,34 @@ export default async function WorkPage({
 
   const isAvailable = work.status === 'available'
 
-  // Combine primary image + additional images, filtering out nulls
+  // Combine hero image + additional images, dropping any without an asset
   const allImages = [
-    work.primaryImage,
+    work.heroImage,
     ...(work.images ?? []),
-  ].filter(Boolean)
+  ].filter((img: any) => img?.asset)
 
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
 
         {/* Left — images */}
-        <div className={styles.images}>
-          {allImages.map((img: any, i: number) => (
-            <div key={i} className={styles.imageWrap}>
-              <SanityImage
-                src={urlFor(img).url()}
-                alt={work.title}
-                width={1200}
-                height={1600}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className={styles.image}
-              />
-            </div>
-          ))}
-        </div>
+        <WorkImageStrip className={styles.images}>
+          {allImages.map((img: any, i: number) => {
+            const dims = img.asset?.metadata?.dimensions
+            return (
+              <div key={i} className={styles.imageWrap}>
+                <SanityImage
+                  src={urlFor(img).url()}
+                  alt={work.title}
+                  width={dims?.width ?? 1200}
+                  height={dims?.height ?? 1600}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className={styles.image}
+                />
+              </div>
+            )
+          })}
+        </WorkImageStrip>
 
         {/* Right — details */}
         <aside className={styles.details}>

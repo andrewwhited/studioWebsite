@@ -70,8 +70,10 @@
   transition: color 0.15s;
 }
 
-.closeBtn:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .closeBtn:hover {
+    color: var(--color-text);
+  }
 }
 
 /* ─── Body ───────────────────────────────────────────── */
@@ -147,8 +149,10 @@
   transition: color 0.15s;
 }
 
-.lineTitle:hover {
-  color: var(--color-muted);
+@media (hover: hover) {
+  .lineTitle:hover {
+    color: var(--color-muted);
+  }
 }
 
 .lineVariant {
@@ -188,8 +192,10 @@
   transition: border-color 0.15s;
 }
 
-.qtyBtn:hover {
-  border-color: var(--color-text);
+@media (hover: hover) {
+  .qtyBtn:hover {
+    border-color: var(--color-text);
+  }
 }
 
 .qtyBtn:disabled {
@@ -218,8 +224,10 @@
   transition: color 0.15s;
 }
 
-.removeBtn:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .removeBtn:hover {
+    color: var(--color-text);
+  }
 }
 
 .removeBtn:disabled {
@@ -267,6 +275,8 @@
   transition: opacity 0.15s;
 }
 
-.checkoutBtn:hover {
-  opacity: 0.8;
+@media (hover: hover) {
+  .checkoutBtn:hover {
+    opacity: 0.8;
+  }
 }

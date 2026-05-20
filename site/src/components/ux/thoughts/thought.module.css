@@ -20,8 +20,10 @@
   transition: color 0.15s;
 }
 
-.backLink:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .backLink:hover {
+    color: var(--color-text);
+  }
 }
 
 /* Header — standard */
