@@ -395,6 +395,20 @@
   margin: 0;
 }
 
+/* Top-level supporting blocks (figures with fullWidth:false, em-dash lists,
+   tile grids) when used directly under .gridFramework — anchor to the body
+   band so they align with .frameworkBody (cols 5–13). Without this they fall
+   back to default 1-col grid placement and break the layout. */
+.gridFramework > .fullBleedFigure,
+.gridFramework > .list,
+.gridFramework > .tileGrid5,
+.gridFramework > .tileGrid2x2,
+.gridFramework > .tileGrid3 {
+  grid-column: 5 / 13;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .frameworkIntro {
   display: flex;
   flex-direction: column;
@@ -822,7 +836,12 @@
   .gridFramework .asideBody,
   .gridFramework .asideContent,
   .frameworkBody,
-  .fullVisual {
+  .fullVisual,
+  .gridFramework > .fullBleedFigure,
+  .gridFramework > .list,
+  .gridFramework > .tileGrid5,
+  .gridFramework > .tileGrid2x2,
+  .gridFramework > .tileGrid3 {
     grid-column: 1 / 13;
     grid-row: auto;
   }
