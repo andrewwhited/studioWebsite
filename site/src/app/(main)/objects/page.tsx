@@ -12,11 +12,8 @@ export default async function Objects() {
 
       {/* Left panel — cols 1–4, sticky */}
       <div className={styles.left}>
-        <h1 className={styles.title}>{page?.title ?? 'Objects'}</h1>
-        <p className={styles.intro}>
-          {page?.tagline ??
-            'Object work spanning collections, foundational pieces, and commissioned projects. Each entry brings together images, context, and the ideas behind the work.'}
-        </p>
+        <h1 className={styles.title}>{page?.title}</h1>
+        <p className={styles.intro}>{page?.tagline}</p>
       </div>
 
       {/* Right panel — cols 5–12, entry list */}

@@ -18,8 +18,8 @@ const allPhotos: FlatPhoto[] = photoSets.flatMap((set) =>
 type LightboxState = { setId: string; indexInSet: number } | null
 
 type Props = {
-  title: string
-  intro: string
+  title?: string
+  intro?: string
 }
 
 export default function ImageClient({ title, intro }: Props) {

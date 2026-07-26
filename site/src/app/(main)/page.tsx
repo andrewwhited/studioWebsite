@@ -35,12 +35,8 @@ export default async function Home() {
 
         {/* Column 3 — text block, vertically centered */}
         <div className={styles.content}>
-          <h1 className={styles.title}>
-            {page?.title ?? 'Andrew Whited'}
-          </h1>
-          <p className={styles.descriptor}>
-            {page?.text ?? 'The studio produces furniture, objects, art, and image from a workshop in Austin, Texas.'}
-          </p>
+          <h1 className={styles.title}>{page?.title}</h1>
+          <p className={styles.descriptor}>{page?.text}</p>
         </div>
 
       </section>

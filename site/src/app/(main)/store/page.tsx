@@ -20,8 +20,8 @@ export default async function StorePage() {
     <StoreClient
       products={products}
       error={error}
-      title={page?.title ?? 'Store'}
-      intro={page?.text ?? 'Small-batch production, vessels, tools, and objects made in the workshop. Shipping calculated at checkout. Local pickup available.'}
+      title={page?.title}
+      intro={page?.text}
     />
   )
 }

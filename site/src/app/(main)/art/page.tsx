@@ -12,11 +12,8 @@ export default async function Art() {
       {/* Stage — top half void, Art + intro in right third */}
       <div className={styles.stage}>
         <div className={styles.stageRight}>
-          <p className={styles.stageLabel}>{page?.title ?? 'Art'}</p>
-          <p className={styles.stageIntro}>
-            {page?.text ??
-              'Works on paper, panel, and in three dimensions. One-of-one pieces developed alongside the object and studio work. Inquiry via email.'}
-          </p>
+          <p className={styles.stageLabel}>{page?.title}</p>
+          <p className={styles.stageIntro}>{page?.text}</p>
         </div>
       </div>
 
