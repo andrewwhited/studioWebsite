@@ -5,16 +5,38 @@ export default defineType({
   title: 'Studio Page',
   type: 'document',
   fields: [
-    // Hero
+    // About
+    // One continuous block, running ethos → practice → outputs → commercial.
+    // Blank lines separate paragraphs; the page renders each as its own <p>
+    // in a single measure.
     defineField({
-      name: 'heroHeading',
-      title: 'Hero Heading',
-      type: 'string',
+      name: 'aboutText',
+      title: 'About Text',
+      type: 'text',
+      rows: 14,
     }),
     defineField({
+      name: 'bioName',
+      title: 'Name',
+      type: 'string',
+      description: 'The page h1, rendered as a caption alongside the address.',
+    }),
+
+    // DEPRECATED 2026-07-26 — no longer rendered. Held a retired unity claim.
+    // The page h1 is now bioName. Field kept until the value is cleared.
+    defineField({
+      name: 'heroHeading',
+      title: 'Hero Heading (deprecated)',
+      type: 'string',
+      readOnly: true,
+    }),
+    // DEPRECATED 2026-07-26 — merged into aboutText. Value retained until
+    // the merged block is signed off visually, then unset.
+    defineField({
       name: 'heroText',
-      title: 'Hero Text',
+      title: 'Hero Text (deprecated — merged into About Text)',
       type: 'text',
+      readOnly: true,
     }),
     defineField({
       name: 'heroPrimaryImage',
@@ -35,24 +57,14 @@ export default defineType({
       options: {hotspot: true},
     }),
 
-    // Bio
-    defineField({
-      name: 'bioName',
-      title: 'Bio Name',
-      type: 'string',
-    }),
+    // DEPRECATED 2026-07-26 — merged into aboutText. Value retained until
+    // the merged block is signed off visually, then unset.
     defineField({
       name: 'bioText',
-      title: 'Bio Text',
+      title: 'Bio Text (deprecated — merged into About Text)',
       type: 'text',
+      readOnly: true,
     }),
-    defineField({
-      name: 'bioImage',
-      title: 'Bio Image',
-      type: 'image',
-      options: {hotspot: true},
-    }),
-
     // Location
     defineField({
       name: 'locationTitle',
@@ -69,10 +81,12 @@ export default defineType({
       title: 'Location Address',
       type: 'string',
     }),
+    // DEPRECATED 2026-07-26 — cut as premature.
     defineField({
       name: 'locationVisitNote',
-      title: 'Visit Note',
+      title: 'Visit Note (deprecated)',
       type: 'string',
+      readOnly: true,
     }),
     defineField({
       name: 'locationImage',
@@ -81,16 +95,19 @@ export default defineType({
       options: {hotspot: true},
     }),
 
-    // Services
+    // Services — DEPRECATED 2026-07-26. Section cut; capability is named
+    // inside the About block with no CTA. Fields kept until values are cleared.
     defineField({
       name: 'servicesTitle',
-      title: 'Services Section Title',
+      title: 'Services Section Title (deprecated)',
       type: 'string',
+      readOnly: true,
     }),
     defineField({
       name: 'services',
-      title: 'Services',
+      title: 'Services (deprecated)',
       type: 'array',
+      readOnly: true,
       of: [
         {
           type: 'object',
@@ -108,8 +125,33 @@ export default defineType({
     }),
     defineField({
       name: 'servicesContact',
-      title: 'Services Contact CTA',
+      title: 'Services Contact CTA (deprecated)',
       type: 'string',
+      readOnly: true,
+    }),
+
+    // Exhibitions
+    // Bare entries — no annotation, no type tag. Venue is optional: a show
+    // held in Andrew's own studio has no venue worth naming on his own site.
+    defineField({
+      name: 'exhibitions',
+      title: 'Exhibitions',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'exhibition',
+          fields: [
+            {name: 'title', type: 'string', title: 'Title'},
+            {name: 'venue', type: 'string', title: 'Venue'},
+            {name: 'location', type: 'string', title: 'Location'},
+            {name: 'year', type: 'string', title: 'Year'},
+          ],
+          preview: {
+            select: {title: 'title', subtitle: 'year'},
+          },
+        },
+      ],
     }),
 
     // Required Reading
@@ -172,6 +214,11 @@ export default defineType({
     defineField({
       name: 'tiktok',
       title: 'TikTok URL',
+      type: 'url',
+    }),
+    defineField({
+      name: 'uxSiteUrl',
+      title: 'UX Site URL',
       type: 'url',
     }),
   ],

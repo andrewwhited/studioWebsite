@@ -18,121 +18,160 @@ function imgStyle(image: any, width = 1200) {
 export default async function Studio() {
   const page = await getStudioPage()
 
-  const heroHeading = page?.heroHeading ?? 'A designer and maker working at the intersection of object design, spatial thinking, and material investigation.'
-  const heroText = page?.heroText ?? 'The studio has operated since 2018, working across furniture, art objects, spatial commissions, and small-batch production. Located in Austin, Texas.'
-  const bioName = page?.bioName ?? 'Andrew Whited'
-  const bioText = page?.bioText ?? 'Designer and maker based in Austin, Texas.'
-  const workshopText = page?.locationText ?? 'A 2,400 sq ft working space accommodating furniture-scale production, dimensional milling, finishing, and limited fabrication in steel and concrete. Equipped for hardwood joinery, turning, bending, and surface work.'
-  const workshopAddress = page?.locationAddress ?? 'Austin, TX'
-  const workshopVisit = page?.locationVisitNote ?? 'Visit by appointment'
-  const services = page?.services ?? []
+  // Copy has one source of truth: Sanity. No string fallbacks — they drift, and
+  // the last set held lines the voice pass had already rejected as inaccurate.
+  const aboutText = page?.aboutText
+  const name = page?.bioName
+  const address = page?.locationAddress
+  const exhibitions = page?.exhibitions ?? []
   const readingList = page?.readingList ?? []
-  const contactEmail = page?.email ?? 'studio@andrewwhited.com'
+  const contactEmail = page?.email
   const instagramUrl = page?.instagram
   const tiktokUrl = page?.tiktok
+  const uxSiteUrl = page?.uxSiteUrl
   const whatsPlaying = page?.whatsPlaying
+
+  // Unfilled slots render a marked placeholder rather than collapsing. These
+  // two carry structure — the workshop image is what the About caption hands
+  // off to, and the embed holds the right rail beside Required Reading — so
+  // collapsing them silently changes the composition instead of showing a gap.
+  const hasWorkshopImage = Boolean(page?.locationImage?.asset)
+  const hasListening = Boolean(whatsPlaying)
+
+  // Authored as paragraphs. Splitting on blank lines keeps the author's
+  // breaks instead of collapsing the block into one slab.
+  const aboutParagraphs: string[] = (aboutText?.split(/\n\s*\n/) ?? [])
+    .map((p: string) => p.trim())
+    .filter(Boolean)
+
+  // The block splits across the fold: the opening paragraph carries the fold
+  // on its own, the rest set in two columns below it. Still one continuous
+  // block of prose — the break is compositional, not editorial.
+  const [aboutOpening, ...aboutRest] = aboutParagraphs
 
   return (
     <main>
 
-      {/* ── Hero ─────────────────────────────────────── */}
-      <section className={styles.hero}>
-        <div className={styles.heroText}>
-          <h1 className={styles.heroHeading}>{heroHeading}</h1>
-          <p className={styles.heroBio}>{heroText}</p>
+      {/* ── About ────────────────────────────────────────
+          Mirrors the home page thirds, reversed: text left,
+          images right. The prose is the page's apex; the
+          name and address sit under it as one caption.
+      ─────────────────────────────────────────────────── */}
+      <section className={styles.about}>
+        <div className={styles.aboutText}>
+          {aboutOpening && <p className={styles.aboutOpening}>{aboutOpening}</p>}
         </div>
-        <div className={styles.heroImageMid} style={imgStyle(page?.heroPrimaryImage)} />
-        <div className={styles.heroImageStack}>
-          <div className={styles.heroImageTop} style={imgStyle(page?.heroSecondaryImage, 800)} />
-          <div className={styles.heroImageBottom} style={imgStyle(page?.heroTertiaryImage, 800)} />
-        </div>
-      </section>
-
-      {/* ── Bio ──────────────────────────────────────── */}
-      <section className={styles.bio}>
-        <div className={styles.bioGrid}>
-          <p className={styles.bioName}>{bioName}</p>
-          <p className={styles.bioText}>{bioText}</p>
+        <div className={styles.aboutImageMid} style={imgStyle(page?.heroPrimaryImage)} />
+        <div className={styles.aboutImageStack}>
+          <div className={styles.aboutImageTop} style={imgStyle(page?.heroSecondaryImage, 800)} />
+          <div className={styles.aboutImageBottom} style={imgStyle(page?.heroTertiaryImage, 800)} />
         </div>
       </section>
 
-      {/* ── Workshop ─────────────────────────────────── */}
-      <section className={styles.workshop}>
-        <div className={styles.workshopGrid}>
-          <div className={styles.workshopContent}>
-            <p className={styles.workshopStatement}>{workshopText}</p>
-            <div className={styles.workshopMeta}>
-              <address>{workshopAddress}</address>
-              <span className={styles.workshopAppt}>{workshopVisit}</span>
-            </div>
+      {/* ── About, continued ─────────────────────────────
+          Two columns of prose against an empty third. The
+          caption anchors that column rather than filling
+          it — the space is the point.
+      ─────────────────────────────────────────────────── */}
+      {aboutRest.length > 0 && (
+        <section className={styles.aboutBody}>
+          <div className={styles.aboutCaption}>
+            <h1 className={styles.aboutName}>{name}</h1>
+            {address && <address className={styles.aboutAddress}>{address}</address>}
           </div>
-          <div className={styles.workshopImage} style={imgStyle(page?.locationImage)} />
-        </div>
-      </section>
-
-      {/* ── Services ─────────────────────────────────── */}
-      <section className={styles.services}>
-        <div className={styles.servicesInner}>
-          <ul className={styles.servicesGrid}>
-            {services.map((s: any) => (
-              <li key={s._key} className={styles.serviceRow}>
-                <h3 className={styles.serviceTitle}>{s.title}</h3>
-                <p className={styles.serviceDesc}>{s.text}</p>
-              </li>
-            ))}
-          </ul>
-          <div className={styles.servicesCta}>
-            <a
-              href={`mailto:${contactEmail}`}
-              className={styles.servicesCtaLink}
-            >
-              {page?.servicesContact ?? 'Inquire about services →'}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Reading + Listening ──────────────────────── */}
-      <section className={styles.reading}>
-
-        <div className={styles.readingCol}>
-          <div className={styles.readingHead}>
-            <h2 className={styles.readingHeading}>Required Reading</h2>
-            <p className={styles.readingIntro}>
-              Books, essays, and films that inform how the work gets made.
+          {aboutRest.map((p: string, i: number) => (
+            <p key={i} className={i % 2 === 0 ? styles.aboutColA : styles.aboutColB}>
+              {p}
             </p>
+          ))}
+        </section>
+      )}
+
+      {/* ── Workshop ─────────────────────────────────────
+          Image only. The address lives in the About
+          caption, and the statement was cut with it —
+          the photograph is the section.
+      ─────────────────────────────────────────────────── */}
+      <section className={styles.workshop}>
+        {hasWorkshopImage ? (
+          <div className={styles.workshopImage} style={imgStyle(page?.locationImage, 2000)} />
+        ) : (
+          <div className={`${styles.workshopImage} ${styles.placeholder}`}>
+            <span className={styles.placeholderLabel}>Workshop photo</span>
           </div>
-          <ul className={styles.readingList}>
-            {readingList.map((item: any) => (
-              <li key={item._key} className={styles.readingItem}>
-                <a
-                  href={item.link ?? '#'}
-                  className={styles.readingLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className={styles.readingThumb} aria-hidden="true" />
-                  <span className={styles.readingTitle}>{item.title}</span>
-                  <span className={styles.readingAuthor}>{item.creator}</span>
-                  {item.note && <span className={styles.readingNote}>{item.note}</span>}
-                  <span className={styles.readingTag}>{item.itemType}</span>
-                </a>
+        )}
+      </section>
+
+      {/* ── Record + taste ───────────────────────────────
+          Three columns of the same species: what has been
+          shown, what is being read, what is playing. One
+          row grammar across all of them — title over a
+          muted meta line — so the band reads as a set.
+      ─────────────────────────────────────────────────── */}
+      <section className={styles.band}>
+
+        <div className={styles.bandColA}>
+          <h2 className={styles.bandLabel}>Exhibitions</h2>
+          <ul className={styles.list}>
+            {exhibitions.map((item: any) => (
+              <li key={item._key} className={styles.entry}>
+                <span className={styles.entryTitle}>{item.title}</span>
+                {/* Venue deliberately not rendered — the field is still in
+                    Sanity if it earns its place back later. */}
+                <span className={styles.entryMeta}>
+                  {[item.location, item.year].filter(Boolean).join('  ')}
+                </span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className={styles.listeningCol}>
-          <h3 className={styles.listeningHeading}>What's running in the workshop.</h3>
-          {whatsPlaying ? (
+        <div className={styles.bandColB}>
+          <h2 className={styles.bandLabel}>Required Reading</h2>
+          <ul className={styles.list}>
+            {readingList.map((item: any) => {
+              const row = (
+                <>
+                  <span className={styles.entryTitle}>{item.title}</span>
+                  <span className={styles.entryMeta}>{item.creator}</span>
+                </>
+              )
+
+              return (
+                <li key={item._key} className={styles.entry}>
+                  {item.link ? (
+                    <a
+                      href={item.link}
+                      className={styles.entryLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {row}
+                    </a>
+                  ) : (
+                    // No link — render as a plain row so it isn't fake-interactive.
+                    row
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+
+        <div className={styles.bandColC}>
+          <h2 className={styles.bandLabel}>What&apos;s Playing</h2>
+          {hasListening ? (
             <iframe
-              className={styles.listeningEmbed}
+              className={styles.embed}
               src={whatsPlaying}
+              title="What's playing in the workshop"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
             />
           ) : (
-            <div className={styles.listeningEmbed} aria-label="Spotify playlist" />
+            <div className={`${styles.embed} ${styles.placeholder}`}>
+              <span className={styles.placeholderLabel}>Embed</span>
+            </div>
           )}
         </div>
 
@@ -141,7 +180,7 @@ export default async function Studio() {
       {/* ── Contact ──────────────────────────────────── */}
       <section className={styles.contact}>
         <div className={styles.contactInner}>
-          <h2 className={styles.contactHeading}>{page?.contactTitle ?? 'Contact'}</h2>
+          <h2 className={styles.contactHeading}>{page?.contactTitle}</h2>
           <div className={styles.contactLinks}>
             <a href={`mailto:${contactEmail}`} className={styles.contactLink}>
               {contactEmail}
@@ -154,6 +193,11 @@ export default async function Studio() {
             {tiktokUrl && (
               <a href={tiktokUrl} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
                 TikTok
+              </a>
+            )}
+            {uxSiteUrl && (
+              <a href={uxSiteUrl} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
+                UX &amp; digital design
               </a>
             )}
           </div>

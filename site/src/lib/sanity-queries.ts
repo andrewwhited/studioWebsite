@@ -6,8 +6,30 @@ export async function getHomePage() {
   return sanity.fetch(`*[_type == "homePage"][0]`)
 }
 
+// Projected rather than `*` on purpose: the whole document is serialized into
+// the RSC payload and is readable in page source. Deprecated fields still hold
+// retired copy (the old unity-claim heroHeading, the cut visit note), and that
+// copy should not be crawlable just because it hasn't been deleted yet.
 export async function getStudioPage() {
-  return sanity.fetch(`*[_type == "studioPage"][0]`)
+  return sanity.fetch(`*[_type == "studioPage"][0]{
+    aboutText,
+    heroPrimaryImage,
+    heroSecondaryImage,
+    heroTertiaryImage,
+    bioName,
+    locationAddress,
+    locationImage,
+    // venue is intentionally omitted — the page does not render it, and
+    // unrendered fields should not ride along in the RSC payload.
+    exhibitions[]{_key, title, location, year},
+    readingList,
+    whatsPlaying,
+    contactTitle,
+    email,
+    instagram,
+    tiktok,
+    uxSiteUrl
+  }`)
 }
 
 export async function getObjectsPage() {

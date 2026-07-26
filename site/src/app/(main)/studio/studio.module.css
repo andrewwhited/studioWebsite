@@ -5,23 +5,27 @@
    gap: 0 var(--col-gap), creating shared vertical
    key lines across the entire page.
 
-   Desktop col map:
-     Label / wordmark zone  → cols 1–2
-     Content body           → cols 3–9
-     Right rail             → cols 10–12  (aligns with nav links)
-     Statement text         → cols 3–9
-     Location / metadata    → cols 10–12
+   Desktop col map — thirds, held all the way down:
+     cols 1–4   About text · Exhibitions
+     cols 5–8   middle photo · About cont. · Reading
+     cols 9–12  photo stack · caption · What's Playing
+
+   Type: the About prose is the apex at --text-xl and is
+   the only large type on the page. Everything else runs
+   --text-base for row titles and --text-sm for labels
+   and meta, so hierarchy comes from a few deliberate
+   intervals rather than a long ladder of sizes.
 ───────────────────────────────────────────────────── */
 
 
-/* ─── Hero ───────────────────────────────────────────
-   Full viewport. 12-col grid.
-   Text:          cols 1–4  (left third — inverse of home)
-   Single photo:  cols 5–8  (middle third)
-   Stacked pair:  cols 9–12 (right third)
+/* ─── About ──────────────────────────────────────────
+   Mirrors home's thirds, reversed.
+   Text:          cols 1–4
+   Single photo:  cols 5–8
+   Stacked pair:  cols 9–12 (bleeds to the right edge)
 ─────────────────────────────────────────────────────── */
 
-.hero {
+.about {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 0;
@@ -29,43 +33,112 @@
   min-height: 100svh;
 }
 
-/* Cols 1–4 — text panel */
-.heroText {
+/* Only the opening paragraph carries the fold, anchored to the baseline of
+   the column. Everything above it is background — that emptiness is the
+   whole reason the paragraph reads as a statement. */
+.aboutText {
   grid-column: 1 / 5;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: var(--sp-xxl);
   padding-top: calc(var(--nav-h) + var(--sp-large-section));
-  padding-bottom: var(--sp-10);
+  /* No bottom padding: the last line sits on the same horizontal as the
+     bottom edge of the images. A shared key line is what stops the
+     paragraph reading as floating in the column. */
+  padding-bottom: 0;
   padding-right: var(--sp-xxxl);
 }
 
-.heroHeading {
-  font-size: var(--text-base);
+.aboutOpening {
+  font-size: var(--text-xl);
   font-weight: var(--font-medium);
+  line-height: var(--lh-xl);
   letter-spacing: 0;
-  line-height: var(--lh-sm);
   color: var(--color-text);
-  max-width: 320px;
+  text-wrap: pretty;
 }
 
-.heroBio {
-  font-size: var(--text-base);
+
+/* ─── About, continued ───────────────────────────────
+   Prose in cols 1–4 and 5–8, caption in 9–12. The third
+   column stays open; the caption sits at its head as an
+   anchor rather than filling it.
+─────────────────────────────────────────────────────── */
+
+/* Top interval is a paragraph break, not a section break — these columns are
+   the same block of prose as the paragraph above the fold, so the space to
+   them is deliberately smaller than the space out to Workshop below. */
+.aboutBody {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 var(--col-gap);
+  padding: var(--sp-xxxl) var(--gutter) var(--sp-12);
+  align-items: start;
+}
+
+.aboutColA,
+.aboutColB {
+  font-size: var(--text-xl);
   font-weight: var(--font-medium);
-  line-height: var(--lh-sm);
+  line-height: var(--lh-xl);
+  letter-spacing: 0;
+  color: var(--color-text);
+  text-wrap: pretty;
+  padding-right: var(--sp-xxxl);
+}
+
+/* Explicit rows on all three. With grid-row auto, sparse auto-placement puts
+   the caption in row 1 and pushes both paragraphs to row 2 — the cursor
+   cannot travel backwards once it has passed column 9. */
+.aboutColA {
+  grid-column: 1 / 5;
+  grid-row: 1;
+}
+
+.aboutColB {
+  grid-column: 5 / 9;
+  grid-row: 1;
+}
+
+/* Name + address as one caption. The h1 is semantically the page title and
+   visually subordinate to the prose — the voice is the apex here, not the
+   name. The address appears here and nowhere else on the page. */
+.aboutCaption {
+  grid-column: 9 / 13;
+  grid-row: 1;
+  /* Top-aligned with the prose columns — it reads as part of the same row
+     of information rather than as a mark floating in an empty column. */
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.aboutName {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--lh-xs);
+  color: var(--color-text);
+}
+
+.aboutAddress {
+  font-style: normal;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--lh-xs);
   color: var(--color-muted);
-  max-width: 280px;
 }
 
 /* Cols 5–8 — single photo (middle third) */
-.heroImageMid {
+.aboutImageMid {
   grid-column: 5 / 9;
   background-color: var(--color-placeholder);
 }
 
 /* Cols 9–12 — two photos stacked (right third) */
-.heroImageStack {
+.aboutImageStack {
   grid-column: 9 / 13;
   margin-right: calc(-1 * var(--gutter)); /* bleed to right edge */
   display: flex;
@@ -73,181 +146,46 @@
   gap: 0;
 }
 
-.heroImageTop,
-.heroImageBottom {
+.aboutImageTop,
+.aboutImageBottom {
   flex: 1;
   background-color: var(--color-placeholder);
 }
 
 
-/* ─── Bio ────────────────────────────────────────────
-   No label, no image. Name in left third, bio in middle.
-─────────────────────────────────────────────────────── */
-
-.bio {
-  border-top: 1px solid var(--color-rule);
-  padding-top: var(--sp-12);
-}
-
-.bioGrid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 0 var(--col-gap);
-  padding: 0 var(--gutter) var(--sp-12);
-  align-items: baseline;
-}
-
-.bioName {
-  grid-column: 1 / 5;
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  letter-spacing: 0;
-  line-height: var(--lh-sm);
-  color: var(--color-text);
-}
-
-.bioText {
-  grid-column: 5 / 10;
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  line-height: var(--lh-sm);
-  color: var(--color-muted);
-}
-
-
 /* ─── Workshop ───────────────────────────────────────
-   No label. Text + metadata in left third,
-   photo spanning right two-thirds.
+   Image only, on the full measure. No rule above — it
+   flows out of the About block rather than being
+   fenced off from it.
 ─────────────────────────────────────────────────────── */
 
+/* No padding of its own — .aboutBody's bottom padding sets the interval
+   above, and the sections below carry their own top rules. */
 .workshop {
-  border-top: 1px solid var(--color-rule);
-  padding-top: var(--sp-12);
-  padding-bottom: var(--sp-12);
-}
-
-.workshopGrid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 0 var(--col-gap);
-  padding: 0 var(--gutter);
-  align-items: start;
-}
-
-.workshopContent {
-  grid-column: 1 / 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--sp-xxxl);
-  align-self: stretch;
-}
-
-.workshopStatement {
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  line-height: var(--lh-sm);
-  color: var(--color-text);
-  letter-spacing: 0;
-}
-
-.workshopMeta {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-xs);
-}
-
-.workshopMeta address {
-  font-style: normal;
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  line-height: var(--lh-sm);
-  color: var(--color-text);
-}
-
-.workshopAppt {
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  color: var(--color-muted);
+  padding: 0;
 }
 
 .workshopImage {
-  grid-column: 5 / 13;
-  aspect-ratio: 4 / 3;
+  margin: 0 var(--gutter);
+  aspect-ratio: 16 / 9;
   background-color: var(--color-placeholder);
 }
 
 
-/* ─── Services ───────────────────────────────────────
-   Each service is a row on the 12-col grid.
-   Title in left third (1–4), description in middle (5–9).
-   Clean text list — no images, no cards.
+
+/* ─── Record + taste band ────────────────────────────
+   Exhibitions · Required Reading · What's Playing as
+   three equal columns on the thirds. One label
+   treatment and one row grammar across all three, so
+   the band reads as a set rather than three sections
+   that happen to be adjacent.
+
+   Labels are small caps rather than the old --text-xl
+   headings: at three-up they are signage, and it keeps
+   the About prose the only large type on the page.
 ─────────────────────────────────────────────────────── */
 
-.services {
-  border-top: 1px solid var(--color-rule);
-}
-
-.servicesInner {
-  padding: var(--sp-12) var(--gutter) var(--sp-12);
-}
-
-.servicesGrid {
-  list-style: none;
-}
-
-.serviceRow {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 0 var(--col-gap);
-  padding: var(--sp-xl) 0;
-  border-bottom: 1px solid var(--color-rule);
-}
-
-.serviceRow:first-child {
-  border-top: 1px solid var(--color-rule);
-}
-
-.serviceTitle {
-  grid-column: 1 / 5;
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  color: var(--color-text);
-  line-height: var(--lh-sm);
-}
-
-.serviceDesc {
-  grid-column: 5 / 10;
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  line-height: var(--lh-sm);
-  color: var(--color-muted);
-}
-
-.servicesCta {
-  padding-top: var(--sp-xxxl);
-}
-
-.servicesCtaLink {
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  color: var(--color-text);
-  transition: opacity 0.15s;
-}
-
-@media (hover: hover) {
-  .servicesCtaLink:hover {
-    opacity: 0.5;
-  }
-}
-
-
-/* ─── Required Reading ───────────────────────────────
-   Reading list: cols 1–9
-   Listening:    cols 10–12  (aligns with right rail)
-─────────────────────────────────────────────────────── */
-
-.reading {
+.band {
   border-top: 1px solid var(--color-rule);
   padding: var(--sp-10) var(--gutter) var(--sp-16);
   display: grid;
@@ -256,131 +194,62 @@
   align-items: start;
 }
 
-.readingCol {
-  grid-column: 1 / 10;
-  padding-right: var(--sp-section);
-}
+.bandColA { grid-column: 1 / 5; }
+.bandColB { grid-column: 5 / 9; }
+.bandColC { grid-column: 9 / 13; }
 
-.readingHead {
-  padding-bottom: var(--sp-xxl);
-}
-
-.readingHeading {
-  font-size: var(--text-xl);
-  font-weight: var(--font-light);
-  letter-spacing: 0;
-  line-height: var(--lh-xl);
-  color: var(--color-text);
-  margin-bottom: var(--sp-xs);
-}
-
-.readingIntro {
+.bandLabel {
   font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
   color: var(--color-muted);
-  letter-spacing: var(--tracking-wide);
+  padding-bottom: var(--sp-xl);
 }
 
-.readingList {
+.list {
+  list-style: none;
   border-top: 1px solid var(--color-rule);
 }
 
-.readingItem {
+/* Title over meta. Stacked rather than columnar — a four-column
+   measure cannot hold a row of fields side by side. */
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  padding: var(--sp-md) 0;
   border-bottom: 1px solid var(--color-rule);
 }
 
-.readingLink {
-  display: grid;
-  grid-template-columns: 28% 20% 1fr auto;
-  column-gap: var(--sp-xl);
-  align-items: start;
-  padding: var(--sp-md) 0;
-  position: relative;
+.entryLink {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
   transition: opacity 0.15s;
 }
 
-.readingTitle {
-  grid-column: 1;
-  font-size: var(--text-base);
-  font-weight: var(--font-regular);
-  color: var(--color-text);
-  line-height: var(--lh-sm);
-}
-
-.readingAuthor {
-  grid-column: 2;
-  font-size: var(--text-sm);
-  color: var(--color-muted);
-  letter-spacing: var(--tracking-wide);
-  padding-top: var(--sp-xs);
-}
-
-.readingNote {
-  grid-column: 3;
-  font-size: var(--text-sm);
-  line-height: var(--lh-xs);
-  color: var(--color-muted);
-  padding-top: var(--sp-xs);
-}
-
-.readingTag {
-  grid-column: 4;
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
-  color: var(--color-muted);
-  padding-top: var(--sp-xs);
-  white-space: nowrap;
-}
-
-.readingThumb {
-  position: absolute;
-  width: 26px;
-  height: 34px;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: var(--color-placeholder);
-  opacity: 0.07;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-
 @media (hover: hover) {
-  .readingLink:hover .readingThumb {
-    opacity: 1;
+  .entryLink:hover {
+    opacity: 0.5;
   }
 }
 
-.readingItem:nth-child(1)  .readingThumb { left:  8%; }
-.readingItem:nth-child(2)  .readingThumb { left: 72%; }
-.readingItem:nth-child(3)  .readingThumb { left: 31%; }
-.readingItem:nth-child(4)  .readingThumb { left: 85%; }
-.readingItem:nth-child(5)  .readingThumb { left: 18%; }
-.readingItem:nth-child(6)  .readingThumb { left: 60%; }
-.readingItem:nth-child(7)  .readingThumb { left: 44%; }
-.readingItem:nth-child(8)  .readingThumb { left: 78%; }
-.readingItem:nth-child(9)  .readingThumb { left: 12%; }
-.readingItem:nth-child(10) .readingThumb { left: 53%; }
-.readingItem:nth-child(11) .readingThumb { left: 25%; }
-.readingItem:nth-child(12) .readingThumb { left: 67%; }
-
-/* Listening — cols 10–12, aligns with right rail */
-.listeningCol {
-  grid-column: 10 / 13;
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-xxl);
+.entryTitle {
+  font-size: var(--text-base);
+  font-weight: var(--font-regular);
+  line-height: var(--lh-sm);
+  color: var(--color-text);
 }
 
-.listeningHeading {
+.entryMeta {
   font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--lh-xs);
   color: var(--color-muted);
 }
 
-.listeningEmbed {
+.embed {
   width: 100%;
   height: 352px;
   border: 1px solid var(--color-rule);
@@ -434,39 +303,77 @@
 }
 
 
+/* ─── Placeholder ────────────────────────────────────
+   Marks a slot the layout depends on but Sanity has not
+   filled yet. Deliberately not the dark --color-placeholder
+   used for loading images: this must read as "content
+   missing," not as a design element, so it stays obvious
+   if it ever reaches production unfilled.
+
+   Declared last on purpose — it has to override the
+   background-color the image slots set for themselves.
+─────────────────────────────────────────────────────── */
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--color-rule);
+  background-color: transparent;
+}
+
+.placeholderLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+
 /* ─── Responsive ──────────────────────────────────── */
 
 @media (max-width: 1055px) {
-  /* Bio: name + text both wider */
-  .bioName {
-    grid-column: 1 / 5;
+  /* About: the prose needs measure back before it needs a bigger
+     image, so the text takes five columns and the stack absorbs it. */
+  .aboutText {
+    grid-column: 1 / 6;
   }
-  .bioText {
-    grid-column: 5 / 13;
+  .aboutImageMid {
+    grid-column: 6 / 10;
   }
-
-  /* Workshop: stack content above image */
-  .workshopContent {
-    grid-column: 1 / 5;
-  }
-  .workshopImage {
-    grid-column: 5 / 13;
+  .aboutImageStack {
+    grid-column: 10 / 13;
   }
 
-  /* Services: description wider */
-  .serviceDesc {
-    grid-column: 5 / 13;
+  /* About body: prose takes the halves, caption drops beneath it rather
+     than squeezing a third column that no longer has room. */
+  .aboutColA {
+    grid-column: 1 / 7;
+    grid-row: 1;
+  }
+  .aboutColB {
+    grid-column: 7 / 13;
+    grid-row: 1;
+  }
+  .aboutCaption {
+    grid-column: 1 / 7;
+    grid-row: 2;
+    padding-top: var(--sp-xxxl);
   }
 
-  /* Reading: listening stacks below */
-  .readingCol {
-    grid-column: 1 / -1;
-    padding-right: 0;
+  /* Band: two lists share the top row, the embed takes the full width
+     beneath them — a four-column embed at this size is too cramped to
+     be usable. */
+  .bandColA {
+    grid-column: 1 / 7;
   }
-  .listeningCol {
-    grid-column: 1 / -1;
+  .bandColB {
+    grid-column: 7 / 13;
+  }
+  .bandColC {
+    grid-column: 1 / 13;
     padding-top: var(--sp-large-section);
-    border-top: 1px solid var(--color-rule);
   }
 
   /* Contact */
@@ -476,31 +383,55 @@
 }
 
 @media (max-width: 672px) {
-  /* Hero — stack: text top, photos below in 2-col */
-  .hero {
+  /* About — stack: text top, photos below in 2-col */
+  .about {
     grid-template-columns: 1fr;
     min-height: unset;
     padding: 0;
   }
 
-  .heroText {
+  .aboutText {
     grid-column: 1;
     padding: calc(var(--nav-h) + var(--sp-section)) var(--gutter) var(--sp-large-section);
-    min-height: 40svh;
   }
 
-  .heroHeading {
-    font-size: clamp(var(--text-base), 4.5vw, var(--text-xl));
-    line-height: var(--lh-xl);
-    max-width: 100%;
+  /* One step down on mobile — the full-width measure carries --text-lg
+     comfortably, and dropping to base would flatten the About into the
+     same size as every list on the page. */
+  .aboutOpening,
+  .aboutColA,
+  .aboutColB {
+    font-size: var(--text-lg);
+    line-height: var(--lh-lg);
+    padding-right: 0;
   }
 
-  .heroImageMid {
+  /* About body — single column, caption last */
+  .aboutBody {
+    grid-template-columns: 1fr;
+    row-gap: var(--sp-lg);
+    padding: var(--sp-12) var(--gutter);
+  }
+
+  .aboutColA,
+  .aboutColB {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .aboutCaption {
+    grid-column: 1;
+    grid-row: auto;
+    order: 1; /* caption follows the prose on narrow screens */
+    padding-top: var(--sp-xl);
+  }
+
+  .aboutImageMid {
     grid-column: 1;
     aspect-ratio: 3 / 4;
   }
 
-  .heroImageStack {
+  .aboutImageStack {
     grid-column: 1;
     margin-right: 0;
     display: grid;
@@ -509,51 +440,32 @@
     padding: var(--sp-sm) var(--gutter);
   }
 
-  .heroImageTop,
-  .heroImageBottom {
+  .aboutImageTop,
+  .aboutImageBottom {
     aspect-ratio: 3 / 4;
     flex: unset;
   }
 
-  /* Bio — single column */
-  .bioGrid {
-    grid-template-columns: 1fr;
-    row-gap: var(--sp-lg);
-    padding: 0 var(--gutter) var(--sp-10);
-  }
-  .bioName,
-  .bioText {
-    grid-column: 1;
-  }
-
   /* Workshop — single column */
-  .workshopGrid {
-    grid-template-columns: 1fr;
-    row-gap: var(--sp-xxxl);
-    padding: 0 var(--gutter);
-  }
-
-  .workshopContent {
-    grid-column: 1;
-  }
-
   .workshopImage {
-    grid-column: 1;
+    margin: 0;
+    aspect-ratio: 4 / 3;
   }
 
-  /* Services — single column */
-  .serviceRow {
+  /* Band — three columns stack */
+  .band {
     grid-template-columns: 1fr;
-    row-gap: var(--sp-sm);
+    padding: var(--sp-large-section) var(--gutter) var(--sp-16);
   }
 
-  .serviceTitle,
-  .serviceDesc {
+  .bandColA,
+  .bandColB,
+  .bandColC {
     grid-column: 1;
   }
 
-  /* Reading thumbnails hidden — too narrow */
-  .readingThumb {
-    display: none;
+  .bandColB,
+  .bandColC {
+    padding-top: var(--sp-large-section);
   }
 }
