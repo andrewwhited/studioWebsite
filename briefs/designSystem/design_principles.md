@@ -187,10 +187,10 @@ This means:
 ## Section-Specific Tone
 
 ### Studio
-Studio should feel interpretive, contextual, and personal. It introduces the practice, the workshop, services, and references.
+Studio should feel interpretive, contextual, and personal. It introduces Andrew, the practice, the workshop, and references. *(Revised 2026-07-26: no services section at MVP. Capability is named inside the About block without a CTA. See `Structure/site_ia.md`.)*
 
 ### Objects
-Objects should feel editorial and guidebook-like. Collections should provide context, references, places, and framing for the work. Core and Commissions can be more direct.
+Objects should feel editorial and guidebook-like. Collections should provide context, references, places, and framing for the work. Core can be more direct. *(Revised 2026-07-26: Objects also holds standalone self-directed builds that belong to no collection and point at no Store listing. Commissions are deprioritized and not an MVP section.)*
 
 ### Art
 Art should feel more singular and focused. Each work should have enough space to feel like an artwork, not a SKU.

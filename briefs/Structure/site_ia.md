@@ -1,5 +1,16 @@
 # Andrew Whited — Website Information Architecture
 
+> **MVP scope, 2026-07-26.** This document was written for a full commercial studio site and ran well past MVP. Where a section below conflicts with the decisions in this box, **the box wins.**
+>
+> - **Studio page collapses.** Hero and Bio merge into one About block (ethos → practice → outputs → commercial). The Services section is **cut** — capability is named inside About instead, with no CTA. *Visit by appointment* is **cut** as premature. Required reading and What's playing stay. Add an Exhibitions and press section, and photos of Andrew and of the workshop.
+> - **Commissions are not a focus.** Keep them out of the IA at MVP rather than building the section described below.
+> - **Objects is broader than "collections."** It holds collection work *and* standalone self-directed builds (the boat). Not everything under Objects points at a Store listing.
+> - **No unity claim.** The site must not assert "a single, ongoing practice" or "one extended practice." The practices are genuinely separate and share one standard, not one medium. See the Voice Guide, Register — Site copy (studio).
+> - **Content lives in Sanity only.** Not in JSX fallbacks (removed 2026-07-25), not in `src/data/*.ts` (scaffolding, to be replaced), not in Notion.
+> - **The studio site is not public.** The apex 301-redirects to ux.andrewwhited.com. Phase 2 removes the redirect.
+>
+> The page structure is still in motion and may collapse further. Update this box first when it does.
+
 ## Main Navigation
 - Studio
 - Objects
@@ -20,29 +31,33 @@
 ---
 
 ## Studio
+*Revised 2026-07-26 to MVP scope.*
+
 **Purpose**
-- Introduce Andrew Whited, the studio, the workshop, available services, and the broader context around the practice.
+- Introduce Andrew and the practice. Not a services page.
 
 **Content**
-- Title
-- Hero image
-- About me / practice
-- About the workshop
-- Shop location / address
-- List of services
-- Required reading / references / canon-style section
-- Contact methods
-- Social links
+- About block — one continuous text, running ethos → practice → outputs → commercial. Replaces the former Hero heading/text plus Bio split.
+- Photo of Andrew
+- Workshop — photos, and the address as a bare fact
+- Exhibitions and press — bare entries (title, venue, year), no annotation
+- Required reading
+- What's playing
+- Contact methods and social links
 
 **Key actions**
-- Learn about Andrew and the studio
-- Explore services
+- Learn about Andrew and the practice
 - Get in touch
-- Visit social links
 
 **Structure note**
 - Studio is a single page with sections, not a set of child pages.
-- Services may later link outward to inquiry pages or actions, but they live within Studio conceptually.
+- **No Services section and no CTA.** Capability is named inside the About block as a plain statement of what he does with clients. Anyone who wants to hire him will email.
+- **No visit note.** *Visit by appointment* was cut as posturing ahead of the practice.
+- Sections may collapse further. The page is still being worked.
+
+**Cut from the earlier IA**
+- List of services, and the "explore services" action
+- Hero heading as a separate field from the About text (currently still populated with a retired unity claim; needs its own decision, since it is the page `h1`)
 
 ---
 
@@ -122,6 +137,8 @@
 - Relates to Products in the Store
 
 ### Commissions
+> **Deprioritized 2026-07-26. Not an MVP section.** Andrew's call: commissions are not something he is focusing on. He still takes client work (furniture, film photo shoots, CNC/CAD), but that is named in the Studio About block, not given a section here. The description below is retained only in case the section is revived later. Do not build it.
+
 **Description**
 - A broad presentation of commissioned object work used to show what has been done and position the studio for future commission inquiries.
 
