@@ -19,8 +19,6 @@ export async function getStudioPage() {
     locationAddress,
     locationImage,
     exhibitions[]{_key, title, location, year},
-    // itemType is authoring metadata and never renders — projected out for the
-    // same reason as everything else here.
     readingList[]{_key, title, creator, link, thumbnail},
     email,
     instagram,

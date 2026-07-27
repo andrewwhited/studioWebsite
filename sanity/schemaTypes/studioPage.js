@@ -88,12 +88,6 @@ export default defineType({
           type: 'object',
           name: 'readingItem',
           fields: [
-            {
-              name: 'itemType',
-              type: 'string',
-              title: 'Type',
-              options: {list: ['book', 'film', 'essay', 'video', 'artist']},
-            },
             {name: 'creator', type: 'string', title: 'Creator'},
             {name: 'title', type: 'string', title: 'Title'},
             {
