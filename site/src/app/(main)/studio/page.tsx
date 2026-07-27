@@ -1,6 +1,11 @@
 import { getStudioPage } from '@/lib/sanity-queries'
+import { getTopArtists } from '@/lib/spotify'
 import { urlFor } from '@/lib/sanity'
 import styles from './studio.module.css'
+
+// Regenerate daily. Both the Spotify token refresh and the top-artists
+// call sit on the same cycle, so one regeneration costs one of each.
+export const revalidate = 86400
 
 function imgStyle(image: any, width = 1200) {
   if (!image) return undefined
@@ -16,7 +21,7 @@ function imgStyle(image: any, width = 1200) {
 }
 
 export default async function Studio() {
-  const page = await getStudioPage()
+  const [page, topArtists] = await Promise.all([getStudioPage(), getTopArtists(5)])
 
   // Copy has one source of truth: Sanity. No string fallbacks — they drift, and
   // the last set held lines the voice pass had already rejected as inaccurate.
@@ -29,14 +34,11 @@ export default async function Studio() {
   const instagramUrl = page?.instagram
   const tiktokUrl = page?.tiktok
   const uxSiteUrl = page?.uxSiteUrl
-  const whatsPlaying = page?.whatsPlaying
 
-  // Unfilled slots render a marked placeholder rather than collapsing. These
-  // two carry structure — the workshop image is what the About caption hands
-  // off to, and the embed holds the right rail beside Required Reading — so
-  // collapsing them silently changes the composition instead of showing a gap.
+  // An unfilled workshop image renders a marked placeholder rather than
+  // collapsing — it carries structure, since it is what the About caption
+  // hands off to, so collapsing it silently changes the composition.
   const hasWorkshopImage = Boolean(page?.locationImage?.asset)
-  const hasListening = Boolean(whatsPlaying)
 
   // Authored as paragraphs. Splitting on blank lines keeps the author's
   // breaks instead of collapsing the block into one slab.
@@ -159,18 +161,31 @@ export default async function Studio() {
         </div>
 
         <div className={styles.bandColC}>
-          <h2 className={styles.bandLabel}>What&apos;s Playing</h2>
-          {hasListening ? (
-            <iframe
-              className={styles.embed}
-              src={whatsPlaying}
-              title="What's playing in the workshop"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            />
+          <h2 className={styles.bandLabel}>On repeat in the shop</h2>
+          {topArtists.length > 0 ? (
+            <ul className={styles.list}>
+              {topArtists.map((artist) => (
+                <li key={artist.id} className={styles.entry}>
+                  <div className={styles.artistRow}>
+                    {artist.image ? (
+                      <div
+                        className={styles.artistThumb}
+                        style={{ backgroundImage: `url(${artist.image})` }}
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <div className={`${styles.artistThumb} ${styles.artistThumbEmpty}`} aria-hidden="true" />
+                    )}
+                    <span className={styles.entryTitle}>{artist.name}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
           ) : (
+            // Spotify unreachable or not configured — the column goes quiet
+            // rather than showing a broken state. The failure is in the logs.
             <div className={`${styles.embed} ${styles.placeholder}`}>
-              <span className={styles.placeholderLabel}>Embed</span>
+              <span className={styles.placeholderLabel}>Unavailable</span>
             </div>
           )}
         </div>

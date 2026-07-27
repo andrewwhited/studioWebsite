@@ -113,12 +113,6 @@ export default defineType({
       ],
     }),
 
-    // What's Playing
-    defineField({
-      name: 'whatsPlaying',
-      title: "What's Playing Embed",
-      type: 'url',
-    }),
 
     // Contact
     defineField({
