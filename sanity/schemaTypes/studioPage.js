@@ -22,22 +22,7 @@ export default defineType({
       description: 'The page h1, rendered as a caption alongside the address.',
     }),
 
-    // DEPRECATED 2026-07-26 — no longer rendered. Held a retired unity claim.
-    // The page h1 is now bioName. Field kept until the value is cleared.
-    defineField({
-      name: 'heroHeading',
-      title: 'Hero Heading (deprecated)',
-      type: 'string',
-      readOnly: true,
-    }),
-    // DEPRECATED 2026-07-26 — merged into aboutText. Value retained until
-    // the merged block is signed off visually, then unset.
-    defineField({
-      name: 'heroText',
-      title: 'Hero Text (deprecated — merged into About Text)',
-      type: 'text',
-      readOnly: true,
-    }),
+    // Photographs
     defineField({
       name: 'heroPrimaryImage',
       title: 'Hero Primary Image',
@@ -57,77 +42,17 @@ export default defineType({
       options: {hotspot: true},
     }),
 
-    // DEPRECATED 2026-07-26 — merged into aboutText. Value retained until
-    // the merged block is signed off visually, then unset.
-    defineField({
-      name: 'bioText',
-      title: 'Bio Text (deprecated — merged into About Text)',
-      type: 'text',
-      readOnly: true,
-    }),
-    // Location
-    defineField({
-      name: 'locationTitle',
-      title: 'Location Title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'locationText',
-      title: 'Location Text',
-      type: 'string',
-    }),
+    // Workshop — the address renders once, in the About caption.
     defineField({
       name: 'locationAddress',
       title: 'Location Address',
       type: 'string',
-    }),
-    // DEPRECATED 2026-07-26 — cut as premature.
-    defineField({
-      name: 'locationVisitNote',
-      title: 'Visit Note (deprecated)',
-      type: 'string',
-      readOnly: true,
     }),
     defineField({
       name: 'locationImage',
       title: 'Location Image',
       type: 'image',
       options: {hotspot: true},
-    }),
-
-    // Services — DEPRECATED 2026-07-26. Section cut; capability is named
-    // inside the About block with no CTA. Fields kept until values are cleared.
-    defineField({
-      name: 'servicesTitle',
-      title: 'Services Section Title (deprecated)',
-      type: 'string',
-      readOnly: true,
-    }),
-    defineField({
-      name: 'services',
-      title: 'Services (deprecated)',
-      type: 'array',
-      readOnly: true,
-      of: [
-        {
-          type: 'object',
-          name: 'service',
-          fields: [
-            {name: 'title', type: 'string', title: 'Title'},
-            {name: 'text', type: 'text', title: 'Text'},
-            {name: 'image', type: 'image', title: 'Image', options: {hotspot: true}},
-          ],
-          preview: {
-            select: {title: 'title', media: 'image'},
-          },
-        },
-      ],
-    }),
-    defineField({
-      name: 'servicesContact',
-      title: 'Services Contact CTA (deprecated)',
-      type: 'string',
-      readOnly: true,
     }),
 
     // Exhibitions
