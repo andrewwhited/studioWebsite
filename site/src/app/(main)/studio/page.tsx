@@ -36,8 +36,8 @@ export default async function Studio() {
   const uxSiteUrl = page?.uxSiteUrl
 
   // An unfilled workshop image renders a marked placeholder rather than
-  // collapsing — it carries structure, since it is what the About caption
-  // hands off to, so collapsing it silently changes the composition.
+  // collapsing — it carries structure, so collapsing it silently changes
+  // the composition rather than showing a gap.
   const hasWorkshopImage = Boolean(page?.locationImage?.asset)
 
   // Authored as paragraphs. Splitting on blank lines keeps the author's
@@ -46,53 +46,57 @@ export default async function Studio() {
     .map((p: string) => p.trim())
     .filter(Boolean)
 
-  // The block splits across the fold: the opening paragraph carries the fold
-  // on its own, the rest set in two columns below it. Still one continuous
-  // block of prose — the break is compositional, not editorial.
-  const [aboutOpening, ...aboutRest] = aboutParagraphs
-
   return (
     <main>
 
       {/* ── About ────────────────────────────────────────
-          Mirrors the home page thirds, reversed: text left,
-          images right. The prose is the page's apex; the
-          name and address sit under it as one caption.
+          Two rows. Row one is the viewport: photographs on
+          the middle and right thirds, the prose column
+          beginning around two thirds down so the fold
+          opens on space rather than text.
+
+          The prose runs as one unbroken column across both
+          rows. Exhibitions sits in row two, under the
+          photographs and beside the continuing text — it
+          is biography, so it stays inside this block
+          rather than becoming a section of its own.
       ─────────────────────────────────────────────────── */}
       <section className={styles.about}>
+
         <div className={styles.aboutText}>
-          {aboutOpening && <p className={styles.aboutOpening}>{aboutOpening}</p>}
+          <h1 className={styles.aboutName}>{name}</h1>
+          <div className={styles.aboutProse}>
+            {aboutParagraphs.map((p: string, i: number) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
         </div>
+
         <div className={styles.aboutImageMid} style={imgStyle(page?.heroPrimaryImage)} />
         <div className={styles.aboutImageStack}>
           <div className={styles.aboutImageTop} style={imgStyle(page?.heroSecondaryImage, 800)} />
           <div className={styles.aboutImageBottom} style={imgStyle(page?.heroTertiaryImage, 800)} />
         </div>
+
+        {exhibitions.length > 0 && (
+          <section className={styles.exhibitions}>
+            <h2 className={styles.label}>Exhibitions</h2>
+            <ul className={styles.list}>
+              {exhibitions.map((item: any) => (
+                <li key={item._key} className={styles.entry}>
+                  <span className={styles.entryTitle}>{item.title}</span>
+                  <span className={styles.entryMeta}>{item.location}</span>
+                  <span className={styles.entryMeta}>{item.year}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
       </section>
 
-      {/* ── About, continued ─────────────────────────────
-          Two columns of prose against an empty third. The
-          caption anchors that column rather than filling
-          it — the space is the point.
-      ─────────────────────────────────────────────────── */}
-      {aboutRest.length > 0 && (
-        <section className={styles.aboutBody}>
-          <div className={styles.aboutCaption}>
-            <h1 className={styles.aboutName}>{name}</h1>
-            {address && <address className={styles.aboutAddress}>{address}</address>}
-          </div>
-          {aboutRest.map((p: string, i: number) => (
-            <p key={i} className={i % 2 === 0 ? styles.aboutColA : styles.aboutColB}>
-              {p}
-            </p>
-          ))}
-        </section>
-      )}
-
       {/* ── Workshop ─────────────────────────────────────
-          Image only. The address lives in the About
-          caption, and the statement was cut with it —
-          the photograph is the section.
+          Image only. The address lives in Contact now.
       ─────────────────────────────────────────────────── */}
       <section className={styles.workshop}>
         {hasWorkshopImage ? (
@@ -104,36 +108,28 @@ export default async function Studio() {
         )}
       </section>
 
-      {/* ── Record + taste ───────────────────────────────
-          Three columns of the same species: what has been
-          shown, what is being read, what is playing. One
-          row grammar across all of them — title over a
-          muted meta line — so the band reads as a set.
+      {/* ── Taste ────────────────────────────────────────
+          What is being read and what is playing. Separated
+          from Exhibitions on purpose: that is record, this
+          is taste.
       ─────────────────────────────────────────────────── */}
-      <section className={styles.band}>
+      <section className={styles.taste}>
 
-        <div className={styles.bandColA}>
-          <h2 className={styles.bandLabel}>Exhibitions</h2>
-          <ul className={styles.list}>
-            {exhibitions.map((item: any) => (
-              <li key={item._key} className={styles.entry}>
-                <span className={styles.entryTitle}>{item.title}</span>
-                {/* Venue deliberately not rendered — the field is still in
-                    Sanity if it earns its place back later. */}
-                <span className={styles.entryMeta}>
-                  {[item.location, item.year].filter(Boolean).join('  ')}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className={styles.bandColB}>
-          <h2 className={styles.bandLabel}>Required Reading</h2>
-          <ul className={styles.list}>
+        <div className={styles.reading}>
+          <h2 className={styles.label}>Required Reading</h2>
+          <ul className={`${styles.list} ${styles.readingList}`}>
             {readingList.map((item: any) => {
+              // The scattered thumb is the one bit of play on this page —
+              // only worth showing when there's a cover behind it.
+              const thumbStyle = item.thumbnail?.asset
+                ? imgStyle(item.thumbnail, 120)
+                : undefined
+
               const row = (
                 <>
+                  {thumbStyle && (
+                    <div className={styles.readingThumb} style={thumbStyle} aria-hidden="true" />
+                  )}
                   <span className={styles.entryTitle}>{item.title}</span>
                   <span className={styles.entryMeta}>{item.creator}</span>
                 </>
@@ -160,13 +156,16 @@ export default async function Studio() {
           </ul>
         </div>
 
-        <div className={styles.bandColC}>
-          <h2 className={styles.bandLabel}>On repeat in the shop</h2>
+        <div className={styles.listening}>
+          <h2 className={styles.label}>On repeat in the shop</h2>
           {topArtists.length > 0 ? (
             <ul className={styles.list}>
-              {topArtists.map((artist) => (
+              {topArtists.map((artist, i) => (
                 <li key={artist.id} className={styles.entry}>
                   <div className={styles.artistRow}>
+                    <span className={styles.artistRank}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
                     {artist.image ? (
                       <div
                         className={styles.artistThumb}
@@ -174,7 +173,10 @@ export default async function Studio() {
                         aria-hidden="true"
                       />
                     ) : (
-                      <div className={`${styles.artistThumb} ${styles.artistThumbEmpty}`} aria-hidden="true" />
+                      <div
+                        className={`${styles.artistThumb} ${styles.artistThumbEmpty}`}
+                        aria-hidden="true"
+                      />
                     )}
                     <span className={styles.entryTitle}>{artist.name}</span>
                   </div>
@@ -184,39 +186,80 @@ export default async function Studio() {
           ) : (
             // Spotify unreachable or not configured — the column goes quiet
             // rather than showing a broken state. The failure is in the logs.
-            <div className={`${styles.embed} ${styles.placeholder}`}>
+            <div className={styles.unavailable}>
               <span className={styles.placeholderLabel}>Unavailable</span>
             </div>
           )}
+          {/* Below the list, so the rule above stays on the same line as
+              Required Reading's. A bounded, rolling window is what signals
+              the list is live, without the page announcing its plumbing. */}
+          <p className={styles.listNote}>Top plays on Spotify this month</p>
         </div>
 
       </section>
 
-      {/* ── Contact ──────────────────────────────────── */}
+      {/* ── Contact ──────────────────────────────────────
+          Four columns on one rhythm: a verb, then the way
+          to do it.
+      ─────────────────────────────────────────────────── */}
       <section className={styles.contact}>
-        <div className={styles.contactInner}>
-          <h2 className={styles.contactHeading}>{page?.contactTitle}</h2>
-          <div className={styles.contactLinks}>
+
+        {contactEmail && (
+          <div className={styles.contactCol}>
+            <h2 className={styles.label}>Contact me</h2>
             <a href={`mailto:${contactEmail}`} className={styles.contactLink}>
               {contactEmail}
             </a>
+          </div>
+        )}
+
+        {(instagramUrl || tiktokUrl) && (
+          <div className={styles.contactCol}>
+            <h2 className={styles.label}>Follow me</h2>
             {instagramUrl && (
-              <a href={instagramUrl} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={instagramUrl}
+                className={styles.contactLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Instagram
               </a>
             )}
             {tiktokUrl && (
-              <a href={tiktokUrl} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={tiktokUrl}
+                className={styles.contactLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 TikTok
               </a>
             )}
-            {uxSiteUrl && (
-              <a href={uxSiteUrl} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
-                UX &amp; digital design
-              </a>
-            )}
           </div>
-        </div>
+        )}
+
+        {address && (
+          <div className={styles.contactCol}>
+            <h2 className={styles.label}>Visit me</h2>
+            <address className={styles.contactAddress}>{address}</address>
+          </div>
+        )}
+
+        {uxSiteUrl && (
+          <div className={styles.contactCol}>
+            <h2 className={styles.label}>See my UX work</h2>
+            <a
+              href={uxSiteUrl}
+              className={styles.contactLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ux.andrewwhited.com
+            </a>
+          </div>
+        )}
+
       </section>
 
     </main>
