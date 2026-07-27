@@ -18,11 +18,10 @@ export async function getStudioPage() {
     bioName,
     locationAddress,
     locationImage,
-    // venue is intentionally omitted — the page does not render it, and
-    // unrendered fields should not ride along in the RSC payload.
     exhibitions[]{_key, title, location, year},
-    readingList,
-    contactTitle,
+    // itemType is authoring metadata and never renders — projected out for the
+    // same reason as everything else here.
+    readingList[]{_key, title, creator, link, thumbnail},
     email,
     instagram,
     tiktok,

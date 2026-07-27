@@ -19,7 +19,7 @@ export default defineType({
       name: 'bioName',
       title: 'Name',
       type: 'string',
-      description: 'The page h1, rendered as a caption alongside the address.',
+      description: 'The page h1, above the About text.',
     }),
 
     // Photographs
@@ -56,8 +56,8 @@ export default defineType({
     }),
 
     // Exhibitions
-    // Bare entries — no annotation, no type tag. Venue is optional: a show
-    // held in Andrew's own studio has no venue worth naming on his own site.
+    // Bare entries — title, location, year. No venue and no annotation: the
+    // record is what showed and when, not who hosted it.
     defineField({
       name: 'exhibitions',
       title: 'Exhibitions',
@@ -68,7 +68,6 @@ export default defineType({
           name: 'exhibition',
           fields: [
             {name: 'title', type: 'string', title: 'Title'},
-            {name: 'venue', type: 'string', title: 'Venue'},
             {name: 'location', type: 'string', title: 'Location'},
             {name: 'year', type: 'string', title: 'Year'},
           ],
@@ -104,7 +103,6 @@ export default defineType({
               validation: (Rule) => Rule.uri({allowRelative: true}),
             },
             {name: 'thumbnail', type: 'image', title: 'Thumbnail', options: {hotspot: true}},
-            {name: 'note', type: 'text', title: 'Note'},
           ],
           preview: {
             select: {title: 'title', subtitle: 'creator', media: 'thumbnail'},
@@ -115,11 +113,8 @@ export default defineType({
 
 
     // Contact
-    defineField({
-      name: 'contactTitle',
-      title: 'Contact Title',
-      type: 'string',
-    }),
+    // The column headings are set in the layout, not authored — each is tied
+    // to the specific link beneath it.
     defineField({
       name: 'email',
       title: 'Email',
