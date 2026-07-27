@@ -322,7 +322,8 @@
 }
 
 /* Artist rows carry a thumbnail, so they need a horizontal axis the text
-   rows don't. 64px is 16x the base unit and matches --sp-large-section. */
+   rows don't. The thumb sits on the spacing scale rather than on a size of
+   its own — 96px, which is --sp-12 and 24x the base unit. */
 .artistRow {
   display: flex;
   align-items: center;
@@ -344,8 +345,8 @@
 
 .artistThumb {
   flex: none;
-  width: var(--sp-large-section);
-  height: var(--sp-large-section);
+  width: var(--sp-12);
+  height: var(--sp-12);
   background-size: cover;
   background-position: center;
   background-color: var(--color-placeholder);
