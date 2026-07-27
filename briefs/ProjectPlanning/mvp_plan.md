@@ -30,7 +30,7 @@ pass is for consistency across pages, not for finding the register.
 
 ### 1. Studio
 Layout is done as of 2026-07-27.
-- [ ] Workshop photograph (`locationImage` — the page renders a placeholder)
+- [x] Workshop photograph (`locationImage`)
 - [ ] Reading list covers (enables the scattered-thumbnail interaction)
 - [ ] More reading entries — two is thin for a two-column list
 - [ ] Fit and finish once real content is in
