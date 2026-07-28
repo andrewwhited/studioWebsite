@@ -31,9 +31,16 @@ pass is for consistency across pages, not for finding the register.
 ### 1. Studio
 Layout is done as of 2026-07-27.
 - [x] Workshop photograph (`locationImage`)
-- [ ] Reading list covers (enables the scattered-thumbnail interaction)
-- [ ] More reading entries — two is thin for a two-column list
-- [ ] Fit and finish once real content is in
+- [x] Reading list covers — all twelve
+- [x] Reading list built out — twelve entries with creators, links, and notes
+- [ ] Fit and finish. Type and flow specifically: the page works, it is not
+      yet loved. A refinement pass, not a gap.
+- [ ] Replace the About block photographs. Placeholders, and not blocking —
+      see the Portraits task.
+
+The reading list thumbnails no longer scatter. Covers track the cursor along
+each row, which is why the hand-placed offsets and their twelve-entry ceiling
+are gone.
 
 ### 2. Home
 - [ ] Review copy against the Voice Guide
