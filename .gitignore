@@ -17,3 +17,6 @@ briefs/inspo/
 .vscode/
 .idea/
 .claude/
+# Working file, not a deliverable. Task tracking lives in Notion; this is a
+# local scratch copy and would only drift against it.
+briefs/ProjectPlanning/mvp_plan.md
