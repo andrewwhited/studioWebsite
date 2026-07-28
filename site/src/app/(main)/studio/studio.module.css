@@ -69,6 +69,17 @@
    spacing token on purpose — this is a compositional position against the
    fold, not an interval between two elements. The space above it is the
    point: the page opens on air, and the prose arrives into it. */
+/* The padded right edge is a deliberate exception, not an oversight.
+
+   This block sets gap: 0 so the two image fields butt against each other and
+   the stack bleeds off the right edge — that adjacency is the composition. It
+   also leaves the prose nothing to sit against, so the inset has to come from
+   padding. The grid-native alternative, ending the text at column 4 and
+   letting an empty column separate it, was built and rejected: it cuts the
+   measure by about seventy pixels and the rag goes slack.
+
+   Prose measure wins over a column-aligned right edge here. Everywhere else
+   in this file, the grid wins. */
 .aboutText {
   grid-column: 1 / 5;
   grid-row: 1 / 3;
@@ -253,9 +264,10 @@
   align-items: start;
 }
 
+/* No padding-right. Padding inside a grid column pushes everything within it
+   off the page grid — the separation from Listening is --col-gap's job. */
 .reading {
   grid-column: 1 / 9;
-  padding-right: var(--sp-section);
 }
 
 /* Title and creator on one line, on the original proportions. The measure
@@ -265,57 +277,103 @@
 
    Both selectors carry the same track sizes so a linked row and an
    unlinked row land on identical key lines. */
+/* Title left, creator hard right, and a leader line running the span between
+   them with the thumbnail sitting on it. The line is what makes the row read
+   as one connected thing rather than two columns of text with a gap.
+
+   A date, if it comes, is a fourth track on the right of creator. */
 .readingList .entry,
 .readingList .entryLink {
   display: grid;
-  grid-template-columns: 28% 1fr;
-  column-gap: var(--sp-xl);
+  grid-template-columns: repeat(8, 1fr);
+  column-gap: var(--col-gap);
   align-items: start;
 }
 
+/* Row 1 explicitly: the ::before leader also claims a cell in this grid, and
+   without it auto-placement pushes the link onto a second row. */
 .readingList .entryLink {
   grid-column: 1 / -1;
+  grid-row: 1;
 }
 
 .readingList .entry {
   position: relative;
 }
 
-.readingList .entryMeta {
-  padding-top: var(--sp-xs);
+/* Title 1–3, author 4–5, note 6–8 — the same eight tracks the section spans,
+   so every edge here lands on a page column boundary.
+
+   Positioned so the type wins the paint order against the absolutely
+   positioned thumbnails, which would otherwise sit on top. */
+.readingList .entryTitle {
+  grid-column: 1 / 4;
+  position: relative;
+  z-index: 1;
 }
 
+.readingList .entryMeta {
+  grid-column: 4 / 6;
+  padding-top: var(--sp-xs);
+  position: relative;
+  z-index: 1;
+}
+
+/* Rows without a note leave the column empty rather than reflowing — the list
+   is entered over time and a shifting column would read as broken. */
+.readingList .entryNote {
+  grid-column: 6 / 9;
+  padding-top: var(--sp-xs);
+  position: relative;
+  z-index: 1;
+  font-size: var(--text-sm);
+  line-height: var(--lh-xs);
+  color: var(--color-muted);
+}
+
+/* Taken out of flow on purpose: as a grid item its 34px set the row height and
+   the list went slack. Absolute keeps the rows as tight as the type, and the
+   offsets below hold it inside the middle track by number instead. */
+/* Nothing at rest. The cover fades in under the pointer and travels with it —
+   --thumb-x is written to the row by ReadingList on every pointer move.
+   Position is not transitioned, only opacity: the cover must track the cursor
+   exactly, or it reads as lag rather than as following. */
 .readingThumb {
   position: absolute;
-  width: 26px;
-  height: 34px;
   top: 50%;
-  transform: translateY(-50%);
+  left: var(--thumb-x, 50%);
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 64px;
   background-size: cover;
   background-position: center;
-  opacity: 0.07;
+  opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
+}
+
+/* No cover sourced yet — stands in so the scatter and the reveal can be
+   judged without the images. */
+.readingThumbEmpty {
+  background-color: var(--color-placeholder);
 }
 
 @media (hover: hover) {
   .readingList .entry:hover .readingThumb {
     opacity: 1;
   }
+
+  /* The generic link fade is cancelled here. Opacity on a parent caps every
+     child, so .entryLink:hover at 0.5 held the cover at 0.5 however high its
+     own opacity went. In this list the cover appearing is the affordance —
+     it doesn't need the fade underneath it. */
+  .readingList .entryLink:hover {
+    opacity: 1;
+  }
 }
 
-.readingList .entry:nth-child(1)  .readingThumb { left:  8%; }
-.readingList .entry:nth-child(2)  .readingThumb { left: 72%; }
-.readingList .entry:nth-child(3)  .readingThumb { left: 31%; }
-.readingList .entry:nth-child(4)  .readingThumb { left: 85%; }
-.readingList .entry:nth-child(5)  .readingThumb { left: 18%; }
-.readingList .entry:nth-child(6)  .readingThumb { left: 60%; }
-.readingList .entry:nth-child(7)  .readingThumb { left: 44%; }
-.readingList .entry:nth-child(8)  .readingThumb { left: 78%; }
-.readingList .entry:nth-child(9)  .readingThumb { left: 12%; }
-.readingList .entry:nth-child(10) .readingThumb { left: 53%; }
-.readingList .entry:nth-child(11) .readingThumb { left: 25%; }
-.readingList .entry:nth-child(12) .readingThumb { left: 67%; }
+/* The per-row scatter offsets are gone. Position now comes from the cursor,
+   so there is nothing to hand-place and no twelve-entry ceiling to maintain. */
 
 .listening {
   grid-column: 9 / 13;
@@ -464,7 +522,6 @@
   /* Taste: reading keeps two columns, artists drop beneath. */
   .reading {
     grid-column: 1 / 13;
-    padding-right: 0;
   }
   .listening {
     grid-column: 1 / 13;
@@ -545,8 +602,20 @@
     grid-column: 1;
   }
 
-  .readingList {
+  /* Rows stack. The eight-column row is a desktop structure; at this width
+     three columns of title would set two words to a line.
+
+     Targets .entry/.entryLink, not .readingList — the row is the grid. The
+     <ul> is a flex column, so the old override here did nothing. */
+  .readingList .entry,
+  .readingList .entryLink {
     grid-template-columns: 1fr;
+  }
+
+  .readingList .entryTitle,
+  .readingList .entryMeta,
+  .readingList .entryNote {
+    grid-column: 1;
   }
 
   /* Contact — single column */

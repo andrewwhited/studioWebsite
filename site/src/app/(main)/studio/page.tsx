@@ -1,6 +1,7 @@
 import { getStudioPage } from '@/lib/sanity-queries'
 import { getTopArtists } from '@/lib/spotify'
 import { urlFor } from '@/lib/sanity'
+import ReadingList from './ReadingList'
 import styles from './studio.module.css'
 
 // Regenerate daily. Both the Spotify token refresh and the top-artists
@@ -29,7 +30,19 @@ export default async function Studio() {
   const name = page?.bioName
   const address = page?.locationAddress
   const exhibitions = page?.exhibitions ?? []
-  const readingList = page?.readingList ?? []
+  // Cover URLs are resolved here rather than in the client component: urlFor
+  // needs the Sanity client, and there is no reason to ship it to the browser
+  // for twelve static image URLs.
+  const readingItems = (page?.readingList ?? []).map((item: any) => ({
+    key: item._key,
+    title: item.title,
+    creator: item.creator,
+    note: item.note,
+    link: item.link,
+    thumbUrl: item.thumbnail?.asset
+      ? urlFor(item.thumbnail).width(240).quality(80).auto('format').url()
+      : undefined,
+  }))
   const contactEmail = page?.email
   const instagramUrl = page?.instagram
   const tiktokUrl = page?.tiktok
@@ -117,43 +130,7 @@ export default async function Studio() {
 
         <div className={styles.reading}>
           <h2 className={styles.label}>Required Reading</h2>
-          <ul className={`${styles.list} ${styles.readingList}`}>
-            {readingList.map((item: any) => {
-              // The scattered thumb is the one bit of play on this page —
-              // only worth showing when there's a cover behind it.
-              const thumbStyle = item.thumbnail?.asset
-                ? imgStyle(item.thumbnail, 120)
-                : undefined
-
-              const row = (
-                <>
-                  {thumbStyle && (
-                    <div className={styles.readingThumb} style={thumbStyle} aria-hidden="true" />
-                  )}
-                  <span className={styles.entryTitle}>{item.title}</span>
-                  <span className={styles.entryMeta}>{item.creator}</span>
-                </>
-              )
-
-              return (
-                <li key={item._key} className={styles.entry}>
-                  {item.link ? (
-                    <a
-                      href={item.link}
-                      className={styles.entryLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {row}
-                    </a>
-                  ) : (
-                    // No link — render as a plain row so it isn't fake-interactive.
-                    row
-                  )}
-                </li>
-              )
-            })}
-          </ul>
+          <ReadingList items={readingItems} />
         </div>
 
         <div className={styles.listening}>
