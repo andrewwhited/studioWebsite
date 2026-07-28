@@ -19,7 +19,7 @@ export async function getStudioPage() {
     locationAddress,
     locationImage,
     exhibitions[]{_key, title, location, year},
-    readingList[]{_key, title, creator, link, thumbnail},
+    readingList[]{_key, title, creator, link, thumbnail, note},
     email,
     instagram,
     tiktok,

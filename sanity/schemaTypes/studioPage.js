@@ -97,6 +97,13 @@ export default defineType({
               validation: (Rule) => Rule.uri({allowRelative: true}),
             },
             {name: 'thumbnail', type: 'image', title: 'Thumbnail', options: {hotspot: true}},
+            {
+              name: 'note',
+              type: 'text',
+              title: 'Note',
+              rows: 2,
+              description: 'Renders in the right column. A line on why it is on the list.',
+            },
           ],
           preview: {
             select: {title: 'title', subtitle: 'creator', media: 'thumbnail'},
