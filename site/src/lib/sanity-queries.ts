@@ -86,8 +86,21 @@ export async function getArtworkBySlug(slug: string) {
 
 // ---- Photo Sets ----
 
+// `_id` is deliberately not projected. Document IDs are opaque and carry no
+// display value, and the payload is readable in page source — the cover URL is
+// already unique per set, so it serves as the React key.
+//
+// Image dimensions come along because the lightbox renders each frame at its
+// native ratio: the sets mix 6:7 (RZ67), 3:4 (645), and 2:3 (35mm), and some
+// frames are landscape. Only the grid cover is normalised to 6:7.
 export async function getAllPhotoSets() {
-  return sanity.fetch(`*[_type == "photoSet"]`)
+  return sanity.fetch(`*[_type == "photoSet"] | order(year desc, _createdAt asc){
+    location,
+    year,
+    category,
+    coverImage{ hotspot, asset->{ url } },
+    images[]{ asset->{ url, metadata { dimensions { width, height } } } }
+  }`)
 }
 
 // ---- Work (UX case studies) ----

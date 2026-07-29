@@ -50,6 +50,43 @@
   color: var(--color-muted);
 }
 
+/* ─── Filters ────────────────────────────────────── */
+
+/* Sits between the header and the grid, sharing the grid's `--gutter` so the
+   row starts on the same left edge as the first column of tiles.
+   Borrows the uppercase small-label treatment already used in the lightbox
+   bar rather than introducing a control style. Active state is colour only —
+   no underline, no box. */
+.filters {
+  display: flex;
+  gap: var(--sp-lg);
+  padding: 0 var(--gutter) var(--sp-lg);
+}
+
+.filter {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color 0.15s;
+}
+
+@media (hover: hover) {
+  .filter:hover {
+    color: var(--color-text);
+  }
+}
+
+.filterActive {
+  color: var(--color-text);
+}
+
 /* ─── Grid ───────────────────────────────────────── */
 
 .grid {
@@ -77,9 +114,18 @@
   }
 }
 
+/* 6:7 regardless of the frame's native ratio — the sets mix 6:7, 645, and
+   35mm. The hotspot decides what survives the crop. Frames are shown
+   uncropped in the lightbox. */
 .cellImage {
+  position: relative;
   aspect-ratio: 6 / 7;
   width: 100%;
+  overflow: hidden;
+}
+
+.cellImage img {
+  object-fit: cover;
 }
 
 /* ─────────────────────────────────────────────────────
@@ -169,11 +215,13 @@
   justify-content: center;
 }
 
+/* No aspect-ratio here on purpose. The frame keeps its native dimensions —
+   6:7, 645, 35mm, portrait or landscape — and the stage contains it. */
 .lightboxImage {
-  height: 100%;
   width: auto;
+  height: auto;
   max-width: 100%;
-  aspect-ratio: 6 / 7;
+  max-height: 100%;
   object-fit: contain;
 }
 
