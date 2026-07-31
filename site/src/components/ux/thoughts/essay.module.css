@@ -1,0 +1,718 @@
+/* ─────────────────────────────────────────────────────
+   Essay template — UX site
+
+   Deliberately not the case-study grid. A case study is a
+   scanning surface (pinned label, evidence band, tiles).
+   An essay is a reading surface: one measure, numbers
+   hanging left, notes in the right margin.
+
+     1    2  │  3   4   5   6   7  │  8    9  │ 10  11  12
+     └─ § ─┘   └──── measure ─────┘             └─ notes ─┘
+
+   Every block is a `.row` — a full-bleed element carrying
+   its own 12-column grid. Because a row spans all 12 parent
+   columns plus the 11 gaps between them, and subdivides
+   that width the same way, its columns land exactly on the
+   page columns. This lets a paragraph and its footnotes
+   share a row instead of being pushed apart by grid
+   auto-placement, which never backfills the margin cell.
+
+   No new type styles: every size, leading, and space here
+   is an existing token.
+───────────────────────────────────────────────────── */
+
+.page {
+  padding-top: var(--nav-h);
+  padding-bottom: var(--sp-20);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ─────────────────────────────────────────────────────
+   Row primitive
+───────────────────────────────────────────────────── */
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--col-gap);
+  padding: 0 var(--gutter);
+}
+
+/* The reading column. The grid is the constraint — cols 3-9 against notes at
+   10-13 is what sets the measure, the same way case-study prose is bounded by
+   --w-5col rather than by a character count. No arbitrary cap on top of it. */
+.measure {
+  grid-column: 3 / 9;
+  font-size: var(--text-lg);
+}
+
+/* Notes, citations, captions. Never contains anything load-bearing —
+   on narrow screens it drops below the text it annotates. */
+.margin {
+  grid-column: 10 / 13;
+}
+
+/* Section numbers hang here, left of the measure. */
+.gutterCol {
+  grid-column: 1 / 3;
+}
+
+/* ─────────────────────────────────────────────────────
+   Header
+───────────────────────────────────────────────────── */
+
+
+.header {
+  padding-top: var(--sp-12);
+  padding-bottom: var(--sp-10);
+}
+
+/* The band is the last thing in the header and runs to its edge. */
+.headerWithBand {
+  padding-bottom: 0;
+}
+
+/* Default opening — no image, and none needed. The meta and subtitle sit on
+   the measure at column 3; the title alone hangs out to column 1, into the
+   band the section numbers will occupy once the body starts. That outdent is
+   the whole composition: it declares the reading column and the number margin
+   before a word of body copy appears. */
+.headerMeta {
+  grid-column: 3 / 10;
+  grid-row: 1;
+}
+
+.headerTitle {
+  grid-column: 1 / 10;
+  grid-row: 2;
+  margin-top: var(--sp-xl);
+}
+
+.headerSubtitle {
+  grid-column: 3 / 10;
+  grid-row: 3;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-lg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+.metaSep {
+  color: var(--color-rule);
+}
+
+/* Titles and decks are set exactly as the case-study hero. The surface colour
+   and the layout carry the distinction between the two page types; the type
+   scale stays common to both. */
+.title {
+  font-size: var(--text-hero);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tighter);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  max-width: 20ch;
+}
+
+/* Subtitle indents to the measure — the first signal of where reading happens. */
+.subtitle {
+  grid-column: 3 / 10;
+  margin-top: var(--sp-xxl);
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-snug);
+  color: var(--color-muted);
+  max-width: 34ch;
+}
+
+.headerRule {
+  margin: 0 var(--gutter);
+  border: 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+/* ─────────────────────────────────────────────────────
+   Hero band
+
+   The one image treatment. It sits inside the header —
+   after the lockup, where the rule would otherwise be — so
+   it works as composition and as separation at once. An
+   image placed before the lockup pushes the title off the
+   fold; one placed after the rule reads as the body
+   starting early. Cut into the header, it does neither.
+
+   It also replaces the header rule. The band already
+   divides hero from body; a rule under it would divide the
+   same thing twice.
+
+   Capped at 44svh so the whole opening — meta, title, subtitle,
+   band — lands inside the first screen.
+───────────────────────────────────────────────────── */
+
+/* The grey sits behind the image, so a band that is missing or still loading
+   shows the frame rather than a gap. */
+.heroFigure {
+  margin: 0;
+  background-color: color-mix(in srgb, var(--color-text) 14%, var(--color-bg));
+}
+
+.heroBand {
+  grid-column: 1 / 13;
+  grid-row: 4;
+  width: 100vw;
+  margin-inline: calc(-1 * var(--gutter));
+  margin-top: var(--sp-large-section);
+  max-height: min(44svh, 440px);
+  overflow: hidden;
+}
+
+.heroBand img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─────────────────────────────────────────────────────
+   Body flow
+───────────────────────────────────────────────────── */
+
+/* Vertical rhythm is carried on the rows, not their children, so a note in the
+   margin cell moves down with the paragraph it annotates. Adjacent margins
+   collapse, so a figure's generous bottom margin absorbs the following
+   paragraph's smaller top margin rather than summing with it. */
+.body {
+  padding-top: var(--sp-10);
+}
+
+/* The header rule already supplies the break above the first block. */
+.body > *:first-child {
+  margin-top: 0;
+}
+
+/* Section heading */
+
+/* Baseline alignment rather than a matched line box: the number and the title
+   are different sizes now, so the grid aligns their first baselines instead of
+   forcing both into the same leading. */
+.headingRow {
+  margin-top: var(--sp-12);
+  align-items: baseline;
+}
+
+/* Set exactly as the title it accompanies, so number and title read as one
+   line of type broken across the gutter rather than a label and a heading. */
+.sectionNumber {
+  grid-column: 1 / 3;
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Matches the case-study section title exactly. */
+.sectionTitle {
+  grid-column: 3 / 9;
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  max-width: 24ch;
+}
+
+/* Prose */
+
+.proseRow {
+  margin-top: var(--sp-xl);
+}
+
+/* Elements inside a single prose row — a list following its lead-in sentence. */
+.proseRow .measure > * + * {
+  margin-top: var(--sp-xl);
+}
+
+/* A heading needs more air beneath it than one paragraph needs from the next. */
+.headingRow + .proseRow {
+  margin-top: var(--sp-xxl);
+}
+
+.measure p {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-xl);
+  color: var(--color-text);
+}
+
+/* Sub-heading takes the case-study `.label` treatment rather than a size of
+   its own — with the body already at --text-lg, a type-size step down from the
+   section title would have been too small to read as a heading at all. */
+.measure h3 {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--lh-sm);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: var(--sp-xxl);
+}
+
+.measure ul,
+.measure ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+  padding-left: var(--sp-xl);
+}
+
+.measure li {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-xl);
+  color: var(--color-text);
+  position: relative;
+}
+
+.measure ul li::before {
+  content: '—';
+  position: absolute;
+  left: calc(-1 * var(--sp-xl));
+  color: var(--color-muted);
+}
+
+.measure ol {
+  counter-reset: essay-ol;
+}
+
+.measure ol li {
+  counter-increment: essay-ol;
+}
+
+.measure ol li::before {
+  content: counter(essay-ol) '.';
+  position: absolute;
+  left: calc(-1 * var(--sp-xl));
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Block quote inside prose — indented, ruled. Not a pull quote:
+   this is a source being quoted at length, still inside the argument. */
+.measure blockquote {
+  padding-left: var(--sp-xl);
+  border-left: 1px solid var(--color-rule);
+}
+
+.measure blockquote p {
+  color: var(--color-muted);
+}
+
+.proseLink {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--color-rule);
+  transition: text-decoration-color 0.15s;
+}
+
+@media (hover: hover) {
+  .proseLink:hover {
+    text-decoration-color: var(--color-text);
+  }
+}
+
+.measure em {
+  font-style: italic;
+}
+
+.measure strong {
+  font-weight: var(--font-medium);
+}
+
+/* ─────────────────────────────────────────────────────
+   Footnotes and margin notes
+───────────────────────────────────────────────────── */
+
+.footnoteRef {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: 1;
+  vertical-align: super;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+  padding-left: 0.1em;
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-lg);
+}
+
+.note {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+}
+
+.noteNumber {
+  font-variant-numeric: tabular-nums;
+  margin-right: var(--sp-xs);
+  color: var(--color-text);
+}
+
+.noteLabel {
+  display: block;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: var(--sp-xs);
+}
+
+.noteLink {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--color-rule);
+}
+
+/* Standalone margin note occupying its own row */
+.marginNoteRow {
+  margin-top: var(--sp-xl);
+}
+
+/* A pause between movements inside a section. Carries no text and takes no
+   number — it marks a turn a numbered heading would over-announce.
+   Given more air than a paragraph break so the pause is felt rather than
+   skimmed past, and centred on the measure: the page is otherwise rigorously
+   left-aligned, so a centred mark reads as placed rather than stray. */
+.sectionBreakRow {
+  margin-top: var(--sp-10);
+  margin-bottom: var(--sp-10);
+}
+
+.sectionBreak {
+  grid-column: 3 / 9;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────────────
+   Epigraph — someone else's words, framing the piece.
+   Distinct from a pull quote, which amplifies its own.
+───────────────────────────────────────────────────── */
+
+.epigraphRow {
+  margin-top: var(--sp-large-section);
+}
+
+.epigraph {
+  grid-column: 3 / 9;
+  padding-left: var(--sp-xl);
+  border-left: 1px solid var(--color-rule);
+}
+
+/* Same setting as the case-study `.reflection`. */
+.epigraph p {
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
+  color: var(--color-muted);
+}
+
+.epigraphAttribution {
+  display: block;
+  margin-top: var(--sp-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-muted);
+}
+
+/* ─────────────────────────────────────────────────────
+   Pull quote — reaches across the measure and the margin
+   so it reads as a break in the flow, not a paragraph.
+───────────────────────────────────────────────────── */
+
+.pullQuoteRow {
+  margin-top: var(--sp-12);
+  margin-bottom: var(--sp-12);
+}
+
+.pullQuote {
+  grid-column: 3 / 13;
+}
+
+/* Same setting as the case-study pull quote. */
+.pullQuote p {
+  font-size: clamp(var(--text-3xl), 4.5vw, var(--text-5xl));
+  font-weight: var(--font-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  max-width: 24ch;
+}
+
+/* ─────────────────────────────────────────────────────
+   Figures
+───────────────────────────────────────────────────── */
+
+.figureRow {
+  margin-top: var(--sp-large-section);
+  margin-bottom: var(--sp-large-section);
+}
+
+.figureMeasure {
+  grid-column: 3 / 9;
+}
+
+.figureWide {
+  grid-column: 3 / 13;
+}
+
+.figureBleed {
+  grid-column: 1 / 13;
+}
+
+/* Bleed reaches past the page gutter to the viewport edge. */
+.figureRowBleed {
+  padding: 0;
+}
+
+.figure {
+  margin: 0;
+}
+
+.figure img {
+  width: 100%;
+  height: auto;
+}
+
+.figureFlow {
+  display: grid;
+  gap: var(--col-gap);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+.caption {
+  margin-top: var(--sp-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+  max-width: 44ch;
+}
+
+/* Captions on a bleed figure need the gutter back. */
+.figureRowBleed .caption {
+  padding: 0 var(--gutter);
+}
+
+/* Placeholder frame — lets an essay be laid out and read before its
+   visuals are made. Deliberately plain so it can't be mistaken for art. */
+/* Filled rather than outlined so the frame reads as mass while judging a
+   composition — an empty outline is easy to look straight through. Mixed from
+   --color-text so it follows the surface instead of being a fixed grey. */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-rule);
+  background-color: color-mix(in srgb, var(--color-text) 14%, var(--color-bg));
+}
+
+.placeholderLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-align: center;
+  padding: var(--sp-lg);
+}
+
+/* ─────────────────────────────────────────────────────
+   Foot of the essay
+
+   The asterism is the end-mark and always renders. The
+   closing note and cross-posts are optional apparatus
+   sitting under it — which is why the footer carries no
+   rule of its own: the asterism has already closed the
+   piece.
+───────────────────────────────────────────────────── */
+
+.endMarkRow {
+  margin-top: var(--sp-16);
+}
+
+.endMark {
+  grid-column: 3 / 9;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.footer {
+  margin-top: var(--sp-12);
+}
+
+.footerInner {
+  grid-column: 3 / 9;
+  border-top: 1px solid var(--color-rule);
+  padding-top: var(--sp-xxl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xl);
+}
+
+/* The one place on the page anyone is addressed directly. Sits below the
+   asterism and the rule, so it is the site talking rather than the essay —
+   which is why it can be warmer than anything above it. */
+.signoff {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-lg);
+  color: var(--color-text);
+}
+
+.colophon {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+}
+
+.closing {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
+}
+
+.crossPosts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-lg);
+}
+
+.crossPostLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.crossPostLink {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--color-rule);
+  transition: text-decoration-color 0.15s;
+}
+
+@media (hover: hover) {
+  .crossPostLink:hover {
+    text-decoration-color: var(--color-text);
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   Narrow — the margin column has nowhere to go, so notes
+   drop inline beneath the text they annotate, ruled off
+   so they read as apparatus rather than argument.
+───────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .measure,
+  .sectionTitle,
+  .subtitle,
+  .epigraph,
+  .pullQuote,
+  .figureMeasure,
+  .figureWide,
+  .footerInner {
+    grid-column: 3 / 13;
+  }
+
+  .margin {
+    grid-column: 3 / 13;
+    margin-top: var(--sp-lg);
+    padding-top: var(--sp-lg);
+    border-top: 1px solid var(--color-rule);
+  }
+}
+
+@media (max-width: 768px) {
+  .measure,
+  .sectionTitle,
+  .subtitle,
+  .margin,
+  .epigraph,
+  .pullQuote,
+  .figureMeasure,
+  .figureWide,
+  .figureBleed,
+  .footerInner {
+    grid-column: 1 / 13;
+  }
+
+  .header {
+    padding-top: var(--sp-large-section);
+    padding-bottom: var(--sp-section);
+  }
+
+  .heroBand {
+    max-height: none;
+    aspect-ratio: 3 / 2;
+  }
+
+  .body {
+    padding-top: var(--sp-large-section);
+  }
+
+  /* Numbers move above the title rather than beside it. */
+  .sectionNumber {
+    grid-column: 1 / 13;
+    grid-row: 1;
+    margin-bottom: var(--sp-sm);
+  }
+
+  .sectionTitle {
+    grid-row: 2;
+  }
+
+  .headingRow {
+    margin-top: var(--sp-10);
+  }
+
+  .figureFlow {
+    grid-auto-flow: row;
+  }
+
+  .title,
+  .sectionTitle {
+    max-width: none;
+  }
+
+  .pullQuote p {
+    max-width: none;
+  }
+}

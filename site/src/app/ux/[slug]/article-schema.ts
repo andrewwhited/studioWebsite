@@ -3,6 +3,8 @@
 // Article (regardless of case-study vs essay) so the page is eligible for
 // the Article rich snippet treatment.
 
+import { PERSON_ID } from '../person-schema'
+
 const SITE_URL = 'https://ux.andrewwhited.com'
 const STUDIO_URL = 'https://andrewwhited.com'
 
@@ -13,6 +15,13 @@ type ArticleInput = {
   imageUrl?: string
   /** Free-form year string from CMS: "2024", "2023–2025", etc. */
   year?: string
+  /** Exact ISO date, when the CMS has one. Takes precedence over `year`,
+   *  which can only ever resolve to January 1st. */
+  datePublished?: string
+  /** Essays only — a signal Article consumers use to gauge substance. */
+  wordCount?: number
+  /** What the piece is about, as opposed to what form it takes. */
+  topics?: string[]
   type: 'CaseStudy' | 'Essay'
 }
 
@@ -28,7 +37,7 @@ function yearToIsoDate(year?: string): string | undefined {
 }
 
 export function buildArticleSchema(input: ArticleInput) {
-  const datePublished = yearToIsoDate(input.year)
+  const datePublished = input.datePublished || yearToIsoDate(input.year)
   const dateModified = new Date().toISOString().slice(0, 10)
 
   const image = input.imageUrl
@@ -40,8 +49,12 @@ export function buildArticleSchema(input: ArticleInput) {
       }
     : undefined
 
+  // References the Person defined on the homepage by @id rather than
+  // describing a second one. Name and url are repeated so parsers that don't
+  // resolve @id across pages still get a usable author.
   const author = {
     '@type': 'Person',
+    '@id': PERSON_ID,
     name: 'Andrew Whited',
     url: SITE_URL,
   }
@@ -65,6 +78,8 @@ export function buildArticleSchema(input: ArticleInput) {
     publisher,
     ...(datePublished && { datePublished }),
     dateModified,
+    ...(input.wordCount && { wordCount: input.wordCount }),
+    ...(input.topics?.length && { keywords: input.topics.join(', '), about: input.topics }),
     articleSection: input.type === 'CaseStudy' ? 'Case Study' : 'Essay',
   }
 }

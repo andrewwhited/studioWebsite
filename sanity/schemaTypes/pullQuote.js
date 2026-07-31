@@ -8,6 +8,9 @@ export default defineType({
     defineField({
       name: 'text',
       title: 'Quote',
+      description:
+        'A line from the piece itself, set large across the text and margin columns so ' +
+        'it reads as a break in the flow. Use an Epigraph to quote someone else.',
       type: 'text',
       rows: 3,
       validation: (Rule) => Rule.required(),

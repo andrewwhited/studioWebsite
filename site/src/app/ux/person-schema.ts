@@ -6,6 +6,12 @@
 
 const SITE_URL = 'https://ux.andrewwhited.com'
 const STUDIO_URL = 'https://andrewwhited.com'
+
+// Stable identifier for the one Andrew Whited across every page's JSON-LD.
+// Each case study and essay names this as its author instead of minting a
+// fresh Person, so a crawler sees one entity with a body of work rather than
+// a scatter of same-named strangers.
+export const PERSON_ID = `${SITE_URL}/#person`
 const PORTRAIT_FALLBACK =
   'https://cdn.sanity.io/images/uwr1du4g/production/c5cf0d8fc5f5c2359b39fa830a55f5c307908a74-3047x4547.jpg?w=800&q=80&auto=format'
 
@@ -80,6 +86,7 @@ export function buildPersonSchema(
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': PERSON_ID,
     name: 'Andrew Whited',
     url: SITE_URL,
     image: portraitUrl || PORTRAIT_FALLBACK,

@@ -109,6 +109,30 @@
   --color-essay-muted: #72726E;
 }
 
+/* ─────────────────────────────────────────────────────
+   Light reading surface — essays
+
+   Long-form prose is the one thing the dark theme is bad
+   at. Essays opt out by putting [data-surface="light"] on
+   their root; the override is hoisted to .ux-root via
+   :has() so the nav and page chrome flip with the article
+   instead of leaving a dark bar over a light page.
+
+   Values are the :root palette. Restated rather than
+   inherited because [data-theme="ux"] sits on .ux-root
+   itself and would otherwise win on specificity.
+
+   A plain attribute, not a class: CSS-module class names
+   are hashed and unmatchable from this file.
+───────────────────────────────────────────────────── */
+[data-theme="ux"]:has([data-surface="light"]) {
+  --color-bg:      #F6F6F2;
+  --color-text:    #111110;
+  --color-muted:   #72726E;
+  --color-rule:    #DEDED8;
+  --color-nav-bg:  rgba(246, 246, 242, 0.92);
+}
+
 /* Prevent light background bleed on overscroll and behind iOS Safari
    chrome overlays. body's bg can't pick up [data-theme="ux"] because
    that selector lives on a child div, so we set both html and body
@@ -116,6 +140,11 @@
 html:has([data-theme="ux"]),
 html:has([data-theme="ux"]) body {
   background-color: #111110;
+}
+
+html:has([data-surface="light"]),
+html:has([data-surface="light"]) body {
+  background-color: #F6F6F2;
 }
 
 .ux-bg-logo {

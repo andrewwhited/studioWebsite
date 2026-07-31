@@ -193,10 +193,74 @@ export async function getWorkBySlug(slug: string) {
 
 // ---- Thoughts (essays) ----
 
+// Newest first. `coalesce` covers the un-ported 2016 essay, which carries a
+// year string and no publish date — "2017" and "2026-07-31" still sort
+// correctly against each other as strings.
 export async function getAllThoughts() {
-  return sanity.fetch(`*[_type == "thought"] | order(order asc)`)
+  return sanity.fetch(`*[_type == "thought"] | order(coalesce(publishedAt, year) desc) {
+    _id,
+    title,
+    slug,
+    subtitle,
+    summary,
+    type,
+    topics,
+    year,
+    publishedAt,
+    context
+  }`)
 }
 
+// Polymorphic projection for the essay body array.
+const essayBlockProjection = `
+  _type,
+  _key,
+  _type == "essayHeading" => { title },
+  _type == "essayProseBlock" => { body },
+  _type == "epigraph" => { text, attribution },
+  _type == "pullQuote" => { text },
+  _type == "marginNote" => { label, text, url },
+  _type == "sectionBreak" => { note },
+  _type == "figure" => {
+    image { asset, alt, hotspot },
+    alt,
+    caption,
+    width,
+    fullWidth,
+    hideCaption,
+    placeholder,
+    placeholderLabel,
+    placeholderRatio
+  },
+  _type == "figureFlow" => {
+    images[] { asset, alt, hotspot },
+    alt,
+    caption,
+    width,
+    fullWidth
+  }
+`
+
 export async function getThoughtBySlug(slug: string) {
-  return sanity.fetch(`*[_type == "thought" && slug.current == $slug][0]`, { slug })
+  return sanity.fetch(
+    `*[_type == "thought" && slug.current == $slug][0]{
+      _id,
+      title,
+      slug,
+      subtitle,
+      summary,
+      type,
+      year,
+      publishedAt,
+      readingTime,
+      topics,
+      crossPosts[] { _key, platform, url },
+      heroImage { asset, alt, hotspot },
+      closing,
+      seo,
+      context,
+      body[]{ ${essayBlockProjection} }
+    }`,
+    { slug },
+  )
 }

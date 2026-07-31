@@ -10,7 +10,10 @@ import {
 } from '@/components/ux/work/case-study-blocks'
 import workStyles from '@/components/ux/work/case-study.module.css'
 import { ThoughtArticle, thoughts } from '@/components/ux/thoughts/ThoughtArticle'
+import { Essay, countWords, type ThoughtDoc } from '@/components/ux/thoughts/essay-blocks'
 import { buildArticleSchema } from './article-schema'
+
+const SITE_URL = 'https://ux.andrewwhited.com'
 
 type Seo = {
   metaTitle?: string
@@ -78,16 +81,20 @@ export async function generateMetadata({
   if (sanityThought) {
     const seo: Seo = sanityThought.seo || {}
     const title = seo.metaTitle || sanityThought.title
-    const description = seo.metaDescription || sanityThought.summary || sanityThought.intro
+    const description = seo.metaDescription || sanityThought.subtitle || sanityThought.summary
     const shareDescription = seo.shareDescription || description
     return {
       title,
       description,
+      // Stated explicitly so cross-posts on Medium or Substack can point their
+      // canonical here and this copy stays the one that ranks.
+      alternates: { canonical: `${SITE_URL}/${slug}` },
       openGraph: {
         title,
         description: shareDescription,
-        url: `https://ux.andrewwhited.com/${slug}`,
+        url: `${SITE_URL}/${slug}`,
         type: 'article',
+        ...(sanityThought.publishedAt && { publishedTime: sanityThought.publishedAt }),
         images: [{ url: `/${slug}/opengraph-image`, width: 2400, height: 1260, alt: sanityThought.title }],
       },
       twitter: {
@@ -157,6 +164,36 @@ export default async function UxSlugPage({
     )
   }
 
+  // Essays authored in Sanity render on the editorial template. A thought
+  // with no `body` yet falls through to the legacy hardcoded renderer below —
+  // that's the path the un-ported 2016 essay still takes.
+  const thought: ThoughtDoc | null = await getThoughtBySlug(slug)
+  if (thought?.body?.length) {
+    const heroImageUrl = thought.heroImage?.asset
+      ? urlFor(thought.heroImage).width(1200).quality(80).auto('format').url()
+      : undefined
+    const articleSchema = buildArticleSchema({
+      slug,
+      title: thought.title,
+      description: thought.subtitle,
+      imageUrl: heroImageUrl,
+      year: thought.year,
+      datePublished: thought.publishedAt,
+      wordCount: countWords(thought.body),
+      topics: thought.topics,
+      type: 'Essay',
+    })
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        />
+        <Essay thought={thought} />
+      </>
+    )
+  }
+
   const localThought = thoughts[slug]
   if (localThought) {
     const articleSchema = buildArticleSchema({
@@ -164,7 +201,7 @@ export default async function UxSlugPage({
       title: localThought.title,
       description: localThought.intro,
       imageUrl: localThought.heroImage
-        ? `https://ux.andrewwhited.com${localThought.heroImage}`
+        ? `${SITE_URL}${localThought.heroImage}`
         : undefined,
       year: localThought.context,
       type: 'Essay',

@@ -30,8 +30,28 @@ export default defineType({
     defineField({
       name: 'caption',
       title: 'Caption',
+      description: 'One caption for the whole flow, set under the frames.',
       type: 'text',
       rows: 2,
+    }),
+    defineField({
+      name: 'width',
+      title: 'Width (essays)',
+      description:
+        'Essay pages only. Case studies use the Full width toggle below. ' +
+        'Measure = sits in the text column · Wide = text column through the margin · ' +
+        'Bleed = edge to edge.',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Measure', value: 'measure'},
+          {title: 'Wide', value: 'wide'},
+          {title: 'Bleed', value: 'bleed'},
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+      initialValue: 'wide',
     }),
     defineField({
       name: 'fullWidth',

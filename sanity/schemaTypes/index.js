@@ -29,10 +29,19 @@ import ndaNote from './ndaNote'
 import taxonomyTiles from './taxonomyTiles'
 import integrationTiles from './integrationTiles'
 
+// Essay (thought) building blocks
+import essayProse from './essayProse'
+import essayProseBlock from './essayProseBlock'
+import essayHeading from './essayHeading'
+import marginNote from './marginNote'
+import epigraph from './epigraph'
+import sectionBreak from './sectionBreak'
+
 export const schemaTypes = [
   // Portable text
   blockContent,
   simpleProse,
+  essayProse,
 
   // Reusable objects
   seo,
@@ -67,4 +76,11 @@ export const schemaTypes = [
   ndaNote,
   taxonomyTiles,
   integrationTiles,
+
+  // Essay object types
+  essayProseBlock,
+  essayHeading,
+  marginNote,
+  epigraph,
+  sectionBreak,
 ]

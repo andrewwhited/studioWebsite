@@ -1,8 +1,13 @@
-import { getUxSiteSettings } from '@/lib/sanity-queries'
+import { getUxSiteSettings, getAllThoughts } from '@/lib/sanity-queries'
 
 // Plain-text body served at /llms.txt — an LLM-friendly summary of the site.
-// Content is Sanity-driven (uxSiteSettings.llmsTxt); this fallback ships the
+// Prose is Sanity-driven (uxSiteSettings.llmsTxt); this fallback ships the
 // initial calibrated draft so the route works before the CMS is populated.
+//
+// The Writing section is generated from the thought documents rather than
+// hand-maintained, so a newly published essay appears here without anyone
+// remembering to edit the blob. Put {{writing}} in the Sanity text to place
+// it; otherwise it is appended.
 
 const FALLBACK = `# Andrew Whited
 
@@ -53,9 +58,53 @@ Staff / Principal / Senior Lead Product Designer roles, IC track preferred. AI-n
 [LinkedIn](https://linkedin.com/in/andrewwhited) · [Resume PDF](https://ux.andrewwhited.com/resume.pdf) · [Studio site](https://andrewwhited.com)
 `
 
+type ThoughtEntry = {
+  title?: string
+  subtitle?: string
+  summary?: string
+  type?: string
+  topics?: string[]
+  publishedAt?: string
+  year?: string
+  slug?: { current?: string }
+}
+
+const WRITING_TOKEN = '{{writing}}'
+
+function writingSection(thoughts: ThoughtEntry[]): string {
+  const entries = thoughts
+    .filter((t) => t?.slug?.current && t.title)
+    .map((t) => {
+      const when = t.publishedAt?.slice(0, 4) || t.year
+      const kind = [t.type, when].filter(Boolean).join(', ')
+      const blurb = t.subtitle?.trim() || t.summary?.trim()
+      const topics = t.topics?.length ? ` · Topics: ${t.topics.join(', ')}` : ''
+      return [
+        `- [${t.title}](https://ux.andrewwhited.com/${t.slug!.current})`,
+        kind && ` — ${kind}`,
+        blurb && `. ${blurb.replace(/\s+/g, ' ')}`,
+        topics,
+      ]
+        .filter(Boolean)
+        .join('')
+    })
+
+  if (!entries.length) return ''
+  return `## Writing\n\n${entries.join('\n')}\n`
+}
+
 export async function GET() {
-  const settings = await getUxSiteSettings().catch(() => null)
-  const body = settings?.llmsTxt?.trim() || FALLBACK
+  const [settings, thoughts] = await Promise.all([
+    getUxSiteSettings().catch(() => null),
+    getAllThoughts().catch(() => [] as ThoughtEntry[]),
+  ])
+
+  const prose = settings?.llmsTxt?.trim() || FALLBACK
+  const writing = writingSection(thoughts ?? [])
+
+  const body = prose.includes(WRITING_TOKEN)
+    ? prose.replace(WRITING_TOKEN, writing.trim())
+    : [prose, writing].filter(Boolean).join('\n\n')
 
   return new Response(body, {
     headers: {
