@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from 'next/og'
 import { getWorkBySlug, getThoughtBySlug } from '@/lib/sanity-queries'
-import { thoughts as localThoughts } from '@/components/ux/thoughts/ThoughtArticle'
 import { urlFor } from '@/lib/sanity'
 
 // 2x dimensions — see app/ux/opengraph-image.tsx for rationale.
@@ -76,15 +75,6 @@ async function lookup(slug: string): Promise<PageMeta> {
       title: thought.title,
       subtitle: thought.subtitle || thought.year || undefined,
       ...(hero && { heroUrl: hero }),
-    }
-  }
-
-  const local = localThoughts[slug]
-  if (local) {
-    return {
-      kicker: 'ESSAY',
-      title: local.title,
-      subtitle: local.context,
     }
   }
 

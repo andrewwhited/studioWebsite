@@ -9,7 +9,6 @@ import {
   type SectionData,
 } from '@/components/ux/work/case-study-blocks'
 import workStyles from '@/components/ux/work/case-study.module.css'
-import { ThoughtArticle, thoughts } from '@/components/ux/thoughts/ThoughtArticle'
 import { Essay, countWords, type ThoughtDoc } from '@/components/ux/thoughts/essay-blocks'
 import { buildArticleSchema } from './article-schema'
 
@@ -32,17 +31,7 @@ export async function generateStaticParams() {
   const sanityThoughtParams = (sanityThoughts ?? [])
     .filter((t: { slug?: { current?: string } }) => t?.slug?.current)
     .map((t: { slug: { current: string } }) => ({ slug: t.slug.current }))
-  const localThoughtParams = Object.keys(thoughts).map((slug) => ({ slug }))
-
-  // De-dupe — Sanity thought slugs and local hardcoded slugs may overlap.
-  const seen = new Set<string>()
-  return [...workParams, ...sanityThoughtParams, ...localThoughtParams].filter(
-    ({ slug }) => {
-      if (seen.has(slug)) return false
-      seen.add(slug)
-      return true
-    },
-  )
+  return [...workParams, ...sanityThoughtParams]
 }
 
 export async function generateMetadata({
@@ -114,27 +103,6 @@ export async function generateMetadata({
     }
   }
 
-  const localThought = thoughts[slug]
-  if (localThought) {
-    return {
-      title: localThought.title,
-      description: localThought.intro,
-      openGraph: {
-        title: localThought.title,
-        description: localThought.intro,
-        url: `https://ux.andrewwhited.com/${slug}`,
-        type: 'article',
-        images: [{ url: `/${slug}/opengraph-image`, width: 2400, height: 1260, alt: localThought.title }],
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title: localThought.title,
-        description: localThought.intro,
-        images: [`/${slug}/opengraph-image`],
-      },
-    }
-  }
-
   return {}
 }
 
@@ -172,9 +140,9 @@ export default async function UxSlugPage({
     )
   }
 
-  // Essays authored in Sanity render on the editorial template. A thought
-  // with no `body` yet falls through to the legacy hardcoded renderer below —
-  // that's the path the un-ported 2016 essay still takes.
+  // Every essay renders on the editorial template. A thought with no `body`
+  // is a stub that was never written — there is no second renderer to fall
+  // through to any more, so it 404s rather than rendering an empty page.
   const thought: ThoughtDoc | null = await getThoughtBySlug(slug)
   if (thought?.body?.length) {
     const heroImageUrl = thought.heroImage?.asset
@@ -199,29 +167,6 @@ export default async function UxSlugPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
         />
         <Essay thought={thought} />
-      </>
-    )
-  }
-
-  const localThought = thoughts[slug]
-  if (localThought) {
-    const articleSchema = buildArticleSchema({
-      slug,
-      title: localThought.title,
-      description: localThought.intro,
-      imageUrl: localThought.heroImage
-        ? `${SITE_URL}${localThought.heroImage}`
-        : undefined,
-      year: localThought.context,
-      type: 'Essay',
-    })
-    return (
-      <>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-        />
-        <ThoughtArticle thought={localThought} />
       </>
     )
   }
