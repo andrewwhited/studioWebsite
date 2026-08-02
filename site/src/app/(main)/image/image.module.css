@@ -25,7 +25,12 @@
   grid-template-columns: repeat(12, 1fr);
   gap: 0 var(--col-gap);
   align-items: end;
-  min-height: var(--sp-20); /* 160px — fixed, replaces 40vh */
+  /* Anchored to Art's h1, so the two pages' titles sit on one line. Art is a
+     locked 100svh page: its works strip is 50svh of image + 96px of card text
+     + 8px padding, leaving the stage at 50svh − 160px. Matching that height
+     here puts both intro blocks on the same baseline at any window height.
+     The grid starts below the fold as a result, which is the trade. */
+  min-height: calc(50svh - 160px);
   padding-bottom: var(--sp-large-section);
 }
 
@@ -255,22 +260,30 @@
 /* ─── Responsive ─────────────────────────────────── */
 
 @media (max-width: 1055px) {
+  /* Follows Art's stage, which widens to the same columns here. */
+  .headerRight {
+    grid-column: 7 / 13;
+  }
+
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 672px) {
+/* Art drops its 100svh lock here and its stage becomes a top-aligned 30vh
+   block, so the svh anchor above stops describing anything. Mirror the block
+   treatment exactly — matching the height alone would leave Art's title at the
+   top of the box and this one at the bottom. Going to `block` also retires the
+   column span and the flex column, so no narrower header breakpoint is needed. */
+@media (max-width: 768px) {
   .headerBody {
     display: block;
-    min-height: unset;
-    padding: var(--sp-10) 0 var(--sp-large-section);
+    min-height: 30vh;
+    padding: var(--sp-large-section) 0 var(--sp-xxxl);
   }
+}
 
-  .headerRight {
-    display: block;
-  }
-
+@media (max-width: 672px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--sp-xs);
