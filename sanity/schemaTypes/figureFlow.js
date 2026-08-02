@@ -16,7 +16,21 @@ export default defineType({
         {
           type: 'image',
           options: {hotspot: true},
-          fields: [{name: 'alt', type: 'string', title: 'Alt text'}],
+          fields: [
+            {name: 'alt', type: 'string', title: 'Alt text'},
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              description:
+                'Optional. Sits under this frame alone. Use these when the frames ' +
+                'are distinct things being compared; use the caption below the ' +
+                'whole flow when one sentence covers all of them.',
+            },
+          ],
+          preview: {
+            select: {title: 'caption', subtitle: 'alt', media: 'asset'},
+          },
         },
       ],
       validation: (Rule) => Rule.required().min(2).max(4),
@@ -29,8 +43,10 @@ export default defineType({
     }),
     defineField({
       name: 'caption',
-      title: 'Caption',
-      description: 'One caption for the whole flow, set under the frames.',
+      title: 'Caption (whole flow)',
+      description:
+        'Optional. One statement covering every frame, set under the group. ' +
+        'Leave empty when each frame has its own caption above.',
       type: 'text',
       rows: 2,
     }),

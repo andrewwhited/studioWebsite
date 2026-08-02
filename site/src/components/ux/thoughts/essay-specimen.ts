@@ -201,8 +201,7 @@ const body: EssayBlock[] = [
     _type: 'figure',
     _key: k(),
     placeholder: true,
-    placeholderLabel: 'Measure width · 4:3',
-    placeholderRatio: '4 / 3',
+    placeholderLabel: 'Measure width',
     width: 'measure',
     caption: 'A caption sits under the frame in small type, capped at forty-four characters so it never competes with the body.',
   },
@@ -210,8 +209,7 @@ const body: EssayBlock[] = [
     _type: 'figure',
     _key: k(),
     placeholder: true,
-    placeholderLabel: 'Wide · 16:10',
-    placeholderRatio: '16 / 10',
+    placeholderLabel: 'Wide',
     width: 'wide',
     caption: 'Wide figures run from the measure through the margin column.',
   },
@@ -219,8 +217,7 @@ const body: EssayBlock[] = [
     _type: 'figure',
     _key: k(),
     placeholder: true,
-    placeholderLabel: 'Bleed · 5:2',
-    placeholderRatio: '5 / 2',
+    placeholderLabel: 'Bleed',
     width: 'bleed',
     caption: 'A bleed figure reaches the viewport edge; its caption keeps the gutter.',
   },
@@ -236,7 +233,11 @@ const PLACEHOLDER_HERO = '/essay-placeholder.png'
 export function essaySpecimen(withBand = true): ThoughtDoc {
   return {
     ...specimenBase,
-    heroImage: withBand ? { url: PLACEHOLDER_HERO, alt: '' } : undefined,
+    // Off-centre on purpose, so the preview shows the band cropping to the
+    // hotspot rather than to the middle of the frame.
+    heroImage: withBand
+      ? { url: PLACEHOLDER_HERO, alt: '', hotspot: { x: 0.28, y: 0.4 } }
+      : undefined,
   }
 }
 

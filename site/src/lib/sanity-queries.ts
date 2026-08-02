@@ -222,18 +222,17 @@ const essayBlockProjection = `
   _type == "marginNote" => { label, text, url },
   _type == "sectionBreak" => { note },
   _type == "figure" => {
-    image { asset, alt, hotspot },
+    image { asset->{ _id, metadata { dimensions { width, height } } }, alt, hotspot },
     alt,
     caption,
     width,
     fullWidth,
     hideCaption,
     placeholder,
-    placeholderLabel,
-    placeholderRatio
+    placeholderLabel
   },
   _type == "figureFlow" => {
-    images[] { asset, alt, hotspot },
+    images[] { asset->{ _id, metadata { dimensions { width, height } } }, alt, caption, hotspot },
     alt,
     caption,
     width,
@@ -245,6 +244,7 @@ export async function getThoughtBySlug(slug: string) {
   return sanity.fetch(
     `*[_type == "thought" && slug.current == $slug][0]{
       _id,
+      _updatedAt,
       title,
       slug,
       subtitle,
@@ -255,7 +255,7 @@ export async function getThoughtBySlug(slug: string) {
       readingTime,
       topics,
       crossPosts[] { _key, platform, url },
-      heroImage { asset, alt, hotspot },
+      heroImage { asset->{ _id, metadata { dimensions { width, height } } }, alt, hotspot },
       closing,
       seo,
       context,

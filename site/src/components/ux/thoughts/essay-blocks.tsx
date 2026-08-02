@@ -22,8 +22,13 @@ import styles from './essay.module.css'
 /* ----- Types ----- */
 
 type SanityImage = {
-  asset?: { _ref?: string }
+  asset?: {
+    _ref?: string
+    _id?: string
+    metadata?: { dimensions?: { width?: number; height?: number } }
+  }
   alt?: string
+  caption?: string
   hotspot?: { x: number; y: number }
   /** Escape hatch for the layout specimen, which has no Sanity asset to point
    *  at. Never set on real content — Sanity images always arrive as `asset`. */
@@ -49,7 +54,6 @@ type FigureBlock = {
   hideCaption?: boolean
   placeholder?: boolean
   placeholderLabel?: string
-  placeholderRatio?: string
 }
 type FigureFlowBlock = {
   _type: 'figureFlow'
@@ -71,6 +75,7 @@ export type EssayBlock =
   | FigureFlowBlock
 
 export type ThoughtDoc = {
+  _updatedAt?: string
   title: string
   slug: { current: string }
   subtitle?: string
@@ -186,6 +191,27 @@ function formatPublished(date?: string): string | undefined {
 
 /* ----- Image helper ----- */
 
+// Intrinsic dimensions, so width/height can go on the <img> and the browser
+// reserves the right space before the file arrives.
+function dimensions(img?: SanityImage) {
+  const d = img?.asset?.metadata?.dimensions
+  return d?.width && d?.height ? {width: d.width, height: d.height} : {}
+}
+
+// The hero band is cropped by CSS, not by the image API — its height is
+// viewport-relative, so the crop ratio isn't known when the URL is built and
+// `fit('max')` never discards anything. That means object-position is what has
+// to honour the hotspot; without it the band always crops from the centre.
+function hotspotPosition(img?: SanityImage): string | undefined {
+  const h = img?.hotspot
+  if (!h) return undefined
+  return `${(h.x * 100).toFixed(2)}% ${(h.y * 100).toFixed(2)}%`
+}
+
+// Every placeholder frame is the same shape. The ratio was a field nobody
+// filled in, and a wrong guess reads worse than a neutral one.
+const PLACEHOLDER_RATIO = '3 / 2'
+
 function imageSrc(img: SanityImage, width = 2400): string {
   if (img.url) return img.url
   return urlFor(img).width(width).fit('max').auto('format').url()
@@ -266,16 +292,13 @@ function FigureComp({ data }: { data: FigureBlock }) {
     <div className={`${styles.row} ${styles.figureRow} ${bleed ? styles.figureRowBleed : ''}`}>
       <figure className={`${styles.figure} ${figureColumnClass(data.width, data.fullWidth)}`}>
         {data.placeholder || !data.image?.asset ? (
-          <div
-            className={styles.placeholder}
-            style={{ aspectRatio: data.placeholderRatio || '4 / 3' }}
-          >
+          <div className={styles.placeholder} style={{ aspectRatio: PLACEHOLDER_RATIO }}>
             <span className={styles.placeholderLabel}>
               {data.placeholderLabel || 'Visual to come'}
             </span>
           </div>
         ) : (
-          <img src={imageSrc(data.image)} alt={data.alt || ''} />
+          <img src={imageSrc(data.image)} alt={data.alt || ''} {...dimensions(data.image)} />
         )}
         {caption && <figcaption className={styles.caption}>{caption}</figcaption>}
       </figure>
@@ -291,17 +314,18 @@ function FigureFlowComp({ data }: { data: FigureFlowBlock }) {
   return (
     <div className={`${styles.row} ${styles.figureRow} ${bleed ? styles.figureRowBleed : ''}`}>
       <figure className={`${styles.figure} ${figureColumnClass(data.width, data.fullWidth)}`}>
+        {/* Per-frame captions sit under their own column so the eye maps caption
+            to image directly; the group caption below covers the whole flow. */}
         <div className={styles.figureFlow}>
           {images.map((img, i) => (
-            <img
-              key={img.asset?._ref ?? i}
-              src={imageSrc(img)}
-              alt={
-                data.alt
-                  ? `${data.alt} (${i + 1} of ${images.length})`
-                  : ''
-              }
-            />
+            <div key={img.asset?._id ?? img.asset?._ref ?? i} className={styles.flowFrame}>
+              <img
+                {...dimensions(img)}
+                src={imageSrc(img)}
+                alt={img.alt || (data.alt ? `${data.alt} (${i + 1} of ${images.length})` : '')}
+              />
+              {img.caption && <span className={styles.flowCaption}>{img.caption}</span>}
+            </div>
           ))}
         </div>
         {data.caption && <figcaption className={styles.caption}>{data.caption}</figcaption>}
@@ -346,7 +370,12 @@ function EssayHeader({ thought, meta }: { thought: ThoughtDoc; meta: string[] })
       )}
       {band && image && (
         <figure className={`${styles.heroFigure} ${styles.heroBand}`}>
-          <img src={imageSrc(image)} alt={image.alt || ''} />
+          <img
+            src={imageSrc(image)}
+            alt={image.alt || ''}
+            {...dimensions(image)}
+            style={{ objectPosition: hotspotPosition(image) }}
+          />
         </figure>
       )}
     </header>

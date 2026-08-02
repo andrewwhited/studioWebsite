@@ -163,13 +163,20 @@
   background-color: color-mix(in srgb, var(--color-text) 14%, var(--color-bg));
 }
 
+/* The ratio decides the shape; the cap only stops it running past the fold on
+   a short screen. Without a ratio the band was whatever the viewport left
+   over — 3.6:1 on a laptop, nearly 6:1 on a wide display. */
 .heroBand {
   grid-column: 1 / 13;
   grid-row: 4;
   width: 100vw;
   margin-inline: calc(-1 * var(--gutter));
   margin-top: var(--sp-large-section);
-  max-height: min(44svh, 440px);
+  aspect-ratio: 5 / 2;
+  /* Headroom for 5:2 to actually hold at desktop widths — at 1440 the ratio
+     wants 576px. The cap only takes over past ~1550px wide, where an
+     unclamped 5:2 band would be enormous, and on short windows. */
+  max-height: min(64svh, 620px);
   overflow: hidden;
 }
 
@@ -505,6 +512,22 @@
   gap: var(--col-gap);
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
+  /* Frames align to the top so captions of different lengths don't push the
+     images out of line with each other. */
+  align-items: start;
+}
+
+.flowFrame {
+  display: flex;
+  flex-direction: column;
+}
+
+.flowCaption {
+  margin-top: var(--sp-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: var(--lh-sm);
+  color: var(--color-muted);
 }
 
 .caption {
@@ -679,9 +702,16 @@
     padding-bottom: var(--sp-section);
   }
 
+  /* No crop at phone widths — 5:2 is a slot on a narrow screen, so the band
+     gives up its ratio and the image shows at its own. */
   .heroBand {
     max-height: none;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: auto;
+  }
+
+  .heroBand img {
+    height: auto;
+    object-fit: fill;
   }
 
   .body {

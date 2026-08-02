@@ -37,8 +37,8 @@ export default defineType({
       name: 'placeholder',
       title: 'Placeholder — artwork not made yet',
       description:
-        'Renders a labelled empty frame at the chosen ratio instead of an image. ' +
-        'Essay pages only.',
+        'Renders a labelled empty frame instead of an image, so a piece can be ' +
+        'laid out and read before its visuals exist. Essay pages only.',
       type: 'boolean',
       initialValue: false,
     }),
@@ -47,24 +47,6 @@ export default defineType({
       title: 'Placeholder label',
       description: 'What this visual will be, e.g. "Diagram — the two loops".',
       type: 'string',
-      hidden: ({parent}) => !parent?.placeholder,
-    }),
-    defineField({
-      name: 'placeholderRatio',
-      title: 'Placeholder ratio',
-      description: 'The shape the finished visual will be, so the layout reads true.',
-      type: 'string',
-      options: {
-        list: [
-          {title: '16:10 — screen', value: '16 / 10'},
-          {title: '3:2 — landscape', value: '3 / 2'},
-          {title: '4:3 — diagram', value: '4 / 3'},
-          {title: '1:1 — square', value: '1 / 1'},
-          {title: '6:7 — portrait', value: '6 / 7'},
-          {title: '5:2 — banner', value: '5 / 2'},
-        ],
-      },
-      initialValue: '4 / 3',
       hidden: ({parent}) => !parent?.placeholder,
     }),
     defineField({

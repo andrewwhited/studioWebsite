@@ -18,6 +18,8 @@ type ArticleInput = {
   /** Exact ISO date, when the CMS has one. Takes precedence over `year`,
    *  which can only ever resolve to January 1st. */
   datePublished?: string
+  /** Last real edit — the CMS document's own `_updatedAt`, not build time. */
+  dateModified?: string
   /** Essays only — a signal Article consumers use to gauge substance. */
   wordCount?: number
   /** What the piece is about, as opposed to what form it takes. */
@@ -38,7 +40,9 @@ function yearToIsoDate(year?: string): string | undefined {
 
 export function buildArticleSchema(input: ArticleInput) {
   const datePublished = input.datePublished || yearToIsoDate(input.year)
-  const dateModified = new Date().toISOString().slice(0, 10)
+  // Build time is not an edit. Rebuilding the site with no content change was
+  // announcing a fresh dateModified on every page, every deploy.
+  const dateModified = input.dateModified?.slice(0, 10) || datePublished
 
   const image = input.imageUrl
     ? {
@@ -77,7 +81,7 @@ export function buildArticleSchema(input: ArticleInput) {
     creator: author,
     publisher,
     ...(datePublished && { datePublished }),
-    dateModified,
+    ...(dateModified && { dateModified }),
     ...(input.wordCount && { wordCount: input.wordCount }),
     ...(input.topics?.length && { keywords: input.topics.join(', '), about: input.topics }),
     articleSection: input.type === 'CaseStudy' ? 'Case Study' : 'Essay',

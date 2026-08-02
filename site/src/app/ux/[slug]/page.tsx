@@ -83,6 +83,12 @@ export async function generateMetadata({
     const title = seo.metaTitle || sanityThought.title
     const description = seo.metaDescription || sanityThought.subtitle || sanityThought.summary
     const shareDescription = seo.shareDescription || description
+    // An essay with a hero image gets the light card, which renders at 1x —
+    // see the size note in opengraph-image.tsx. Declaring the wrong dimensions
+    // is worse than declaring none, so they follow the branch the card takes.
+    const cardSize = sanityThought.heroImage?.asset
+      ? { width: 1200, height: 630 }
+      : { width: 2400, height: 1260 }
     return {
       title,
       description,
@@ -94,8 +100,10 @@ export async function generateMetadata({
         description: shareDescription,
         url: `${SITE_URL}/${slug}`,
         type: 'article',
+        authors: [SITE_URL],
         ...(sanityThought.publishedAt && { publishedTime: sanityThought.publishedAt }),
-        images: [{ url: `/${slug}/opengraph-image`, width: 2400, height: 1260, alt: sanityThought.title }],
+        ...(sanityThought._updatedAt && { modifiedTime: sanityThought._updatedAt }),
+        images: [{ url: `/${slug}/opengraph-image`, ...cardSize, alt: sanityThought.title }],
       },
       twitter: {
         card: 'summary_large_image',
@@ -179,6 +187,7 @@ export default async function UxSlugPage({
       imageUrl: heroImageUrl,
       year: thought.year,
       datePublished: thought.publishedAt,
+      dateModified: thought._updatedAt,
       wordCount: countWords(thought.body),
       topics: thought.topics,
       type: 'Essay',
