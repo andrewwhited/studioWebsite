@@ -42,7 +42,13 @@ export function buildArticleSchema(input: ArticleInput) {
   const datePublished = input.datePublished || yearToIsoDate(input.year)
   // Build time is not an edit. Rebuilding the site with no content change was
   // announcing a fresh dateModified on every page, every deploy.
-  const dateModified = input.dateModified?.slice(0, 10) || datePublished
+  //
+  // Floored at datePublished: a piece dated forward to its announcement is
+  // edited before it is published, which is ordinary here and nonsense in
+  // schema.org terms.
+  const edited = input.dateModified?.slice(0, 10)
+  const dateModified =
+    edited && datePublished && edited < datePublished ? datePublished : edited || datePublished
 
   const image = input.imageUrl
     ? {

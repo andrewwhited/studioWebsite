@@ -1,29 +1,19 @@
-// One-off SEO pass on the Embodied Authorship essay: `topics` (feeds keywords
-// + about in the Article JSON-LD) and hero image alt text. Approved 2026-08-02.
+// One-off edits to the Embodied Authorship essay. Approved 2026-08-02:
+// `topics` (feeds keywords + about in the Article JSON-LD), hero image alt
+// text, and the publish date moved to the day it actually goes out.
 
 import {getCliClient} from 'sanity/cli'
 
 const client = getCliClient()
 
-const TOPICS = [
-  'Authorship',
-  'AI Product Design',
-  'Design Leadership',
-  'Creative Direction',
-  'Design Theory',
-]
-
-const HERO_ALT =
-  'A dithered, halftone-textured scene in blue and black: two small figures ' +
-  'stand far apart on stepped ledges, each ringed in red and green fringing, ' +
-  'in a space built entirely from dot grids.'
+const PUBLISHED_AT = '2026-08-03'
 
 client
   .patch('thought-embodied-authorship')
-  .set({topics: TOPICS, 'heroImage.alt': HERO_ALT})
+  .set({publishedAt: PUBLISHED_AT})
   .commit()
   .then((doc) => {
-    console.log('patched', doc._id, doc._updatedAt)
+    console.log('patched', doc._id, '→', doc.publishedAt)
   })
   .catch((err) => {
     console.error('failed:', err.message)
