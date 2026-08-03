@@ -9,19 +9,69 @@ export default defineType({
     defineField({
       name: 'image',
       title: 'Image',
+      description: 'Set the hotspot if the crop matters — widths and ratios vary by placement.',
       type: 'image',
       options: {hotspot: true},
-      validation: (Rule) => Rule.required(),
+      hidden: ({parent}) => parent?.placeholder === true,
+      // Required unless this is a placeholder — lets an essay be laid out and
+      // reviewed before its visuals exist.
+      validation: (Rule) =>
+        Rule.custom((value, context) =>
+          context.parent?.placeholder || value?.asset ? true : 'Image is required'
+        ),
     }),
     defineField({
       name: 'alt',
       title: 'Alt text',
+      description:
+        'What the image shows, for screen readers and search. Not displayed — ' +
+        'use Caption for text the reader sees.',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      hidden: ({parent}) => parent?.placeholder === true,
+      validation: (Rule) =>
+        Rule.custom((value, context) =>
+          context.parent?.placeholder || value ? true : 'Alt text is required'
+        ),
+    }),
+    defineField({
+      name: 'placeholder',
+      title: 'Placeholder — artwork not made yet',
+      description:
+        'Renders a labelled empty frame instead of an image, so a piece can be ' +
+        'laid out and read before its visuals exist. Essay pages only.',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'placeholderLabel',
+      title: 'Placeholder label',
+      description: 'What this visual will be, e.g. "Diagram — the two loops".',
+      type: 'string',
+      hidden: ({parent}) => !parent?.placeholder,
+    }),
+    defineField({
+      name: 'width',
+      title: 'Width (essays)',
+      description:
+        'Essay pages only. Case studies use the Full width toggle below. ' +
+        'Measure = sits in the text column · Wide = text column through the margin · ' +
+        'Bleed = edge to edge.',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Measure', value: 'measure'},
+          {title: 'Wide', value: 'wide'},
+          {title: 'Bleed', value: 'bleed'},
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+      initialValue: 'measure',
     }),
     defineField({
       name: 'caption',
       title: 'Caption',
+      description: 'Small type under the frame, held to about 44 characters.',
       type: 'text',
       rows: 2,
     }),
@@ -42,11 +92,11 @@ export default defineType({
     }),
   ],
   preview: {
-    select: {title: 'alt', media: 'image'},
-    prepare: ({title, media}) => ({
-      title: title || '(untitled figure)',
-      subtitle: 'Figure',
-      media,
+    select: {title: 'alt', media: 'image', placeholder: 'placeholder', label: 'placeholderLabel'},
+    prepare: ({title, media, placeholder, label}) => ({
+      title: (placeholder ? label : title) || '(untitled figure)',
+      subtitle: placeholder ? 'Figure — placeholder' : 'Figure',
+      media: placeholder ? undefined : media,
     }),
   },
 })

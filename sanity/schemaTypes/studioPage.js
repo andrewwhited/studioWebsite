@@ -5,17 +5,24 @@ export default defineType({
   title: 'Studio Page',
   type: 'document',
   fields: [
-    // Hero
+    // About
+    // One continuous block, running ethos → practice → outputs → commercial.
+    // Blank lines separate paragraphs; the page renders each as its own <p>
+    // in a single measure.
     defineField({
-      name: 'heroHeading',
-      title: 'Hero Heading',
-      type: 'string',
-    }),
-    defineField({
-      name: 'heroText',
-      title: 'Hero Text',
+      name: 'aboutText',
+      title: 'About Text',
       type: 'text',
+      rows: 14,
     }),
+    defineField({
+      name: 'bioName',
+      title: 'Name',
+      type: 'string',
+      description: 'The page h1, above the About text.',
+    }),
+
+    // Photographs
     defineField({
       name: 'heroPrimaryImage',
       title: 'Hero Primary Image',
@@ -35,43 +42,10 @@ export default defineType({
       options: {hotspot: true},
     }),
 
-    // Bio
-    defineField({
-      name: 'bioName',
-      title: 'Bio Name',
-      type: 'string',
-    }),
-    defineField({
-      name: 'bioText',
-      title: 'Bio Text',
-      type: 'text',
-    }),
-    defineField({
-      name: 'bioImage',
-      title: 'Bio Image',
-      type: 'image',
-      options: {hotspot: true},
-    }),
-
-    // Location
-    defineField({
-      name: 'locationTitle',
-      title: 'Location Title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'locationText',
-      title: 'Location Text',
-      type: 'string',
-    }),
+    // Workshop — the address renders once, in the About caption.
     defineField({
       name: 'locationAddress',
       title: 'Location Address',
-      type: 'string',
-    }),
-    defineField({
-      name: 'locationVisitNote',
-      title: 'Visit Note',
       type: 'string',
     }),
     defineField({
@@ -81,35 +55,27 @@ export default defineType({
       options: {hotspot: true},
     }),
 
-    // Services
+    // Exhibitions
+    // Bare entries — title, location, year. No venue and no annotation: the
+    // record is what showed and when, not who hosted it.
     defineField({
-      name: 'servicesTitle',
-      title: 'Services Section Title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'services',
-      title: 'Services',
+      name: 'exhibitions',
+      title: 'Exhibitions',
       type: 'array',
       of: [
         {
           type: 'object',
-          name: 'service',
+          name: 'exhibition',
           fields: [
             {name: 'title', type: 'string', title: 'Title'},
-            {name: 'text', type: 'text', title: 'Text'},
-            {name: 'image', type: 'image', title: 'Image', options: {hotspot: true}},
+            {name: 'location', type: 'string', title: 'Location'},
+            {name: 'year', type: 'string', title: 'Year'},
           ],
           preview: {
-            select: {title: 'title', media: 'image'},
+            select: {title: 'title', subtitle: 'year'},
           },
         },
       ],
-    }),
-    defineField({
-      name: 'servicesContact',
-      title: 'Services Contact CTA',
-      type: 'string',
     }),
 
     // Required Reading
@@ -122,12 +88,6 @@ export default defineType({
           type: 'object',
           name: 'readingItem',
           fields: [
-            {
-              name: 'itemType',
-              type: 'string',
-              title: 'Type',
-              options: {list: ['book', 'film', 'essay', 'video', 'artist']},
-            },
             {name: 'creator', type: 'string', title: 'Creator'},
             {name: 'title', type: 'string', title: 'Title'},
             {
@@ -137,7 +97,13 @@ export default defineType({
               validation: (Rule) => Rule.uri({allowRelative: true}),
             },
             {name: 'thumbnail', type: 'image', title: 'Thumbnail', options: {hotspot: true}},
-            {name: 'note', type: 'text', title: 'Note'},
+            {
+              name: 'note',
+              type: 'text',
+              title: 'Note',
+              rows: 2,
+              description: 'Renders in the right column. A line on why it is on the list.',
+            },
           ],
           preview: {
             select: {title: 'title', subtitle: 'creator', media: 'thumbnail'},
@@ -146,19 +112,10 @@ export default defineType({
       ],
     }),
 
-    // What's Playing
-    defineField({
-      name: 'whatsPlaying',
-      title: "What's Playing Embed",
-      type: 'url',
-    }),
 
     // Contact
-    defineField({
-      name: 'contactTitle',
-      title: 'Contact Title',
-      type: 'string',
-    }),
+    // The column headings are set in the layout, not authored — each is tied
+    // to the specific link beneath it.
     defineField({
       name: 'email',
       title: 'Email',
@@ -172,6 +129,11 @@ export default defineType({
     defineField({
       name: 'tiktok',
       title: 'TikTok URL',
+      type: 'url',
+    }),
+    defineField({
+      name: 'uxSiteUrl',
+      title: 'UX Site URL',
       type: 'url',
     }),
   ],

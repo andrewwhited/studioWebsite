@@ -6,8 +6,25 @@ export async function getHomePage() {
   return sanity.fetch(`*[_type == "homePage"][0]`)
 }
 
+// Projected rather than `*` on purpose: the document is serialized into the
+// RSC payload and is readable in page source, so only fields the page renders
+// should be selected. Anything unrendered would otherwise be crawlable.
 export async function getStudioPage() {
-  return sanity.fetch(`*[_type == "studioPage"][0]`)
+  return sanity.fetch(`*[_type == "studioPage"][0]{
+    aboutText,
+    heroPrimaryImage,
+    heroSecondaryImage,
+    heroTertiaryImage,
+    bioName,
+    locationAddress,
+    locationImage,
+    exhibitions[]{_key, title, location, year},
+    readingList[]{_key, title, creator, link, thumbnail, note},
+    email,
+    instagram,
+    tiktok,
+    uxSiteUrl
+  }`)
 }
 
 export async function getObjectsPage() {
@@ -69,8 +86,21 @@ export async function getArtworkBySlug(slug: string) {
 
 // ---- Photo Sets ----
 
+// `_id` is deliberately not projected. Document IDs are opaque and carry no
+// display value, and the payload is readable in page source — the cover URL is
+// already unique per set, so it serves as the React key.
+//
+// Image dimensions come along because the lightbox renders each frame at its
+// native ratio: the sets mix 6:7 (RZ67), 3:4 (645), and 2:3 (35mm), and some
+// frames are landscape. Only the grid cover is normalised to 6:7.
 export async function getAllPhotoSets() {
-  return sanity.fetch(`*[_type == "photoSet"]`)
+  return sanity.fetch(`*[_type == "photoSet"] | order(year desc, _createdAt asc){
+    location,
+    year,
+    category,
+    coverImage{ hotspot, asset->{ url } },
+    images[]{ asset->{ url, metadata { dimensions { width, height } } } }
+  }`)
 }
 
 // ---- Work (UX case studies) ----
@@ -163,10 +193,74 @@ export async function getWorkBySlug(slug: string) {
 
 // ---- Thoughts (essays) ----
 
+// Newest first. `coalesce` covers the un-ported 2016 essay, which carries a
+// year string and no publish date — "2017" and "2026-07-31" still sort
+// correctly against each other as strings.
 export async function getAllThoughts() {
-  return sanity.fetch(`*[_type == "thought"] | order(order asc)`)
+  return sanity.fetch(`*[_type == "thought"] | order(coalesce(publishedAt, year) desc) {
+    _id,
+    title,
+    slug,
+    subtitle,
+    summary,
+    type,
+    topics,
+    year,
+    publishedAt,
+    context
+  }`)
 }
 
+// Polymorphic projection for the essay body array.
+const essayBlockProjection = `
+  _type,
+  _key,
+  _type == "essayHeading" => { title },
+  _type == "essayProseBlock" => { body },
+  _type == "epigraph" => { text, attribution },
+  _type == "pullQuote" => { text },
+  _type == "marginNote" => { label, text, url },
+  _type == "sectionBreak" => { note },
+  _type == "figure" => {
+    image { asset->{ _id, metadata { dimensions { width, height } } }, alt, hotspot },
+    alt,
+    caption,
+    width,
+    fullWidth,
+    hideCaption,
+    placeholder,
+    placeholderLabel
+  },
+  _type == "figureFlow" => {
+    images[] { asset->{ _id, metadata { dimensions { width, height } } }, alt, caption, hotspot },
+    alt,
+    caption,
+    width,
+    fullWidth
+  }
+`
+
 export async function getThoughtBySlug(slug: string) {
-  return sanity.fetch(`*[_type == "thought" && slug.current == $slug][0]`, { slug })
+  return sanity.fetch(
+    `*[_type == "thought" && slug.current == $slug][0]{
+      _id,
+      _updatedAt,
+      title,
+      slug,
+      subtitle,
+      summary,
+      type,
+      year,
+      publishedAt,
+      readingTime,
+      topics,
+      crossPosts[] { _key, platform, url },
+      heroImage { asset->{ _id, metadata { dimensions { width, height } } }, alt, hotspot },
+      closing,
+      seo,
+      context,
+      body[]{ ${essayBlockProjection} }
+    }`,
+    { slug },
+  )
 }

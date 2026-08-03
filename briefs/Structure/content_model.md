@@ -2,6 +2,8 @@
 
 Reference schema for site content structure. Sanity CMS and Shopify are the live implementations — this document captures the intended shape and purpose of each content type.
 
+> **MVP note, 2026-07-26.** This describes the schema, which is broader than what MVP renders. Currently **not used**: the Studio `services` array and `servicesContact` CTA (section cut), and `locationVisitNote` (cut as premature). The `commission` value on a collection's internal `type` still exists but Commissions are deprioritized and not an MVP section. **Still needed**: an exhibitions/press array on `studioPage` (shape it like `uxPage.talks` — title, venue, year, type), a portrait image field, and portable text on the About field if the inline UX link is wanted. `whatsPlaying` already exists and is unpopulated. Scope decisions live in `Structure/site_ia.md`.
+
 ## General Rules
 
 ### Slugs

@@ -1,6 +1,12 @@
 import { getStudioPage } from '@/lib/sanity-queries'
+import { getTopArtists } from '@/lib/spotify'
 import { urlFor } from '@/lib/sanity'
+import ReadingList from './ReadingList'
 import styles from './studio.module.css'
+
+// Regenerate daily. Both the Spotify token refresh and the top-artists
+// call sit on the same cycle, so one regeneration costs one of each.
+export const revalidate = 86400
 
 function imgStyle(image: any, width = 1200) {
   if (!image) return undefined
@@ -16,148 +22,221 @@ function imgStyle(image: any, width = 1200) {
 }
 
 export default async function Studio() {
-  const page = await getStudioPage()
+  const [page, topArtists] = await Promise.all([getStudioPage(), getTopArtists(5)])
 
-  const heroHeading = page?.heroHeading ?? 'A designer and maker working at the intersection of object design, spatial thinking, and material investigation.'
-  const heroText = page?.heroText ?? 'The studio has operated since 2018, working across furniture, art objects, spatial commissions, and small-batch production. Located in Austin, Texas.'
-  const bioName = page?.bioName ?? 'Andrew Whited'
-  const bioText = page?.bioText ?? 'Designer and maker based in Austin, Texas.'
-  const workshopText = page?.locationText ?? 'A 2,400 sq ft working space accommodating furniture-scale production, dimensional milling, finishing, and limited fabrication in steel and concrete. Equipped for hardwood joinery, turning, bending, and surface work.'
-  const workshopAddress = page?.locationAddress ?? 'Austin, TX'
-  const workshopVisit = page?.locationVisitNote ?? 'Visit by appointment'
-  const services = page?.services ?? []
-  const readingList = page?.readingList ?? []
-  const contactEmail = page?.email ?? 'studio@andrewwhited.com'
+  // Copy has one source of truth: Sanity. No string fallbacks — they drift, and
+  // the last set held lines the voice pass had already rejected as inaccurate.
+  const aboutText = page?.aboutText
+  const name = page?.bioName
+  const address = page?.locationAddress
+  const exhibitions = page?.exhibitions ?? []
+  // Cover URLs are resolved here rather than in the client component: urlFor
+  // needs the Sanity client, and there is no reason to ship it to the browser
+  // for twelve static image URLs.
+  const readingItems = (page?.readingList ?? []).map((item: any) => ({
+    key: item._key,
+    title: item.title,
+    creator: item.creator,
+    note: item.note,
+    link: item.link,
+    thumbUrl: item.thumbnail?.asset
+      ? urlFor(item.thumbnail).width(240).quality(80).auto('format').url()
+      : undefined,
+  }))
+  const contactEmail = page?.email
   const instagramUrl = page?.instagram
   const tiktokUrl = page?.tiktok
-  const whatsPlaying = page?.whatsPlaying
+  const uxSiteUrl = page?.uxSiteUrl
+
+  // An unfilled workshop image renders a marked placeholder rather than
+  // collapsing — it carries structure, so collapsing it silently changes
+  // the composition rather than showing a gap.
+  const hasWorkshopImage = Boolean(page?.locationImage?.asset)
+
+  // Authored as paragraphs. Splitting on blank lines keeps the author's
+  // breaks instead of collapsing the block into one slab.
+  const aboutParagraphs: string[] = (aboutText?.split(/\n\s*\n/) ?? [])
+    .map((p: string) => p.trim())
+    .filter(Boolean)
 
   return (
     <main>
 
-      {/* ── Hero ─────────────────────────────────────── */}
-      <section className={styles.hero}>
-        <div className={styles.heroText}>
-          <h1 className={styles.heroHeading}>{heroHeading}</h1>
-          <p className={styles.heroBio}>{heroText}</p>
+      {/* ── About ────────────────────────────────────────
+          Two rows. Row one is the viewport: photographs on
+          the middle and right thirds, the prose column
+          beginning around two thirds down so the fold
+          opens on space rather than text.
+
+          The prose runs as one unbroken column across both
+          rows. Exhibitions sits in row two, under the
+          photographs and beside the continuing text — it
+          is biography, so it stays inside this block
+          rather than becoming a section of its own.
+      ─────────────────────────────────────────────────── */}
+      <section className={styles.about}>
+
+        <div className={styles.aboutText}>
+          <h1 className={styles.aboutName}>{name}</h1>
+          <div className={styles.aboutProse}>
+            {aboutParagraphs.map((p: string, i: number) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
         </div>
-        <div className={styles.heroImageMid} style={imgStyle(page?.heroPrimaryImage)} />
-        <div className={styles.heroImageStack}>
-          <div className={styles.heroImageTop} style={imgStyle(page?.heroSecondaryImage, 800)} />
-          <div className={styles.heroImageBottom} style={imgStyle(page?.heroTertiaryImage, 800)} />
+
+        <div className={styles.aboutImageMid} style={imgStyle(page?.heroPrimaryImage)} />
+        <div className={styles.aboutImageStack}>
+          <div className={styles.aboutImageTop} style={imgStyle(page?.heroSecondaryImage, 800)} />
+          <div className={styles.aboutImageBottom} style={imgStyle(page?.heroTertiaryImage, 800)} />
         </div>
+
+        {exhibitions.length > 0 && (
+          <section className={styles.exhibitions}>
+            <h2 className={styles.label}>Exhibitions</h2>
+            <ul className={styles.list}>
+              {exhibitions.map((item: any) => (
+                <li key={item._key} className={styles.entry}>
+                  <span className={styles.entryTitle}>{item.title}</span>
+                  <span className={styles.entryMeta}>{item.location}</span>
+                  <span className={styles.entryMeta}>{item.year}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
       </section>
 
-      {/* ── Bio ──────────────────────────────────────── */}
-      <section className={styles.bio}>
-        <div className={styles.bioGrid}>
-          <p className={styles.bioName}>{bioName}</p>
-          <p className={styles.bioText}>{bioText}</p>
-        </div>
-      </section>
-
-      {/* ── Workshop ─────────────────────────────────── */}
+      {/* ── Workshop ─────────────────────────────────────
+          Image only. The address lives in Contact now.
+      ─────────────────────────────────────────────────── */}
       <section className={styles.workshop}>
-        <div className={styles.workshopGrid}>
-          <div className={styles.workshopContent}>
-            <p className={styles.workshopStatement}>{workshopText}</p>
-            <div className={styles.workshopMeta}>
-              <address>{workshopAddress}</address>
-              <span className={styles.workshopAppt}>{workshopVisit}</span>
-            </div>
+        {hasWorkshopImage ? (
+          <div className={styles.workshopImage} style={imgStyle(page?.locationImage, 2000)} />
+        ) : (
+          <div className={`${styles.workshopImage} ${styles.placeholder}`}>
+            <span className={styles.placeholderLabel}>Workshop photo</span>
           </div>
-          <div className={styles.workshopImage} style={imgStyle(page?.locationImage)} />
-        </div>
+        )}
       </section>
 
-      {/* ── Services ─────────────────────────────────── */}
-      <section className={styles.services}>
-        <div className={styles.servicesInner}>
-          <ul className={styles.servicesGrid}>
-            {services.map((s: any) => (
-              <li key={s._key} className={styles.serviceRow}>
-                <h3 className={styles.serviceTitle}>{s.title}</h3>
-                <p className={styles.serviceDesc}>{s.text}</p>
-              </li>
-            ))}
-          </ul>
-          <div className={styles.servicesCta}>
-            <a
-              href={`mailto:${contactEmail}`}
-              className={styles.servicesCtaLink}
-            >
-              {page?.servicesContact ?? 'Inquire about services →'}
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* ── Taste ────────────────────────────────────────
+          What is being read and what is playing. Separated
+          from Exhibitions on purpose: that is record, this
+          is taste.
+      ─────────────────────────────────────────────────── */}
+      <section className={styles.taste}>
 
-      {/* ── Reading + Listening ──────────────────────── */}
-      <section className={styles.reading}>
-
-        <div className={styles.readingCol}>
-          <div className={styles.readingHead}>
-            <h2 className={styles.readingHeading}>Required Reading</h2>
-            <p className={styles.readingIntro}>
-              Books, essays, and films that inform how the work gets made.
-            </p>
-          </div>
-          <ul className={styles.readingList}>
-            {readingList.map((item: any) => (
-              <li key={item._key} className={styles.readingItem}>
-                <a
-                  href={item.link ?? '#'}
-                  className={styles.readingLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className={styles.readingThumb} aria-hidden="true" />
-                  <span className={styles.readingTitle}>{item.title}</span>
-                  <span className={styles.readingAuthor}>{item.creator}</span>
-                  {item.note && <span className={styles.readingNote}>{item.note}</span>}
-                  <span className={styles.readingTag}>{item.itemType}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className={styles.reading}>
+          <h2 className={styles.label}>Required Reading</h2>
+          <ReadingList items={readingItems} />
         </div>
 
-        <div className={styles.listeningCol}>
-          <h3 className={styles.listeningHeading}>What's running in the workshop.</h3>
-          {whatsPlaying ? (
-            <iframe
-              className={styles.listeningEmbed}
-              src={whatsPlaying}
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            />
+        <div className={styles.listening}>
+          <h2 className={styles.label}>On repeat in the shop</h2>
+          {topArtists.length > 0 ? (
+            <ul className={styles.list}>
+              {topArtists.map((artist, i) => (
+                <li key={artist.id} className={styles.entry}>
+                  <div className={styles.artistRow}>
+                    <span className={styles.artistRank}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {artist.image ? (
+                      <div
+                        className={styles.artistThumb}
+                        style={{ backgroundImage: `url(${artist.image})` }}
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <div
+                        className={`${styles.artistThumb} ${styles.artistThumbEmpty}`}
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span className={styles.entryTitle}>{artist.name}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
           ) : (
-            <div className={styles.listeningEmbed} aria-label="Spotify playlist" />
+            // Spotify unreachable or not configured — the column goes quiet
+            // rather than showing a broken state. The failure is in the logs.
+            <div className={styles.unavailable}>
+              <span className={styles.placeholderLabel}>Unavailable</span>
+            </div>
           )}
+          {/* Below the list, so the rule above stays on the same line as
+              Required Reading's. A bounded, rolling window is what signals
+              the list is live, without the page announcing its plumbing. */}
+          <p className={styles.listNote}>Top plays on Spotify this month</p>
         </div>
 
       </section>
 
-      {/* ── Contact ──────────────────────────────────── */}
+      {/* ── Contact ──────────────────────────────────────
+          Four columns on one rhythm: a verb, then the way
+          to do it.
+      ─────────────────────────────────────────────────── */}
       <section className={styles.contact}>
-        <div className={styles.contactInner}>
-          <h2 className={styles.contactHeading}>{page?.contactTitle ?? 'Contact'}</h2>
-          <div className={styles.contactLinks}>
+
+        {contactEmail && (
+          <div className={styles.contactCol}>
+            <h2 className={styles.label}>Contact me</h2>
             <a href={`mailto:${contactEmail}`} className={styles.contactLink}>
               {contactEmail}
             </a>
+          </div>
+        )}
+
+        {(instagramUrl || tiktokUrl) && (
+          <div className={styles.contactCol}>
+            <h2 className={styles.label}>Follow me</h2>
             {instagramUrl && (
-              <a href={instagramUrl} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={instagramUrl}
+                className={styles.contactLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Instagram
               </a>
             )}
             {tiktokUrl && (
-              <a href={tiktokUrl} className={styles.contactLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={tiktokUrl}
+                className={styles.contactLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 TikTok
               </a>
             )}
           </div>
-        </div>
+        )}
+
+        {address && (
+          <div className={styles.contactCol}>
+            <h2 className={styles.label}>Visit me</h2>
+            <address className={styles.contactAddress}>{address}</address>
+          </div>
+        )}
+
+        {uxSiteUrl && (
+          <div className={styles.contactCol}>
+            <h2 className={styles.label}>See my UX work</h2>
+            <a
+              href={uxSiteUrl}
+              className={styles.contactLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ux.andrewwhited.com
+            </a>
+          </div>
+        )}
+
       </section>
 
     </main>

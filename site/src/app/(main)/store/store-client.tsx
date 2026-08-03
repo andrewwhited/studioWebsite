@@ -9,8 +9,8 @@ import styles from './store.module.css'
 type Props = {
   products: Product[] | null
   error: boolean
-  title: string
-  intro: string
+  title?: string
+  intro?: string
 }
 
 export default function StoreClient({ products, error, title, intro }: Props) {

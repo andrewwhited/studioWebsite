@@ -16,7 +16,21 @@ export default defineType({
         {
           type: 'image',
           options: {hotspot: true},
-          fields: [{name: 'alt', type: 'string', title: 'Alt text'}],
+          fields: [
+            {name: 'alt', type: 'string', title: 'Alt text'},
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              description:
+                'Optional. Sits under this frame alone. Use these when the frames ' +
+                'are distinct things being compared; use the caption below the ' +
+                'whole flow when one sentence covers all of them.',
+            },
+          ],
+          preview: {
+            select: {title: 'caption', subtitle: 'alt', media: 'asset'},
+          },
         },
       ],
       validation: (Rule) => Rule.required().min(2).max(4),
@@ -29,9 +43,31 @@ export default defineType({
     }),
     defineField({
       name: 'caption',
-      title: 'Caption',
+      title: 'Caption (whole flow)',
+      description:
+        'Optional. One statement covering every frame, set under the group. ' +
+        'Leave empty when each frame has its own caption above.',
       type: 'text',
       rows: 2,
+    }),
+    defineField({
+      name: 'width',
+      title: 'Width (essays)',
+      description:
+        'Essay pages only. Case studies use the Full width toggle below. ' +
+        'Measure = sits in the text column · Wide = text column through the margin · ' +
+        'Bleed = edge to edge.',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Measure', value: 'measure'},
+          {title: 'Wide', value: 'wide'},
+          {title: 'Bleed', value: 'bleed'},
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+      initialValue: 'wide',
     }),
     defineField({
       name: 'fullWidth',

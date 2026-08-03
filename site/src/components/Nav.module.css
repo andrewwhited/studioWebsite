@@ -9,6 +9,11 @@
    .navLight:       home — wordmark goes light (over dark image)
    .navLinksLight:  studio — links go light (over dark image panel)
    .navOpen:        overlay open — wordmark + close go light
+
+   The two light states are applied only while the nav is
+   still inside the first viewport. Both heroes are 100svh;
+   past them the page is cream and light-on-cream reads as
+   the nav vanishing. See Nav.tsx.
 ───────────────────────────────────────────────────── */
 
 .nav {

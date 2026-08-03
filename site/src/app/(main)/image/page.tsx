@@ -1,13 +1,10 @@
-import { getImagePage } from '@/lib/sanity-queries'
+import { getImagePage, getAllPhotoSets } from '@/lib/sanity-queries'
 import ImageClient from './image-client'
 
 export default async function ImagePage() {
-  const page = await getImagePage()
+  const [page, sets] = await Promise.all([getImagePage(), getAllPhotoSets()])
 
   return (
-    <ImageClient
-      title={page?.title ?? 'Image'}
-      intro={page?.text ?? 'Photographs from the field. Documentation of work in progress, finished objects, and the space around making.'}
-    />
+    <ImageClient title={page?.title} intro={page?.text} sets={sets ?? []} />
   )
 }

@@ -3,6 +3,8 @@
 // Article (regardless of case-study vs essay) so the page is eligible for
 // the Article rich snippet treatment.
 
+import { PERSON_ID } from '../person-schema'
+
 const SITE_URL = 'https://ux.andrewwhited.com'
 const STUDIO_URL = 'https://andrewwhited.com'
 
@@ -13,6 +15,15 @@ type ArticleInput = {
   imageUrl?: string
   /** Free-form year string from CMS: "2024", "2023–2025", etc. */
   year?: string
+  /** Exact ISO date, when the CMS has one. Takes precedence over `year`,
+   *  which can only ever resolve to January 1st. */
+  datePublished?: string
+  /** Last real edit — the CMS document's own `_updatedAt`, not build time. */
+  dateModified?: string
+  /** Essays only — a signal Article consumers use to gauge substance. */
+  wordCount?: number
+  /** What the piece is about, as opposed to what form it takes. */
+  topics?: string[]
   type: 'CaseStudy' | 'Essay'
 }
 
@@ -27,9 +38,28 @@ function yearToIsoDate(year?: string): string | undefined {
   return `${endYear}-01-01`
 }
 
+// Build time is not an edit. Rebuilding the site with no content change was
+// announcing a fresh dateModified on every page, every deploy.
+//
+// Floored at datePublished: a piece dated forward to its announcement is
+// edited before it is published, which is ordinary here and nonsense in
+// schema.org terms.
+//
+// Shared with the Open Graph tags in page.tsx, which report the same two dates
+// and have to agree with the JSON-LD about them.
+export function flooredDateModified(
+  dateModified?: string,
+  datePublished?: string
+): string | undefined {
+  const edited = dateModified?.slice(0, 10)
+  return edited && datePublished && edited < datePublished
+    ? datePublished
+    : edited || datePublished
+}
+
 export function buildArticleSchema(input: ArticleInput) {
-  const datePublished = yearToIsoDate(input.year)
-  const dateModified = new Date().toISOString().slice(0, 10)
+  const datePublished = input.datePublished || yearToIsoDate(input.year)
+  const dateModified = flooredDateModified(input.dateModified, datePublished)
 
   const image = input.imageUrl
     ? {
@@ -40,8 +70,12 @@ export function buildArticleSchema(input: ArticleInput) {
       }
     : undefined
 
+  // References the Person defined on the homepage by @id rather than
+  // describing a second one. Name and url are repeated so parsers that don't
+  // resolve @id across pages still get a usable author.
   const author = {
     '@type': 'Person',
+    '@id': PERSON_ID,
     name: 'Andrew Whited',
     url: SITE_URL,
   }
@@ -64,7 +98,9 @@ export function buildArticleSchema(input: ArticleInput) {
     creator: author,
     publisher,
     ...(datePublished && { datePublished }),
-    dateModified,
+    ...(dateModified && { dateModified }),
+    ...(input.wordCount && { wordCount: input.wordCount }),
+    ...(input.topics?.length && { keywords: input.topics.join(', '), about: input.topics }),
     articleSection: input.type === 'CaseStudy' ? 'Case Study' : 'Essay',
   }
 }
