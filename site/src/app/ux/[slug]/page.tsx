@@ -10,7 +10,7 @@ import {
 } from '@/components/ux/work/case-study-blocks'
 import workStyles from '@/components/ux/work/case-study.module.css'
 import { Essay, countWords, type ThoughtDoc } from '@/components/ux/thoughts/essay-blocks'
-import { buildArticleSchema } from './article-schema'
+import { buildArticleSchema, flooredDateModified } from './article-schema'
 
 const SITE_URL = 'https://ux.andrewwhited.com'
 
@@ -91,7 +91,13 @@ export async function generateMetadata({
         type: 'article',
         authors: [SITE_URL],
         ...(sanityThought.publishedAt && { publishedTime: sanityThought.publishedAt }),
-        ...(sanityThought._updatedAt && { modifiedTime: sanityThought._updatedAt }),
+        ...(() => {
+          const modifiedTime = flooredDateModified(
+            sanityThought._updatedAt,
+            sanityThought.publishedAt
+          )
+          return modifiedTime ? { modifiedTime } : {}
+        })(),
         images: [{ url: `/${slug}/opengraph-image`, ...cardSize, alt: sanityThought.title }],
       },
       twitter: {
